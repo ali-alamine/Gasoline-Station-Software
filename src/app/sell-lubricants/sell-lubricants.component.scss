@@ -1,0 +1,85 @@
+
+.searchLubricants {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.searchLubricants:focus{
+    border: 1px solid lightblue;
+}
+.tile-image {
+ margin:auto;
+ margin-top:-10px;
+}
+.tile-grid{
+ padding-top: 10px;
+ border: solid lightblue 1px;
+}
+.selectedTile{
+    background-color:lightblue;
+}
+.resetSelection{
+ background-color:white;
+}
+.washingCar {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.washingCar:focus{
+    border: 1px solid lightblue;
+}
+.infoSection{
+    margin-left: 190px;
+    text-align: center;
+    width:170px;
+    position: absolute;
+    background-color:rgb(222, 222, 255);
+    border-radius: 8px;
+}
+.tile-image {
+ margin:auto;
+ margin-top:-10px;
+}
+.tile-grid{
+ padding-top: 10px;
+ border: solid lightblue 1px;
+}
+.selectedTile{
+    background-color:red ;
+}
+.resetSelection{
+ background-color:white;
+}
+.DpriceArrow{
+    width:50px;
+    // background-color: rgb(67, 176, 209);
+    border-radius: 15px;
+}
+.UpriceArrow{
+    width:50px;
+    // background-color: rgb(67, 176, 209);
+    border-radius: 15px;
+}
+.UpriceArrow:hover{
+    width:52px;
+    background-color: rgb(67, 176, 209);
+}
+.DpriceArrow:hover{
+    width:52px;
+    background-color: rgb(67, 176, 209);
+}
+.selectedTile{
+    background-color:lightblue;
+}
+.activePageIndex{
+    background-color: rgb(97, 64, 111);
+}

@@ -1,0 +1,21 @@
+<div class="container-fluid" style="margin-top: 20px">
+  <p *ngFor="let counter of count; let i = index" [ngClass]="this.gridClasses[i+1]" style="margin-top:-13px">
+        <span style="text-align: center"><h3>{{counter.name}}</h3></span>
+      <mat-grid-list cols="4" rowHeight="6.3:2" class="tile-container">
+          <mat-grid-tile class="tile-grid" [colspan]="4" [rowspan]="1">
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Right Counter </mat-label>
+                <input matInput placeholder="0" type="number">
+                <mat-icon matSuffix>input</mat-icon>
+                <mat-hint><code>counter quantity sold to be set here</code></mat-hint>
+              </mat-form-field>
+              <mat-form-field class="form-field" appearance="outline">
+                <mat-label> Left Counter </mat-label>
+                <input matInput placeholder="0" type="number">
+                <mat-icon matSuffix>input</mat-icon>
+                <mat-hint><code>counter quantity sold to be set here</code></mat-hint>
+              </mat-form-field>
+          </mat-grid-tile>
+      </mat-grid-list>
+  </p>
+</div>

@@ -1,0 +1,30 @@
+.form-field {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    font-size: 20px
+}
+// .form-field > * {
+// width: 100%;
+// }
+
+input {
+    color: blue;
+}
+  
+.tileCol1{
+    // background-color:rgb(240,248,255);
+    background-color: rgb(230,330,230)
+}
+.tileCol2{
+    background-color:rgb(215, 236, 252);
+}
+.tileCol3{
+    background-color:rgb(188, 221, 250);
+}
+.tileCol4{
+    background-color:rgb(178, 218, 253);
+}
+.tileCol5{
+    background-color:rgb(227, 242, 255);
+}

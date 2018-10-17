@@ -1,0 +1,119 @@
+<div class="container-fluid">
+    <mat-tab-group id="tabs" mat-stretch-tabs (selectedTabChange)="displayTables($event)">
+      <mat-tab label="Fuel">
+        <mat-grid-list cols="4" rowHeight="180px" class="tile-container">
+            <mat-grid-tile class="tile-grid" (click)="selectOperation(this.container.name,i+1)"  
+                *ngFor="let container of fuelContainers; let i = index" [attr.data-index]="i" 
+                [colspan]="2"
+                [rowspan]="1"
+                [style.background]="this.fuelColor">
+                <div style="margin-top: -120px;color:rgb(119, 4, 119)"><h2>{{container.name}}</h2> </div>
+                <div style="margin-left: -140px;color:black"><h4>{{container.current_quan_liter}} </h4></div>
+            </mat-grid-tile>
+          </mat-grid-list>
+      </mat-tab>
+      <mat-tab label="Lubricants">
+        <div class="container-fluid">
+            <mat-accordion>
+                <form [formGroup]="addLubForm">  
+                  <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>
+                          <mat-action-row>
+                              <button mat-button color="primary" >Add Item +</button>
+                          </mat-action-row>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field>
+                      <input formControlName="lubName" matInput placeholder="Item Name" required>
+                    </mat-form-field>
+                    <mat-form-field style="padding-left: 10px">
+                      <input formControlName="lubInitQuan" matInput placeholder="Initial Quantity" type="number" required>
+                    </mat-form-field>
+                    <mat-form-field style="padding-left: 10px">
+                      <input formControlName="lubSellingPrice" matInput placeholder="Item Price" type="number" step="500" required>
+                    </mat-form-field>
+                    <mat-action-row>
+                      <button mat-button color="primary" (click)="addLubricant()" [disabled]="!addLubForm.valid">Submit</button>
+                      <button mat-button color="warn" (click)="collapse()">Cancel</button>
+                    </mat-action-row>
+                  </mat-expansion-panel>
+                </form>
+            </mat-accordion>
+            <div><hr></div>
+            <table id="lubTable" class="table">
+              <thead>
+                <tr class="text-center">
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Selling Price</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="text-center" *ngFor="let lub of lubricants; let i = index">
+                    <td>{{i}}</td>
+                    <td>{{lub.name}}</td>
+                    <td>{{lub.quantity}}</td>
+                    <td>{{lub.selling_price}}</td>
+                    <td>{{lub.selling_price*lub.quantity}}</td> 
+                    <!-- total cost = cost * quantity -->
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </mat-tab>
+      <mat-tab label="Accessories">
+        <div class="container-fluid">
+          <mat-accordion>
+              <mat-expansion-panel [expanded]="isOpenedAccess === 1" (opened)="togglePanelAccess(1)">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                      <mat-action-row>
+                          <button mat-button color="primary" >Add Accessories +</button>
+                      </mat-action-row>
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+               <form [formGroup]="addAccessForm">  
+                  <mat-form-field>
+                    <input matInput formControlName="accessName"  placeholder="Item Name" required>
+                  </mat-form-field>
+                  <mat-form-field style="padding-left: 10px">
+                    <input matInput formControlName="accessInitQuan" placeholder="Initial Quantity" required>
+                  </mat-form-field>
+                  <mat-form-field style="padding-left: 10px">
+                    <input matInput formControlName="accessSellingPrice" placeholder="Item Price" required>
+                  </mat-form-field>
+               </form >
+                <mat-action-row>
+                    <button mat-button color="primary" (click)="addNewAccess()" [disabled]="!addAccessForm.valid" >Submit</button>
+                    <button mat-button color="warn" (click)="collapseAccess()">Cancel</button>
+                  </mat-action-row>
+              </mat-expansion-panel>
+          </mat-accordion>
+          <div><hr></div>
+          <table id="accessTable" class="table">
+            <thead>
+              <tr class="text-center">
+                <th>#</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Selling Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center" *ngFor="let access of accessories; let i = index">
+                <td>{{i}}</td>
+                <td>{{access.name}}</td>
+                <td>{{access.quantity}}</td>
+                <td>{{access.selling_price}}</td>
+                <td>{{access.selling_price*access.quantity}}</td> 
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      </mat-tab>
+    </mat-tab-group>  
+</div>

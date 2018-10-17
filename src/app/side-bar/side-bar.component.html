@@ -1,0 +1,23 @@
+<nav class="navbar-nav" *ngIf=true>
+    <ul>
+      <li>
+        <a routerLink="stock" [class.activated]="currentUrl == '/stock'">
+          <!-- <span class="glyphicon glyphicon-pencil" title="Create Invoice"></span> -->
+          <i class="material-icons" title="Facture" >store</i>
+        <br>
+          <i>Stock</i>
+        </a>
+      </li>
+      <li>
+        <a routerLink="login" [class.activated]="currentUrl == '/login'">
+            <!-- <i class="glyphicon glyphicon-user" title="Clients" ></i>
+            <i class="glyphicon glyphicon-user" title="Clients" style="margin-left:-8px" ></i> -->
+            <i class="material-icons" title="Clients" >power_settings_new</i>
+            <br>
+            <i>Logout</i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  

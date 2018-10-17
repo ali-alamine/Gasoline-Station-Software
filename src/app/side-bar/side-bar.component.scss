@@ -1,0 +1,24 @@
+nav{
+    background-color: #2D2E2E;
+    height: 100%;
+    position: fixed;
+
+}
+nav ul{
+    list-style-type:none;
+    padding: 0;
+    margin:0;
+}
+nav ul li a{
+    color:#fff;
+    padding:20px;
+    display: block;
+}
+nav ul li .activated{
+    background-color: #00a8ff;
+}
+nav[_ngcontent-c1] ul[_ngcontent-c1] li[_ngcontent-c1] a[_ngcontent-c1] {
+    color: #fff;
+    padding: 15px;
+    display: block;
+}

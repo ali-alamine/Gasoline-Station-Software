@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <mat-accordion class="accordion">
+        <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+                <mat-action-row>
+                    <button mat-button color="primary" >Add Client +</button>
+                  </mat-action-row>
+                </mat-panel-title>
+          </mat-expansion-panel-header>
+         <form [formGroup]="addClientForm">
+            <mat-form-field>
+                <input formControlName="clientFullName" matInput placeholder="Full Name" formControlName="clientFullName" required>
+              </mat-form-field>
+          
+              <mat-form-field style="padding-left: 10px">
+                <input matInput placeholder="Contact Number" formControlName="clientPhoneNumber">
+              </mat-form-field>
+              
+              <mat-form-field style="padding-left: 10px">
+                <input matInput type="number" step="500" placeholder="Debit Amount" formControlName="initDebitAmount" required  >
+              </mat-form-field>
+         </form>
+          <mat-action-row>
+              <button mat-button color="primary" (click)="addNewClient()" [disabled]="!addClientForm.valid">Submit</button>
+              <button mat-button color="warn" (click)="collapse()">Cancel</button>
+            </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div><hr></div>
+    <table id="clientTable" class="table table-hover table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th>Number</th>
+          <th>Full Name</th>
+          <th>Contact Number</th>
+          <th>Debit Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngFor="let client of clients; let i = index">
+            <td>{{i}}</td>
+            <td>{{client.full_name}}</td>
+            <td>{{client.phone_number}}</td>
+            <td>{{client.debitAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

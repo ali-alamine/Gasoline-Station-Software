@@ -1,0 +1,23 @@
+<div class="container-fluid" style="margin-top: 10px">
+      <mat-grid-list cols="4" rowHeight="3.5:1" class="tile-container">
+          <mat-grid-tile class="tile-grid"  
+              *ngFor="let machine of machines; let i = index" [attr.data-index]="i" 
+              [colspan]="2"
+              [rowspan]="2"
+              [style.background]="machine.color"  (click)="sellWashService(this.machine.price,this.machine.name)">
+                <!-- {{i+1}} -->  
+            <img class="tile-image" src="{{machine.imgSrc}}">
+            <div class="infoSection">
+                <h4 style="color:firebrick">{{machine.name}}</h4>
+            <img class="tile-image DpriceArrow " src="../assets/icons/washingIcons/upArrow.png" (click)="incPrice(this.machine.price,i)">
+                <h4>{{machine.price}}</h4>
+            <img class="tile-image UpriceArrow" src="../assets/icons/washingIcons/downArrow.png" (click)="decPrice(this.machine.pric,i)">
+            </div>
+            <div style="margin-right: 20px">
+                <button style="background-color:lightgreen" (click)="sell(lub.itemID,lub.name,lub.selling_price,lub.defaultQuan)" mat-fab>
+                        <mat-icon matSuffix>subdirectory_arrow_right</mat-icon>
+                </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+  </div>

@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="loginBox">
+      <mat-toolbar color="primary" justify-content: center >
+        <span>Login</span> 
+      </mat-toolbar>
+      <mat-card>
+        <form [formGroup]="loginForm">
+            <mat-form-field class="form-field" appearance="standard">
+              <mat-label>Username</mat-label>
+              <input required matInput formControlName="username" placeholder="0" type="text">
+              <mat-icon matSuffix>input</mat-icon>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="form-field" appearance="standard">
+                <mat-label>Password</mat-label>
+                <input required matInput formControlName="password" placeholder="0" type="password">
+                <mat-icon matSuffix>input</mat-icon>
+              </mat-form-field>
+              <br>
+              <button mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="checkLogIn();">Login</button>
+            <br >
+              <!-- <p *ngIf="u.user_type==0" >{{u.user_name}}</p> -->
+        </form>
+      </mat-card> 
+  </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="container-fluid">
+    <mat-accordion>
+        <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-action-row>
+                  <button mat-button color="primary" >Add Employee +</button>
+              </mat-action-row>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+         <form [formGroup]="addEmpForm">
+            <mat-form-field>
+                <input formControlName="empFullName" matInput placeholder="Full Name" required>
+              </mat-form-field>
+              <mat-form-field style="padding-left: 10px">
+                <input formControlName="empUserName" matInput placeholder="Username" required>
+              </mat-form-field>
+              <mat-form-field style="padding-left: 10px">
+                <input formControlName="empPassword" matInput placeholder="Password" required>
+              </mat-form-field>
+                <mat-checkbox formControlName="empType" tyle="padding-left: 10px" class="example-margin" [(ngModel)]="checked">
+                  Admin
+                </mat-checkbox>
+
+         </form>
+          <mat-action-row>
+              <button mat-button color="primary" (click)="addNewEmployee()" [disabled]="!addEmpForm.valid">Submit</button>
+              <button mat-button color="warn" (click)="collapse()" >Cancel</button>
+          </mat-action-row>
+        </mat-expansion-panel>
+    </mat-accordion>
+    <div><hr></div>
+    <table id="empTable" class="table table-hover table-bordered">
+      <thead>
+        <tr class="text-center">
+          <th>Full Name</th>
+          <th>username</th>
+          <th>password</th>
+          <th>type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngFor="let emp of employee; let i = index">
+            <td>{{emp.name}}</td>
+            <td>{{emp.user_name}}</td>
+            <td>{{emp.passkey}}</td>
+            <td>{{emp.user_type=='0' ? 'Employee' : 'Admin'}}</td>
+        </tr>
+      </tbody>
+    </table>
+</div>

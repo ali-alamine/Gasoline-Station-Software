@@ -1,0 +1,129 @@
+import { Component, OnInit } from '@angular/core';
+import { MatSnackBar} from '@angular/material';
+import { SellAccessoriesService } from './sell-accessories.service';
+export interface Page<pageBtns>{
+  color: string;
+  text: string;
+}
+@Component({
+  selector: 'app-sell-accessories',
+  templateUrl: './sell-accessories.component.html',
+  styleUrls: ['./sell-accessories.component.scss']
+})
+export class SellAccessoriesComponent implements OnInit {
+  accessories:any;
+  selectedLubQuan:any;
+  empID:any;
+  pageBtns:any;
+  totalItems=0;
+  itemPerPage:any=12;
+  offset=0;
+  currentPage=1;
+  private sellAccData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'acc'};
+
+  constructor(private sellAccServ:SellAccessoriesService,public snackBar: MatSnackBar) { }
+ 
+  ngOnInit() {
+    this.getAccessories(this.itemPerPage,this.offset);
+    this.empID=localStorage.getItem("userID")  /*Get Employee ID */
+    this.pageBtns=[];
+  }
+  getAccessories(limit,offset){
+    this.itemPerPage=localStorage.getItem("ipp");
+    this.sellAccServ.getAccessories(limit,offset).subscribe(Response=>{
+      sellAccServ => this.accessories = sellAccServ;
+      this.accessories=Response[0];
+      this.totalItems=Response[1][0]['total'];
+
+       /* Get the number of pages and round up if not integer*/ 
+      var numberOfButtons= Math.ceil(this.totalItems/this.itemPerPage);
+      
+      /* prevent regeneration of pages buttons */
+      if(this.pageBtns.length == 0){
+        /* Generate buttons to display pages content */
+        for(var i=1; i<=numberOfButtons;i++){
+            this.pageBtns.push({"color":"red","text":i})
+        }
+      }
+      /* set default quantity to 1 and default total price as defined  */
+      for(var i=0; i<this.accessories.length;i++){
+        this.accessories[i]['defaultQuan']=1;
+        this.accessories[i]['totalPrice']=this.accessories[i].selling_price;
+      }
+    },
+    error=>{
+      alert("error")
+    });
+  }
+
+  getSelectedPage(pageIndex){
+    this.offset=pageIndex*this.itemPerPage;
+    this.getAccessories(this.itemPerPage,this.offset);
+
+    let selectedPageIndex = document.getElementsByClassName('pageIndex');
+    /* turn on - turn off selected tiles  */
+    for(var i=0;i<this.pageBtns.length;i++){
+      if(selectedPageIndex[i].classList.contains('activePageIndex')){
+        selectedPageIndex[i].classList.remove('activePageIndex');
+        break;
+      }
+    }
+    selectedPageIndex[pageIndex].classList.add('activePageIndex');
+  }
+
+  /* Get Quantity of sold accessories */
+  getQuantity(quantity,index){
+    this.accessories[index]['defaultQuan'] =quantity;
+    this.accessories[index].totalPrice=this.accessories[index].selling_price*this.accessories[index].defaultQuan;
+
+  }
+  /* increment the price of lubricant  */
+  incPrice(defaultPrice,index){
+    /*stopPropagation() - to prevent firing outer div functon when click on the inner div */
+    window.event.stopPropagation();
+    var price =parseInt(this.accessories[index]['totalPrice'])
+    price +=500;
+    this.accessories[index]['totalPrice']=price;
+
+  }
+  /* decrement the price of lubricant  */
+  decPrice(defaultPrice,index){
+    window.event.stopPropagation();
+    var price =parseInt(this.accessories[index]['totalPrice'])
+    price -=500;
+    this.accessories[index]['totalPrice']=price;
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 2000,
+    });
+  }
+  sellAcc(id,name,price,quantity,totalPrice){
+    this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'acc'};
+    this.sellAccServ.sellAccessories(this.sellAccData).subscribe(
+    Response=>{
+      this.openSnackBar(name, "SOLD");
+      this.getAccessories(this.itemPerPage,this.offset);
+
+    },
+    error=>{
+      alert("error");
+    });
+  }
+  heightLightSelectedTile(index){
+      let selectedLub = document.getElementsByClassName('tile-grid');
+      /* turn on - turn off selected tiles  */
+      for(var i=0;i<this.accessories.length;i++){
+        if(selectedLub[i].classList.contains('selectedTile')){
+          selectedLub[i].classList.remove('selectedTile');
+          break;
+        }
+      }
+      selectedLub[index].classList.add('selectedTile');
+  }
+  setItemPerPage(ipp){
+    localStorage.setItem("ipp",ipp);
+    this.pageBtns=[];
+    this.getAccessories(ipp,this.offset);
+  }
+}
