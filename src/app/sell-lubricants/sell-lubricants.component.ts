@@ -21,7 +21,6 @@ export class SellLubricantsComponent implements OnInit {
   offset=0;
   debitType:any;
   urlData:any;
-  backgroundColor="red";
   currentPage=1;
   invoiceType;
   private sellLubData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'lub',"isDebit":'',"rest":"","invoiceType":''};

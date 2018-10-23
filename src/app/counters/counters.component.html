@@ -20,9 +20,15 @@
   </p>
 </div> -->
 
-<div id="fuelContView" class="container-fluid" style="border:1px solid #000000;margin-top: 20px">
-  <p *ngFor="let counters of count; let i = index">
-    {{index}}
-    <canvas id="fuelCont" width="200" height="200"></canvas>
-  </p>
+<div id="fuelContView" class="container-fluid" style="border:1px solid #000000; margin-top: 20px">
+  <div class="dispanserDiv disp2 " style="width:140px; height:140px">
+    Diesel
+    <img class="dispanser" src="../assets/icons/dispanserIcons/0.png">
+  </div>
+  <div class="dispanserDiv disp1" style="width:140px; height:140px"> 
+    <img class="dispanser" src="../assets/icons/dispanserIcons/1.png">
+  </div>
+  <div class="dispanserDiv disp3" style="width:140px; height:140px"> 
+    <img class="dispanser" src="../assets/icons/dispanserIcons/2.png">
+  </div>
 </div>
