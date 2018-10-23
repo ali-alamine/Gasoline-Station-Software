@@ -28,7 +28,7 @@ class stock extends REST_Controller{
         $accessName = $this->post('accessName');
         $accessInitQuan = $this->post('accessInitQuan');
         $accessSellingPrice = $this->post('accessSellingPrice');
-        $item_type = 'acc';
+        $item_type = 'access';
 
         $result = $this->stock_model->add(array("name" => $accessName, "selling_price" => $accessSellingPrice,
         "item_type" => $item_type,"quantity"=>$accessInitQuan));
@@ -47,7 +47,7 @@ class stock extends REST_Controller{
         $totalCount = $this->stock_model->countStockItems('lub');
         $jsonData=[$result,$totalCount];
         if ($result === 0) {
-            $this->response("Client information could not be saved. Try again.", 404);
+            $this->response("Lubricant information could not be saved. Try again.", 404);
         } else {
             $this->response($jsonData, 200);
         }
@@ -87,11 +87,11 @@ class stock extends REST_Controller{
     public function getAccessories_post(){
         $limit=$this->post('limit');
         $offset=$this->post('offset');
-        $result = $this->stock_model->select_item($offset,$limit,'acc');
-        $totalCount = $this->stock_model->countStockItems('acc');
+        $result = $this->stock_model->select_item($offset,$limit,'access');
+        $totalCount = $this->stock_model->countStockItems('access');
         $jsonData=[$result,$totalCount];
         if ($result === 0) {
-            $this->response("Client information could not be saved. Try again.", 404);
+            $this->response("Accessories information could not be saved. Try again.", 404);
         } else {
             $this->response($jsonData, 200);
         }

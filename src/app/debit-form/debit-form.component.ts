@@ -45,8 +45,6 @@ export class DebitFormComponent {
       this.debitData = params|| -1; 
       // debugger
         this.person="Client Name"
-        if(params.type=="lub"){
-        this.debit_type="lub";
         if(params.invoiceType == 'supply'){
           this.person="Supply Name"
           this.getClients(0);
@@ -55,9 +53,12 @@ export class DebitFormComponent {
         } else{
           this.getClients(1);
         }
+      if(params.type=="lub"){
+        this.debit_type="lub";
       }else if(params.debitType=="washing"){
         this.debit_type="washing";
-        this.getClients(1);
+      }else if(params.debitType=="access"){
+        this.debit_type="access";
       }
     });
   }

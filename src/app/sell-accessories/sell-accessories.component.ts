@@ -23,7 +23,7 @@ export class SellAccessoriesComponent implements OnInit {
   urlData:any;
   invoiceType;
 
-  private sellAccData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'acc','invoiceType':''};
+  private sellAccData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'access','isDebit':'','invoiceType':''};
 
   constructor(private sellAccServ:SellAccessoriesService,public snackBar: MatSnackBar,
     private router: Router, private route: ActivatedRoute) { }
@@ -38,10 +38,10 @@ export class SellAccessoriesComponent implements OnInit {
   }
   getAccessories(limit,offset){
     this.itemPerPage=localStorage.getItem("ipp");
-    if(this.itemPerPage == null){
-      localStorage.setItem("ipp",'12');
-      this.itemPerPage = 12;
-    }
+    // if(this.itemPerPage == null){
+    //   localStorage.setItem("ipp",'12');
+    //   this.itemPerPage = 12;
+    // }
     this.sellAccServ.getAccessories(limit,offset).subscribe(Response=>{
       sellAccServ => this.accessories = sellAccServ;
       this.accessories=Response[0];
@@ -111,16 +111,24 @@ export class SellAccessoriesComponent implements OnInit {
     });
   }
   sellAcc(id,name,price,quantity,totalPrice){
-    this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'acc','invoiceType':'sell'};
-    this.sellAccServ.addInvoice(this.sellAccData).subscribe(
-    Response=>{
-      this.openSnackBar(name, "SOLD");
-      this.getAccessories(this.itemPerPage,this.offset);
-
-    },
-    error=>{
-      alert("error");
-    });
+    if(this.invoiceType == "supply"){
+      var sellOndebit="1";
+      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access','isDebit':sellOndebit,"invoiceType":this.invoiceType};
+      this.router.navigate(['/debbiting'], { queryParams: this.sellAccData});
+    }
+    else{
+      var sellOndebit="0";
+      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access','isDebit':sellOndebit,'invoiceType':'sell'};
+      this.sellAccServ.addInvoice(this.sellAccData).subscribe(
+      Response=>{
+        this.openSnackBar(name, "SOLD");
+        this.getAccessories(this.itemPerPage,this.offset);
+  
+      },
+      error=>{
+        alert("error");
+      });
+    }
   }
   heightLightSelectedTile(index){
       let selectedLub = document.getElementsByClassName('tile-grid');
