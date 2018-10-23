@@ -13,6 +13,9 @@ import { EmployeeComponent } from './employee/employee.component';
 import { ClientComponent } from './client/client.component';
 import { AccountingComponent } from './accounting/accounting.component';
 import { SellAccessoriesComponent } from './sell-accessories/sell-accessories.component';
+import { AccountingDetailsComponent } from './accounting-details/accounting-details.component';
+import { PaymentCostComponent } from './payment-cost/payment-cost.component';
+import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
 
 
 const routes: Routes = [
@@ -55,6 +58,15 @@ const routes: Routes = [
   },
   {
     path:'account',component:AccountingComponent 
+  },
+  {
+    path:'accountDetails',component:AccountingDetailsComponent 
+  },
+  {
+    path:'paymentCost',component:PaymentCostComponent 
+  },
+  {
+    path:'paymentSupply',component:PaymentSupplyComponent 
   },
   {
     path:'',component:LoginComponent 

@@ -11,7 +11,7 @@ export class SellAccessoriesService {
     let data={'limit':limit,'offset':offset};
     return this.httpClient.post(this.url +"stock/getAccessories",data);
   }
-  sellAccessories(data){
-    return this.httpClient.post(this.url +"operation/sell",data);
+  addInvoice(data){
+    return this.httpClient.post(this.url +"operation/addInvoice",data);
   }
 }

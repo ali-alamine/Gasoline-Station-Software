@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <mat-accordion style="margin:5px;">
       <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
         <mat-expansion-panel-header>
@@ -75,4 +75,21 @@
         </mat-list>tem>
       </mat-expansion-panel>
   </mat-accordion>
+</div> -->
+
+<div class="container-fluid">
+  <h1 style="border:solid lightblue 1px; text-align: center;">
+    <!-- <span style="float:left"><span>Name: </span><span style="color:green">{{empName}} </span></span> -->
+    <span>Current Drawer: </span><span style="color:green">3 000 000</span>
+  </h1>
+  <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
+      <mat-grid-tile class="tile-grid" (click)="selectAccounting(this.tile.text,i+1)"  
+          *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
+          [colspan]="tile.cols"
+          [rowspan]="tile.rows"
+          [style.background]="tile.color">
+          <!-- {{i+1}} -->  
+        <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/accountingIcons/{{i+1}}.png">
+      </mat-grid-tile>
+  </mat-grid-list>
 </div>

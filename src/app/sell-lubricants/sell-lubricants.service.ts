@@ -11,8 +11,12 @@ export class SellLubricantsService {
     let data={'limit':limit,'offset':offset};
     return this.httpClient.post(this.url +"stock/getLubricant",data);
   }
-  sellLubricants(sellLubData){
+  addInvoice(sellLubData){
     console.log(sellLubData)
-    return this.httpClient.post(this.url +"operation/sell",sellLubData);
+    return this.httpClient.post(this.url +"operation/addInvoice",sellLubData);
+  }
+  supplyLubricants(sellLubData){
+    console.log(sellLubData)
+    return this.httpClient.post(this.url +"operation/supply",sellLubData);
   }
 }

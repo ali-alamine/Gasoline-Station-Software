@@ -23,21 +23,27 @@ export class SellLubricantsComponent implements OnInit {
   urlData:any;
   backgroundColor="red";
   currentPage=1;
-  private sellLubData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'lub',"isDebit":'',"rest":""};
+  invoiceType;
+  private sellLubData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'lub',"isDebit":'',"rest":"","invoiceType":''};
   constructor(private sellLubServ:SellLubricantsService,public snackBar: MatSnackBar,private router: Router, private route: ActivatedRoute) { }
  
   ngOnInit() {
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debitType = params['debitType'] || 0;
+      this.invoiceType = params['invoiceType'] || -1;
     });
-    // alert(this.debitType);
-    // alert(this.debitType)
     this.getLubricant(this.itemPerPage,this.offset);
     this.empID=localStorage.getItem("userID")  /*Get Employee ID */
     this.pageBtns=[];
   }
   getLubricant(limit,offset){
     this.itemPerPage=localStorage.getItem("ipp");
+    // console.log(this.itemPerPage)
+    if(this.itemPerPage == null){
+      localStorage.setItem("ipp",'12');
+      this.itemPerPage = 12;
+    }
+
     this.sellLubServ.getLubricant(limit,offset).subscribe(Response=>{
       sellLubServ => this.lubricants = sellLubServ;
       this.lubricants=Response[0];
@@ -106,14 +112,19 @@ export class SellLubricantsComponent implements OnInit {
   }
   /* sell lubricant */
   sellLub(id,name,price,quantity,totalPrice){
-    if(this.debitType=="lub"){
+    if(this.invoiceType == "supply"){
       var sellOndebit="1";
-      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0"};
+      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0","invoiceType":this.invoiceType};
+      this.router.navigate(['/debbiting'], { queryParams: this.sellLubData});
+    }
+    else if(this.debitType == "lub"){
+      var sellOndebit="1";
+      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0","invoiceType":'sell'};
       this.router.navigate(['/debbiting'], { queryParams: this.sellLubData });
     }else{
       var sellOndebit="0";
-      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0"};
-      this.sellLubServ.sellLubricants(this.sellLubData).subscribe(
+      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0","invoiceType":'sell'};
+      this.sellLubServ.addInvoice(this.sellLubData).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");
         this.getLubricant(this.itemPerPage,this.offset);

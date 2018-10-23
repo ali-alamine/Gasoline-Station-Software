@@ -40,7 +40,8 @@ export class OperationsComponent implements OnInit {
     {text: 'carWashing', cols: 2, rows: 1},
     {text: 'debits', cols: 2, rows: 1},
     {text: 'accessories', cols: 2, rows: 1},
-    {text: 'payments', cols: 2, rows: 1},
+    {text: 'paymentsCost', cols: 2, rows: 1},
+    {text: 'paymentsSupply', cols: 2, rows: 1},
     // {text: 'Seven', cols: 2, rows: 1},
     // {text: 'Eight', cols: 2, rows: 1}
   ];
@@ -90,6 +91,14 @@ export class OperationsComponent implements OnInit {
         this.router.navigate(["/account"]);
          break; 
       } 
+      case "paymentsCost": {
+        this.router.navigate(["/paymentCost"]);
+         break; 
+      }
+      case "paymentsSupply": {
+        this.router.navigate(["/paymentSupply"]);
+         break; 
+      }
       default: { 
          break; 
       } 

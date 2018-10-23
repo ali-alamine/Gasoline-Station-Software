@@ -6,13 +6,13 @@ import { HttpClient } from '@angular/common/http';
 export class DebitFormService {
   private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private http:HttpClient) { }
-  getAllClients(){
-    return this.http.post(this.url +"person/getAllClients",'');
+  getAllClients(isClient){
+    return this.http.post(this.url +"person/getAllClients",{isClient:isClient});
   }
-  sellLubOnDebit(data){
+  addInvoice(data){
     console.log("here we go")
     console.log(data)
-    return this.http.post(this.url +"operation/sell",data);
+    return this.http.post(this.url +"operation/addInvoice",data);
   }
   sellWashServOnDebit(data){
     console.log("here we go was")

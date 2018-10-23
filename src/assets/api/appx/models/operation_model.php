@@ -21,7 +21,7 @@ class operation_model extends CI_Model{
     }
 
     public function update_stock($id, $quantity){
-        $this->db->set('quantity', 'quantity-'.$quantity, false);
+        $this->db->set('quantity', 'quantity + '.$quantity, false);
         $this->db->where('itemID', $id);
         if ($this->db->update('item-service')) {
             $str = $this->db->last_query();

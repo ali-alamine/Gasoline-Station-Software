@@ -22,7 +22,8 @@ class person extends REST_Controller{
     }
     /* get All Clients */
     public function getAllClients_post(){
-        $result = $this->person_model->selectAllClient();
+        $isClient = $this->post('isClient');
+        $result = $this->person_model->selectAllClient($isClient);
 
         if ($result === 0) {
             $this->response("Client information could not be saved. Try again.", 404);

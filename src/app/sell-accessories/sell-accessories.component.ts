@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar} from '@angular/material';
 import { SellAccessoriesService } from './sell-accessories.service';
+import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
 export interface Page<pageBtns>{
   color: string;
   text: string;
@@ -19,17 +20,28 @@ export class SellAccessoriesComponent implements OnInit {
   itemPerPage:any=12;
   offset=0;
   currentPage=1;
-  private sellAccData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'acc'};
+  urlData:any;
+  invoiceType;
 
-  constructor(private sellAccServ:SellAccessoriesService,public snackBar: MatSnackBar) { }
+  private sellAccData={"itemID":"","empID":"","name":"","price":"","quantity":"","totalPrice":"","type":'acc','invoiceType':''};
+
+  constructor(private sellAccServ:SellAccessoriesService,public snackBar: MatSnackBar,
+    private router: Router, private route: ActivatedRoute) { }
  
   ngOnInit() {
+    this.urlData = this.route.queryParams.subscribe(params => {
+      this.invoiceType = params['invoiceType'] || -1;
+    });
     this.getAccessories(this.itemPerPage,this.offset);
     this.empID=localStorage.getItem("userID")  /*Get Employee ID */
     this.pageBtns=[];
   }
   getAccessories(limit,offset){
     this.itemPerPage=localStorage.getItem("ipp");
+    if(this.itemPerPage == null){
+      localStorage.setItem("ipp",'12');
+      this.itemPerPage = 12;
+    }
     this.sellAccServ.getAccessories(limit,offset).subscribe(Response=>{
       sellAccServ => this.accessories = sellAccServ;
       this.accessories=Response[0];
@@ -99,8 +111,8 @@ export class SellAccessoriesComponent implements OnInit {
     });
   }
   sellAcc(id,name,price,quantity,totalPrice){
-    this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'acc'};
-    this.sellAccServ.sellAccessories(this.sellAccData).subscribe(
+    this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'acc','invoiceType':'sell'};
+    this.sellAccServ.addInvoice(this.sellAccData).subscribe(
     Response=>{
       this.openSnackBar(name, "SOLD");
       this.getAccessories(this.itemPerPage,this.offset);

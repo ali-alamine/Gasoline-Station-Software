@@ -2,7 +2,7 @@
   <h6>back icons options</h6>
   <form [formGroup]="debitForm">
       <mat-form-field>
-        <mat-select placeholder="Select Client" (selectionChange)="getSelectedClientData($event.value)">
+        <mat-select placeholder="{{person}}" (selectionChange)="getSelectedClientData($event.value)">
           <mat-option *ngFor="let c of clients " [value]="c" >
             <span>{{c.full_name}}</span> | <span style="color:red"> Amount: </span> 
             <span>{{c.debitAmount}}</span>

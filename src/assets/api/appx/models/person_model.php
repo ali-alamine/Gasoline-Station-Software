@@ -6,11 +6,11 @@ class person_model extends CI_Model
         $this->load->database();
     }
     /* Get All Clients */
-    public function selectAllClient(){
+    public function selectAllClient($isClient){
         
         $this->db->select("*");
         $this->db->from("person");
-        $this->db->where("person_type",1);
+        $this->db->where("person_type",$isClient);
         $this->db->order_by("PID", "DESC");
         $query = $this->db->get(); 
         $lastQuery=$this->db->last_query();  

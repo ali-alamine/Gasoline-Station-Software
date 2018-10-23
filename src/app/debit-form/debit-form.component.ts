@@ -34,19 +34,30 @@ export class DebitFormComponent {
     "type":"",
     "clientID":"",
     "amountRest":"",
-    "comment":""
+    "comment":"",
+    "invoiceType":''
   };
+  person;
   constructor(private router: Router,private route: ActivatedRoute,private debitFormServ:DebitFormService,public snackBar: MatSnackBar){}
   ngOnInit(){
-    debugger
-    this.getClients();
+    // debugger
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debitData = params|| -1; 
-      debugger
-      if(params.type=="lub"){
+      // debugger
+        this.person="Client Name"
+        if(params.type=="lub"){
         this.debit_type="lub";
+        if(params.invoiceType == 'supply'){
+          this.person="Supply Name"
+          this.getClients(0);
+          this.debitForm.get('amountPaid').setValue(params.totalPrice);
+          this.getRemainingValue(params.totalPrice);
+        } else{
+          this.getClients(1);
+        }
       }else if(params.debitType=="washing"){
         this.debit_type="washing";
+        this.getClients(1);
       }
     });
   }
@@ -58,8 +69,8 @@ export class DebitFormComponent {
   }
 
 
-  getClients(){
-    this.debitFormServ.getAllClients().subscribe(Response=>{
+  getClients(isClient){
+    this.debitFormServ.getAllClients(isClient).subscribe(Response=>{
       debitFormServ => this.clients = debitFormServ;
       this.clients=Response;
     },
@@ -79,15 +90,20 @@ export class DebitFormComponent {
       "type":this.debitData.type,
       "clientID":this.clientID,
       "amountRest":this.restAmount,
-      "comment":data.comment
+      "comment":data.comment,
+      "invoiceType": this.debitData.invoiceType
     };
-    this.debitFormServ.sellLubOnDebit(this.clientDebitData).subscribe(Response=>{
+    this.debitFormServ.addInvoice(this.clientDebitData).subscribe(Response=>{
       
       /* notification message when sell sucess */
       this.openSnackBar(this.restAmount + " added to " +this.clientName+ " account", "Done" );
 
       /* wait 3 sec untrill notification disappear and navigate to operations */
-      setTimeout(()=>this.router.navigate(['/operations']),1800);
+      if(this.debitData.invoiceType=='supply'){
+        // debugger
+        setTimeout(()=>this.router.navigate(['/paymentSupply']),1800);
+      }else
+        setTimeout(()=>this.router.navigate(['/operations']),1800);
 
     },
     error=>{

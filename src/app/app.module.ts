@@ -38,6 +38,9 @@ import { MatPaginatorModule} from '@angular/material/paginator';
 import { SellAccessoriesComponent } from './sell-accessories/sell-accessories.component';
 import { AccountingComponent } from './accounting/accounting.component';
 import { MatListModule} from '@angular/material/list';
+import { AccountingDetailsComponent } from './accounting-details/accounting-details.component';
+import { PaymentCostComponent } from './payment-cost/payment-cost.component';
+import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
 @NgModule({
     declarations: [
     AppComponent,
@@ -54,7 +57,10 @@ import { MatListModule} from '@angular/material/list';
     EmployeeComponent,
     ClientComponent,
     SellAccessoriesComponent,
-    AccountingComponent
+    AccountingComponent,
+    AccountingDetailsComponent,
+    PaymentCostComponent,
+    PaymentSupplyComponent
   ],
   imports: [
     MatCardModule,
