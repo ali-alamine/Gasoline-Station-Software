@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private url="http://localhost/gasolineStation/src/assets/api/employee/";
+  private url="http://localhost/eSafe-gasoline_station/src/assets/api/employee/";
   constructor(private http:HttpClient) { }
 
   getAllEmp(){

@@ -19,7 +19,7 @@ export class SellLubricantsComponent implements OnInit {
   totalItems=0;
   itemPerPage:any=12;
   offset=0;
-  isDebit=0;
+  debitType:any;
   urlData:any;
   backgroundColor="red";
   currentPage=1;
@@ -28,13 +28,10 @@ export class SellLubricantsComponent implements OnInit {
  
   ngOnInit() {
     this.urlData = this.route.queryParams.subscribe(params => {
-      this.isDebit = params['debitType'] || 0;
+      this.debitType = params['debitType'] || 0;
     });
-
-    if(this.isDebit==1){
-
-    }
-    // alert(this.isDebit)
+    // alert(this.debitType);
+    // alert(this.debitType)
     this.getLubricant(this.itemPerPage,this.offset);
     this.empID=localStorage.getItem("userID")  /*Get Employee ID */
     this.pageBtns=[];
@@ -109,7 +106,7 @@ export class SellLubricantsComponent implements OnInit {
   }
   /* sell lubricant */
   sellLub(id,name,price,quantity,totalPrice){
-    if(this.isDebit==1){
+    if(this.debitType=="lub"){
       var sellOndebit="1";
       this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0"};
       this.router.navigate(['/debbiting'], { queryParams: this.sellLubData });
@@ -120,13 +117,11 @@ export class SellLubricantsComponent implements OnInit {
       Response=>{
         this.openSnackBar(name, "SOLD");
         this.getLubricant(this.itemPerPage,this.offset);
-  
       },
       error=>{
         alert("error");
       });
     }
-   
   }
   /* highlight the selected tile */
   heightLightSelectedTile(index){

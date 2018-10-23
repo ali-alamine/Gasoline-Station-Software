@@ -9,6 +9,6 @@ export class CountersService {
   constructor(private httpClient: HttpClient) { }
 
   getAllDispanesersCounters(){
-    return this.httpClient.get('http://localhost/gasolineStation/src/assets/api/dispanser/getDispanserCounters/');
+    return this.httpClient.get('http://localhost/eSafe-gasoline_station/src/assets/api/dispanser/getDispanserCounters/');
   }
 }

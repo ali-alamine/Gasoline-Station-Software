@@ -26,9 +26,9 @@ export class DebitsComponent implements OnInit {
   debit=[
     {text:"returns", cols: 2, rows: 1},
     {text:"debit_fuel", cols: 2, rows: 1},
-    {text:"debit_washing", cols: 2, rows: 1},
     {text:"debit_lubricant", cols: 2, rows: 1},
     {text:"debit_accessories", cols: 2, rows: 1},
+    {text:"debit_washing", cols: 2, rows: 1},
   ]
 
   openDebitModal(modalName,operationName,i){
@@ -50,7 +50,7 @@ export class DebitsComponent implements OnInit {
          break; 
       }
       case "debit_lubricant": {
-        this.router.navigate(['/selllub'], { queryParams: { debitType: "1"} });
+        this.router.navigate(['/selllub'], { queryParams: { debitType: "lub"} });
          break; 
       } 
       case "accessories": {

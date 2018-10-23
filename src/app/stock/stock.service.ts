@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StockService {
-  private url="http://localhost/gasolineStation/src/assets/api/stock/";
+  private url="http://localhost/eSafe-gasoline_station/src/assets/api/stock/";
   constructor(private http:HttpClient) { }
 
   addNewLub(lubData){

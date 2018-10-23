@@ -38,11 +38,12 @@ export class DebitFormComponent {
   };
   constructor(private router: Router,private route: ActivatedRoute,private debitFormServ:DebitFormService,public snackBar: MatSnackBar){}
   ngOnInit(){
+    debugger
     this.getClients();
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debitData = params|| -1; 
-      
-      if(params.debitType=="lub"){
+      debugger
+      if(params.type=="lub"){
         this.debit_type="lub";
       }else if(params.debitType=="washing"){
         this.debit_type="washing";
@@ -110,39 +111,25 @@ export class DebitFormComponent {
       alert("error");
     });
   }
+
   submitDebitFormData(data){
-    console.log(data)
-    var empID= localStorage.getItem('userID');
-    var debitWashData={"empID":empID,"clientID":this.clientID,"amountRest":this.restAmount,"comment":data.comment};
-    this.debitFormServ.sellWashServOnDebit(debitWashData).subscribe(Response=>{
-      
-      /* notification message when sell sucess */
-      this.openSnackBar(this.restAmount + " added to " +this.clientName+ " account", "Done" );
-
-      /* wait 3 sec untrill notification disappear and navigate to operations */
-      setTimeout(()=>this.router.navigate(['/operations']),1800);
-
-    },
-    error=>{
-      alert("error");
-    });
+    alert(this.debit_type)
+      switch(this.debit_type) { 
+        case "lub": { 
+          console.log(data)
+          console.log("here we go")
+          this. sellLubOndebit(data);
+          break; 
+        } 
+        case "washing": {
+          this.sellWashServOnDebit(data);
+          break; 
+        }
+        default: { 
+          break; 
+        } 
+    }
   }
-  // submitDebitFormData(data){
-
-  //     switch(this.debit_type) { 
-  //       case "lub": { 
-  //         this. sellLubOndebit(data);
-  //         break; 
-  //       } 
-  //       case "washing": {
-  //         this.sellWashServOnDebit(data);
-  //         break; 
-  //       }
-  //       default: { 
-  //         break; 
-  //       } 
-  //   }
-  // }
     
   getSelectedClientData(data){
     // alert(data.full_name + " - " + data.PID)
@@ -154,7 +141,12 @@ export class DebitFormComponent {
   }
 
   getRemainingValue(amountPaid){
-    this.restAmount=this.debitData.totalPrice-amountPaid
+    if(this.debit_type=='lub'){
+      this.restAmount=this.debitData.totalPrice-amountPaid;
+    }else if(this.debit_type=="washing"){
+      this.restAmount=amountPaid;
+    }
+    
   }
 
 }

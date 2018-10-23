@@ -5,9 +5,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class WashingCarService {
 
-  private url="http://localhost/gasolineStation/src/assets/api/";
+  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
   sellWashService(data){
+    console.log(data)
     return this.httpClient.post(this.url +"operation/sellWashService",data);
   }
 }

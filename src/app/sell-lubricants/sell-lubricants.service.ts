@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SellLubricantsService {
-  private url="http://localhost/gasolineStation/src/assets/api/";
+  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
 
   getLubricant(limit,offset){

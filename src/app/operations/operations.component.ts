@@ -39,8 +39,8 @@ export class OperationsComponent implements OnInit {
     {text: 'lubricants', cols: 2, rows: 1},
     {text: 'carWashing', cols: 2, rows: 1},
     {text: 'debits', cols: 2, rows: 1},
-    {text: 'payments', cols: 2, rows: 1},
     {text: 'accessories', cols: 2, rows: 1},
+    {text: 'payments', cols: 2, rows: 1},
     // {text: 'Seven', cols: 2, rows: 1},
     // {text: 'Eight', cols: 2, rows: 1}
   ];

@@ -4,9 +4,9 @@
               *ngFor="let machine of machines; let i = index" [attr.data-index]="i" 
               [colspan]="2"
               [rowspan]="2"
-              [style.background]="machine.color"  (click)="sellWashService(this.machine.price,this.machine.name)">
+              [style.background]="machine.color" (click)="sellWashService(this.machine.price,this.machine.name)">
                 <!-- {{i+1}} -->  
-            <img class="tile-image" src="{{machine.imgSrc}}">
+            <img class="tile-image" src="{{machine.imgSrc}}" style="margin-top:10px;margin-left:5px">
             <div class="infoSection">
                 <h4 style="color:firebrick">{{machine.name}}</h4>
             <img class="tile-image DpriceArrow " src="../assets/icons/washingIcons/upArrow.png" (click)="incPrice(this.machine.price,i)">

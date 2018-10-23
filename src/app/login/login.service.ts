@@ -13,7 +13,7 @@ export class LoginService {
     // debugger;
     console.log(data)
     var jsonData=JSON.stringify(data);
-    // return this.httpClient.post('http://localhost/gasolineStation/src/assets/api/employee/checkLogin/',data);
-    return this.httpClient.get('http://localhost/gasolineStation/src/assets/api/employee/checkLogin/',{params:{'data':jsonData}});
+    // return this.httpClient.post('http://localhost/eSafe-gasoline_station/src/assets/api/employee/checkLogin/',data);
+    return this.httpClient.get('http://localhost/eSafe-gasoline_station/src/assets/api/employee/checkLogin/',{params:{'data':jsonData}});
   }
 }

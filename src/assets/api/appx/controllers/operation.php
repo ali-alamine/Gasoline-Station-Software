@@ -5,7 +5,7 @@ class operation extends REST_Controller{
         parent::__construct();
         $this->load->model('operation_model');
     }
-    /* Sell */
+    /* Sell -  sell on debit  */
     public function sell_post(){
         
         /*START - Get Current Date Time */
@@ -64,6 +64,34 @@ class operation extends REST_Controller{
         
     }
 
+    /* sell wash service on debit */
+    public function sellWashServiceOnDebit_post(){
+         /*START - Get Current Date Time */
+         $currentFullDate=getdate();
+         $d=$currentFullDate['mday'];
+         $m=$currentFullDate['mon'];
+         $y=$currentFullDate['year'];
+         $time=date("h:i");
+         $today_date=$y."-".$m."-".$d."-".$time;
+         /*END - Get Current Date Time */
+
+         $empID=$this->post('empID');
+         $personID=$this->post('clientID');
+         $amount = 0;
+         $rest=$this->post('amountRest');
+         $type = 'wash';
+         $comment=$this->post('comment');
+        /* insert into invoice  */
+        $result = $this->operation_model->add_inv(array("amount"=>$amount,
+        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,"personID"=>$personID,"note"=>$comment));
+        $str=$this->db->last_query();
+        if ($result === 0) {
+            $this->response("Item information could not be saved. Try again.", 404);
+        } else {
+            $this->response("success", 200);
+        }
+    }
+    /* sell wash service on (cash) */
     public function sellWashService_post(){
          /*START - Get Current Date Time */
          $currentFullDate=getdate();
@@ -74,19 +102,18 @@ class operation extends REST_Controller{
          $today_date=$y."-".$m."-".$d."-".$time;
          /*END - Get Current Date Time */
 
-         $rest=0; /* rest set to 0 means that price is payed cash */
-         $itemID='1';
-         $empID=$this->post('empID');
-         $personID="0"; /* refer to client */
-         $name = $this->post('machineName');
-         $amount = $this->post('price');
-         $type = 'wash';
-         $quantity=1;
-         $cost=0;
 
+         $empID=$this->post('empID');
+         $personID=0; /* no registered client */
+         $amount =$this->post('price');
+         $rest=0;
+         $type = 'wash';
+         $comment=$this->post('machineName');
+
+         
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID));
+        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,"personID"=>$personID,"note"=>$comment));
         $str=$this->db->last_query();
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
@@ -94,4 +121,6 @@ class operation extends REST_Controller{
             $this->response("success", 200);
         }
     }
+
+    
 }

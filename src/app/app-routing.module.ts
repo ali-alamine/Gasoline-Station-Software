@@ -56,6 +56,9 @@ const routes: Routes = [
   {
     path:'account',component:AccountingComponent 
   },
+  {
+    path:'',component:LoginComponent 
+  },
   
 ];
 
