@@ -21,14 +21,43 @@
 </div> -->
 
 <div id="fuelContView" class="container-fluid" style="border:1px solid #000000; margin-top: 20px">
+    <ng-template #stockModal let-c="close" let-d="dismiss">
+        <div class="modal-header noselect">
+          <h4 class="modal-title" id="modal-basic-title">{{this.counters[this.index].name}}</h4>
+          <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body noselect">
+          <form fxLayout="column" autocomplete="off">
+            <div class="input-row" fxLayout="row">
+              <mat-form-field class="inputField" fxFlex>
+                <input matInput placeholder="Nom de l'article"  type="text" name="nameInput" autofocus>
+                <mat-error> Le nom de l'article est requis avec au moins 3 lettres</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+              <mat-form-field class="inputField" fxFlex>
+                <input matInput placeholder="Colisage" type="number">
+                <mat-error> Colisage est requis</mat-error>
+              </mat-form-field>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer noselect">
+          <button mat-raised-button name="addButton" color="primary" (click)="addEditStock()" ></button>
+        </div>
+    </ng-template>
   <div class="dispanserDiv disp2 " style="width:140px; height:140px">
-    Diesel
-    <img class="dispanser" src="../assets/icons/dispanserIcons/0.png">
+      <span style="margin-left:50px;font-weight: bold;position: absolute; margin-top: -25px;color:firebrick"> 98 / 95</span>
+    <img (click)="openStockModal(stockModal,'1','98/95')" class="dispanser" src="../assets/icons/dispanserIcons/0.png">
   </div>
-  <div class="dispanserDiv disp1" style="width:140px; height:140px"> 
+  <div class="dispanserDiv disp1" style="width:140px; height:140px">
+      <span style="margin-left:50px;font-weight: bold;position: absolute; margin-top: -25px;color:firebrick">Diesel</span>
     <img class="dispanser" src="../assets/icons/dispanserIcons/1.png">
   </div>
   <div class="dispanserDiv disp3" style="width:140px; height:140px"> 
+      <span style="margin-left:50px;font-weight: bold;position: absolute; margin-top: -25px;color:firebrick"> 98 / 95</span>
     <img class="dispanser" src="../assets/icons/dispanserIcons/2.png">
   </div>
 </div>

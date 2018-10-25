@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 // import {MatIconRegistry} from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -66,6 +67,7 @@ import { PaymentSupplyComponent } from './payment-supply/payment-supply.componen
     MatCardModule,
     BrowserModule,
     AppRoutingModule,
+    NgbModule.forRoot(),
     MatTabsModule,
     MatGridListModule,
     MatFormFieldModule,
