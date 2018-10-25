@@ -32,8 +32,7 @@ export class SellAccessoriesComponent implements OnInit {
     "quantity":"",
     "totalPrice":"",
     "type":'access',
-    'invoiceType':'',
-    "isCash": 1};
+    'invoiceType':''};
 
   constructor(private sellAccServ:SellAccessoriesService,public snackBar: MatSnackBar,
     private router: Router, private route: ActivatedRoute) { }
@@ -123,14 +122,14 @@ export class SellAccessoriesComponent implements OnInit {
   }
   sellAcc(id,name,price,quantity,totalPrice){
     if(this.invoiceType == "supply"){
-      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access',"invoiceType":this.invoiceType,"isCash":0};
+      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access',"invoiceType":this.invoiceType};
       this.router.navigate(['/debbiting'], { queryParams: this.sellAccData});
     }else if(this.debit == 'true'){
-      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access',"invoiceType":this.invoiceType,"isCash":0};
+      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access',"invoiceType":this.invoiceType};
       this.router.navigate(['/debbiting'], { queryParams: this.sellAccData });
     }
     else{
-      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access','invoiceType':'sell',"isCash":1};
+      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access','invoiceType':'sell'};
       this.sellAccServ.addInvoice(this.sellAccData).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");
