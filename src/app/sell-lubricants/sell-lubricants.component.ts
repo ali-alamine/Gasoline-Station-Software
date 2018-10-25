@@ -33,8 +33,7 @@ export class SellLubricantsComponent implements OnInit {
     "type":'lub',
     "isDebit":'',
     "rest":"",
-    "invoiceType":'',
-    "isCash": 1};
+    "invoiceType":''};
   constructor(private sellLubServ:SellLubricantsService,public snackBar: MatSnackBar,private router: Router, private route: ActivatedRoute) { }
  
   ngOnInit() {
@@ -134,14 +133,13 @@ export class SellLubricantsComponent implements OnInit {
         "type":'lub',
         'isDebit':sellOndebit,
         "rest":"0",
-        "invoiceType":this.invoiceType,
-        "isCash": 0};
+        "invoiceType":this.invoiceType};
 
       this.router.navigate(['/debbiting'], { queryParams: this.sellLubData});
     }
     else if(this.debit == 'true'){
       var sellOndebit="1";
-      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0","invoiceType":'sell',"isCash": 0};
+      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0","invoiceType":'sell'};
       this.router.navigate(['/debbiting'], { queryParams: this.sellLubData });
     }else{
       var sellOndebit="0";
@@ -155,8 +153,7 @@ export class SellLubricantsComponent implements OnInit {
         "type":'lub',
         'isDebit':sellOndebit,
         "rest":"0",
-        "invoiceType":'sell',
-        "isCash": 1};
+        "invoiceType":'sell'};
 
       this.sellLubServ.addInvoice(this.sellLubData).subscribe(
       Response=>{

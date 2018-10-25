@@ -23,7 +23,6 @@ class operation extends REST_Controller{
         } 
         $itemID=$this->post('itemID');
         $comment=$this->post('comment');
-        $isCash=$this->post('isCash');
         $empID = $this->post('empID');
         $personID = $this->post('personID');
         if($personID == null){
@@ -57,7 +56,7 @@ class operation extends REST_Controller{
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,
-        "personID"=>$personID,"note"=>$comment,'isSupply'=>$isSupply,"isCash" => $isCash));
+        "personID"=>$personID,"note"=>$comment,'isSupply'=>$isSupply));
 
         /* Get last inserted invoice ID */
         $invID = $this->db->insert_id(); 

@@ -57,8 +57,7 @@ export class WashingCarComponent implements OnInit {
         "quantity":1,
         "totalPrice":price,
         "type":'wash',
-        'invoiceType':'sell',
-        "isCash": 0
+        'invoiceType':'sell'
       };
       this.router.navigate(['/debbiting'], { queryParams: sellWashingData });
     }
@@ -71,8 +70,7 @@ export class WashingCarComponent implements OnInit {
         "quantity":1,
         "totalPrice":price,
         "type":'wash',
-        'invoiceType':'sell',
-        "isCash": 1
+        'invoiceType':'sell'
       };
       this.washServ.addInvoice(sellWashingData).subscribe(
       Response=>{
