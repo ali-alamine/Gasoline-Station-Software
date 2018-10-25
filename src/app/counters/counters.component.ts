@@ -26,25 +26,29 @@ export class CountersComponent implements OnInit {
   }
 
   getDispansersCounters(){
-      this.counterServ.getAllDispanesersCounters().subscribe( Response=>{
-        this.counters = Response;
-        console.log(this.counters)
+ 
+      this.counterServ.getAllDispanesersCounters().subscribe( 
+        Response=>{
+          this.counters = Response;
+          console.log(this.counters[1])
       }
+      
     );
+   
   }
 
-  openStockModal(stockModal,index,name) {
+  openCountersModal(countersModal,index) {
     this.index=index;
-    this.modalReference = this.modalService.open(stockModal, {
+    this.modalReference = this.modalService.open(countersModal, {
       centered: true,
       ariaLabelledBy: "modal-basic-title"
     });
     // var name = "";
     var colisage = "";
-    // this.stockModalTitle = "Ajouter ";
+    // this.countersModalTitle = "Ajouter ";
 
     // if (this.editFlag == true) {
-    //   this.stockModalTitle = "Modifier ";
+    //   this.countersModalTitle = "Modifier ";
     //   name = StockComponent.selectedRowData["name"];
     //   colisage = StockComponent.selectedRowData["pck_list"];
     // }

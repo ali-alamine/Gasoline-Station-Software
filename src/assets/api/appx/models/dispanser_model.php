@@ -14,8 +14,6 @@ class dispanser_model extends CI_Model
         // $this->db->like('name',$data,'both');
         // $this->db->limit(10, 0);
         $query = $this->db->get(); 
-        $ss=$this->db->last_query();  
-        $pp=$this->db->last_query();
         return $query->result();
 
         // OR

@@ -14,7 +14,6 @@
 input {
     color: blue;
 }
-  
 .tileCol1{
     // background-color:rgb(240,248,255);
     background-color: rgb(230,330,230)
@@ -41,17 +40,22 @@ input {
     border: solid thistle 1px;
     border-radius: 20px;
 }
-.disp0{
-    margin-top:200px;
+.bottom-left{
+    margin-top:400px;
+    // background-color:red;
+    position: absolute;
 }
-.disp1{
+.middle-1-to-left{
     margin-top:50px;
     margin-left: 420px;
+    position: absolute;
+    // background-color:green;
 }
-.disp2{
-    margin-top:-480px;
+.middle-1-to-right{
+    margin-top:50px;
     margin-left: 630px;
-    // position: absolute;
+    // background-color:blue;
+    position: absolute;
 }
 .dispLabel{
     margin-left:50px;
