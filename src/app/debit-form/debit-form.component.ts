@@ -63,11 +63,6 @@ export class DebitFormComponent {
           isCash: this.debitData.isCash
         });
       }
-      // else if(params.debitType=="washing"){
-      //   this.debit_type="washing";
-      // }else if(params.debitType=="access"){
-      //   this.debit_type="access";
-      // }
       this.onDebitAmountChange();
     });
   }
@@ -136,53 +131,8 @@ export class DebitFormComponent {
       console.log("error: "+error);
     });
   }
-  sellWashServOnDebit(data){
-    console.log(data)
-    var empID= localStorage.getItem('userID');
-    var debitWashData={
-      "empID":empID,
-      "clientID":this.debitForm.get('personID').value(),
-      "amountRest":this.debitForm.get('amountRest').value(),
-      "comment":data.comment};
-    this.debitFormServ.sellWashServOnDebit(debitWashData).subscribe(Response=>{
-      
-      /* notification message when sell sucess */
-      // this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.clientName+ " account", "Done" );
 
-      /* wait 3 sec untrill notification disappear and navigate to operations */
-      setTimeout(()=>this.router.navigate(['/operations']),1800);
-
-    },
-    error=>{
-      console.log("error: "+error);
-    });
-  }
-
-  // submitDebitFormData(){
-  //   var debitType = this.debitForm.get('type').value;
-  //     switch(debitType) { 
-  //       case "lub": { 
-  //         // console.log("here we go")
-  //         this. sellItemOndebit();
-  //         break; 
-  //       } 
-  //       case "access": { 
-  //         // console.log("here we go")
-  //         this. sellItemOndebit();
-  //         break; 
-  //       } 
-  //       // case "washing": {
-  //       //   this.sellWashServOnDebit(data);
-  //       //   break; 
-  //       // }
-  //       default: { 
-  //         break; 
-  //       } 
-  //   }
-  // }
-    
   getSelectedClientData(id){
-    // this.debitForm.get('personeName').setValue(name);
     this.debitForm.get('personID').setValue(id);
   }
   onDebitAmountChange(): void {
@@ -190,29 +140,10 @@ export class DebitFormComponent {
       var amountPaid = this.debitForm.get('amountPaid').value;
       var totalPrice = this.debitForm.get('totalPrice').value;
       var debitType = this.debitForm.get('type').value;
-      // if(debitType == 'lub' || debitType == 'access' ){
-        this.debitForm.get('amountRest').setValue(parseInt(totalPrice) - parseInt(amountPaid));
-      // }
-      // else if(debitType=="washing"){
-      //   this.debitForm.get('amountRest').setValue(amountPaid);
-      // }
+      this.debitForm.get('amountRest').setValue(parseInt(totalPrice) - parseInt(amountPaid));
       
     })
   }
-  // getRemainingValue(){
-  //   // debugger
-  //   var totalPrice = this.debitForm.get('totalPrice').value();
-  //   var debitType = this.debitForm.get('type').value();
-  //   var amountPaid = this.debitForm.get('amoundPaid').value();
-  //   if(debitType=='lub'){
-  //     this.debitForm.get('amountRest').setValue(totalPrice-amountPaid);
-  //     console.log(this.debitForm.get('amountRest').value())
-  //   }
-  //   // else if(debitType=="washing"){
-  //   //   this.debitForm.get('amountRest').setValue(amountPaid);
-  //   // }
-    
-  // }
 
   get personName() {
     return this.debitForm.get('personName');

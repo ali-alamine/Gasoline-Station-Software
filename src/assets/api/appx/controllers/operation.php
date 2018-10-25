@@ -87,7 +87,41 @@ class operation extends REST_Controller{
         // }
         
     }
+    /* payment Cost  */
+    public function addPaymentCostInvoice_post(){
+        
+        /*START - Get Current Date Time */
+        $currentFullDate=getdate();
+        $d=$currentFullDate['mday'];
+        $m=$currentFullDate['mon'];
+        $y=$currentFullDate['year'];
+        $time=date("h:i");
+        $today_date=$y."-".$m."-".$d."-".$time;
+        /*END - Get Current Date Time */
+        
+        $userID=$this->post('userID');
+        $comment=$this->post('comment');
+        $amount = $this->post('amount');
+       
+        /* start execut querys */ 
+        $this->db->trans_begin();
 
+        
+        /* insert into invoice  */
+        $this->operation_model->add_inv(array("amount"=>$amount,
+        "type" => 'payC','dateTime'=>$today_date,'rest'=>0,"empID"=>$userID,
+        "personID"=>$userID,"note"=>$comment,'isSupply'=>0));
+
+        /* End execut querys */ 
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            $this->response("Invoice information could not be saved. Try again.", 404);
+        } else {
+            $this->db->trans_commit();
+            $this->response("success", 200);
+        }
+        
+    }
     /* sell wash service on debit */
     public function sellWashServiceOnDebit_post(){
          /*START - Get Current Date Time */
