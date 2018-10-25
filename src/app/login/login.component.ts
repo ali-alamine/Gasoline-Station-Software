@@ -28,13 +28,15 @@ export class LoginComponent implements OnInit {
  
       if(Response[0].user_type==0){
         localStorage.setItem("userID",Response[0].empID);
+        localStorage.setItem("userName",Response[0].name);
         localStorage.setItem("activeUser",'emp');
       }else if(Response[0].user_type==1){
         localStorage.setItem("userID",Response[0].empID);
+        localStorage.setItem("userName",Response[0].name);
         localStorage.setItem("activeUser",'admin');
         this.router.navigate(['/operations']);
       }
-      this.router.navigate(['/operations'], { queryParams: { empName: Response[0].name} });
+      this.router.navigate(['/operations']);
     },
      error=>{
        alert("error")

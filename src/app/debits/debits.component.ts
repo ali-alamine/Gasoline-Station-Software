@@ -42,23 +42,19 @@ export class DebitsComponent implements OnInit {
          break; 
       } 
       case "debit_fuel": { 
-        this.router.navigate(['/debbiting'], { queryParams: { debitType: "fuel"} });
+        this.router.navigate(['/debbiting'], { queryParams: { debit: true} });
          break; 
       }
       case "debit_washing": {
-        this.router.navigate(['/debbiting'], { queryParams: { debitType: "washing"} });
+        this.router.navigate(['/wash'], { queryParams: { debit: true} });
          break; 
       }
       case "debit_lubricant": {
-        this.router.navigate(['/selllub'], { queryParams: { debitType: "lub"} });
-         break; 
-      } 
-      case "accessories": {
-        this.router.navigate(['/debbiting'], { queryParams: { debitType: "accessories"} });
+        this.router.navigate(['/selllub'], { queryParams: { debit: true} });
          break; 
       } 
       case "debit_accessories": {
-        this.router.navigate(['/debbiting'], { queryParams: { debitType: "accessories"} });
+        this.router.navigate(['/sellAcc'], { queryParams: { debit: true} });
          break; 
       }
       default: { 

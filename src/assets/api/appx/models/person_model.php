@@ -11,6 +11,7 @@ class person_model extends CI_Model
         $this->db->select("*");
         $this->db->from("person");
         $this->db->where("person_type",$isClient);
+        $this->db->where("PID != 1");
         $this->db->order_by("PID", "DESC");
         $query = $this->db->get(); 
         $lastQuery=$this->db->last_query();  

@@ -27,7 +27,7 @@ export class OperationsComponent implements OnInit {
   isAdmin:boolean;
 
   private urlData;
-  private empName;
+  private userName;
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   adminTiles=[
@@ -47,10 +47,11 @@ export class OperationsComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.urlData = this.route.queryParams.subscribe(params => {
-      this.empName = params['empName'] || -1;
-  });
+    // this.urlData = this.route.queryParams.subscribe(params => {
+    //   this.userName = params['userName'] || -1;
+    // });
     this.userType=localStorage.getItem('activeUser');
+    this.userName=localStorage.getItem('userName');
     if(this.userType=='admin'){
       this.isAdmin=true;
     }else{
