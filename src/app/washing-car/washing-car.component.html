@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-top: 10px">
+<div class="container-fluid" style="margin-top: 10px" [style.background-color]="this.debit === 'true' ? 'thistle' : ''">
       <mat-grid-list cols="4" rowHeight="3.5:1" class="tile-container">
           <mat-grid-tile class="tile-grid"  
               *ngFor="let machine of machines; let i = index" [attr.data-index]="i" 
