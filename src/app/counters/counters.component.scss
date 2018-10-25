@@ -36,19 +36,27 @@ input {
     height: 100%;
 }
 .dispanserDiv{
-
+    width:140px; 
+    height:140px;
     border: solid thistle 1px;
     border-radius: 20px;
 }
-.disp1{
+.disp0{
     margin-top:200px;
 }
-.disp2{
+.disp1{
     margin-top:50px;
     margin-left: 420px;
 }
-.disp3{
+.disp2{
     margin-top:-480px;
     margin-left: 630px;
     // position: absolute;
+}
+.dispLabel{
+    margin-left:50px;
+    font-weight: bold;
+    position: absolute;
+    margin-top: -25px;
+    color:firebrick
 }
