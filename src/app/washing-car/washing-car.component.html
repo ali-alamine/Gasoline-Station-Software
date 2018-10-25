@@ -4,7 +4,7 @@
               *ngFor="let machine of machines; let i = index" [attr.data-index]="i" 
               [colspan]="2"
               [rowspan]="2"
-              [style.background]="machine.color" (click)="sellWashService(this.machine.price,this.machine.name)">
+              [style.background]="machine.color" >
                 <!-- {{i+1}} -->  
             <img class="tile-image" src="{{machine.imgSrc}}" style="margin-top:10px;margin-left:5px">
             <div class="infoSection">
@@ -14,7 +14,7 @@
             <img class="tile-image UpriceArrow" src="../assets/icons/washingIcons/downArrow.png" (click)="decPrice(this.machine.pric,i)">
             </div>
             <div style="margin-right: 20px">
-                <button style="background-color:lightgreen" (click)="sell(lub.itemID,lub.name,lub.selling_price,lub.defaultQuan)" mat-fab>
+                <button style="background-color:lightgreen" (click)="sellWashService(this.machine.price,this.machine.name)" mat-fab>
                         <mat-icon matSuffix>subdirectory_arrow_right</mat-icon>
                 </button>
             </div>

@@ -7,8 +7,12 @@ export class WashingCarService {
 
   private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
-  sellWashService(data){
-    console.log(data)
-    return this.httpClient.post(this.url +"operation/sellWashService",data);
+  // sellWashService(data){
+  //   console.log(data)
+  //   return this.httpClient.post(this.url +"operation/sellWashService",data);
+  // }
+  addInvoice(data){
+    // console.log(sellLubData)
+    return this.httpClient.post(this.url +"operation/addInvoice",data);
   }
 }

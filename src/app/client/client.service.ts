@@ -8,7 +8,7 @@ export class ClientService {
   constructor(private http:HttpClient) { }
 
   addNewClient(clientData){
-    return this.http.post(this.url +"addClient",clientData);
+    return this.http.post(this.url +"addPerson",clientData);
   }
   getAllClients(){
     return this.http.post(this.url +"getAllClients",'');

@@ -31,7 +31,17 @@ class operation_model extends CI_Model{
             return false;
         }
     }
-
+    public function add_debit_person($id, $rest){
+        $this->db->set('debitAmount', 'debitAmount + '.$rest, false);
+        $this->db->where('PID', $id);
+        if ($this->db->update('person')) {
+            $str = $this->db->last_query();
+            return true;
+        }else {
+            $str = $this->db->last_query();
+            return false;
+        }
+    }
     // public function update_stock($id,$quantity){
        // OR
         // $query = $this->db->query("UPDATE `item-service` SET quantity = quantity - ".$quantity." WHERE itemID = ".$id."");

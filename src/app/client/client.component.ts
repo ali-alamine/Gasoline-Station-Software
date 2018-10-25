@@ -15,9 +15,10 @@ import 'datatables.net-bs4';
 export class ClientComponent implements OnInit {
 
   addClientForm = new FormGroup({
-    clientFullName: new FormControl(''),
-    clientPhoneNumber: new FormControl(''),
+    name: new FormControl(''),
+    phone: new FormControl(''),
     initDebitAmount: new FormControl(''),
+    isClient : new FormControl(1)
   })
   isOpened = 0;
   private clients:any;

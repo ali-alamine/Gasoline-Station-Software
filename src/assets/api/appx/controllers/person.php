@@ -7,17 +7,19 @@ class person extends REST_Controller{
         $this->load->model('person_model');
     }
     /* add new client */
-    public function addClient_post(){
-        $full_name = $this->post('clientFullName');
-        $phone = $this->post('clientPhoneNumber');
+    public function addPerson_post(){
+        $full_name = $this->post('name');
+        $phone = $this->post('phone');
         $initDebitAmount = $this->post('initDebitAmount');
-        $type=1;
-        $result = $this->person_model->add(array("full_name" => $full_name, "phone_number" => $phone, "debitAmount" => $initDebitAmount,"person_type"=>$type));
+        if($initDebitAmount == null) $initDebitAmount=0;
+        $isClient = $this->post('isClient');
+        $result = $this->person_model->add(array("full_name" => $full_name, "phone_number" => $phone, "debitAmount" => $initDebitAmount,"person_type"=>$isClient));
+        $PID = $this->db->insert_id(); 
 
         if ($result === 0) {
-            $this->response("Client information could not be saved. Try again.", 404);
+            $this->response("Person information could not be saved. Try again.", 404);
         } else {
-            $this->response("success", 200);
+            $this->response($PID, 200);
         }
     }
     /* get All Clients */

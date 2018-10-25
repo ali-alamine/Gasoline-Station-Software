@@ -39,7 +39,7 @@ export class CountersComponent implements OnInit {
       centered: true,
       ariaLabelledBy: "modal-basic-title"
     });
-    var name = "";
+    // var name = "";
     var colisage = "";
     // this.stockModalTitle = "Ajouter ";
 
