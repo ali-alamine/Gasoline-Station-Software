@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountingService } from './accounting.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormControl } from '../../../node_modules/@angular/forms';
 
 export interface Tile<tiles>{
   color: string;
@@ -25,9 +26,10 @@ export class AccountingComponent implements OnInit {
   userType:string;
   isAdmin:boolean;
   private urlData;
-  // private empName;
+  employees:any;
+  empIDForm = new FormControl();
 
-  constructor(private accServ:AccountingService,private router: Router, private route: ActivatedRoute) { }
+  constructor(private accountingServ:AccountingService,private router: Router, private route: ActivatedRoute) { }
   tiles=[
     {text: 'counters', cols: 2, rows: 1},
     {text: 'lubricants', cols: 2, rows: 1},
@@ -36,9 +38,7 @@ export class AccountingComponent implements OnInit {
     {text: 'debits', cols: 2, rows: 1},
     {text: 'paymentsCost', cols: 2, rows: 1},
     {text: 'paymentsSupply', cols: 2, rows: 1},
-    {text: 'sellAll', cols: 2, rows: 1},
-    // {text: 'Seven', cols: 2, rows: 1},
-    // {text: 'Eight', cols: 2, rows: 1}
+    {text: 'sellAll', cols: 2, rows: 1}
   ];
   ngOnInit() {
     // this.urlData = this.route.queryParams.subscribe(params => {
@@ -50,10 +50,21 @@ export class AccountingComponent implements OnInit {
     }else{
       this.isAdmin=false
     }
+    this.getEmployees();
+  }
+  getEmployees(){
+    this.accountingServ.getAllEmp().subscribe(Response=>{
+      this.employees=Response;
+    },
+    error=>{
+      alert("error")
+    });
   }
   selectAccounting(accountingName,i){
     let selectedAccounting = document.getElementsByClassName('tile-grid')[i+1];
     selectedAccounting.classList.add('selectedTile');
+    console.log(this.empIDForm.value)
+    // console.log(this.empIDForm.value.length)
 
     switch(accountingName) { 
       case "counters": { 

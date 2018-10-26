@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { WashingCarService } from './washing-car.service';
 import { MatSnackBar} from '@angular/material';
-import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-washing-car',
@@ -72,7 +72,7 @@ export class WashingCarComponent implements OnInit {
         "type":'wash',
         'invoiceType':'sell'
       };
-      this.washServ.addInvoice(sellWashingData).subscribe(
+      this.washServ.sellWashService(sellWashingData).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");
       this.openSnackBar(price + " Added to drawer", "success");

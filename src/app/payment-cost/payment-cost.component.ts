@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PaymentCostService } from './payment-cost.service';
-import { ActivatedRoute, Router } from '../../../node_modules/@angular/router';
-import { MatSnackBar } from '../../../node_modules/@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-payment-cost',
@@ -33,6 +33,7 @@ export class PaymentCostComponent implements OnInit {
     this.paymentCostServ.addPaymentCostInvoice(this.paymentCostForm.value).subscribe(
       Response=>{
         this.openSnackBar(this.paymentCostForm.get('amount').value, "Payment");
+        setTimeout(()=>this.router.navigate(['/operations']),1000);
         // this.getLubricant(this.itemPerPage,this.offset);
       },
       error=>{

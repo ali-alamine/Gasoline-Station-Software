@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 export interface Tile<tiles>{
   color: string;
   cols: number; 

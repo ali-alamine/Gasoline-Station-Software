@@ -4,10 +4,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class AccountingService {
-  private url="http://localhost/gasolineStation/src/assets/api/";
+  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
 
   getSoldLubricants(){
     return this.httpClient.get(this.url +"invoice/getSoldLubricants");
+  }
+  getAllEmp(){
+    // debugger
+    return this.httpClient.post(this.url +"employee/getAllEmp",'');
   }
 }

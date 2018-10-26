@@ -1,0 +1,26 @@
+<div style="height: 600px;padding-top: 100px" class="container-fluid">
+  <h6>back icons options</h6>
+  <form [formGroup]="debitForm">
+      <mat-form-field style="width: 20%;margin-right: 5px;">
+        <mat-select placeholder="Client name" formControlName="personName">
+          <mat-option *ngFor="let c of clients " 
+          (onSelectionChange)="getSelectedClientData($event,c)" 
+          [value]="c.full_name" >{{c.full_name}} | <span style="color:red"> Amount: {{c.debitAmount}}</span>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    <p>
+      <mat-form-field appearance="outline" style="width:20%">
+        <mat-label>Amount</mat-label>
+        <input matInput placeholder="Amount" step="500" type="number" formControlName="paidDebit">
+        <mat-hint> <code ><h5 *ngIf="debitForm.value.debit != 0 ">Debit: {{debitForm.value.debit}} </h5></code> </mat-hint>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline" style="padding-left: 50px;width:600px">
+        <mat-label>Comment</mat-label>
+        <input matInput placeholder="Comment" formControlName="comment">
+      </mat-form-field>
+    </p>
+  </form>
+    <button style="width:200; height: 45px;"  color="primary" mat-raised-button [disabled]="!debitForm.valid" (click)="submitDebit()">Submit</button>
+</div>

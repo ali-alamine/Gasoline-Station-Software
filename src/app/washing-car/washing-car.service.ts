@@ -11,8 +11,8 @@ export class WashingCarService {
   //   console.log(data)
   //   return this.httpClient.post(this.url +"operation/sellWashService",data);
   // }
-  addInvoice(data){
+  sellWashService(data){
     // console.log(sellLubData)
-    return this.httpClient.post(this.url +"operation/addInvoice",data);
+    return this.httpClient.post(this.url +"operation/sellWashService",data);
   }
 }

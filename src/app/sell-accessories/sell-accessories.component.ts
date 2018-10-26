@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar} from '@angular/material';
 import { SellAccessoriesService } from './sell-accessories.service';
-import { Router, ActivatedRoute } from '../../../node_modules/@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 export interface Page<pageBtns>{
   color: string;
   text: string;

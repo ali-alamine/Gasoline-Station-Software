@@ -24,7 +24,7 @@ export class DebitsComponent implements OnInit {
   }
 
   debit=[
-    {text:"returns", cols: 2, rows: 1},
+    {text:"return", cols: 2, rows: 1},
     {text:"debit_fuel", cols: 2, rows: 1},
     {text:"debit_lubricant", cols: 2, rows: 1},
     {text:"debit_accessories", cols: 2, rows: 1},
@@ -37,8 +37,8 @@ export class DebitsComponent implements OnInit {
     selectedOperation.classList.add('selectedTile');
 
     switch(operationName) { 
-      case "returns": { 
-        // this.router.navigate(["/counters"]);
+      case "return": { 
+        this.router.navigate(["/return"]);
          break; 
       } 
       case "debit_fuel": { 

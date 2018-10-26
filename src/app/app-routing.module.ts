@@ -16,6 +16,7 @@ import { SellAccessoriesComponent } from './sell-accessories/sell-accessories.co
 import { AccountingDetailsComponent } from './accounting-details/accounting-details.component';
 import { PaymentCostComponent } from './payment-cost/payment-cost.component';
 import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
+import { ReturnComponent } from './return/return.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,9 @@ const routes: Routes = [
   },
   {
     path:'paymentSupply',component:PaymentSupplyComponent 
+  },
+  {
+    path:'return',component:ReturnComponent 
   },
   {
     path:'',component:LoginComponent 

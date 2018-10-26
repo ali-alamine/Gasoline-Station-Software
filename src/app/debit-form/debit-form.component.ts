@@ -18,7 +18,6 @@ export class DebitFormComponent {
   clients:any;
   person;
   private debitForm: FormGroup;
-  isOpened = 0;
   private personForm;
   modalReference: any;
   rest; paid;
@@ -115,21 +114,42 @@ export class DebitFormComponent {
   }
   submitDebitFormData(){
     console.log(this.debitForm.value)
-    this.debitFormServ.addInvoice(this.debitForm.value).subscribe(Response=>{
+    // sellWashService
+    if(this.debitForm.get('type').value == 'wash')
+    {
+      this.debitFormServ.sellWashServOnDebit(this.debitForm.value).subscribe(Response=>{
 
-      /* notification message when sell sucess */
-      this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+        /* notification message when sell sucess */
+        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+  
+        /* wait 3 sec untrill notification disappear and navigate to operations */
+        if(this.debitForm.get('invoiceType').value == 'supply'){
+          setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
+        }else
+          setTimeout(()=>this.router.navigate(['/operations']),1000);
+  
+      },
+      error=>{
+        console.log("error: "+error);
+      });
+    } else{
 
-      /* wait 3 sec untrill notification disappear and navigate to operations */
-      if(this.debitForm.get('invoiceType').value == 'supply'){
-        setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
-      }else
-        setTimeout(()=>this.router.navigate(['/operations']),1000);
-
-    },
-    error=>{
-      console.log("error: "+error);
-    });
+      this.debitFormServ.addInvoice(this.debitForm.value).subscribe(Response=>{
+  
+        /* notification message when sell sucess */
+        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+  
+        /* wait 3 sec untrill notification disappear and navigate to operations */
+        if(this.debitForm.get('invoiceType').value == 'supply'){
+          setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
+        }else
+          setTimeout(()=>this.router.navigate(['/operations']),1000);
+  
+      },
+      error=>{
+        console.log("error: "+error);
+      });
+    }
   }
 
   getSelectedClientData(id){
@@ -139,8 +159,8 @@ export class DebitFormComponent {
     this.debitForm.get('amountPaid').valueChanges.subscribe(val => {
       var amountPaid = this.debitForm.get('amountPaid').value;
       var totalPrice = this.debitForm.get('totalPrice').value;
-      var debitType = this.debitForm.get('type').value;
-      this.debitForm.get('amountRest').setValue(parseInt(totalPrice) - parseInt(amountPaid));
+        if(amountPaid == '') amountPaid = 0;
+        this.debitForm.get('amountRest').setValue(parseInt(totalPrice) - amountPaid);
       
     })
   }

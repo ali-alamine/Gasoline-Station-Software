@@ -78,18 +78,64 @@
 </div> -->
 
 <div class="container-fluid">
-  <h1 style="border:solid lightblue 1px; text-align: center;">
-    <!-- <span style="float:left"><span>Name: </span><span style="color:green">{{empName}} </span></span> -->
-    <span>Current Drawer: </span><span style="color:green">3 000 000</span>
-  </h1>
-  <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
-      <mat-grid-tile class="tile-grid" (click)="selectAccounting(this.tile.text,i+1)"  
-          *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
-          [colspan]="tile.cols"
-          [rowspan]="tile.rows"
-          [style.background]="tile.color">
-          <!-- {{i+1}} -->  
-        <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/accountingIcons/{{i+1}}.png">
-      </mat-grid-tile>
-  </mat-grid-list>
+  <div class="row">
+    <div class="col-lg-6">
+      <h2>
+        <mat-form-field style="width: 100%; ">
+            <mat-select placeholder="Select employees" [formControl]="empIDForm" multiple>
+              <!-- <mat-select-trigger> -->
+                <!-- {{empForm.value ? empForm.value[0] : ''}} -->
+                <!-- <span *ngIf="empForm.value?.length > 1" class="example-additional-selection"> -->
+                  <!-- (+{{empForm.value.length - 1}} {{empForm.value?.length === 2 ? 'other' : 'others'}}) -->
+                <!-- </span> -->
+              <!-- </mat-select-trigger> -->
+              <mat-option *ngFor="let emp of employees " [value]="emp.empID">{{emp.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </h2>
+    </div>
+    <div class="col-lg-6" style="padding-top: 50px;width: 100%;">
+      <h2 >
+        <span>Current Drawer: </span>
+        <span style="color:green;">3 000 000</span>
+      </h2>
+    </div>
+  </div>
+  <!-- <h1 style="border:solid lightblue 1px; text-align: center;"> -->
+    <!-- <h2 style="border:solid lightblue 1px; text-align: center;"> -->
+
+      <!-- <div > -->
+        
+        <!-- </div> -->
+      <!-- <div > -->
+      <!-- </div> -->
+    <!-- </h2> -->
+  <!-- </h1> -->
+    <!-- <div> -->
+      <!-- <mat-form-field style="width: 20%;margin-right: 5px;">
+        <mat-select placeholder="Select employee" [(value)]="selected"> -->
+            <!-- <mat-option (onSelectionChange)="getSelectedEmployeeData($event,e)" 
+            [value]="selected.name" >{{selected.name}} -->
+             <!-- | <span style="color:red"> Amount: {{c.debitAmount}}</span> -->
+            <!-- </mat-option> -->
+          <!-- <mat-option *ngFor="let e of employees " 
+          [value]="e.name" >{{e.name}} -->
+          <!-- | <span style="color:red"> Amount: {{c.debitAmount}}</span> -->
+          <!-- (onSelectionChange)="getSelectedEmployeeData($event,e)"  -->
+          <!-- </mat-option>
+        </mat-select>
+      </mat-form-field> -->
+    <!-- </div> -->
+    <div>
+      <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
+          <mat-grid-tile class="tile-grid" (click)="selectAccounting(this.tile.text,i+1)"  
+              *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
+              [colspan]="tile.cols"
+              [rowspan]="tile.rows"
+              [style.background]="tile.color">
+              <!-- {{i+1}} -->  
+            <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/accountingIcons/{{i+1}}.png">
+          </mat-grid-tile>
+      </mat-grid-list>
+    </div>
 </div>

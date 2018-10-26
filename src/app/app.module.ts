@@ -42,6 +42,7 @@ import { MatListModule} from '@angular/material/list';
 import { AccountingDetailsComponent } from './accounting-details/accounting-details.component';
 import { PaymentCostComponent } from './payment-cost/payment-cost.component';
 import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
+import { ReturnComponent } from './return/return.component';
 @NgModule({
     declarations: [
     AppComponent,
@@ -61,7 +62,8 @@ import { PaymentSupplyComponent } from './payment-supply/payment-supply.componen
     AccountingComponent,
     AccountingDetailsComponent,
     PaymentCostComponent,
-    PaymentSupplyComponent
+    PaymentSupplyComponent,
+    ReturnComponent
   ],
   imports: [
     MatCardModule,
