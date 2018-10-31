@@ -112,6 +112,12 @@ class operation extends REST_Controller{
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,"personID"=>$personID,"note"=>$name));
         $str=$this->db->last_query();
+
+        /* add debit persone */
+        if($rest > 0){
+            $this->operation_model->add_debit_person($personID,$rest);
+        }
+        
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {

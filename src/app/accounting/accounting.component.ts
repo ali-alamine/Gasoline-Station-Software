@@ -53,7 +53,9 @@ export class AccountingComponent implements OnInit {
     this.getEmployees();
   }
   getEmployees(){
-    this.accountingServ.getAllEmp().subscribe(Response=>{
+    // var today = localStorage.getItem("sheft_date");
+    // console.log(today)
+    this.accountingServ.getTodayEmp().subscribe(Response=>{
       this.employees=Response;
     },
     error=>{
@@ -113,6 +115,11 @@ export class AccountingComponent implements OnInit {
    }
    
   }
+  // selectEmp(event){
+  //   console.log(this.empIDForm.value)
+  //   if (event.source.selected) {
+  //   }
+  // }
   // getThisShiftSummary(){
    
   // }

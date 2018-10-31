@@ -15,14 +15,17 @@
           </mat-grid-tile>
         </mat-grid-list>
   </div>
-  <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
-      <mat-grid-tile class="tile-grid" (click)="selectOperation(this.tile.text,i+1)"  
-          *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
-          [colspan]="tile.cols"
-          [rowspan]="tile.rows"
-          [style.background]="tile.color">
-          <!-- {{i+1}} -->  
-        <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/operationIcons/{{i+1}}.png">
-      </mat-grid-tile>
-  </mat-grid-list>
+  <div *ngIf="this.newShift != 'newShift'">
+
+    <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
+        <mat-grid-tile class="tile-grid" (click)="selectOperation(this.tile.text,i+1)"  
+            *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color">
+            <!-- {{i+1}} -->  
+          <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/operationIcons/{{i+1}}.png">
+        </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>

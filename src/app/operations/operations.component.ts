@@ -25,6 +25,7 @@ export interface AdminTile<adminTile>{
 export class OperationsComponent implements OnInit {
   userType:string;
   isAdmin:boolean;
+  newShift;
 
   private urlData;
   private userName;
@@ -51,9 +52,11 @@ export class OperationsComponent implements OnInit {
     //   this.userName = params['userName'] || -1;
     // });
     this.userType=localStorage.getItem('activeUser');
+    this.newShift=localStorage.getItem('newShift');
     this.userName=localStorage.getItem('userName');
     if(this.userType=='admin'){
       this.isAdmin=true;
+      // this.newShift=true;
     }else{
       this.isAdmin=false
     }

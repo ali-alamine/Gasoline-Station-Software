@@ -10,8 +10,8 @@ export class AccountingService {
   getSoldLubricants(){
     return this.httpClient.get(this.url +"invoice/getSoldLubricants");
   }
-  getAllEmp(){
+  getTodayEmp(){
     // debugger
-    return this.httpClient.post(this.url +"employee/getAllEmp",'');
+    return this.httpClient.post(this.url +"employee/getTodayEmp",'');
   }
 }
