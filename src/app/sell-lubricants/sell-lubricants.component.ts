@@ -23,11 +23,13 @@ export class SellLubricantsComponent implements OnInit {
   urlData:any;
   currentPage=1;
   invoiceType;
+  profit;
   private sellLubData={
     "itemID":"",
     "empID":"",
     "name":"",
     "price":"",
+    "totalProfit":"",
     "quantity":"",
     "totalPrice":"",
     "type":'lub',
@@ -120,7 +122,9 @@ export class SellLubricantsComponent implements OnInit {
     });
   }
   /* sell lubricant */
-  sellLub(id,name,price,quantity,totalPrice){
+  sellLub(id,name,price,cost,quantity,totalPrice){
+    this.profit = totalPrice - (quantity * cost);
+    console.log(this.profit)
     if(this.invoiceType == "supply"){
       var sellOndebit="1";
       this.sellLubData={
@@ -128,6 +132,7 @@ export class SellLubricantsComponent implements OnInit {
         "empID":this.empID,
         "name":name,
         "price":price,
+        "totalProfit":'0',
         "quantity":quantity,
         "totalPrice":totalPrice,
         "type":'lub',
@@ -139,7 +144,19 @@ export class SellLubricantsComponent implements OnInit {
     }
     else if(this.debit == 'true'){
       var sellOndebit="1";
-      this.sellLubData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'lub','isDebit':sellOndebit,"rest":"0","invoiceType":'sell'};
+      this.sellLubData={
+        "itemID":id,
+        "empID":this.empID,
+        "name":name,
+        "price":price,
+        "totalProfit":this.profit,
+        "quantity":quantity,
+        "totalPrice":totalPrice,
+        "type":'lub',
+        'isDebit':sellOndebit,
+        "rest":"0",
+        "invoiceType":'sell'
+      };
       this.router.navigate(['/debbiting'], { queryParams: this.sellLubData });
     }else{
       var sellOndebit="0";
@@ -148,6 +165,7 @@ export class SellLubricantsComponent implements OnInit {
         "empID":this.empID,
         "name":name,
         "price":price,
+        "totalProfit":this.profit,
         "quantity":quantity,
         "totalPrice":totalPrice,
         "type":'lub',

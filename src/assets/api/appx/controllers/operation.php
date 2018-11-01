@@ -33,6 +33,7 @@ class operation extends REST_Controller{
         $amount = $this->post('totalPrice');
         $type = $this->post('type');
         $price = $this->post('price');
+        $totalProfit = $this->post('totalProfit');
         $quantity = $this->post('quantity');
         $invoiceType = $this->post('invoiceType');
         
@@ -55,7 +56,7 @@ class operation extends REST_Controller{
         }
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,
+        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,'totalProfit'=>$totalProfit,"empID"=>$empID,
         "personID"=>$personID,"note"=>$comment,'isSupply'=>$isSupply));
 
         /* Get last inserted invoice ID */
@@ -68,6 +69,7 @@ class operation extends REST_Controller{
         /* update stock */
         if($invoiceType == "supply"){
            $this->operation_model->update_stock($itemID,$quantity);
+           $this->operation_model->updateCost_stock($itemID,$cost);
         }else{
            $this->operation_model->update_stock($itemID,-$quantity);
         }
@@ -102,6 +104,7 @@ class operation extends REST_Controller{
          $personID=$this->post('personID');
          $amount = $this->post('totalPrice');
          $rest=$this->post('amountRest');
+         $totalProfit = $this->post('amountPaid');
         $type = $this->post('type');
         //  $type = 'wash';
         $name='Washing: '.$this->post('name');
@@ -110,7 +113,8 @@ class operation extends REST_Controller{
         $name = $name. ' Note: '.$comment;
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,"personID"=>$personID,"note"=>$name));
+        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"totalProfit"=>$totalProfit,
+        "empID"=>$empID,"personID"=>$personID,"note"=>$name));
         $str=$this->db->last_query();
 
         /* add debit persone */
@@ -139,6 +143,7 @@ class operation extends REST_Controller{
          $empID=$this->post('empID');
          $personID=1; /* no registered client */
          $amount =$this->post('price');
+         $totalProfit =$this->post('totalProfit');
          $rest=0;
         $type = $this->post('type');
          $name=$this->post('name');
@@ -146,7 +151,8 @@ class operation extends REST_Controller{
          
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"empID"=>$empID,"personID"=>$personID,"note"=>'Washing: '.$name));
+        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,
+        "totalProfit"=>$totalProfit,"empID"=>$empID,"personID"=>$personID,"note"=>'Washing: '.$name));
         $str=$this->db->last_query();
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);

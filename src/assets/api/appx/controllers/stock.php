@@ -13,10 +13,11 @@ class stock extends REST_Controller{
         $lubName = $this->post('lubName');
         $lubInitQuan = $this->post('lubInitQuan');
         $lubSellingPrice = $this->post('lubSellingPrice');
+        $lubCostPrice = $this->post('lubCostPrice');
         $item_type = 'lub';
 
         $result = $this->stock_model->add(array("name" => $lubName, "selling_price" => $lubSellingPrice,
-        "item_type" => $item_type,"quantity"=>$lubInitQuan));
+        "item_type" => $item_type,"quantity"=>$lubInitQuan,"cost"=>$lubCostPrice));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -28,10 +29,11 @@ class stock extends REST_Controller{
         $accessName = $this->post('accessName');
         $accessInitQuan = $this->post('accessInitQuan');
         $accessSellingPrice = $this->post('accessSellingPrice');
+        $accessCostPrice = $this->post('accessCostPrice');
         $item_type = 'access';
 
         $result = $this->stock_model->add(array("name" => $accessName, "selling_price" => $accessSellingPrice,
-        "item_type" => $item_type,"quantity"=>$accessInitQuan));
+        "item_type" => $item_type,"quantity"=>$accessInitQuan,"cost"=>$accessCostPrice));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {

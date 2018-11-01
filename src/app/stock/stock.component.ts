@@ -25,11 +25,13 @@ export class StockComponent implements OnInit {
     lubName: new FormControl(''),
     lubInitQuan: new FormControl(''),
     lubSellingPrice: new FormControl(''),
+    lubCostPrice: new FormControl(''),
   });
   addAccessForm = new FormGroup({
     accessName: new FormControl(''),
     accessInitQuan: new FormControl(''),
     accessSellingPrice: new FormControl(''),
+    accessCostPrice: new FormControl(''),
   });
   isOpened = 0;
   isOpenedAccess = 0;

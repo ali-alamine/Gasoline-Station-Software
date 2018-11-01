@@ -23,12 +23,14 @@ export class SellAccessoriesComponent implements OnInit {
   urlData:any;
   invoiceType;
   debit;
+  profit;
 
   private sellAccData={
     "itemID":"",
     "empID":"",
     "name":"",
     "price":"",
+    'totalProfit':'',
     "quantity":"",
     "totalPrice":"",
     "type":'access',
@@ -120,16 +122,50 @@ export class SellAccessoriesComponent implements OnInit {
       duration: 2000,
     });
   }
-  sellAcc(id,name,price,quantity,totalPrice){
+  sellAcc(id,name,price,cost,quantity,totalPrice){
+    // console.log(totalPrice)
+    // console.log(price)
+    this.profit = totalPrice - (quantity*cost);
+    console.log(this.profit)
     if(this.invoiceType == "supply"){
-      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access',"invoiceType":this.invoiceType};
+      this.sellAccData={
+        "itemID":id,
+        "empID":this.empID,
+        "name":name,
+        "price":price,
+        "totalProfit":'0',
+        "quantity":quantity,
+        "totalPrice":totalPrice,
+        "type":'access',
+        "invoiceType":this.invoiceType
+      };
       this.router.navigate(['/debbiting'], { queryParams: this.sellAccData});
     }else if(this.debit == 'true'){
-      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access',"invoiceType":this.invoiceType};
+      this.sellAccData={
+        "itemID":id,
+        "empID":this.empID,
+        "name":name,
+        "price":price,
+        "totalProfit":this.profit,
+        "quantity":quantity,
+        "totalPrice":totalPrice,
+        "type":'access',
+        "invoiceType":this.invoiceType
+      };
       this.router.navigate(['/debbiting'], { queryParams: this.sellAccData });
     }
     else{
-      this.sellAccData={"itemID":id,"empID":this.empID,"name":name,"price":price,"quantity":quantity,"totalPrice":totalPrice,"type":'access','invoiceType':'sell'};
+      this.sellAccData={
+        "itemID":id,
+        "empID":this.empID,
+        "name":name,
+        "price":price,
+        "totalProfit": this.profit,
+        "quantity":quantity,
+        "totalPrice":totalPrice,
+        "type":'access',
+        'invoiceType':'sell'
+      };
       this.sellAccServ.addInvoice(this.sellAccData).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");

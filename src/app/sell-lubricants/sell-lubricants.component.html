@@ -36,7 +36,8 @@
                     <mat-option class="text-center" value="19">19</mat-option>
                     <mat-option class="text-center" value="20">20</mat-option>
                 </mat-select>
-                <mat-hint style="color:firebrick">Price:{{lub.selling_price}}<br> Stock:{{lub.quantity}}</mat-hint>
+                <mat-hint *ngIf="invoiceType != 'supply'" style="color:firebrick">Price:{{lub.selling_price}}<br> Stock:{{lub.quantity}}</mat-hint>
+                <mat-hint *ngIf="invoiceType == 'supply'" style="color:firebrick">Price:{{lub.cost}}<br> Stock:{{lub.quantity}}</mat-hint>
             </mat-form-field>
             </div>
             <div class="text-center" style="width:50%; margin-left: -30px">
@@ -46,7 +47,7 @@
                 <img class="tile-image UpriceArrow" src="../assets/icons/washingIcons/downArrow.png" (click)="decPrice(this.lub.selling_price,i);heightLightSelectedTile(i)">
             </div>
             <div>
-                <button style="margin-left:-20px;background-color:lightgreen" (click)="sellLub(lub.itemID,lub.name,lub.selling_price,lub.defaultQuan,lub.totalPrice)" mat-fab>
+                <button style="margin-left:-20px;background-color:lightgreen" (click)="sellLub(lub.itemID,lub.name,lub.selling_price,lub.cost,lub.defaultQuan,lub.totalPrice)" mat-fab>
                     <mat-icon style="color:firebrick" matSuffix>subdirectory_arrow_right</mat-icon>
                 </button>
             </div>

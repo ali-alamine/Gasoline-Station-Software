@@ -55,6 +55,7 @@ export class DebitFormComponent {
           empID:this.debitData.empID,
           name:this.debitData.name,
           price:this.debitData.price,
+          totalProfit:this.debitData.totalProfit,
           quantity:this.debitData.quantity,
           totalPrice:this.debitData.totalPrice,
           type:this.debitData.type,
