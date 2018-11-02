@@ -1,3 +1,161 @@
-<p>
-  accounting-details works!
-</p>
+<div class="container-fluid">
+  <mat-accordion style="margin:5px;" *ngIf="type == 'lub'">
+      <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Lubricant: {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of details" >
+              <div *ngIf="detail.rest == 0">
+                  <span style="color:black"><h5>{{detail.name}}</h5></span>
+                  <h5>: Sold {{detail.quantity}} lubricant for total {{detail.amount}}</h5>
+              </div>
+              <div *ngIf="detail.rest > 0 ">
+                  <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+              </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'access'">
+      <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Accessories: {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let detail of details" >
+                <div *ngIf="detail.rest == 0">
+                  <span style="color:black"><h5>{{detail.name}}</h5></span>
+                  <h5>: Sold {{detail.quantity}} accessories for total {{detail.amount}}</h5>
+              </div>
+              <div *ngIf="detail.rest > 0 ">
+                  <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+              </div>
+            </mat-list-item>
+          </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'wash'">
+      <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Washing: {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of details" >
+              <div *ngIf="detail.rest == 0">
+                <span style="color:black"><h5>{{detail.note}}</h5></span><h5>:  for total {{detail.amount}}</h5>
+              </div>
+              <div *ngIf="detail.rest > 0 ">
+                  <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.note}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+              </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'debits'">
+      <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Debits: {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of details" >
+            <div  *ngIf="detail.quantity != null">
+                <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: Sold {{detail.quantity}} {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+            </div>
+            <div *ngIf="detail.quantity == null && detail.type == 'wash'">
+                <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.note}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+            </div>
+            <div *ngIf="detail.quantity == null && detail.type == 'payC'">
+                <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: Payment for total {{detail.amount}}</h5>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'return'">
+      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Returns: {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of details" >
+            <span style="color:black"><h5>{{detail.clientName}} </h5></span><h5> note: {{detail.note}} return: {{detail.amount}}</h5>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'payC'">
+      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Payments: {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of details" >
+            <span style="color:black"><h5>Payment</h5></span><h5>: {{detail.note}} for total {{detail.amount}}</h5>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'all'">
+      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >All : {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of details" >
+            <span style="color:black"><h5>{{detail.name}}</h5></span><h5>: Sold 1 Items for total {{detail.amount}}</h5>
+          </mat-list-item>
+        </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'supply'">
+      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Supply : {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let detail of details" >
+                <!-- <div *ngIf="detail.rest == 0"> -->
+                    <span style="color:black"><h5>{{detail.clientName}}</h5></span>
+                    <h5>: supply {{detail.quantity}} {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+                <!-- </div>
+                <div *ngIf="detail.rest > 0 ">
+                    <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
+                </div> -->
+            </mat-list-item>
+            </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+</div>

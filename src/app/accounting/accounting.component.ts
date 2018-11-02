@@ -28,8 +28,12 @@ export class AccountingComponent implements OnInit {
   private urlData;
   employees:any;
   empIDForm = new FormControl();
+  totalDrawer; empID;
+  selected = '';
 
-  constructor(private accountingServ:AccountingService,private router: Router, private route: ActivatedRoute) { }
+  constructor(private accountingServ:AccountingService,
+    private router: Router, 
+    private route: ActivatedRoute) { }
   tiles=[
     {text: 'counters', cols: 2, rows: 1},
     {text: 'lubricants', cols: 2, rows: 1},
@@ -38,35 +42,51 @@ export class AccountingComponent implements OnInit {
     {text: 'debits', cols: 2, rows: 1},
     {text: 'paymentsCost', cols: 2, rows: 1},
     {text: 'paymentsSupply', cols: 2, rows: 1},
-    {text: 'sellAll', cols: 2, rows: 1}
+    {text: 'sellAll', cols: 2, rows: 1},
+    {text: 'return', cols: 2, rows: 1},
   ];
   ngOnInit() {
     // this.urlData = this.route.queryParams.subscribe(params => {
     //   this.empName = params['empName'] || -1;
     // });
+    this.empID=localStorage.getItem('userID');
     this.userType=localStorage.getItem('activeUser');
     if(this.userType=='admin'){
       this.isAdmin=true;
     }else{
       this.isAdmin=false
     }
+    this.getTotalDarwer();
     this.getEmployees();
+    // console.log(this.operationsComponent.getTotalDarwer(this.empID));
+  }
+  getTotalDarwer(){
+    this.accountingServ.getTotalDarwer(this.empID).subscribe(Response => {
+      // console.log(Response)
+      if(Response == null) this.totalDrawer = 0;
+      else this.totalDrawer = Response[0].total;
+      },
+      error=>{
+        alert('Error Sum drawer!')
+      }
+    );
   }
   getEmployees(){
-    // var today = localStorage.getItem("sheft_date");
-    // console.log(today)
     this.accountingServ.getTodayEmp().subscribe(Response=>{
+      // console.log(Response[0].empID)
       this.employees=Response;
+      // this.selected = Response[0].empID;
     },
     error=>{
       alert("error")
     });
   }
   selectAccounting(accountingName,i){
-    let selectedAccounting = document.getElementsByClassName('tile-grid')[i+1];
-    selectedAccounting.classList.add('selectedTile');
+    // let selectedAccounting = document.getElementsByClassName('tile-grid')[i+1];
+    // selectedAccounting.classList.add('selectedTile');
     console.log(this.empIDForm.value)
-    // console.log(this.empIDForm.value.length)
+    localStorage.setItem("empIDs",this.empIDForm.value);
+        // console.log(this.empIDForm.value.length)
 
     switch(accountingName) { 
       case "counters": { 
@@ -76,17 +96,17 @@ export class AccountingComponent implements OnInit {
       } 
       case "lubricants": { 
         console.log("lubricants")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'lubricants'} });
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'lub'} });
          break; 
       }
       case "carWashing": {
         console.log("carWashing")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'accountDetails'} });
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'wash'} });
          break; 
       } 
       case "accessories": {
         console.log("accessories")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'accessories'} });
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'access'} });
          break; 
       } 
       case "debits": {
@@ -96,19 +116,24 @@ export class AccountingComponent implements OnInit {
       }
       case "paymentsCost": {
         console.log("paymentsCost")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'paymentsCost'} });
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'payC'} });
          break; 
       }
       case "paymentsSupply": {
         console.log("paymentsSupply")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'paymentsSupply'} });
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'supply'} });
          break; 
       }
       case "sellAll": {
         console.log("sellAll")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'sellAll'} });
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'allType'} });
          break; 
       }  
+      case "return": {
+        console.log("return")
+        this.router.navigate(['/accountDetails'], { queryParams: { type:'return'} });
+         break; 
+      } 
       default: { 
          break; 
       } 

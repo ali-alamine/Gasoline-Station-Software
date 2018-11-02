@@ -83,6 +83,7 @@
       <h2>
         <mat-form-field style="width: 100%; ">
             <mat-select placeholder="Select employees" [formControl]="empIDForm" multiple>
+              <!--  [(value)]="selected" -->
               <!-- <mat-select-trigger> -->
                 <!-- {{empForm.value ? empForm.value[0] : ''}} -->
                 <!-- <span *ngIf="empForm.value?.length > 1" class="example-additional-selection"> -->
@@ -97,7 +98,7 @@
     <div class="col-lg-6" style="padding-top: 50px;width: 100%;">
       <h2 >
         <span>Current Drawer: </span>
-        <span style="color:green;">3 000 000</span>
+        <span style="color:green;">{{totalDrawer}}</span>
       </h2>
     </div>
   </div>

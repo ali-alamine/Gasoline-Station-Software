@@ -27,7 +27,7 @@ export class OperationsComponent implements OnInit {
   userType:string;
   isAdmin:boolean;
   newShift;
-  totalDrawer;
+  totalDrawer : number;
   private urlData;
   private userName;
   empID;
@@ -67,8 +67,9 @@ export class OperationsComponent implements OnInit {
   }
   getTotalDarwer(){
     this.operationServ.getTotalDarwer(this.empID).subscribe(Response => {
-      console.log(Response)
-      this.totalDrawer = Response[0].total;
+      // console.log(Response)
+      if(Response == null) this.totalDrawer = 0;
+      else this.totalDrawer = Response[0].total;
     },
     error=>{
       alert('Error Sum drawer!')
