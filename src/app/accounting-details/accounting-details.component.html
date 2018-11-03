@@ -8,16 +8,29 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-          <mat-list-item role="listitem"  *ngFor="let detail of details" >
-              <div *ngIf="detail.rest == 0">
-                  <span style="color:black"><h5>{{detail.name}}</h5></span>
-                  <h5>: Sold {{detail.quantity}} lubricant for total {{detail.amount}}</h5>
-              </div>
-              <div *ngIf="detail.rest > 0 ">
-                  <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-              </div>
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div *ngIf="detail.rest == 0">
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
+                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0 ">
+                        <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u>
+                             ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
           </mat-list-item>
+        </mat-list>
+        <mat-list role="list" *ngIf = " empType != 'admin'">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div *ngIf="detail.rest == 0">
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0">
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
+                </div>
+            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -30,17 +43,30 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-            <mat-list-item role="listitem"  *ngFor="let detail of details" >
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
                 <div *ngIf="detail.rest == 0">
-                  <span style="color:black"><h5>{{detail.name}}</h5></span>
-                  <h5>: Sold {{detail.quantity}} accessories for total {{detail.amount}}</h5>
-              </div>
-              <div *ngIf="detail.rest > 0 ">
-                  <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-              </div>
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
+                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0 ">
+                        <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
+                            ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+          </mat-list-item>
+        </mat-list>
+        <mat-list role="list" *ngIf = " empType != 'admin'">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div *ngIf="detail.rest == 0">
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0">
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
+                </div>
             </mat-list-item>
-          </mat-list>
+        </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion style="margin:5px;" *ngIf="type == 'wash'">
@@ -52,15 +78,28 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-          <mat-list-item role="listitem"  *ngFor="let detail of details" >
-              <div *ngIf="detail.rest == 0">
-                <span style="color:black"><h5>{{detail.note}}</h5></span><h5>:  for total {{detail.amount}}</h5>
-              </div>
-              <div *ngIf="detail.rest > 0 ">
-                  <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.note}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-              </div>
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div *ngIf="detail.rest == 0">
+                    <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0 ">
+                        <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
           </mat-list-item>
+        </mat-list>
+        <mat-list role="list" *ngIf = " empType != 'admin'">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div *ngIf="detail.rest == 0">
+                    <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0">
+                    <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
+                </div>
+            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -73,18 +112,36 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-          <mat-list-item role="listitem"  *ngFor="let detail of details" >
-            <div  *ngIf="detail.quantity != null">
-                <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: Sold {{detail.quantity}} {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-            </div>
-            <div *ngIf="detail.quantity == null && detail.type == 'wash'">
-                <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.note}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-            </div>
-            <div *ngIf="detail.quantity == null && detail.type == 'payC'">
-                <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: Payment for total {{detail.amount}}</h5>
-            </div>
-          </mat-list-item>
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div  *ngIf="detail.quantity != null">
+                    <h5><u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
+                        client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
+                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'wash'">
+                        <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <!-- <div *ngIf="detail.quantity == null && detail.type == 'payC'">
+                    <h5><u>{{detail.clientName}}</u>: Payment for total <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div> -->
+            </mat-list-item>
+        </mat-list>
+            <mat-list role="list" *ngIf = " empType != 'admin'">
+                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                    <div  *ngIf="detail.quantity != null">
+                        <h5><u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
+                            client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
+                    </div>
+                    <div *ngIf="detail.quantity == null && detail.type == 'wash'">
+                            <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                                rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
+                    </div>
+                    <!-- <div *ngIf="detail.quantity == null && detail.type == 'payC'">
+                        <h5><u>{{detail.clientName}}</u>: Payment for total <u>{{detail.amount}}</u></h5>
+                    </div> -->
+                </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -97,10 +154,17 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-          <mat-list-item role="listitem"  *ngFor="let detail of details" >
-            <span style="color:black"><h5>{{detail.clientName}} </h5></span><h5> note: {{detail.note}} return: {{detail.amount}}</h5>
-          </mat-list-item>
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <h5><u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+            </mat-list-item>
+        </mat-list>
+        <mat-list role="list" *ngIf = " empType != 'admin'">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+            <div *ngIf="detail.empType == 0">
+                <h5><u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u></h5>
+            </div>
+            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -113,26 +177,17 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-          <mat-list-item role="listitem"  *ngFor="let detail of details" >
-            <span style="color:black"><h5>Payment</h5></span><h5>: {{detail.note}} for total {{detail.amount}}</h5>
-          </mat-list-item>
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <h5>Payment: <u>{{detail.amount}}</u> Note: <u>{{detail.note}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+            </mat-list-item>
         </mat-list>
-      </mat-expansion-panel>
-  </mat-accordion>
-  <mat-accordion style="margin:5px;" *ngIf="type == 'all'">
-      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-              <mat-action-row>
-                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >All : {{totalAmount}}</h3>
-              </mat-action-row>
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-list role="list">
-          <mat-list-item role="listitem"  *ngFor="let detail of details" >
-            <span style="color:black"><h5>{{detail.name}}</h5></span><h5>: Sold 1 Items for total {{detail.amount}}</h5>
-          </mat-list-item>
+        <mat-list role="list" *ngIf = " empType != 'admin'">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+            <div *ngIf="detail.empType == 0">
+                <h5>Payment: <u>{{detail.amount}}</u> Note: <u>{{detail.note}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+            </div>
+            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -145,15 +200,75 @@
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list">
-            <mat-list-item role="listitem"  *ngFor="let detail of details" >
-                <!-- <div *ngIf="detail.rest == 0"> -->
-                    <span style="color:black"><h5>{{detail.clientName}}</h5></span>
-                    <h5>: supply {{detail.quantity}} {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-                <!-- </div>
-                <div *ngIf="detail.rest > 0 ">
-                    <span style="color:black"><h5>{{detail.clientName}}</h5></span><h5>: {{detail.name}} for total {{detail.amount}} Rest Amount {{detail.rest}}</h5>
-                </div> -->
+        
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                    <h5><u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </mat-list-item>
+            </mat-list>
+            <mat-list role="list" *ngIf = " empType != 'admin'">
+                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div *ngIf="detail.empType == 0">
+                    <h5><u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u></h5>
+                </div>
+                </mat-list-item>
+            </mat-list>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <mat-accordion style="margin:5px;" *ngIf="type == 'allType'">
+      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <h3 style="margin-left:550px; color: rgb(97, 64, 111);" mat-button color="primary" >Invoice : {{totalAmount}}</h3>
+              </mat-action-row>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-list role="list" *ngIf = " empType == 'admin'" >
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div  *ngIf="detail.quantity != null && detail.isSupply == 0">
+                    <h5> Time: {{detail.time}} <u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
+                        client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
+                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0">
+                        <h5> Time: {{detail.time}} <u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'payC' && detail.isSupply == 0">
+                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u>: Payment for total price <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'return' && detail.isSupply == 0">
+                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity != null && detail.isSupply == 1">
+                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+            </mat-list-item>
+        </mat-list>
+        <mat-list role="list" *ngIf = " empType != 'admin'">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+                <div  *ngIf="detail.quantity != null && detail.isSupply == 0">
+                    <h5> Time: {{detail.time}} <u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
+                        client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0">
+                        <h5> Time: {{detail.time}} <u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'payC' && detail.isSupply == 0">
+                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u>: Payment for total price <u>{{detail.amount}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity == null && detail.type == 'return' && detail.isSupply == 0">
+                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u></h5>
+                </div>
+                <div *ngIf="detail.quantity != null && detail.isSupply == 1">
+                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
+                        rest <u>{{detail.rest}}</u></h5>
+                </div>
             </mat-list-item>
             </mat-list>
       </mat-expansion-panel>

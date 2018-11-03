@@ -3,8 +3,8 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from './login.service'; 
-import { NgbModal } from '../../../node_modules/@ng-bootstrap/ng-bootstrap';
-import { formatDate } from '../../../node_modules/@angular/common';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-login',

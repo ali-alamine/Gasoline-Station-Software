@@ -17,6 +17,7 @@ import { AccountingDetailsComponent } from './accounting-details/accounting-deta
 import { PaymentCostComponent } from './payment-cost/payment-cost.component';
 import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
 import { ReturnComponent } from './return/return.component';
+import { SupplierComponent } from './supplier/supplier.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,9 @@ const routes: Routes = [
   },
   {
     path:'client',component:ClientComponent 
+  },
+  {
+    path:'supplier',component:SupplierComponent 
   },
   {
     path:'sellAcc',component:SellAccessoriesComponent 

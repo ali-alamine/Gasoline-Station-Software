@@ -21,8 +21,8 @@ class invoice extends REST_Controller{
     public function getTypeDetails_post()
     {
         $type = $this->post('type');
-        $isDebit = $this->post('isDebit');
-        $empIDs = $this->post('empIDs');
+        // $isDebit = $this->post('isDebit');
+        $empID = $this->post('empID');
 
         date_default_timezone_set("Asia/Beirut");
         $date=date("Y-m-d");
@@ -30,10 +30,10 @@ class invoice extends REST_Controller{
         $this->db->trans_begin();
 
         // for($i = 0 ; $i < $size ; $i ++){
-            $result = $this->invoice_model->getDetailInvoice($type,$empIDs,$date);
+            $result = $this->invoice_model->getDetailInvoice($type,$empID,$date);
 
         // }
-        // foreach ($empIDs as $empID) {
+        // foreach ($empID as $empID) {
         //     $result = $result + $this->invoice_model->getDetailInvoice($type,$empID,$date,$isDebit);
         // }
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl,FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { MatSnackBar} from '@angular/material';
-import { NgbModal } from '../../../node_modules/@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReturnService } from './return.service';
 
 @Component({

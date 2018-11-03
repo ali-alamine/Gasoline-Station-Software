@@ -20,6 +20,7 @@ export class SettingsComponent implements OnInit {
     {text: 'Clients', cols: 2, rows: 1},
     {text: 'setFuelPrice', cols: 2, rows: 1},
     {text: 'shiftHistory', cols: 2, rows: 1},
+    {text: 'Supplier', cols: 2, rows: 1},
   ];
   ngOnInit() {
   }
@@ -39,6 +40,10 @@ export class SettingsComponent implements OnInit {
       } 
       case "Clients": { 
         this.router.navigate(["/client"]);
+         break; 
+      } 
+      case "Supplier": { 
+        this.router.navigate(["/supplier"]);
          break; 
       } 
       default: { 

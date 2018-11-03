@@ -22,6 +22,26 @@ class person_model extends CI_Model
         // $query = $this->db->query('SELECT * FROM client WHERE name like "%'.$data.'%" LIMIT 10');
         // return $query->result();
     }
+    public function deleteClient($PID)
+    {
+        $flag = $this->checkClientInInvoices($PID);
+        if ( $flag == 0) {
+            // $this->db->where('PID', $PID);
+            $this->db->delete('person', array('PID' => $PID));
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function checkClientInInvoices($PID)
+    {
+        $this->db->select('personID');
+        $this->db->from('invoice');       
+        $this->db->where('personID', $PID);
+        $query = $this->db->get();
+        return $query->num_rows();       
+
+    }
 
 
 
@@ -43,9 +63,9 @@ class person_model extends CI_Model
         }
     }
 
-    public function update($id, $data)
+    public function update($PID, $data)
     { // used in I-print
-        $this->db->where('PID', $id);
+        $this->db->where('PID', $PID);
         if ($this->db->update('person', $data)) {
             return true;
         } else {

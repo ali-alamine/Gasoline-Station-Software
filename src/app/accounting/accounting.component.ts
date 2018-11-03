@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountingService } from './accounting.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl } from '../../../node_modules/@angular/forms';
+import { FormControl } from '@angular/forms';
 
 export interface Tile<tiles>{
   color: string;

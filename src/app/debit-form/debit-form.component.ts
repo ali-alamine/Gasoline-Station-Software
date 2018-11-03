@@ -5,7 +5,7 @@ import { map, startWith} from 'rxjs/operators';
 import { ActivatedRoute,Router } from '@angular/router';
 import { DebitFormService} from  './debit-form.service'
 import { MatSnackBar} from '@angular/material';
-import { NgbModal } from '../../../node_modules/@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-debit-form',

@@ -10,6 +10,13 @@ export class ClientService {
   addNewClient(clientData){
     return this.http.post(this.url +"addPerson",clientData);
   }
+  editClient(clientData){
+    return this.http.put(this.url +"editPerson",clientData);
+  }
+  deleteClient(PID){
+    console.log(PID)
+    return this.http.post(this.url +"deleteClient",{params:{PID:PID}});
+  }
   getAllClients(){
     return this.http.post(this.url +"getAllClients",'');
   }

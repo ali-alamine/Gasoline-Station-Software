@@ -43,6 +43,9 @@ import { AccountingDetailsComponent } from './accounting-details/accounting-deta
 import { PaymentCostComponent } from './payment-cost/payment-cost.component';
 import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
 import { ReturnComponent } from './return/return.component';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { SupplierComponent } from './supplier/supplier.component';
+
 @NgModule({
     declarations: [
     AppComponent,
@@ -63,7 +66,8 @@ import { ReturnComponent } from './return/return.component';
     AccountingDetailsComponent,
     PaymentCostComponent,
     PaymentSupplyComponent,
-    ReturnComponent
+    ReturnComponent,
+    SupplierComponent
   ],
   imports: [
     MatCardModule,
@@ -90,7 +94,8 @@ import { ReturnComponent } from './return/return.component';
     MatCheckboxModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatListModule
+    MatListModule,
+    ContextMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
