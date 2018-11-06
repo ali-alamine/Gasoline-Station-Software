@@ -5,8 +5,8 @@ class person_model extends CI_Model
     {
         $this->load->database();
     }
-    /* Get All Clients */
-    public function selectAllClient($isClient){
+    /* Get All Person */
+    public function selectAllPerson($isClient){
         
         $this->db->select("*");
         $this->db->from("person");
@@ -22,9 +22,9 @@ class person_model extends CI_Model
         // $query = $this->db->query('SELECT * FROM client WHERE name like "%'.$data.'%" LIMIT 10');
         // return $query->result();
     }
-    public function deleteClient($PID)
+    public function deletePerson($PID)
     {
-        $flag = $this->checkClientInInvoices($PID);
+        $flag = $this->checkPersonInInvoices($PID);
         if ( $flag == 0) {
             // $this->db->where('PID', $PID);
             $this->db->delete('person', array('PID' => $PID));
@@ -33,7 +33,7 @@ class person_model extends CI_Model
             return false;
         }
     }
-    public function checkClientInInvoices($PID)
+    public function checkPersonInInvoices($PID)
     {
         $this->db->select('personID');
         $this->db->from('invoice');       

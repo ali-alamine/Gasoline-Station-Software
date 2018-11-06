@@ -23,9 +23,9 @@ class person extends REST_Controller{
         }
     }
     /* get All Clients */
-    public function getAllClients_post(){
+    public function getAllPerson_post(){
         $isClient = $this->post('isClient');
-        $result = $this->person_model->selectAllClient($isClient);
+        $result = $this->person_model->selectAllPerson($isClient);
 
         if ($result === 0) {
             $this->response("Client information could not be saved. Try again.", 404);
@@ -35,9 +35,9 @@ class person extends REST_Controller{
 
     }
     /* deleted person  */
-    public function deleteClient_post(){
+    public function deletePerson_post(){
         $PID = $this->post('PID');
-        $result = $this->person_model->deleteClient($PID);
+        $result = $this->person_model->deletePerson($PID);
 
         if ($result === false) {
             $this->response("you can not", 404);
@@ -49,14 +49,14 @@ class person extends REST_Controller{
     // edits Person
     public function editPerson_put()
     {
-        $client_name = $this->put('name');
-        $client_phone = $this->put('phone');
+        $name = $this->put('name');
+        $phone = $this->put('phone');
         $debit_amount = $this->put('initDebitAmount');
         $PID = $this->put('PID');
 
-        $result = $this->person_model->update($PID, array("full_name" => $client_name, "phone_number" => $client_phone, "debitAmount" => $debit_amount));
+        $result = $this->person_model->update($PID, array("full_name" => $name, "phone_number" => $phone, "debitAmount" => $debit_amount));
         if ($result === 0) {
-            $this->response("client information could not be saved. Try again.", 404);
+            $this->response("person information could not be saved. Try again.", 404);
         } else {
             $this->response("success", 200);
         }

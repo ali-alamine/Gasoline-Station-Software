@@ -7,7 +7,7 @@ $rowsReq = (isset($_GET['length'])) ? intval($_GET['length']) : 10;
 $start = (isset($_GET['start'])) ? intval($_GET['start']) : 0;
 $orderString = "";
 
-$rowsCount = mysqli_fetch_assoc(mysqli_query(openConn(), "SELECT COUNT(PID) as exp FROM person where person_type = '".$type."' "))['exp'];
+$rowsCount = mysqli_fetch_assoc(mysqli_query(openConn(), "SELECT COUNT(PID) as exp FROM person where PID != 1 and person_type = '".$type."' "))['exp'];
 
 if (count($_GET['order'])) {
     $orderBy = $_GET['columns'][$_GET['order'][0]['column']]['data'];
@@ -18,11 +18,11 @@ if (count($_GET['order'])) {
 if (isset($_GET["search"]["value"]) && !empty($_GET["search"]["value"])) {
     $search = $_GET["search"]["value"];
 
-    $getAllFactureQuery = "select * from person  where person_type ='".$type."' and (full_name like '%" . $search . "%' OR phone_number like '%" . $search . "%' OR debitAmount like '%" . $search . "%' ) " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
+    $getAllFactureQuery = "select * from person  where PID != 1 and person_type ='".$type."' and (full_name like '%" . $search . "%' OR phone_number like '%" . $search . "%' OR debitAmount like '%" . $search . "%' ) " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
 
 } else {
 
-    $getAllFactureQuery = "select * from person  where person_type = '".$type."' " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
+    $getAllFactureQuery = "select * from person  where PID != 1 and person_type = '".$type."' " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
 
 }
 

@@ -15,9 +15,9 @@ export class ClientService {
   }
   deleteClient(PID){
     console.log(PID)
-    return this.http.post(this.url +"deleteClient",{params:{PID:PID}});
+    return this.http.post(this.url +"deletePerson",{params:{PID:PID}});
   }
-  getAllClients(){
-    return this.http.post(this.url +"getAllClients",'');
+  getAllClients(isClient){
+    return this.http.post(this.url +"getAllPerson",{params:{isClient:isClient}});
   }
 }

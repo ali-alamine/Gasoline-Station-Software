@@ -1,3 +1,43 @@
-<p>
-  supplier works!
-</p>
+<div class="container-fluid">
+  <mat-accordion class="accordion">
+      <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+              <mat-action-row>
+                  <button mat-button color="primary" >{{typeSubmit}} Supplier +</button>
+                </mat-action-row>
+              </mat-panel-title>
+        </mat-expansion-panel-header>
+       <form [formGroup]="supplierForm">
+          <mat-form-field>
+              <input  matInput placeholder="Full Name" formControlName="name" required>
+            </mat-form-field>
+        
+            <mat-form-field style="padding-left: 10px">
+              <input matInput placeholder="Contact Number" formControlName="phone">
+            </mat-form-field>
+            
+            <mat-form-field style="padding-left: 10px">
+              <input matInput type="number" step="500" placeholder="Debit Amount" formControlName="initDebitAmount" required  >
+            </mat-form-field>
+       </form>
+        <mat-action-row>
+            <button mat-button color="primary" (click)="addEditSupplier()" [disabled]="!supplierForm.valid">Submit</button>
+            <button mat-button color="warn" (click)="collapse()">Cancel</button>
+          </mat-action-row>
+      </mat-expansion-panel>
+  </mat-accordion>
+  <div><hr></div>
+  
+  <table class="table table-striped table-bordered table-hover table-sm noselect " id="suppliersDT">
+    <thead>
+    </thead>
+    <tbody #contextScope>
+    </tbody>
+  </table>
+  <p-contextMenu [target]="contextScope" [model]="items" oncontextmenu="return false;"></p-contextMenu>
+</div>
+<div hidden>
+  <button id="deleteBtn" (click)="deleteSupplier()"></button>
+  <button id="editBtn" (click)="editFlag=true;openSupplierModal()"></button>
+</div>

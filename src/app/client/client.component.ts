@@ -53,9 +53,9 @@ export class ClientComponent implements OnInit {
     this.addClientForm.reset();
     this.typeSubmit = 'Add';
   }
-  displayTable(){
-    setTimeout(function () {$(function () {$('#clientTable').DataTable();});}, 10);  
-  }
+  // displayTable(){
+  //   setTimeout(function () {$(function () {$('#clientTable').DataTable();});}, 10);  
+  // }
   addNewClient(){
     if(this.editFlag == false){
       this.clientServ.addNewClient(this.addClientForm.value).subscribe(

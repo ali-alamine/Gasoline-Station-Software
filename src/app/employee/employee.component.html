@@ -4,7 +4,7 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-action-row>
-                  <button mat-button color="primary" >Add Employee +</button>
+                  <button mat-button color="primary" >{{typeSubmit}} Employee +</button>
               </mat-action-row>
             </mat-panel-title>
           </mat-expansion-panel-header>
@@ -30,22 +30,15 @@
         </mat-expansion-panel>
     </mat-accordion>
     <div><hr></div>
-    <table id="empTable" class="table table-hover table-bordered">
-      <thead>
-        <tr class="text-center">
-          <th>Full Name</th>
-          <th>username</th>
-          <th>password</th>
-          <th>type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="text-center" *ngFor="let emp of employee; let i = index">
-            <td>{{emp.name}}</td>
-            <td>{{emp.user_name}}</td>
-            <td>{{emp.passkey}}</td>
-            <td>{{emp.user_type=='0' ? 'Employee' : 'Admin'}}</td>
-        </tr>
-      </tbody>
-    </table>
-</div>
+  <table class="table table-striped table-bordered table-hover table-sm noselect " id="employeeDT">
+    <thead>
+    </thead>
+    <tbody #contextScope>
+    </tbody>
+  </table>
+  <p-contextMenu [target]="contextScope" [model]="items" oncontextmenu="return false;"></p-contextMenu>
+  </div>
+  <div hidden>
+    <button id="deleteBtn" (click)="deleteEmployee()"></button>
+    <button id="editBtn" (click)="editFlag=true;openEmployeeModal()"></button>
+  </div>
