@@ -39,7 +39,7 @@ class stock_model extends CI_Model{
     /* Get All Accessories */
     public function selectAll_access(){
         $this->db->select("*");
-        $this->db->from("item-service");
+        $this->db->from("`item-service`");
         $this->db->where("item_type","access");
         $this->db->order_by("itemID", "DESC");
         $query = $this->db->get(); 
@@ -64,20 +64,44 @@ class stock_model extends CI_Model{
 
     /* update item data */
     public function update ($id, $data){
-        $this->db->where('IID', $id);
-        if ($this->db->update('item', $data)) {
+        $this->db->where('itemID', $id);
+        if ($this->db->update('`item-service`', $data)) {
             return true;
         } else {
             return false;
         }
     }
     /* delete new item */
-    public function delete($id){
-        $this->db->where('IID', $id);
-        if ($this->db->delete('item')) {
-            return true;
+    // public function delete($id){
+    //     $this->db->where('IID', $id);
+    //     if ($this->db->delete('item')) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+    public function deleteStock($itemID)
+    {
+        $flag = $this->checkStockInInvoices($itemID);
+        if ( $flag == 0) {
+            if ($this->db->delete('`item-service`', array('itemID' => $itemID))) {
+                        return true;
+                    } 
+                    else {
+                        return false;
+                    }
+        
         } else {
             return false;
         }
+    }
+    public function checkStockInInvoices($itemID)
+    {
+        $this->db->select('inv_ordID');
+        $this->db->from('inv_order');       
+        $this->db->where('itemID', $itemID);
+        $query = $this->db->get();
+        return $query->num_rows();       
+
     }
 }

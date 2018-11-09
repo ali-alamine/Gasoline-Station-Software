@@ -10,8 +10,7 @@ class person_model extends CI_Model
         
         $this->db->select("*");
         $this->db->from("person");
-        $this->db->where("person_type",$isClient);
-        $this->db->where("PID != 1");
+        $this->db->where("person_type = '".$isClient."' and PID != 1 " );
         $this->db->order_by("PID", "DESC");
         $query = $this->db->get(); 
         $lastQuery=$this->db->last_query();  
@@ -26,7 +25,6 @@ class person_model extends CI_Model
     {
         $flag = $this->checkPersonInInvoices($PID);
         if ( $flag == 0) {
-            // $this->db->where('PID', $PID);
             $this->db->delete('person', array('PID' => $PID));
             return true;
         } else {

@@ -53,27 +53,35 @@
             </div>
         </mat-grid-tile>
       </mat-grid-list>
-      <div style ="margin-top:55px; height:30px; float:right">
-        <mat-form-field>
-            <mat-label>Items/Page</mat-label>
-            <mat-select (selectionChange)="setItemPerPage($event.value);" class="text-center" value="12">
-                <mat-option class="text-center" value="5">5</mat-option>
-                <mat-option class="text-center" value="7">7</mat-option>
-                <mat-option class="text-center" value="8">8</mat-option>
-                <mat-option class="text-center" value="10">10</mat-option>
-                <mat-option class="text-center" value="11">11</mat-option>
-                <mat-option class="text-center" value="12">12</mat-option>
-                <mat-option class="text-center" value="13">13</mat-option>
-                <mat-option class="text-center" value="14">14</mat-option>
-                <mat-option class="text-center" value="15">15</mat-option>
-                <mat-option class="text-center" value="16">16</mat-option>
-                <mat-option class="text-center" value="17">17</mat-option>
-                <mat-option class="text-center" value="18">18</mat-option>
-                <mat-option class="text-center" value="19">19</mat-option>
-                <mat-option class="text-center" value="20">20</mat-option>
-                <mat-option class="text-center" value="{{this.totalItems}}">All</mat-option>
-            </mat-select>
-            <mat-hint style="color:black;">showing {{this.itemPerPage}} from {{this.totalItems}} </mat-hint>
-        </mat-form-field>
-      </div>
+      <!-- <div > -->
+            <div style ="margin-top:55px; height:30px; text-align:center" *ngIf="invoiceType == 'supply'">
+                <button style="background-color:lightgreen ;float:center;" (click)="sellAccRouter()" mat-fab>
+                    <mat-icon style="color:firebrick" matSuffix>arrow_forward</mat-icon>
+                </button>
+            </div>
+          <div style ="margin-top:55px; height:30px; float:right">
+            <mat-form-field>
+                <mat-label>Items/Page</mat-label>
+                <mat-select (selectionChange)="setItemPerPage($event.value);" class="text-center" value="12">
+                    <mat-option class="text-center" value="5">5</mat-option>
+                    <mat-option class="text-center" value="7">7</mat-option>
+                    <mat-option class="text-center" value="8">8</mat-option>
+                    <mat-option class="text-center" value="10">10</mat-option>
+                    <mat-option class="text-center" value="11">11</mat-option>
+                    <mat-option class="text-center" value="12">12</mat-option>
+                    <mat-option class="text-center" value="13">13</mat-option>
+                    <mat-option class="text-center" value="14">14</mat-option>
+                    <mat-option class="text-center" value="15">15</mat-option>
+                    <mat-option class="text-center" value="16">16</mat-option>
+                    <mat-option class="text-center" value="17">17</mat-option>
+                    <mat-option class="text-center" value="18">18</mat-option>
+                    <mat-option class="text-center" value="19">19</mat-option>
+                    <mat-option class="text-center" value="20">20</mat-option>
+                    <mat-option class="text-center" value="{{this.totalItems}}">All</mat-option>
+                </mat-select>
+                <mat-hint style="color:black;">showing {{this.itemPerPage}} from {{this.totalItems}} </mat-hint>
+            </mat-form-field>
+          </div>
+      <!-- /</div> -->
+
 </div>

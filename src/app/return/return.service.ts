@@ -8,7 +8,7 @@ export class ReturnService {
   constructor(private http:HttpClient) { }
   getAllClients(isClient){
     // debugger
-    return this.http.post(this.url +"person/getAllClients",{isClient:isClient});
+    return this.http.post(this.url +"person/getAllPerson",{isClient:isClient});
   }
   addReturnInvoice(data){
     return this.http.post(this.url +"operation/addReturnInvoice",data);

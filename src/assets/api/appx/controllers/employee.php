@@ -58,7 +58,7 @@ class employee extends REST_Controller{
     }
     
     /* add new employee */
-    public function addNewClient_post(){
+    public function addNewEmployee_post(){
         $full_name = $this->post('empFullName');
         $empUserName = $this->post('empUserName');
         $empPassword = $this->post('empPassword');
@@ -82,5 +82,32 @@ class employee extends REST_Controller{
             $this->response($result, 200);
         }
 
+    } /* deleted employee  */
+    public function deleteEmployee_post(){
+        $empID = $this->post('empID');
+        $result = $this->employee_model->deletePerson($empID);
+
+        if ($result === false) {
+            $this->response("you can not", 404);
+        } else {
+            $this->response("success", 200);
+        }
+
+    }
+    // edits Employee
+    public function editEmployee_put()
+    {
+        $empFullName = $this->put('empFullName');
+        $empUserName = $this->put('empUserName');
+        $empPassword = $this->put('empPassword');
+        $empID = $this->put('empID');
+
+        $result = $this->employee_model->update($empID, array("name" => $empFullName, 
+        "user_name" => $empUserName, "passkey" => $empPassword));
+        if ($result === 0) {
+            $this->response("employee information could not be saved. Try again.", 404);
+        } else {
+            $this->response("success", 200);
+        }
     }
 }

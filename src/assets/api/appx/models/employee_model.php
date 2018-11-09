@@ -104,4 +104,36 @@ class employee_model extends CI_Model{
         $query = $this->db->get(); 
         return $query->result();
     }
+    //delete employee
+    public function deleteEmployee($empID)
+    {
+        $flag = $this->checkEmployeeInShift($empID);
+        if ( $flag == 0) {
+            $this->db->where('empID', $empID);
+            $this->db->delete('employee', array('empID' => $empID));
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function checkEmployeeInShift($empID)
+    {
+        $this->db->select('empID');
+        $this->db->from('shift');       
+        $this->db->where('empID', $empID);
+        $query = $this->db->get();
+        return $query->num_rows();       
+
+    }
+    //edit employee
+    public function update($empID, $data)
+    { 
+        $this->db->where('empID', $empID);
+        if ($this->db->update('employee', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

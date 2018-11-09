@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { FormControl,FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormControl,FormGroup, FormBuilder, Validators, FormArray} from '@angular/forms';
 import { Observable} from 'rxjs';
 import { map, startWith} from 'rxjs/operators';
 import { ActivatedRoute,Router } from '@angular/router';
 import { DebitFormService} from  './debit-form.service'
 import { MatSnackBar} from '@angular/material';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SellAccessoriesComponent } from '../sell-accessories/sell-accessories.component';
 
 @Component({
   selector: 'app-debit-form',
@@ -14,13 +15,14 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class DebitFormComponent {
   private urlData;
-  debitData:any;
+  debitData :any;
   clients:any;
   person;
-  private debitForm: FormGroup;
+  private debitForm : FormGroup;
   private personForm;
   modalReference: any;
   rest; paid;
+  private typePage;
   
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -30,41 +32,58 @@ export class DebitFormComponent {
     private fb: FormBuilder){}
 
   ngOnInit(){
-    
+    this.debitData =SellAccessoriesComponent.accForm.value;
+    console.log(this.debitData)
     this.urlData = this.route.queryParams.subscribe(params => {
-      this.debitData = params|| -1; 
-      if(this.debitData != -1){
-        if(this.debitData.invoiceType == 'supply'){
-          this.person="Supply Name"
-          this.getClients(0);
-          this.rest = 0;
-          this.paid = this.debitData.totalPrice;
-        } else{
-          this.getClients(1);
-          this.person="Client";
-          this.paid = 0;
-          this.rest = this.debitData.totalPrice;
-        } 
-        this.debitForm = this.fb.group({
-          personID : [],
-          personName: ['', Validators.required],
-          amountPaid: [this.paid, Validators.required],
-          amountRest: [this.rest, Validators.required],
-          comment: [''],
-          itemID:this.debitData.itemID,
-          empID:this.debitData.empID,
-          name:this.debitData.name,
-          price:this.debitData.price,
-          totalProfit:this.debitData.totalProfit,
-          quantity:this.debitData.quantity,
-          totalPrice:this.debitData.totalPrice,
-          type:this.debitData.type,
-          invoiceType: this.debitData.invoiceType,
-          isCash: this.debitData.isCash
-        });
-      }
-      this.onDebitAmountChange();
+      this.typePage = params['pageType']|| -1; 
     });
+    if(this.typePage == "supplyAccess"){
+      this.debitForm = this.fb.group({
+        empID: this.debitData.empID,
+        type:this.debitData.type,
+        invoiceType: this.debitData.invoiceType,
+        personID : '',
+        personName: ['', Validators.required],
+        amountPaid: [0, Validators.required],
+        amountRest: [0, Validators.required],
+        comment: '',
+        items: this.fb.array([])
+      });
+      this.debitData.items.forEach(element => {
+        const item = this.fb.group({
+          itemID:element['itemID'],
+          name:element['name'],
+          price:element['price'],
+          totalProfit:element['totalProfit'],
+          quantity:element['quantity'],
+          totalPrice:element['totalPrice'],
+          // isCash: [element['isCash']]      
+        });
+        this.itemsForm.push(item);
+      });
+    }else if(this.typePage == "sellAccess"){
+      this.debitForm = this.fb.group({
+        empID: this.debitData.empID,
+        type:this.debitData.type,
+        invoiceType: this.debitData.invoiceType,
+        personID : '',
+        personName: ['', Validators.required],
+        amountPaid: [0, Validators.required],
+        amountRest: [this.debitData.items[0].totalPrice, Validators.required],
+        comment: '',
+        items: this.fb.array([{
+          itemID:this.debitData.items[0].itemID,
+          name:this.debitData.items[0].name,
+          price:this.debitData.items[0].price,
+          totalProfit:this.debitData.items[0].totalProfit,
+          quantity:this.debitData.items[0].quantity,
+          totalPrice:this.debitData.items[0].totalPrice,
+          // isCash: [SellAccessoriesComponent.accForm[0].value.isCash]      
+        }])
+      });
+    }
+    console.log(this.debitForm.value)
+    this.onDebitAmountChange();
   }
   openPersonModal(personModal) {
     this.modalReference = this.modalService.open(personModal, { centered: true, ariaLabelledBy: 'modal-basic-title' });
@@ -96,7 +115,6 @@ export class DebitFormComponent {
     });
   }
   addPerson(){
-    console.log(this.personForm.value)
     this.debitFormServ.addPerson(this.personForm.value).subscribe(Response=>{
       if(this.debitForm.get('invoiceType').value == 'supply')
         this.getClients(0)
@@ -104,8 +122,6 @@ export class DebitFormComponent {
         this.getClients(1);
       this.debitForm.get('personName').setValue(this.personForm.get('name').value);
       this.debitForm.get('personID').setValue(Response);
-      // document.getElementById("delDate").focus();
-      console.log(this.debitForm.value)
       this.modalReference.close();
       },
     error=>{
@@ -114,8 +130,6 @@ export class DebitFormComponent {
 
   }
   submitDebitFormData(){
-    console.log(this.debitForm.value)
-    // sellWashService
     if(this.debitForm.get('type').value == 'wash')
     {
       this.debitFormServ.sellWashServOnDebit(this.debitForm.value).subscribe(Response=>{
@@ -183,6 +197,9 @@ export class DebitFormComponent {
   }
   get invoiceType() {
     return this.debitForm.get('invoiceType');
+  }
+  get itemsForm() {
+    return this.debitForm.get('items') as FormArray
   }
 
 }

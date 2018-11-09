@@ -10,7 +10,14 @@ export class EmployeeService {
   getAllEmp(){
     return this.http.post(this.url +"getAllEmp",'');
   }
-  addNewClient(empData){
-    return this.http.post(this.url +"addNewClient",empData);
+  addNewEmployee(empData){
+    return this.http.post(this.url +"addNewEmployee",empData);
+  }
+  editEmployee(data){
+    return this.http.put(this.url +"editEmployee",data);
+  }
+  deleteEmployee(empID){
+    console.log(empID)
+    return this.http.post(this.url +"deleteEmployee",{params:{empID:empID}});
   }
 }

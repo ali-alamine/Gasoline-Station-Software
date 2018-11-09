@@ -17,7 +17,7 @@ if (count($_GET['order'])) {
 if (isset($_GET["search"]["value"]) && !empty($_GET["search"]["value"])) {
     $search = $_GET["search"]["value"];
 
-    $getAllFactureQuery = "select * from employee  where full_name like '%" . $search . "%' OR phone_number like '%" . $search . "%' OR debitAmount like '%" . $search . "%' " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
+    $getAllFactureQuery = "select * from employee  where name like '%" . $search . "%' OR user_name like '%" . $search . "%' OR passkey like '%" . $search . "%' " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
 
 } else {
 
@@ -37,7 +37,7 @@ if ($getAllFactureQuerySQL) {
             $jsonData = $jsonData . '{"empID":"' . $row['empID'] . '",';
             $jsonData = $jsonData . '"name":"' . $row['name'] . '",';
             $jsonData = $jsonData . '"user_name":"' . $row['user_name'] . '",';
-            $jsonData = $jsonData . '"passKey":"' . $row['passKey'] . '",';
+            $jsonData = $jsonData . '"passkey":"' . $row['passkey'] . '",';
             $jsonData = $jsonData . '"user_type":"' . $row['user_type'] . '"}';
         }
     }

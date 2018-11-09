@@ -10,14 +10,14 @@ class stock extends REST_Controller{
 
     /* Add new lubricants with initial quantity */
     public function addNewLub_post(){
-        $lubName = $this->post('lubName');
-        $lubInitQuan = $this->post('lubInitQuan');
-        $lubSellingPrice = $this->post('lubSellingPrice');
-        $lubCostPrice = $this->post('lubCostPrice');
+        $name = $this->post('name');
+        $quantity = $this->post('quantity');
+        $selling = $this->post('selling');
+        $cost = $this->post('cost');
         $item_type = 'lub';
 
-        $result = $this->stock_model->add(array("name" => $lubName, "selling_price" => $lubSellingPrice,
-        "item_type" => $item_type,"quantity"=>$lubInitQuan,"cost"=>$lubCostPrice));
+        $result = $this->stock_model->add(array("name" => $name, "selling_price" => $selling,
+        "item_type" => $item_type,"quantity"=>$quantity,"cost"=>$cost));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -26,14 +26,14 @@ class stock extends REST_Controller{
     }
     /* Add new accessorie with initial quantity */
     public function addNewAccess_post(){
-        $accessName = $this->post('accessName');
-        $accessInitQuan = $this->post('accessInitQuan');
-        $accessSellingPrice = $this->post('accessSellingPrice');
-        $accessCostPrice = $this->post('accessCostPrice');
+        $name = $this->post('name');
+        $quantity = $this->post('quantity');
+        $selling = $this->post('selling');
+        $cost = $this->post('cost');
         $item_type = 'access';
 
-        $result = $this->stock_model->add(array("name" => $accessName, "selling_price" => $accessSellingPrice,
-        "item_type" => $item_type,"quantity"=>$accessInitQuan,"cost"=>$accessCostPrice));
+        $result = $this->stock_model->add(array("name" => $name, "selling_price" => $selling,
+        "item_type" => $item_type,"quantity"=>$quantity,"cost"=>$cost));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -98,4 +98,32 @@ class stock extends REST_Controller{
             $this->response($jsonData, 200);
         }
     } 
+    /* deleted stock  */
+    public function deleteStock_post(){
+        $itemID = $this->post('itemID');
+        $result = $this->stock_model->deleteStock($itemID);
+
+        if ($result == false) {
+            $this->response("you can not", 404);
+        } else {
+            $this->response("success", 200);
+        }
+
+    }
+    // edits stock
+    public function editStock_put()
+    {
+        $name = $this->put('name');
+        $quantity = $this->put('quantity');
+        $selling = $this->put('selling');
+        $cost = $this->put('cost');
+        $itemID = $this->put('itemID');
+
+        $result = $this->stock_model->update($itemID, array("name" => $name, "quantity" => $quantity, "selling_price" => $selling,'cost'=> $cost));
+        if ($result === 0) {
+            $this->response("person information could not be saved. Try again.", 404);
+        } else {
+            $this->response("success", 200);
+        }
+    }
 }

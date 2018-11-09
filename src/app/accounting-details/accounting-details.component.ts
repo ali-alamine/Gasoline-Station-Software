@@ -18,25 +18,25 @@ export class AccountingDetailsComponent implements OnInit {
   isOpened = 0;
   empType;
   selectedDetails = new Array();
+  AccountingComponent : AccountingComponent;
+  empIDs;
   constructor(private router: Router, private route: ActivatedRoute,private accountingServ:AccountingService,) { }
 
   ngOnInit() {
     this.urlData = this.route.queryParams.subscribe(params => {
       this.type = params['type'] || -1;
-      // this.isDebit = params['isDebit'] || -1;
     });
     this.empID=localStorage.getItem('userID');
     this.empType=localStorage.getItem('activeUser');
-    // if(this.userType=='admin'){
-    // this.empIDs=localStorage.getItem('empIDs');
-    console.log(this.empID)
+    this.empIDs=localStorage.getItem('empIDs');
     this.getTypeDetails();
-    // console.log(AccountingComponent.empIDForm.value)
+    var tableau=this.empIDs.split(',');
+    console.log(tableau);
   }
   getTypeDetails(){
     let data={"type":this.type,"empID":this.empID};
     this.accountingServ.getTypeDetails(data).subscribe(Response=>{
-      console.log(Response)
+      // console.log(Response)
       if(Response!=0){
         // debugger
         this.details=Response;

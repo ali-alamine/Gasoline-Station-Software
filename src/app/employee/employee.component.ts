@@ -6,6 +6,7 @@ declare var $: any;
 import 'datatables.net';
 import 'datatables.net-bs4';
 import { MenuItem } from '../../../node_modules/primeng/api';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-employee',
@@ -18,7 +19,6 @@ export class EmployeeComponent implements OnInit {
   isOpened = 0;
   private static selectedRowData;
   private static selectedEmployeeID;
-  editedEmployeeData = {};
   private globalEmployeeDT;
   items: MenuItem[];
   editFlag = false;
@@ -31,6 +31,8 @@ export class EmployeeComponent implements OnInit {
   collapse() {
     this.isOpened=0;
     this.addEmpForm.reset();
+    this.editFlag = false;
+    this.typeSubmit = 'Add';
   }
   addEmpForm = new FormGroup({
     empFullName: new FormControl(''),
@@ -86,19 +88,19 @@ export class EmployeeComponent implements OnInit {
       columns: [
         { data: "empID", title: "ID" },
         { data: "name", title: "Full Name" },
-        { data: "user_name", title: "username" },
-        { data: "passKey", title: "password"},
-        { data: "userType", title: "type"}
+        { data: "user_name", title: "Username" },
+        { data: "passkey", title: "Password"},
+        { data: "user_type", title: "Type"}
 
       ],
       "columnDefs": [
         {
           "targets": 4,
-          "data": "userType",
+          "data": "user_type",
           "render": function (data, type, rowData, meta) {
-            if (data == '0') {
+            if (data == 0) {
               return 'Employee';
-            } else{
+            } else if (data == 1){
               return 'Admin';
             }    
           }
@@ -135,7 +137,7 @@ export class EmployeeComponent implements OnInit {
         var ID = subscriberDataTable.row(indexes).data()['PID'];
         var name = subscriberDataTable.row(indexes).data()['full_name'];
         EmployeeComponent.selectedEmployeeID = ID;
-        // ClientComponent.selectedClientName = name;
+        // EmployeeComponent.selectedClientName = name;
       }
       else if (type === 'column') {
         EmployeeComponent.selectedEmployeeID = -1;
@@ -158,18 +160,79 @@ export class EmployeeComponent implements OnInit {
 
   }
   addNewEmployee(){
-    this.empServ.addNewClient(this.addEmpForm.value).subscribe(
-      Response=>{
-      this.openSnackBar(this.addEmpForm.value['empFullName'], "Successfully Added");
-      
-      /* START- collapse accordion and rest form values */
-      this.isOpened=0;
-      this.addEmpForm.reset();
-      /* END- collapse accordion and rest form values */
-      this.getAllEmp();
-    },
-    error=>{
-      alert("error");
+    if(this.editFlag == false){
+      this.empServ.addNewEmployee(this.addEmpForm.value).subscribe(
+        Response=>{
+        this.openSnackBar(this.addEmpForm.value['empFullName'], "Successfully Added");
+        
+        /* START- collapse accordion and rest form values */
+        this.isOpened=0;
+        this.addEmpForm.reset();
+        /* END- collapse accordion and rest form values */
+        this.globalEmployeeDT.ajax.reload(null, false);
+      },
+      error=>{
+        alert("error");
+      });
+    } else{
+      this.empServ.editEmployee(this.addEmpForm.value).subscribe(
+        Response=>{
+          this.openSnackBar(this.addEmpForm.value['empFullName'], "Successfully Edit");
+          /* START- collapse accordion and rest form values */
+          this.isOpened=0;
+          this.addEmpForm.reset();
+          this.editFlag = true;
+          this.typeSubmit = 'Add';
+          /* END- collapse accordion and rest form values */
+              this.globalEmployeeDT.ajax.reload(null, false);
+      },
+      error=>{
+        alert("error");
+      });
+    }
+    
+  }
+  openEmployeeModal() {
+      this.typeSubmit = "Edit";
+      this.addEmpForm.get('empFullName').setValue(EmployeeComponent.selectedRowData["name"]);
+      this.addEmpForm.get('empUserName').setValue(EmployeeComponent.selectedRowData["user_name"]);
+      this.addEmpForm.get('empPassword').setValue(EmployeeComponent.selectedRowData["passkey"]);
+  }
+  deleteEmployee() {
+    console.log(EmployeeComponent.selectedEmployeeID)
+    Swal({
+      title: "Delete",
+      text: "you really want to delete?",
+      type: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes!",
+      cancelButtonText: "No"
+    }).then(result => {
+      if (result.value) {
+        this.empServ
+          .deleteEmployee(EmployeeComponent.selectedEmployeeID)
+          .subscribe(
+            Response => {
+              this.globalEmployeeDT.ajax.reload(null, false);
+              Swal({
+                type: "success",
+                title: "Success",
+                showConfirmButton: false,
+                timer: 1000
+              });
+            },
+            error => {
+              Swal({
+                type: "error",
+                title: "Warning",
+                text: "This customer is in invoices",
+                confirmButtonText: "Ok",
+    });
+            }
+          );
+      }
     });
   }
   

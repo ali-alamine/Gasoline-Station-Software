@@ -49,6 +49,7 @@ export class SupplierComponent implements OnInit {
   collapse() {
     this.isOpened=0;
     this.supplierForm.reset();
+    this.editFlag = false;
     this.typeSubmit = 'Add';
   }
   // displayTable(){

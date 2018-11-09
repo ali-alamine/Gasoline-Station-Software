@@ -24,5 +24,11 @@ export class StockService {
   getAllFuelContainers(){
     return this.http.get(this.url +"getAllFuelContainers");
   }
+  editStock(data){
+    return this.http.put(this.url +"editStock",data);
+  }
+  deleteStock(itemID){
+    return this.http.post(this.url +"deleteStock",{params:{itemID:itemID}});
+  }
 
 }

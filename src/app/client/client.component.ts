@@ -51,6 +51,7 @@ export class ClientComponent implements OnInit {
   collapse() {
     this.isOpened=0;
     this.addClientForm.reset();
+    this.editFlag = false;
     this.typeSubmit = 'Add';
   }
   // displayTable(){

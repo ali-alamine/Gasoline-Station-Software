@@ -18,7 +18,7 @@
               <mat-form-field style="padding-left: 10px">
                 <input formControlName="empPassword" matInput placeholder="Password" required>
               </mat-form-field>
-                <mat-checkbox formControlName="empType" tyle="padding-left: 10px" class="example-margin" [(ngModel)]="checked">
+                <mat-checkbox *ngIf="editFlag == false" formControlName="empType" tyle="padding-left: 10px" class="example-margin" [(ngModel)]="checked">
                   Admin
                 </mat-checkbox>
 
