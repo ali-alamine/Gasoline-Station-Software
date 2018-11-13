@@ -29,7 +29,7 @@ export class AccountingComponent implements OnInit {
   employees:any;
   empIDForm = new FormControl();
   totalDrawer; empID;
-  selected = '';
+  checked;
 
   constructor(private accountingServ:AccountingService,
     private router: Router, 
@@ -46,23 +46,18 @@ export class AccountingComponent implements OnInit {
     {text: 'return', cols: 2, rows: 1},
   ];
   ngOnInit() {
-    // this.urlData = this.route.queryParams.subscribe(params => {
-    //   this.empName = params['empName'] || -1;
-    // });
     this.empID=localStorage.getItem('userID');
     this.userType=localStorage.getItem('activeUser');
     if(this.userType=='admin'){
       this.isAdmin=true;
+      this.getEmployees();
     }else{
       this.isAdmin=false
     }
     this.getTotalDarwer();
-    this.getEmployees();
-    // console.log(this.operationsComponent.getTotalDarwer(this.empID));
   }
   getTotalDarwer(){
     this.accountingServ.getTotalDarwer(this.empID).subscribe(Response => {
-      // console.log(Response)
       if(Response == null) this.totalDrawer = 0;
       else this.totalDrawer = Response[0].total;
       },
@@ -73,21 +68,15 @@ export class AccountingComponent implements OnInit {
   }
   getEmployees(){
     this.accountingServ.getTodayEmp().subscribe(Response=>{
-      // console.log(Response[0].empID)
       this.employees=Response;
-      // this.selected = Response[0].empID;
+      this.checked = [this.empID];
     },
     error=>{
       alert("error")
     });
   }
   selectAccounting(accountingName,i){
-    // let selectedAccounting = document.getElementsByClassName('tile-grid')[i+1];
-    // selectedAccounting.classList.add('selectedTile');
-    console.log(this.empIDForm.value)
     localStorage.setItem("empIDs",this.empIDForm.value);
-        // console.log(this.empIDForm.value.length)
-
     switch(accountingName) { 
       case "counters": { 
         console.log("counters")

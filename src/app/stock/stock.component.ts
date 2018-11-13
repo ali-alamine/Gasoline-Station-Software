@@ -27,15 +27,13 @@ export class StockComponent implements OnInit {
     itemID: new FormControl(''),
     name: new FormControl(''),
     quantity: new FormControl(''),
-    selling: new FormControl(''),
-    cost: new FormControl(''),
+    selling: new FormControl('')
   });
   addAccessForm = new FormGroup({
     itemID: new FormControl(''),
     name: new FormControl(''),
     quantity: new FormControl(''),
-    selling: new FormControl(''),
-    cost: new FormControl(''),
+    selling: new FormControl('')
   });
   isOpened = 0;
   isOpenedAccess = 0;
@@ -327,7 +325,7 @@ export class StockComponent implements OnInit {
       this.addLubForm.get('name').setValue(StockComponent.selectedRowLubData["name"]);
       this.addLubForm.get('quantity').setValue(StockComponent.selectedRowLubData["quantity"]);
       this.addLubForm.get('selling').setValue(StockComponent.selectedRowLubData["selling_price"]);
-      this.addLubForm.get('cost').setValue(StockComponent.selectedRowLubData["cost"]);
+      // this.addLubForm.get('cost').setValue(StockComponent.selectedRowLubData["cost"]);
   }
   openAccessModal() {
     this.typeSubmitAccess = "Edit";
@@ -335,7 +333,7 @@ export class StockComponent implements OnInit {
     this.addAccessForm.get('name').setValue(StockComponent.selectedRowAccessData["name"]);
     this.addAccessForm.get('quantity').setValue(StockComponent.selectedRowAccessData["quantity"]);
     this.addAccessForm.get('selling').setValue(StockComponent.selectedRowAccessData["selling_price"]);
-    this.addAccessForm.get('cost').setValue(StockComponent.selectedRowAccessData["cost"]);
+    // this.addAccessForm.get('cost').setValue(StockComponent.selectedRowAccessData["cost"]);
   }
   deleteLub() {
     Swal({

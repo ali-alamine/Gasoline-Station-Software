@@ -11,11 +11,10 @@ export class ClientService {
     return this.http.post(this.url +"addPerson",clientData);
   }
   editClient(clientData){
-    return this.http.put(this.url +"editPerson",clientData);
+    return this.http.post(this.url +"editPerson",clientData);
   }
   deleteClient(PID){
-    console.log(PID)
-    return this.http.post(this.url +"deletePerson",{params:{PID:PID}});
+    return this.http.get(this.url +"deletePerson",{params:{PID:PID}});
   }
   getAllClients(isClient){
     return this.http.post(this.url +"getAllPerson",{params:{isClient:isClient}});

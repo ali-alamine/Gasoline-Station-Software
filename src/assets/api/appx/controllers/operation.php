@@ -17,42 +17,34 @@ class operation extends REST_Controller{
         $today_date=$y."-".$m."-".$d."-".$time;
         /*END - Get Current Date Time */
 
-        $rest = $this->post('amountRest');
-        if($rest == null){
-            $rest = 0; /* refer to sell on cash */
-        } 
-        $itemID=$this->post('itemID');
-        $comment=$this->post('comment');
-        $empID = $this->post('empID');
         $personID = $this->post('personID');
         if($personID == null){
             $personID = 1 ;  /* refer to client debit sell */
         }
-       
-        $itemName = $this->post('name');
-        $amount = $this->post('totalPrice');
+        $items = $this->post('items');
+        $empID = $this->post('empID');
         $type = $this->post('type');
-        $price = $this->post('price');
-        $totalProfit = $this->post('totalProfit');
-        $quantity = $this->post('quantity');
+        $comment=$this->post('commit');
         $invoiceType = $this->post('invoiceType');
-        
-        /* check Type invoice */
-        if($invoiceType == "supply"){
-            $isSupply = 1;
-            $cost=$price;
-            $price = 0 ;
-        }
-        else{
-            $isSupply = 0;
-            $cost=0;
-        }
+        $rest = $this->post('amountRest');
+        $paid = $this->post('amountPaid');
+        $amount = $rest + $paid;
+        $totalProfit = $this->post('totalProfit');
+        if($rest == null){
+            $rest = 0; /* refer to sell on cash */
+        } 
         /* start execut querys */ 
         $this->db->trans_begin();
-
+        
         /* add debit persone */
         if($rest > 0){
             $this->operation_model->add_debit_person($personID,$rest);
+        }
+        /* check Type invoice */
+        if($invoiceType == "supply"){
+            $isSupply = 1;
+        }else{
+            $isSupply = 0;
         }
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
@@ -63,16 +55,30 @@ class operation extends REST_Controller{
         $invID = $this->db->insert_id(); 
 
         /* insert into inv_order */
-        $this->operation_model->add_inv_order(array("invID"=>$invID,
-        "itemID" => $itemID,'quantity'=>$quantity,'cost'=>$cost,'price'=>$price));
+        foreach($items as $row){
+            $itemID=$row['itemID'];
+            $itemName = $row['name'];
+            $quantity = $row['quantity'];
+            $price = $row['price'];
 
-        /* update stock */
-        if($invoiceType == "supply"){
-           $this->operation_model->update_stock($itemID,$quantity);
-           $this->operation_model->updateCost_stock($itemID,$cost);
-        }else{
-           $this->operation_model->update_stock($itemID,-$quantity);
+            /* update stock */
+            if($invoiceType == "supply"){
+                $cost=$price;
+                $price = 0 ;
+                $avgCost=$this->operation_model->calculate_avg_cost($itemID,$quantity,$cost);
+                $this->operation_model->update_stock($itemID,$quantity);
+                $this->operation_model->updateCost_stock($itemID,$avgCost);
+            }
+            else if($invoiceType != "supply"){
+                $cost=0;
+                $this->operation_model->update_stock($itemID,-$quantity);
+            }
+
+            /* add inv Order*/ 
+            $this->operation_model->add_inv_order(array("invID"=>$invID,
+            "itemID" => $itemID,'quantity'=>$quantity,'cost'=>$cost,'price'=>$price));
         }
+
 
         /* End execut querys */ 
         if ($this->db->trans_status() === false) {
@@ -81,13 +87,7 @@ class operation extends REST_Controller{
         } else {
             $this->db->trans_commit();
             $this->response("success", 200);
-        }
-        // if ($result === 0) {
-        //     $this->response("Item information could not be saved. Try again.", 404);
-        // } else {
-        //     $this->response("success", 200);
-        // }
-        
+        }        
     }
     /* sell wash service on debit */
     public function sellWashServiceOnDebit_post(){
@@ -100,14 +100,14 @@ class operation extends REST_Controller{
          $today_date=$y."-".$m."-".$d."-".$time;
          /*END - Get Current Date Time */
 
-         $empID=$this->post('empID');
-         $personID=$this->post('personID');
-         $amount = $this->post('totalPrice');
-         $rest=$this->post('amountRest');
-         $totalProfit = $this->post('amountPaid');
+        $empID=$this->post('empID');
+        $personID=$this->post('personID');
+        $amount = $this->post('totalPrice');
+        $rest=$this->post('amountRest');
+        $totalProfit = $this->post('totalPrice');
         $type = $this->post('type');
         //  $type = 'wash';
-        $name='Washing: '.$this->post('name');
+        $name='Washing: '.$this->post('nameCar');
         $comment=$this->post('comment');
         if($comment != '')
         $name = $name. ' Note: '.$comment;
@@ -140,13 +140,13 @@ class operation extends REST_Controller{
          /*END - Get Current Date Time */
 
 
-         $empID=$this->post('empID');
-         $personID=1; /* no registered client */
-         $amount =$this->post('price');
-         $totalProfit =$this->post('totalProfit');
-         $rest=0;
+        $empID=$this->post('empID');
+        $personID=1; /* no registered client */
+        $amount =$this->post('totalPrice');
+        $totalProfit =$this->post('totalPrice');
+        $rest=0;
         $type = $this->post('type');
-         $name=$this->post('name');
+        $name=$this->post('nameCar');
 
          
         /* insert into invoice  */

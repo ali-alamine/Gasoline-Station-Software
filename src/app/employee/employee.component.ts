@@ -39,6 +39,7 @@ export class EmployeeComponent implements OnInit {
     empUserName: new FormControl(''),
     empPassword: new FormControl(''),
     empType: new FormControl(''),
+    empID: new FormControl(''),
   })
 
   private globalDataTable;
@@ -57,13 +58,6 @@ export class EmployeeComponent implements OnInit {
   //   setTimeout(function () {$(function () {$('#empTable').DataTable();});}, 10);  
   // }
   getAllEmp(){
-    // this.empServ.getAllEmp().subscribe(Response=>{
-    //   empServ => this.employee = empServ; this.employee=Response;
-    //   this.displayTable();
-    // },
-    //   error=>{
-    //     alert("error")
-    //   });
     var subscriberDataTable = $('#employeeDT').DataTable({
       responsive: false,
       paging: true,
@@ -134,7 +128,7 @@ export class EmployeeComponent implements OnInit {
 
       if (type === 'row') {
         EmployeeComponent.selectedRowData = subscriberDataTable.row(indexes).data();
-        var ID = subscriberDataTable.row(indexes).data()['PID'];
+        var ID = subscriberDataTable.row(indexes).data()['empID'];
         var name = subscriberDataTable.row(indexes).data()['full_name'];
         EmployeeComponent.selectedEmployeeID = ID;
         // EmployeeComponent.selectedClientName = name;
@@ -194,12 +188,16 @@ export class EmployeeComponent implements OnInit {
   }
   openEmployeeModal() {
       this.typeSubmit = "Edit";
+      this.addEmpForm.get('empID').setValue(EmployeeComponent.selectedEmployeeID);
       this.addEmpForm.get('empFullName').setValue(EmployeeComponent.selectedRowData["name"]);
       this.addEmpForm.get('empUserName').setValue(EmployeeComponent.selectedRowData["user_name"]);
       this.addEmpForm.get('empPassword').setValue(EmployeeComponent.selectedRowData["passkey"]);
+      if(EmployeeComponent.selectedRowData["user_type"] == 1)
+        this.checked = true;
+      else
+        this.checked = false;
   }
   deleteEmployee() {
-    console.log(EmployeeComponent.selectedEmployeeID)
     Swal({
       title: "Delete",
       text: "you really want to delete?",

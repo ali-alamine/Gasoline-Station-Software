@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SellLubricantsService} from  './sell-lubricants.service'
 import { MatSnackBar} from '@angular/material';
 import { ActivatedRoute,Router } from '@angular/router';
+import { FormGroup, FormBuilder, FormArray } from '../../../node_modules/@angular/forms';
 export interface Page<pageBtns>{
   color: string;
   text: string;
@@ -24,19 +25,12 @@ export class SellLubricantsComponent implements OnInit {
   currentPage=1;
   invoiceType;
   profit;
-  private sellLubData={
-    "itemID":"",
-    "empID":"",
-    "name":"",
-    "price":"",
-    "totalProfit":"",
-    "quantity":"",
-    "totalPrice":"",
-    "type":'lub',
-    "isDebit":'',
-    "rest":"",
-    "invoiceType":''};
-  constructor(private sellLubServ:SellLubricantsService,public snackBar: MatSnackBar,private router: Router, private route: ActivatedRoute) { }
+  pageType;
+  static lubForm: FormGroup;
+
+  constructor(private sellLubServ:SellLubricantsService,public snackBar: MatSnackBar,
+    private router: Router, private route: ActivatedRoute,
+    private fb: FormBuilder) { }
  
   ngOnInit() {
     this.urlData = this.route.queryParams.subscribe(params => {
@@ -46,6 +40,14 @@ export class SellLubricantsComponent implements OnInit {
     this.getLubricant(this.itemPerPage,this.offset);
     this.empID=localStorage.getItem("userID")  /*Get Employee ID */
     this.pageBtns=[];
+    SellLubricantsComponent.lubForm = this.fb.group({
+      empID: this.empID,
+      type:'lub',
+      invoiceType: this.invoiceType,
+      totalProfit: '',
+      amountPaid:'',
+      items: this.fb.array([]),
+    });
   }
   getLubricant(limit,offset){
     this.itemPerPage=localStorage.getItem("ipp");
@@ -124,56 +126,40 @@ export class SellLubricantsComponent implements OnInit {
   /* sell lubricant */
   sellLub(id,name,price,cost,quantity,totalPrice){
     this.profit = totalPrice - (quantity * cost);
-    console.log(this.profit)
     if(this.invoiceType == "supply"){
-      var sellOndebit="1";
-      this.sellLubData={
-        "itemID":id,
-        "empID":this.empID,
-        "name":name,
-        "price":price,
-        "totalProfit":'0',
-        "quantity":quantity,
-        "totalPrice":totalPrice,
-        "type":'lub',
-        'isDebit':sellOndebit,
-        "rest":"0",
-        "invoiceType":this.invoiceType};
-
-      this.router.navigate(['/debbiting'], { queryParams: this.sellLubData});
+      const item = this.fb.group({
+        itemID:id,
+        name:name,
+        price:0,
+        quantity:quantity,
+        totalPrice:0,  
+      });
+      this.itemsForm.push(item);
+      this.openSnackBar(name, "Add Supply");
     }
     else if(this.debit == 'true'){
-      var sellOndebit="1";
-      this.sellLubData={
-        "itemID":id,
-        "empID":this.empID,
-        "name":name,
-        "price":price,
-        "totalProfit":this.profit,
-        "quantity":quantity,
-        "totalPrice":totalPrice,
-        "type":'lub',
-        'isDebit':sellOndebit,
-        "rest":"0",
-        "invoiceType":'sell'
-      };
-      this.router.navigate(['/debbiting'], { queryParams: this.sellLubData });
+      SellLubricantsComponent.lubForm.get('totalProfit').setValue(this.profit);
+      this.pageType="sellLub";
+        const item = this.fb.group({
+          itemID:id,
+          name:name,
+          price:price,
+          quantity:quantity,
+          totalPrice:totalPrice,  
+        });
+        this.itemsForm.push(item);
+        this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
     }else{
-      var sellOndebit="0";
-      this.sellLubData={
-        "itemID":id,
-        "empID":this.empID,
-        "name":name,
-        "price":price,
-        "totalProfit":this.profit,
-        "quantity":quantity,
-        "totalPrice":totalPrice,
-        "type":'lub',
-        'isDebit':sellOndebit,
-        "rest":"0",
-        "invoiceType":'sell'};
-
-      this.sellLubServ.addInvoice(this.sellLubData).subscribe(
+      SellLubricantsComponent.lubForm.get('totalProfit').setValue(this.profit);
+      SellLubricantsComponent.lubForm.get('amountPaid').setValue(totalPrice);
+      const item = this.fb.group({
+        itemID:id,
+        name:name,
+        price:price,
+        quantity:quantity  
+      });
+      this.itemsForm.push(item);
+      this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");
         this.getLubricant(this.itemPerPage,this.offset);
@@ -200,5 +186,15 @@ export class SellLubricantsComponent implements OnInit {
     localStorage.setItem("ipp",ipp);
     this.pageBtns=[];
     this.getLubricant(ipp,this.offset);
+  }
+  sellLubRouter(){
+    this.pageType = 'supplyLub';
+      this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
+  }
+  get itemsForm() {
+    return SellLubricantsComponent.lubForm.get('items') as FormArray
+  }
+  get totalProfit() {
+    return SellLubricantsComponent.lubForm.get('totalProfit')
   }
 }

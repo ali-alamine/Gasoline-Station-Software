@@ -110,7 +110,7 @@ class employee_model extends CI_Model{
         $flag = $this->checkEmployeeInShift($empID);
         if ( $flag == 0) {
             $this->db->where('empID', $empID);
-            $this->db->delete('employee', array('empID' => $empID));
+            $this->db->delete('employee');
             return true;
         } else {
             return false;
@@ -126,9 +126,9 @@ class employee_model extends CI_Model{
 
     }
     //edit employee
-    public function update($empID, $data)
+    public function update($id, $data)
     { 
-        $this->db->where('empID', $empID);
+        $this->db->where('empID', $id);
         if ($this->db->update('employee', $data)) {
             return true;
         } else {

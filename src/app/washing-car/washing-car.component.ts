@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { WashingCarService } from './washing-car.service';
 import { MatSnackBar} from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
 
 @Component({
   selector: 'app-washing-car',
@@ -23,15 +24,25 @@ export class WashingCarComponent implements OnInit {
   urlData:any;
   invoiceType;
   debit;
-
+  static washForm: FormGroup;
+ 
   constructor(public dialog: MatDialog, private washServ:WashingCarService,public snackBar: MatSnackBar,
-    private router: Router, private route: ActivatedRoute) {}
+    private router: Router, private route: ActivatedRoute,
+    private fb: FormBuilder) {}
 
   ngOnInit() {
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debit = params['debit'] || false;
     });
     this.empID=localStorage.getItem("userID")  /*Get Employee ID */
+    WashingCarComponent.washForm = this.fb.group({
+      empID:this.empID,
+      nameCar:'',
+      quantity:1,
+      totalPrice:'',
+      type:'wash',
+      invoiceType:'sell'
+    });
   }
   incPrice(defaultPrice,index){
     window.event.stopPropagation();
@@ -47,34 +58,36 @@ export class WashingCarComponent implements OnInit {
     });
   }
   sellWashService(price,name){
+    WashingCarComponent.washForm.get('nameCar').setValue(name);
+    WashingCarComponent.washForm.get('totalPrice').setValue(price);
 
     if(this.debit == 'true'){
-      let sellWashingData={
-        "itemID":2,
-        "empID":this.empID,
-        "name":name,
-        "price":price,
-        "totalProfit":price,
-        "quantity":1,
-        "totalPrice":price,
-        "type":'wash',
-        'invoiceType':'sell'
-      };
-      this.router.navigate(['/debbiting'], { queryParams: sellWashingData });
+      // let sellWashingData={
+      //   "itemID":2,
+      //   "empID":this.empID,
+      //   "nameCar":name,
+      //   "price":price,
+      //   "totalProfit":price,
+      //   "quantity":1,
+      //   "totalPrice":price,
+      //   "type":'wash',
+      //   'invoiceType':'sell'
+      // };
+      this.router.navigate(['/debbiting'],{queryParams:{pageType:'sellWash'}});
     }
     else{
-      let sellWashingData={
-        "itemID":2,
-        "empID":this.empID,
-        "name":name,
-        "price":price,
-        "totalProfit":price,
-        "quantity":1,
-        "totalPrice":price,
-        "type":'wash',
-        'invoiceType':'sell'
-      };
-      this.washServ.sellWashService(sellWashingData).subscribe(
+      // let sellWashingData={
+      //   "itemID":2,
+      //   "empID":this.empID,
+      //   "nameCar":name,
+      //   "price":price,
+      //   "totalProfit":price,
+      //   "quantity":1,
+      //   "totalPrice":price,
+      //   "type":'wash',
+      //   'invoiceType':'sell'
+      // };
+      this.washServ.sellWashService(WashingCarComponent.washForm.value).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");
       this.openSnackBar(price + " Added to drawer", "success");
@@ -97,4 +110,10 @@ export class WashingCarComponent implements OnInit {
     // });
   }
 
+  get nameCar() {
+    return WashingCarComponent.washForm.get('nameCar')
+  }
+  get price() {
+    return WashingCarComponent.washForm.get('price')
+  }
 }

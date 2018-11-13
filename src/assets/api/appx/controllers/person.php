@@ -35,8 +35,8 @@ class person extends REST_Controller{
 
     }
     /* deleted person  */
-    public function deletePerson_post(){
-        $PID = $this->post('PID');
+    public function deletePerson_get(){
+        $PID = $this->get('PID');
         $result = $this->person_model->deletePerson($PID);
 
         if ($result === false) {
@@ -47,12 +47,12 @@ class person extends REST_Controller{
 
     }
     // edits Person
-    public function editPerson_put()
+    public function editPerson_post()
     {
-        $name = $this->put('name');
-        $phone = $this->put('phone');
-        $debit_amount = $this->put('initDebitAmount');
-        $PID = $this->put('PID');
+        $name = $this->post('name');
+        $phone = $this->post('phone');
+        $debit_amount = $this->post('initDebitAmount');
+        $PID = $this->post('PID');
 
         $result = $this->person_model->update($PID, array("full_name" => $name, "phone_number" => $phone, "debitAmount" => $debit_amount));
         if ($result === 0) {

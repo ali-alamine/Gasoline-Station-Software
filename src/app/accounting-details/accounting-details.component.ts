@@ -13,16 +13,17 @@ export class AccountingDetailsComponent implements OnInit {
   type;
   empID;
   totalAmount = 0;
+  totalProfit = 0;
   details;
   isDebit;
   isOpened = 0;
   empType;
   selectedDetails = new Array();
-  AccountingComponent : AccountingComponent;
   empIDs;
-  constructor(private router: Router, private route: ActivatedRoute,private accountingServ:AccountingService,) { }
+  constructor(private router: Router, private route: ActivatedRoute,private accountingServ:AccountingService) { }
 
   ngOnInit() {
+    // AccountingComponent.getEmpID();
     this.urlData = this.route.queryParams.subscribe(params => {
       this.type = params['type'] || -1;
     });
@@ -30,13 +31,14 @@ export class AccountingDetailsComponent implements OnInit {
     this.empType=localStorage.getItem('activeUser');
     this.empIDs=localStorage.getItem('empIDs');
     this.getTypeDetails();
-    var tableau=this.empIDs.split(',');
-    console.log(tableau);
+    console.log(this.empIDs);
+    this.empIDs=this.empIDs.split(',');
+    console.log(this.empIDs);
   }
   getTypeDetails(){
-    let data={"type":this.type,"empID":this.empID};
+    let data={"type":this.type,"empID":this.empIDs};
     this.accountingServ.getTypeDetails(data).subscribe(Response=>{
-      // console.log(Response)
+      console.log(Response)
       if(Response!=0){
         // debugger
         this.details=Response;
@@ -47,6 +49,7 @@ export class AccountingDetailsComponent implements OnInit {
             });
           } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash'){
             this.details.forEach(element => {
+              this.totalProfit = this.totalProfit + parseInt(element['profit']);
               this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
             });
           } else if (this.type == 'payC' || this.type == 'return'){
@@ -56,6 +59,7 @@ export class AccountingDetailsComponent implements OnInit {
           }else if (this.type == 'allType'){
             this.details.forEach(element => {
               if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash'){
+                this.totalProfit = this.totalProfit + parseInt(element['profit']);
                 this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
               }else if(element['type'] == 'return' || element['type'] == 'payC'){
                 this.totalAmount = this.totalAmount + parseInt(element['amount']);
@@ -74,6 +78,7 @@ export class AccountingDetailsComponent implements OnInit {
           } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash'){
             this.details.forEach(element => {
               if(element['shiftEmpID'] == this.empID)
+                this.totalProfit = this.totalProfit + parseInt(element['profit']);
                 this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
             });
           } 
@@ -87,6 +92,7 @@ export class AccountingDetailsComponent implements OnInit {
             this.details.forEach(element => {
               if(element['shiftEmpID'] == this.empID){
                 if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash'){
+                  this.totalProfit = this.totalProfit + parseInt(element['profit']);
                   this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
                 }else if(element['type'] == 'return' || element['type'] == 'payC'){
                   this.totalAmount = this.totalAmount + parseInt(element['amount']);

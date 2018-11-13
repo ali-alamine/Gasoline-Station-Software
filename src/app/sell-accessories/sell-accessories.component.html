@@ -37,17 +37,18 @@
                     <mat-option class="text-center" value="20">20</mat-option>
                 </mat-select>
                 <mat-hint *ngIf="invoiceType != 'supply'" style="color:firebrick">Price:{{acc.selling_price}}<br> Stock:{{acc.quantity}}</mat-hint>
-                <mat-hint *ngIf="invoiceType == 'supply'" style="color:firebrick">Price:{{acc.cost}}<br> Stock:{{acc.quantity}}</mat-hint>
+                <!-- <mat-hint *ngIf="invoiceType == 'supply'" style="color:firebrick">Price:{{acc.cost}}<br> Stock:{{acc.quantity}}</mat-hint> -->
             </mat-form-field>
             </div>
-            <div class="text-center" style="width:50%; margin-left: -30px">
+            <div class="text-center" style="width:50%; margin-left: -30px" *ngIf="invoiceType != 'supply'">
                 <img class="tile-image DpriceArrow" src="../assets/icons/washingIcons/upArrow.png" (click)="incPrice(this.acc.totalPrice,i);heightLightSelectedTile(i)">
                 <mat-hint><h5  style="color:firebrick">{{acc.totalPrice}}</h5></mat-hint>
                 <!-- <mat-hint><h5  style="color:firebrick">{{acc.selling_price * acc.defaultQuan}}</h5></mat-hint> -->
                 <img class="tile-image UpriceArrow" src="../assets/icons/washingIcons/downArrow.png" (click)="decPrice(this.acc.selling_price,i);heightLightSelectedTile(i)">
             </div>
             <div>
-                <button style="margin-left:-20px;background-color:lightgreen" (click)="sellAcc(acc.itemID,acc.name,acc.selling_price,acc.cost,acc.defaultQuan,acc.totalPrice)" mat-fab>
+                <button style="margin-left:-20px;background-color:lightgreen" 
+                (click)="sellAcc(acc.itemID,acc.name,acc.selling_price,acc.cost,acc.defaultQuan,acc.totalPrice)" mat-fab>
                     <mat-icon style="color:firebrick" matSuffix>subdirectory_arrow_right</mat-icon>
                 </button>
             </div>

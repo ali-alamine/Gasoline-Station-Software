@@ -13,11 +13,10 @@ class stock extends REST_Controller{
         $name = $this->post('name');
         $quantity = $this->post('quantity');
         $selling = $this->post('selling');
-        $cost = $this->post('cost');
         $item_type = 'lub';
 
         $result = $this->stock_model->add(array("name" => $name, "selling_price" => $selling,
-        "item_type" => $item_type,"quantity"=>$quantity,"cost"=>$cost));
+        "item_type" => $item_type,"quantity"=>$quantity));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -29,11 +28,10 @@ class stock extends REST_Controller{
         $name = $this->post('name');
         $quantity = $this->post('quantity');
         $selling = $this->post('selling');
-        $cost = $this->post('cost');
         $item_type = 'access';
 
         $result = $this->stock_model->add(array("name" => $name, "selling_price" => $selling,
-        "item_type" => $item_type,"quantity"=>$quantity,"cost"=>$cost));
+        "item_type" => $item_type,"quantity"=>$quantity));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -99,8 +97,8 @@ class stock extends REST_Controller{
         }
     } 
     /* deleted stock  */
-    public function deleteStock_post(){
-        $itemID = $this->post('itemID');
+    public function deleteStock_get(){
+        $itemID = $this->get('itemID');
         $result = $this->stock_model->deleteStock($itemID);
 
         if ($result == false) {
@@ -111,15 +109,14 @@ class stock extends REST_Controller{
 
     }
     // edits stock
-    public function editStock_put()
+    public function editStock_post()
     {
-        $name = $this->put('name');
-        $quantity = $this->put('quantity');
-        $selling = $this->put('selling');
-        $cost = $this->put('cost');
-        $itemID = $this->put('itemID');
+        $name = $this->post('name');
+        $quantity = $this->post('quantity');
+        $selling = $this->post('selling');
+        $itemID = $this->post('itemID');
 
-        $result = $this->stock_model->update($itemID, array("name" => $name, "quantity" => $quantity, "selling_price" => $selling,'cost'=> $cost));
+        $result = $this->stock_model->update($itemID, array("name" => $name, "quantity" => $quantity, "selling_price" => $selling));
         if ($result === 0) {
             $this->response("person information could not be saved. Try again.", 404);
         } else {

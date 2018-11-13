@@ -53,18 +53,6 @@ class operation_model extends CI_Model{
             return false;
         }
     }
-    // public function update_stock($id,$quantity){
-       // OR
-        // $query = $this->db->query("UPDATE `item-service` SET quantity = quantity - ".$quantity." WHERE itemID = ".$id."");
-        // // $str = $this->db->last_query();
-        // return $query->result();
-
-    //     $this->db->update("item-service");
-    //     $this->db->set('quantity', 'quantity+1', FALSE);
-    //     $this->db->where('itemID', '6');
-    //     return $query->result();
-    // }
-
     public function delete($id){
         $this->db->where('IID', $id);
         if ($this->db->delete('item')) {
@@ -72,5 +60,18 @@ class operation_model extends CI_Model{
         } else {
             return false;
         }
+    }
+    public function calculate_avg_cost($itemID,$newQuan,$newCost){
+        $this->db->select("quantity,cost");
+        $this->db->from('item-service');
+        $this->db->where("itemID",$itemID);
+        $query = $this->db->get(); 
+        $strQuery=$this->db->last_query();
+        // $rowcount = $query->num_rows();
+        $res=$query->result_array();
+        $oldQuan=$res[0]['quantity'];
+        $oldCost=$res[0]['cost'];
+        $avgCost=( (($oldQuan*$oldCost) + ($newCost*$newQuan) ) / ($oldQuan + $newQuan));
+        return $avgCost;
     }
 }

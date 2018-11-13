@@ -22,7 +22,7 @@ class invoice_model extends CI_Model{
             $query = $this->db->query("(select invoice.rest as rest,person.full_name as clientName,
             `item-service`.name as name,invoice.amount as amount,
             invoice.note as note,inv_order.quantity as quantity,invoice.type as type,
-            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
+            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
             FROM invoice 
             INNER JOIN inv_order on inv_order.invID=invoice.invID 
             INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
@@ -34,7 +34,7 @@ class invoice_model extends CI_Model{
                 select invoice.rest as rest,person.full_name as clientName,
                     null as name,invoice.amount as amount,
                     invoice.note as note,null as quantity,invoice.type as type,
-                    employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
+                    employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
                     FROM invoice 
                     INNER JOIN person on person.PID=invoice.personID 
                     INNER JOIN employee on employee.empID=invoice.empID 
@@ -45,7 +45,7 @@ class invoice_model extends CI_Model{
         elseif($type == 'lub' || $type == 'access'){
             $query = $this->db->query("select `item-service`.name as name,invoice.amount as amount,
                 invoice.note as note,inv_order.quantity as quantity,invoice.rest as rest,person.full_name as clientName,
-                employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
+                employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
                 FROM invoice 
                 INNER JOIN person on person.PID=invoice.personID 
                 INNER JOIN inv_order on inv_order.invID=invoice.invID 
@@ -69,7 +69,7 @@ class invoice_model extends CI_Model{
         if($type == 'wash' || $type == 'payC' || $type == 'return'){
             $query = $this->db->query("Select invoice.amount as amount,invoice.note as note,
             invoice.rest as rest,person.full_name as clientName,
-            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
+            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
             from invoice 
             inner join person on personID=PID 
             INNER JOIN employee on employee.empID=invoice.empID 
@@ -90,7 +90,7 @@ class invoice_model extends CI_Model{
             $query = $this->db->query(
                 "(select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
                 `item-service`.name as name,inv_order.quantity as quantity,
-                employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
+                employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
                 FROM invoice 
                 INNER JOIN inv_order on inv_order.invID=invoice.invID 
                 INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
@@ -99,7 +99,8 @@ class invoice_model extends CI_Model{
                 WHERE type in ('access','lub') and date(invoice.dateTime) = '".$date."') 
                 UNION (
                 select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
-                null as name,null as quantity,employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
+                null as name,null as quantity,employee.name as empName,employee.user_type as empType,
+                employee.empID as shiftEmpID,invoice.totalProfit as profit
                 FROM invoice 
                 INNER JOIN person on person.PID=invoice.personID 
                 INNER JOIN employee on employee.empID=invoice.empID 

@@ -37,10 +37,10 @@
                     <mat-option class="text-center" value="20">20</mat-option>
                 </mat-select>
                 <mat-hint *ngIf="invoiceType != 'supply'" style="color:firebrick">Price:{{lub.selling_price}}<br> Stock:{{lub.quantity}}</mat-hint>
-                <mat-hint *ngIf="invoiceType == 'supply'" style="color:firebrick">Price:{{lub.cost}}<br> Stock:{{lub.quantity}}</mat-hint>
+                <!-- <mat-hint *ngIf="invoiceType == 'supply'" style="color:firebrick">Price:{{lub.cost}}<br> Stock:{{lub.quantity}}</mat-hint> -->
             </mat-form-field>
             </div>
-            <div class="text-center" style="width:50%; margin-left: -30px">
+            <div *ngIf="invoiceType != 'supply'" class="text-center" style="width:50%; margin-left: -30px">
                 <img class="tile-image DpriceArrow" src="../assets/icons/washingIcons/upArrow.png" (click)="incPrice(this.lub.totalPrice,i);heightLightSelectedTile(i)">
                 <mat-hint><h5  style="color:firebrick">{{lub.totalPrice}}</h5></mat-hint>
                 <!-- <mat-hint><h5  style="color:firebrick">{{lub.selling_price * lub.defaultQuan}}</h5></mat-hint> -->
@@ -53,6 +53,11 @@
             </div>
         </mat-grid-tile>
       </mat-grid-list>
+      <div style ="margin-top:55px; height:30px; text-align:center" *ngIf="invoiceType == 'supply'">
+            <button style="background-color:lightgreen ;float:center;" (click)="sellLubRouter()" mat-fab>
+                <mat-icon style="color:firebrick" matSuffix>arrow_forward</mat-icon>
+            </button>
+        </div>
       <div style ="margin-top:55px; height:30px; float:right">
         <mat-form-field>
             <mat-label>Items/Page</mat-label>

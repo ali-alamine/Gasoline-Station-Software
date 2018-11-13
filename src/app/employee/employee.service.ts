@@ -14,10 +14,10 @@ export class EmployeeService {
     return this.http.post(this.url +"addNewEmployee",empData);
   }
   editEmployee(data){
-    return this.http.put(this.url +"editEmployee",data);
+    // console.log(data)
+    return this.http.post(this.url +"editEmployee",data);
   }
   deleteEmployee(empID){
-    console.log(empID)
-    return this.http.post(this.url +"deleteEmployee",{params:{empID:empID}});
+    return this.http.get(this.url +"deleteEmployee",{params:{empID:empID}});
   }
 }

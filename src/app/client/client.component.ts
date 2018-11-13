@@ -18,6 +18,7 @@ import 'datatables.net-bs4';
 export class ClientComponent implements OnInit {
 
   addClientForm = new FormGroup({
+    PID: new FormControl(''),
     name: new FormControl(''),
     phone: new FormControl(''),
     initDebitAmount: new FormControl(''),
@@ -180,6 +181,7 @@ export class ClientComponent implements OnInit {
     // });
     // if (this.editFlag == true) {
       this.typeSubmit = "Edit";
+      this.addClientForm.get('PID').setValue(ClientComponent.selectedClientID);
       this.addClientForm.get('name').setValue(ClientComponent.selectedRowData["full_name"]);
       this.addClientForm.get('phone').setValue(ClientComponent.selectedRowData["phone_number"]);
       this.addClientForm.get('initDebitAmount').setValue(ClientComponent.selectedRowData["debitAmount"]);

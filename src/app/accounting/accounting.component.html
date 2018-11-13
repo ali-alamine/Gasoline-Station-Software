@@ -79,17 +79,10 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-6" >
       <h2>
-        <mat-form-field style="width: 100%; ">
-            <mat-select placeholder="Select employees" [formControl]="empIDForm" multiple>
-              <!--  [(value)]="selected" -->
-              <!-- <mat-select-trigger> -->
-                <!-- {{empForm.value ? empForm.value[0] : ''}} -->
-                <!-- <span *ngIf="empForm.value?.length > 1" class="example-additional-selection"> -->
-                  <!-- (+{{empForm.value.length - 1}} {{empForm.value?.length === 2 ? 'other' : 'others'}}) -->
-                <!-- </span> -->
-              <!-- </mat-select-trigger> -->
+        <mat-form-field style="width: 100%;" *ngIf="this.isAdmin == true" >
+            <mat-select placeholder="Select employees" [formControl]="empIDForm" [(ngModel)]="checked" multiple>
               <mat-option *ngFor="let emp of employees " [value]="emp.empID">{{emp.name}}</mat-option>
             </mat-select>
           </mat-form-field>

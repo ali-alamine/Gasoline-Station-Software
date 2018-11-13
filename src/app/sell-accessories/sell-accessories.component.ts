@@ -46,8 +46,9 @@ export class SellAccessoriesComponent implements OnInit {
       empID: this.empID,
       type:'access',
       invoiceType: this.invoiceType,
+      totalProfit: '',
+      amountPaid:'',
       items: this.fb.array([]),
-
     });
   }
   getAccessories(limit,offset){
@@ -125,47 +126,41 @@ export class SellAccessoriesComponent implements OnInit {
     });
   }
   sellAcc(id,name,price,cost,quantity,totalPrice){
-    // console.log(totalPrice)
-    // console.log(price)
     this.profit = totalPrice - (quantity*cost);
-    // console.log(this.profit)
     if(this.invoiceType == "supply"){
       const item = this.fb.group({
         itemID:id,
         name:name,
-        price:price,
-        totalProfit:'0',
+        price:0,
         quantity:quantity,
-        totalPrice:totalPrice,  
+        totalPrice:0,  
       });
       this.itemsForm.push(item);
-      // this.router.navigate(['/debbiting'], { queryParams: this.accForm});
+      this.openSnackBar(name, "Add Supply");
     }else if(this.debit == 'true'){
-      // debugger
-      this.pageType="sellAccess";
+    SellAccessoriesComponent.accForm.get('totalProfit').setValue(this.profit);
+    this.pageType="sellAccess";
       const item = this.fb.group({
         itemID:id,
         name:name,
         price:price,
-        totalProfit:'0',
         quantity:quantity,
         totalPrice:totalPrice,  
       });
       this.itemsForm.push(item);
       this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
-      // this.router.navigate(['/debbiting'], { queryParams: this.pageType });
     }
     else{
-      const item = this.fb.group({
+    SellAccessoriesComponent.accForm.get('totalProfit').setValue(this.profit);
+    SellAccessoriesComponent.accForm.get('amountPaid').setValue(totalPrice);
+    const item = this.fb.group({
         itemID:id,
         name:name,
         price:price,
-        totalProfit:'0',
-        quantity:quantity,
-        totalPrice:totalPrice,  
+        quantity:quantity, 
       });
       this.itemsForm.push(item);
-      this.sellAccServ.addInvoice(SellAccessoriesComponent.accForm).subscribe(
+      this.sellAccServ.addInvoice(SellAccessoriesComponent.accForm.value).subscribe(
       Response=>{
         this.openSnackBar(name, "SOLD");
         this.getAccessories(this.itemPerPage,this.offset);
@@ -199,6 +194,9 @@ export class SellAccessoriesComponent implements OnInit {
   }
   get itemsForm() {
     return SellAccessoriesComponent.accForm.get('items') as FormArray
+  }
+  get totalProfit() {
+    return SellAccessoriesComponent.accForm.get('totalProfit')
   }
 
 }
