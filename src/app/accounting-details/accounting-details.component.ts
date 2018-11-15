@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AccountingComponent } from '../accounting/accounting.component';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AccountingService } from '../accounting/accounting.service';
-import { ShiftHistoryComponent } from '../shift-history/shift-history.component';
 
 @Component({
   selector: 'app-accounting-details',

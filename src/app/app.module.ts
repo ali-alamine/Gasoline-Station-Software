@@ -45,11 +45,14 @@ import { PaymentSupplyComponent } from './payment-supply/payment-supply.componen
 import { ReturnComponent } from './return/return.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { SupplierComponent } from './supplier/supplier.component';
-// import { ShiftHistoryComponent } from './shift-history/shift-history.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ShiftHistoryDetailsComponent } from './shift-history-details/shift-history-details.component';
 import { HistoryComponent } from './history/history.component';
 import { HistoryTypeComponent } from './history-type/history-type.component';
+import { StartShiftComponent } from './start-shift/start-shift.component';
+import { FuelContainerComponent } from './fuel-container/fuel-container.component';
+import { SetPricesComponent } from './set-prices/set-prices.component';
+
 
 @NgModule({
     declarations: [
@@ -73,11 +76,12 @@ import { HistoryTypeComponent } from './history-type/history-type.component';
     PaymentSupplyComponent,
     ReturnComponent,
     SupplierComponent,
-    // ShiftHistoryComponent,
     ShiftHistoryDetailsComponent,
     HistoryComponent,
     HistoryTypeComponent,
-    // ShiftHistoryDetailsComponent
+    StartShiftComponent,
+    FuelContainerComponent,
+    SetPricesComponent
   ],
   imports: [
     MatCardModule,

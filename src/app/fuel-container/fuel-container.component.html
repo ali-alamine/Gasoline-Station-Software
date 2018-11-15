@@ -1,0 +1,51 @@
+<div id="fuelContView" class="container-fluid" style="border:1px solid #000000; margin-top: 20px">
+  <ng-template #containerModal let-c="close" let-d="dismiss">
+      <div class="modal-header noselect">
+        <h5 class="modal-title" id="modal-basic-title" style="color:firebrick">Container: {{this.containers[this.index].name}} - {{ this.containers[this.index].capacity}} Liter</h5>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form fxLayout="column" autocomplete="off" [formGroup]="supplyForm">
+      <div class="modal-body noselect">
+     
+          <div class="input-row" fxLayout="row">
+            <mat-form-field style="width: 40%;margin-right: 5px;">
+              <mat-select  (selectionChange)="getSelectedSupplierData($event.value,this.containers[this.index].contID)" aria-placeholder="Supplier Name" formControlName="supplierID">
+                <mat-option *ngFor="let s of suppliers " 
+                [value]="s.PID" >{{s.full_name}} | <span style="color:red"> Amount: {{s.debitAmount}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="inputField">
+              <input matInput formControlName="quantityPerLiter" required placeholder="Total Quantity" [(ngModel)]="this.totalLiters" type="number" name="nameInput" (ngModelChange)="this.cost_per_liter=this.totalPrice/this.totalLiters">
+            </mat-form-field><br>
+            <mat-form-field class="inputField" >
+              <input matInput formControlName="totalPrice" required placeholder="Total Price" type="number" [(ngModel)]="this.totalPrice" name="nameInput" (ngModelChange)="this.cost_per_liter=this.totalPrice/this.totalLiters">
+            </mat-form-field>
+            <br>
+            <mat-form-field *ngIf="!isNumber(this.cost_per_liter)"  class="inputField">
+              <input style="color:firebrick"matInput formControlName="cost_liter" [(ngModel)]="this.cost_per_liter" [value]="this.cost_per_liter"  required placeholder="Cost Per Liter" type="number" name="nameInput">
+            </mat-form-field>
+
+          </div>
+        
+      </div>
+      <div class="modal-footer noselect">
+        <button mat-raised-button color="primary" [disabled]="!supplyForm.valid" (click)="submitSupply()">Submit</button>
+        <button mat-raised-button color="warn" (click)="reset()">Reset</button>
+      </div>
+    </form>
+  </ng-template>
+  <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}">
+      <span class="contLabel"> {{container.name }} {{container.capacity }}</span>
+    <img (click)="openContainerSupplyModal(containerModal,i)"  class="container" src="../assets/icons/containerIcons/0.png">
+  </div>
+
+  <div class="officeDiv">
+    <span class="officeLabel">Office</span>
+      <img class="office" src="../assets/icons/office.png">    
+  </div>
+
+</div>

@@ -65,7 +65,7 @@ class operation extends REST_Controller{
             if($invoiceType == "supply"){
                 $cost=$price;
                 $price = 0 ;
-                $avgCost=$this->operation_model->calculate_avg_cost($itemID,$quantity,$cost);
+                $avgCost=$this->operation_model->calculate_avg_cost_item($itemID,$quantity,$cost);
                 $this->operation_model->update_stock($itemID,$quantity);
                 $this->operation_model->updateCost_stock($itemID,$avgCost);
             }
@@ -231,6 +231,54 @@ class operation extends REST_Controller{
         }
             
     }
-    
+    /* supply fuel */
+
+    public function supplyFuel_post(){
+        /*START - Get Current Date Time */
+        $currentFullDate=getdate();
+        $d=$currentFullDate['mday'];
+        $m=$currentFullDate['mon'];
+        $y=$currentFullDate['year'];
+        $time=date("h:i");
+        $today_date=$y."-".$m."-".$d."-".$time;
+        /*END - Get Current Date Time */
+        
+        $empID=$this->post('empID');
+        $supplierID=$this->post('supplierID');
+        $amount = $this->post('totalPrice');
+        $cost_liter = $this->post('cost_liter');
+        $totalQuantityPerLiter = $this->post('quantityPerLiter');
+        $containerID = $this->post('containerID');
+
+        /* start execut querys */ 
+        $this->db->trans_begin();
+
+        /* insert into invoice  */
+        $this->operation_model->add_inv(array("amount"=>$amount,
+                                               "type" => 'fuel',
+                                               'dateTime'=>$today_date,
+                                               'rest'=>0,
+                                               "empID"=>$empID,
+                                               "personID"=>$supplierID,
+                                               'isSupply'=>1));
+
+
+       /* START- Get fuel quantity and cost to calculate average cost */
+       $avgCost=$this->operation_model->calculate_avg_cost($containerID,$totalQuantityPerLiter,$cost_liter);
+       /* END- Get fuel quantity and cost to calculate average cost */
+
+
+
+       /* update stock - fuel container */
+       $this->operation_model->update_fuelContainer($containerID,$totalQuantityPerLiter,$avgCost);
+        /* End execut querys */
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            $this->response("Invoice information could not be saved. Try again.", 404);
+        } else {
+            $this->db->trans_commit();
+            $this->response("success", 200);
+        }
+   }
 }
 

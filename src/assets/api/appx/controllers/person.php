@@ -28,7 +28,7 @@ class person extends REST_Controller{
         $result = $this->person_model->selectAllPerson($isClient);
 
         if ($result === 0) {
-            $this->response("Client information could not be saved. Try again.", 404);
+            $this->response("Person information could not be saved. Try again.", 404);
         } else {
             $this->response($result, 200);
         }
@@ -61,4 +61,17 @@ class person extends REST_Controller{
             $this->response("success", 200);
         }
     }
+    /* get All Clients */
+    public function getAllClients_post(){
+        $isClient = $this->post('isClient');
+        $result = $this->person_model->selectAllClient($isClient);
+
+        if ($result === 0) {
+            $this->response("Client information could not be saved. Try again.", 404);
+        } else {
+            $this->response($result, 200);
+        }
+
+    }
+
 }

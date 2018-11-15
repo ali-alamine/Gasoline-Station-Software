@@ -1,14 +1,32 @@
 <html>
 <body>
-    <!-- <div id="sideBarNav" style="width:110px;height: 100%;">
-        <side-bar></side-bar>
-    </div> -->
-    <div id="container" class="container-fluid">
-
-        <div id="content">
-            <router-outlet></router-outlet>
+<div class="container-fluid">
+    <div class="noselect header" id="header">
+        <div id="navigation" >
+            <button mat-icon-button (click)="goBack()">
+                <i class="material-icons"><img style="width:50px;height:50px" src="../assets/icons/backIcon.png"></i>
+            </button>
+            
+            <button mat-icon-button (click)="goHome()" style="margin-left:20px">
+                <!-- <i class="material-icons" style="color:#643e71;font-size: 50px">home</i> -->
+                <i class="material-icons"><img style="width:50px;height:60px" src="../assets/icons/home.png"></i>
+            </button>
+            <button mat-icon-button (click)="logout()" style="margin-left:20px">
+                <!-- <i class="material-icons" style="color:#643e71;font-size: 50px">home</i> -->
+                <i class="material-icons"><img style="width:50px;height:50px;margin-left:1100px;" src="../assets/icons/logout.png"></i>
+            </button>
         </div>
+            <span id="title" style="font-size: 20px">
+               <b>Powered By </b> <b style="color:#843c9e"><ins>E-Safe Solutions</ins></b><i class="material-icons"><img style="width:60px;height:60px;position: absolute;margin-top:-25px" src="../assets/icons/eSafeLogo.png"></i>
+            </span>
     </div>
+        <div id="container" class="container-fluid">
+    
+            <div id="content">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+</div>
 </body>
 </html>
 <!-- <router-outlet></router-outlet> -->

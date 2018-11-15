@@ -1,6 +1,6 @@
 <div class="container">
   <div class="loginBox">
-      <mat-toolbar color="primary" justify-content: center >
+      <mat-toolbar style="background-color:rgb(141, 83, 141)" justify-content: center >
         <span>Login</span> 
       </mat-toolbar>
       <mat-card>
@@ -24,26 +24,3 @@
       </mat-card> 
   </div>
 </div>
-<ng-template #selectModal let-c="close" let-d="dismiss">
-  <div class="modal-header noselect">
-    <h4 class="modal-title" id="modal-basic-title">Select</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body noselect">
-    <form fxLayout="column" [formGroup]="selectForm">
-      <div class="input-row" fxLayout="row">
-        <mat-form-field fxFlex>
-          <mat-select placeholder="Select view" formControlName="selectView">
-            <mat-option value="newShift">New shift</mat-option>
-            <mat-option value="readOnly">Reading only(account)</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </form>
-  </div>
-  <div class="modal-footer noselect">
-    <button mat-raised-button name="addButton" color="primary" (click)="getRouter()" [disabled]="!selectForm.valid">Next</button>
-  </div>
-</ng-template>

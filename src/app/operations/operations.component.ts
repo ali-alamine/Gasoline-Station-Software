@@ -2,7 +2,7 @@ import { Component, OnInit,OnDestroy  } from '@angular/core';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { OperationsService } from './operations.service';
-
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 
 export interface Tile<tiles>{
   color: string;
@@ -26,12 +26,13 @@ export interface AdminTile<adminTile>{
 export class OperationsComponent implements OnInit {
   userType:string;
   isAdmin:boolean;
-  newShift;
-  totalDrawer : number;
+  newShift:any;
+  totalDrawer;
   private urlData;
   private userName;
   empID;
-  constructor(private router: Router, private route: ActivatedRoute,private operationServ: OperationsService) {}
+  modalReference: any;
+  constructor(private router: Router, private route: ActivatedRoute,private operationServ: OperationsService,private modalService: NgbModal) {}
 
   adminTiles=[
     {text:"More Settings", cols: 2, rows: 1},
@@ -45,34 +46,29 @@ export class OperationsComponent implements OnInit {
     {text: 'accessories', cols: 2, rows: 1},
     {text: 'paymentsCost', cols: 2, rows: 1},
     {text: 'paymentsSupply', cols: 2, rows: 1},
-    // {text: 'Seven', cols: 2, rows: 1},
-    // {text: 'Eight', cols: 2, rows: 1}
   ];
 
   ngOnInit() {
-    // this.urlData = this.route.queryParams.subscribe(params => {
-    //   this.userName = params['userName'] || -1;
-    // });
     this.userType=localStorage.getItem('activeUser');
     this.empID=localStorage.getItem('userID');
     this.newShift=localStorage.getItem('newShift');
     this.userName=localStorage.getItem('userName');
-    if(this.userType=='admin'){
+    this.userType=localStorage.getItem('activeUser');
+    if(this.userType=="admin"){
       this.isAdmin=true;
-      // this.newShift=true;
     }else{
-      this.isAdmin=false
+      this.isAdmin=false;
     }
     this.getTotalDarwer();
   }
+
   getTotalDarwer(){
     this.operationServ.getTotalDarwer(this.empID).subscribe(Response => {
-      // console.log(Response)
-      if(Response == null) this.totalDrawer = 0;
-      else this.totalDrawer = Response[0].total;
+      console.log(Response)
+      this.totalDrawer = Response[0].total;
     },
     error=>{
-      alert('Error Sum drawer!')
+      alert('Error Sum drawer!');
     }
   );
 

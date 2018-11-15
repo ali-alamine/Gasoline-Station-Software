@@ -4,7 +4,58 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~material-design-icons/iconfont/material-icons.css";
 @import './DataTables/datatables.min.css';
+
 .container-fluid{
     background-color:rgb(248, 248, 248);
     height: 600px;
+}
+.cdk-overlay-container{ 
+    z-index: 1051 !important; 
+}
+.swal-overlay {
+    background-color: rgba(241, 198, 248, 0.45);
+    // background-color:thistle;
+}
+.swal-modal {
+    // background-color: rgba(63,255,106,0.69);
+    background-color:rgba(168, 113, 168, 0.85);
+    border: 3px solid white;
+}
+
+.material-icons {
+    font-family: "Material Icons";
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px; /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+  
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+  
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+  
+    /* Support for IE. */
+    font-feature-settings: "liga";
+  }
+.header{
+    height: 50px;
+    width:100%;
+    text-align: center;
+
+    // background-color:white;
+}
+#navigation{
+    margin-left:20px;
+    margin-top:-7px;
+    float: left;
+    // position: absolute;
 }

@@ -27,7 +27,6 @@ class dispanser extends REST_Controller
     // }
 
     public function getDispanserCounters_get(){
-
         // $searchInput = $this->get('searchInput');
         $result = $this->dispanser_model->getAllCounters();
         if ($result === 0) {
@@ -36,6 +35,72 @@ class dispanser extends REST_Controller
             $this->response($result, 200);
         }
     }
+
+    public function submit_counters_post(){
+        $counter_form_1=$this->post('counterForm_1');
+        $counter_form_2=$this->post('counterForm_2');
+
+        $dispID=$counter_form_1['dispID'];
+
+        $counter_1=$counter_form_1['counter_1'];
+        $counter_2=$counter_form_2['counter_2'];
+
+        $fuel_type_1=$counter_form_1['fuel_type'];
+        $fuel_type_2=$counter_form_2['fuel_type'];
+        
+        $empID=$counter_form_1['empID'];
+
+        $contID_1=$counter_form_1['containerID'];
+        $contID_2=$counter_form_2['containerID'];
+
+        $liters_sold_1=$counter_form_1['liters_sold'];
+        $liters_sold_2=$counter_form_2['liters_sold'];
+
+        $price_liter_1=$counter_form_1['price_liter'];
+        $price_liter_2=$counter_form_2['price_liter'];
+
+        $cost_liter_1=$counter_form_1['cost_liter'];
+        $cost_liter_2=$counter_form_2['cost_liter'];
+
+        $totalProfit_1=($price_liter_1 - $cost_liter_1) * $liters_sold_1;
+        $totalProfit_2=($price_liter_2 - $cost_liter_2) * $liters_sold_2;
+        /* start execut querys */ 
+        $this->db->trans_begin();
+        
+        $result_submitCounter = $this->dispanser_model->submit_dispnser_counters(array("dispID" => $dispID,
+                                                                        "counter_1" => $counter_1,
+                                                                        "counter_2" => $counter_2,
+                                                                        "empID" => $empID)
+                                                                    );
+
+        $result_updateDispanser_counters= $this->dispanser_model->updateDispanserCounters($counter_1,$counter_2,$dispID);
+        $result_updateFuel_containers_1= $this->dispanser_model->updateFuel_container($contID_1,$liters_sold_1);
+        $result_updateFuel_containers_2= $this->dispanser_model->updateFuel_container($contID_2,$liters_sold_2);
+
+
+        $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_1,
+                                                                "amount" => $liters_sold_1,
+                                                                "note" => "test Note",
+                                                                "totalProfit" => $totalProfit_1,
+                                                                "empID" => $empID)
+                                                            );
+        $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_2,
+                                                                "amount" => $liters_sold_2,
+                                                                "note" => "test Note",
+                                                                "totalProfit" => $totalProfit_2,
+                                                                "empID" => $empID)
+                                                            );
+
+        /* End execut querys */
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            $this->response("Invoice information could not be saved. Try again.", 404);
+        } else {
+            $this->db->trans_commit();
+            $this->response("success", 200);
+        }
+    }
+    
 
     
     // public function client_post() // used in I-print

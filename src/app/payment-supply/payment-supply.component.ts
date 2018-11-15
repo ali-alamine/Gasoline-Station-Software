@@ -31,7 +31,7 @@ export class PaymentSupplyComponent implements OnInit {
 
     switch(paymentName) { 
       case "counters": { 
-        this.router.navigate(["/counters"]);
+        this.router.navigate(["/fuelContainer"]);
          break; 
       } 
       case "lubricants": { 

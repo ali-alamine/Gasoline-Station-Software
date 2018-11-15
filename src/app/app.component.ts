@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd} from '@angular/router';
-
+import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { $ } from 'protractor';
+import { MessageServiceService } from './message-service.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,17 +16,18 @@ export class AppComponent implements OnInit{
   isAdmin:boolean;
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private location: Location,private ms:MessageServiceService) {}
 
   ngOnInit() {
-    
+    // (<HTMLElement>document.querySelector('#header')).style.display = 'none';
+    this.checkOpenedSession();
      this.userType=localStorage.getItem('activeUser');
+
     if(this.userType=='admin'){
       this.isAdmin=true;
     }else{
       this.isAdmin=false
     }
-    console.log(this.isAdmin)
 
     this.router.events.subscribe(event => {
 
@@ -43,5 +46,31 @@ export class AppComponent implements OnInit{
       }
     });
 
+  }
+
+  checkOpenedSession(){
+
+    this.ms.getActiveSessions().subscribe(Response=>{
+      if(Response != ''){
+        // alert('1');
+           
+      }else{
+        // alert('0')
+      }
+    },
+    error=>{
+      alert("error")
+    });
+  }
+
+  goBack(){
+    this.location.back();
+  }
+  goHome(){
+    this.router.navigate(["/operations"]);
+  }
+  logout(){
+    this.router.navigate(["/login"]);
+    localStorage.setItem('userID','-1');
   }
 }

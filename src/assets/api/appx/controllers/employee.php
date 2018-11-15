@@ -7,41 +7,21 @@ class employee extends REST_Controller{
     }
 
     /* check login  */
-    public function checkLogin_post(){
-        $username = $this->post('username');
-        $password = $this->post('password');
-        // $shift_date = $this->post('shift_date');
-        date_default_timezone_set("Asia/Beirut");
-        $shift_date=date("Y-m-d");
-        $result = $this->employee_model->checkLogInAuth($username,$password);
-        if($result === 0){
-            $this->response("Error user or pass. Try again.", 404);
-        } 
-        else{
-            foreach ($result as $row) {
-                $isAdmin = $row->user_type;
-                $empID = $row->empID;
-            } 
-            // if($isAdmin == 0){
-                $result2 = $this->employee_model->check_open_shift($empID,$shift_date,$isAdmin);
-                // $response = array();
-                // $response[0] = $result;
-                // $response[1] = '';
-                if($result2 == 0 &&  $isAdmin == 0){
-                    // $response[1] = 'Old shift no closed!';
-                    $this->response('Old shift no closed!', 200);
-                // }else if($result2 == 0 &&  $isAdmin == 1){
-                //     // $response[1] = 'newShiftAdmin';
-                //     $this->response($response, 200);
-                }else{
-                    $this->response($result, 200);
-                    // exit;
-
-                }
-            // } else{
-            //     $result2 = $this->employee_model->check_emp_shift($empID,$shift_date);
-            //     $this->response($result, 200);
-            // }
+    public function checkLogin_get(){
+        $data = $this->get('data');
+        $result = $this->employee_model->checkLogInAuth($data);
+        if ($result === 0) {
+            $this->response("Error. Try again.", 404);
+        }else {
+            $checkShift = $this->employee_model->isShiftOpen();
+            // $this->response($result, 200);
+            if ($checkShift === 0) {
+                $this->response("Error. Try again.", 404);
+            }else {
+                $checkShift = $this->employee_model->isShiftOpen();
+                $resp=[$result,$checkShift];
+                $this->response($resp, 200);
+            }
         }
     }
 
@@ -55,6 +35,15 @@ class employee extends REST_Controller{
             $this->response($result, 200);
         }
 
+    }
+     /* check if shifts not closed  */
+     public function isShiftOpened_get(){
+        $result = $this->employee_model->isShiftOpen();
+        if ($result === 0) {
+            $this->response("Error. Try again.", 404);
+        } else {
+            $this->response($result, 200);
+        }
     }
     
     /* add new employee */
@@ -107,6 +96,21 @@ class employee extends REST_Controller{
         "user_name" => $empUserName, "passkey" => $empPassword,'user_type'=>$empType));
         if ($result === 0) {
             $this->response("employee information could not be saved. Try again.", 404);
+        } else {
+            $this->response("success", 200);
+        }
+    }
+    /* add new employee */
+    public function addNewShift_post(){
+        $empID = $this->post('empID');
+        $drawerAmount = $this->post('drawerAmount');
+        $shiftDate = $this->post('shiftDate');
+        $timeIn = $this->post('timeIn');
+        $newShiftResult = $this->employee_model->recordNewShift(array("empID" => $empID, "shift_date" => $shiftDate, "timeIn" => $timeIn,'isOpen'=>1,'initDrawer'=>$drawerAmount));
+
+
+        if ($newShiftResult === 0) {
+            $this->response("Client information could not be saved. Try again.", 404);
         } else {
             $this->response("success", 200);
         }

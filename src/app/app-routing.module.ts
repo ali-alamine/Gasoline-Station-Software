@@ -18,10 +18,12 @@ import { PaymentCostComponent } from './payment-cost/payment-cost.component';
 import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
 import { ReturnComponent } from './return/return.component';
 import { SupplierComponent } from './supplier/supplier.component';
-// import { ShiftHistoryComponent } from './shift-history/shift-history.component';
 import { ShiftHistoryDetailsComponent } from './shift-history-details/shift-history-details.component';
 import { HistoryComponent } from './history/history.component';
 import { HistoryTypeComponent } from './history-type/history-type.component';
+import { StartShiftComponent } from './start-shift/start-shift.component';
+import { FuelContainerComponent } from './fuel-container/fuel-container.component';
+import { SetPricesComponent } from './set-prices/set-prices.component';
 
 
 const routes: Routes = [
@@ -86,11 +88,17 @@ const routes: Routes = [
   {
     path:'historyType',component:HistoryTypeComponent 
   },
-  // {
-  //   path:'shiftHistory',component:ShiftHistoryComponent 
-  // },
   {
     path:'shiftHistoryDetails',component:ShiftHistoryDetailsComponent 
+  },
+  {
+    path:'startShift',component:StartShiftComponent 
+  },
+  {
+    path:'fuelContainer',component:FuelContainerComponent 
+  },
+  {
+    path:'setFuelPrices',component:SetPricesComponent 
   },
   {
     path:'',component:LoginComponent 

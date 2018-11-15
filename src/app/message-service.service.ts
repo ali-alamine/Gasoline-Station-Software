@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
- 
+import { HttpClient } from '@angular/common/http'
+
+
 @Injectable({ providedIn: 'root' })
 export class MessageServiceService {
-    private subject = new Subject<any>();
+
+    private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
+    constructor(private httpClient:HttpClient) { }
  
-    sendMessage(message: string) {
-        this.subject.next({ text: message });
-    }
- 
-    clearMessage() {
-        this.subject.next();
-    }
- 
-    getMessage(): Observable<any> {
-        return this.subject.asObservable();
+    getActiveSessions(){
+
+        return this.httpClient.get(this.url +"employee/isShiftOpened");
     }
 }

@@ -1,0 +1,17 @@
+<div class="container">
+  <div id="newShift">
+    <div id="infoLabel">
+      <h2>START NEW SHIFT</h2>
+      <h3 style="margin-top:10%;">Shift will start by <span style="color:firebrick;font-weight: bold">{{this.empName}}</span> <span style="color:firebrick">{{this.getDateTime('default')}}</span></h3>
+    </div>
+    <div id="setDrawer">
+      <mat-form-field style="width: 50%;height:60%; margin-left:50px">
+          <input style="color:firebrick;font-weight: bold;font-size: 50px" matInput step="1000" type="number" placeholder="Declare Drawer Amount" [(ngModel)]="this.startDrawerAmount">
+      </mat-form-field>                                                                                                                             
+    </div>
+    <div id="actions">
+        <button mat-raised-button color="primary"style="width: 50px;height: 50px;font-size: 20px"(click)="startShift()">START</button>
+        <button mat-raised-button color="basic" style="width: 50px;height: 50px;font-size: 20px;margin: 5px" (click)="startCancel()">Cancel</button>
+    </div>
+  </div>
+</div>
