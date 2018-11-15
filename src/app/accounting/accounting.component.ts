@@ -27,8 +27,8 @@ export class AccountingComponent implements OnInit {
   isAdmin:boolean;
   private urlData;
   employees:any;
-  empIDForm = new FormControl();
-  totalDrawer; empID;
+  shiftIDForm = new FormControl();
+  totalDrawer; shiftID;empID;
   checked;
 
   constructor(private accountingServ:AccountingService,
@@ -46,7 +46,8 @@ export class AccountingComponent implements OnInit {
     {text: 'return', cols: 2, rows: 1},
   ];
   ngOnInit() {
-    this.empID=localStorage.getItem('userID');
+    this.shiftID=localStorage.getItem('shiftID');
+    this.empID=localStorage.getItem('empID');
     this.userType=localStorage.getItem('activeUser');
     if(this.userType=='admin'){
       this.isAdmin=true;
@@ -57,7 +58,7 @@ export class AccountingComponent implements OnInit {
     this.getTotalDarwer();
   }
   getTotalDarwer(){
-    this.accountingServ.getTotalDarwer(this.empID).subscribe(Response => {
+    this.accountingServ.getTotalDarwer(this.shiftID).subscribe(Response => {
       if(Response == null) this.totalDrawer = 0;
       else this.totalDrawer = Response[0].total;
       },
@@ -69,14 +70,14 @@ export class AccountingComponent implements OnInit {
   getEmployees(){
     this.accountingServ.getTodayEmp().subscribe(Response=>{
       this.employees=Response;
-      this.checked = [this.empID];
+      this.checked = [this.shiftID];
     },
     error=>{
       alert("error")
     });
   }
   selectAccounting(accountingName,i){
-    localStorage.setItem("empIDs",this.empIDForm.value);
+    localStorage.setItem("shiftIDs",this.shiftIDForm.value);
     switch(accountingName) { 
       case "counters": { 
         console.log("counters")
@@ -129,22 +130,4 @@ export class AccountingComponent implements OnInit {
    }
    
   }
-  // selectEmp(event){
-  //   console.log(this.empIDForm.value)
-  //   if (event.source.selected) {
-  //   }
-  // }
-  // getThisShiftSummary(){
-   
-  // }
-  // getSoldLubricants(){
-  //   this.accServ.getSoldLubricants().subscribe(
-  //     Response=>{
-  //       this.allLubInvoice=Response;
-  //     },
-  //     error=>{
-  //       alert("error");
-  //     });
-  // }
-
 }

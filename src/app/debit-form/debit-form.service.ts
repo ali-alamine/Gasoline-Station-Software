@@ -10,13 +10,9 @@ export class DebitFormService {
     return this.http.post(this.url +"person/getAllPerson",{params:{isClient:isClient}});
   }
   addInvoice(data){
-    // console.log("here we go")
-    // console.log(data)
     return this.http.post(this.url +"operation/addInvoice",data);
   }
   sellWashServOnDebit(data){
-    console.log("here we go was")
-    console.log(data)
     return this.http.post(this.url +"operation/sellWashServiceOnDebit",data);
   }
   addPerson(data){

@@ -15,7 +15,7 @@ export interface Page<pageBtns>{
 export class SellLubricantsComponent implements OnInit {
   lubricants:any;
   selectedLubQuan:any;
-  empID:any;
+  shiftID:any;
   pageBtns:any;
   totalItems=0;
   itemPerPage:any=12;
@@ -38,10 +38,10 @@ export class SellLubricantsComponent implements OnInit {
       this.invoiceType = params['invoiceType'] || -1;
     });
     this.getLubricant(this.itemPerPage,this.offset);
-    this.empID=localStorage.getItem("userID")  /*Get Employee ID */
+    this.shiftID=localStorage.getItem("shiftID")  /*Get shift ID */
     this.pageBtns=[];
     SellLubricantsComponent.lubForm = this.fb.group({
-      empID: this.empID,
+      shiftID: this.shiftID,
       type:'lub',
       invoiceType: this.invoiceType,
       totalProfit: '',
@@ -159,14 +159,15 @@ export class SellLubricantsComponent implements OnInit {
         quantity:quantity  
       });
       this.itemsForm.push(item);
-      this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
-      Response=>{
-        this.openSnackBar(name, "SOLD");
-        this.getLubricant(this.itemPerPage,this.offset);
-      },
-      error=>{
-        alert("error");
-      });
+      console.log(SellLubricantsComponent.lubForm.value)
+      // this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
+      // Response=>{
+      //   this.openSnackBar(name, "SOLD");
+      //   this.getLubricant(this.itemPerPage,this.offset);
+      // },
+      // error=>{
+      //   alert("error");
+      // });
     }
   }
   /* highlight the selected tile */

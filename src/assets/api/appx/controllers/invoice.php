@@ -18,26 +18,22 @@ class invoice extends REST_Controller{
         }
     }  
     
-    public function getTypeDetails_post()
+    public function getDetailInvoice_post()
     {
 
         $type = $this->post('type');
         // $isDebit = $this->post('isDebit');
-        $empID = $this->post('empID');
-
+        $shiftIDs = $this->post('shiftIDs');
+        $shiftID = array();
+        foreach ($shiftIDs as $id)
+        {
+            $shiftID[] = $id;
+        }
         date_default_timezone_set("Asia/Beirut");
         $date=date("Y-m-d");
 
         $this->db->trans_begin();
-
-        // for($i = 0 ; $i < $size ; $i ++){
-            $result = $this->invoice_model->getDetailInvoice($type,$empID,$date);
-
-        // }
-        // foreach ($empID as $empID) {
-        //     $result = $result + $this->invoice_model->getDetailInvoice($type,$empID,$date,$isDebit);
-        // }
-
+        $result = $this->invoice_model->getDetailInvoice($type,$shiftID,$date);
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
             $this->response("Invoice information could not be saved. Try again.", 404);

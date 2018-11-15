@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 
 export class WashingCarComponent implements OnInit {
-  empID:any;
+  shiftID:any;
   name: string;
   machines=[
     {"id":1,"name":"Car","imgSrc":"../assets/icons/washingIcons/car.png","price":6000},
@@ -34,9 +34,9 @@ export class WashingCarComponent implements OnInit {
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debit = params['debit'] || false;
     });
-    this.empID=localStorage.getItem("userID")  /*Get Employee ID */
+    this.shiftID=localStorage.getItem("shiftID")  /*Get shift ID */
     WashingCarComponent.washForm = this.fb.group({
-      empID:this.empID,
+      shiftID:this.shiftID,
       nameCar:'',
       quantity:1,
       totalPrice:'',
@@ -64,7 +64,7 @@ export class WashingCarComponent implements OnInit {
     if(this.debit == 'true'){
       // let sellWashingData={
       //   "itemID":2,
-      //   "empID":this.empID,
+      //   "shiftID":this.shiftID,
       //   "nameCar":name,
       //   "price":price,
       //   "totalProfit":price,
@@ -78,7 +78,7 @@ export class WashingCarComponent implements OnInit {
     else{
       // let sellWashingData={
       //   "itemID":2,
-      //   "empID":this.empID,
+      //   "shiftID":this.shiftID,
       //   "nameCar":name,
       //   "price":price,
       //   "totalProfit":price,
@@ -100,7 +100,7 @@ export class WashingCarComponent implements OnInit {
     }
 
     
-    // let data={"machineName":name,"price":price,"empID":this.empID};
+    // let data={"machineName":name,"price":price,"shiftID":this.shiftID};
     // this.washServ.sellWashService(data).subscribe(
     // Response=>{
     //   this.openSnackBar(price + " Added to drawer", "success");

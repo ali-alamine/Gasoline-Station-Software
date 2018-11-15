@@ -16,7 +16,7 @@ class invoice_model extends CI_Model{
         return $query->result();
     }
     /* Get All Invoice filter by type and date and empID */
-    public function getDetailInvoice($type,$empID,$date){
+    public function getDetailInvoice($type,$shiftID,$date){
 
         if($type == 'debits'){
             $query = $this->db->query("(select invoice.rest as rest,person.full_name as clientName,

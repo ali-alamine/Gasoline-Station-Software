@@ -19,7 +19,7 @@ export class ReturnComponent implements OnInit {
   // isOpened = 0;
   // private personForm;
   modalReference: any;
-  rest; paid;empID;
+  rest; paid;shiftID;
   
   constructor(
     private router: Router,
@@ -30,7 +30,7 @@ export class ReturnComponent implements OnInit {
     private fb: FormBuilder) { }
 
     ngOnInit(){
-        this.empID = localStorage.getItem('userID');
+        this.shiftID = localStorage.getItem('shiftID');
       this.debitForm = this.fb.group({
         personID : [],
         personName: ['', Validators.required],
@@ -38,15 +38,7 @@ export class ReturnComponent implements OnInit {
         paidDebit: ['', Validators.required],
         totalDebit: ['', Validators.required],
         comment: [''],
-        // itemID:this.debitData.itemID,
-        empID:this.empID,
-        // name:this.debitData.name,
-        // price:this.debitData.price,
-        // quantity:this.debitData.quantity,
-        // totalPrice:this.debitData.totalPrice,
-        // type:this.debitData.type,
-        // invoiceType: this.debitData.invoiceType,
-        // isCash: this.debitData.isCash
+        shiftID:this.shiftID
       });
       this.getClients(1);
       this.onDebitAmountChange();
@@ -73,13 +65,11 @@ export class ReturnComponent implements OnInit {
       })
     }
     getSelectedClientData(event, client){
-      // debugger
-      // if (event.source.selected) {
+      if (event.source.selected) {
         this.debitForm.get('personID').setValue(client.PID);
         this.debitForm.get('debit').setValue(client.debitAmount);
         this.debitForm.get('totalDebit').setValue(client.debitAmount);
-      // }
-      console.log(this.debitForm.value)
+      }
     }
     submitDebit(){
       console.log(this.debitForm.value)

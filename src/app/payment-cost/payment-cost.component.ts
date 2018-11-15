@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class PaymentCostComponent implements OnInit {
   private paymentCostForm: FormGroup;
-  userID;
+  userID;shiftID;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -20,16 +20,17 @@ export class PaymentCostComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.userID=localStorage.getItem('userID');
+    // this.userID=localStorage.getItem('userID');
+    this.shiftID=localStorage.getItem('shiftID');
 
     this.paymentCostForm = this.fb.group({
-      userID : this.userID,
+      // userID : this.userID,
+      shiftID : this.shiftID,
       amount: ['', Validators.required],
       comment: ['']
     });
   }
   postPaymentCost(){
-    console.log(this.paymentCostForm.value)
     this.paymentCostServ.addPaymentCostInvoice(this.paymentCostForm.value).subscribe(
       Response=>{
         this.openSnackBar(this.paymentCostForm.get('amount').value, "Payment");

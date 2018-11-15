@@ -22,7 +22,7 @@ class operation extends REST_Controller{
             $personID = 1 ;  /* refer to client debit sell */
         }
         $items = $this->post('items');
-        $empID = $this->post('empID');
+        $shiftID = $this->post('shiftID');
         $type = $this->post('type');
         $comment=$this->post('commit');
         $invoiceType = $this->post('invoiceType');
@@ -48,7 +48,7 @@ class operation extends REST_Controller{
         }
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,'totalProfit'=>$totalProfit,"empID"=>$empID,
+        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,'totalProfit'=>$totalProfit,"shiftID"=>$shiftID,
         "personID"=>$personID,"note"=>$comment,'isSupply'=>$isSupply));
 
         /* Get last inserted invoice ID */
@@ -100,7 +100,7 @@ class operation extends REST_Controller{
          $today_date=$y."-".$m."-".$d."-".$time;
          /*END - Get Current Date Time */
 
-        $empID=$this->post('empID');
+        $shiftID=$this->post('shiftID');
         $personID=$this->post('personID');
         $amount = $this->post('totalPrice');
         $rest=$this->post('amountRest');
@@ -114,7 +114,7 @@ class operation extends REST_Controller{
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"totalProfit"=>$totalProfit,
-        "empID"=>$empID,"personID"=>$personID,"note"=>$name));
+        "shiftID"=>$shiftID,"personID"=>$personID,"note"=>$name));
         $str=$this->db->last_query();
 
         /* add debit persone */
@@ -140,7 +140,7 @@ class operation extends REST_Controller{
          /*END - Get Current Date Time */
 
 
-        $empID=$this->post('empID');
+        $shiftID=$this->post('shiftID');
         $personID=1; /* no registered client */
         $amount =$this->post('totalPrice');
         $totalProfit =$this->post('totalPrice');
@@ -152,7 +152,7 @@ class operation extends REST_Controller{
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,
-        "totalProfit"=>$totalProfit,"empID"=>$empID,"personID"=>$personID,"note"=>'Washing: '.$name));
+        "totalProfit"=>$totalProfit,"shiftID"=>$shiftID,"personID"=>$personID,"note"=>'Washing: '.$name));
         $str=$this->db->last_query();
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
@@ -172,7 +172,7 @@ class operation extends REST_Controller{
         $today_date=$y."-".$m."-".$d."-".$time;
         /*END - Get Current Date Time */
         
-        $userID=$this->post('userID');
+        $shiftID=$this->post('shiftID');
         $comment=$this->post('comment');
         $amount = $this->post('amount');
     
@@ -182,8 +182,8 @@ class operation extends REST_Controller{
         
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => 'payC','dateTime'=>$today_date,'rest'=>0,"empID"=>$userID,
-        "personID"=>$userID,"note"=>$comment,'isSupply'=>0));
+        "type" => 'payC','dateTime'=>$today_date,'rest'=>0,"shiftID"=>$shiftID,
+        "note"=>$comment,'isSupply'=>0));
 
         /* End execut querys */ 
         if ($this->db->trans_status() === false) {
@@ -206,7 +206,7 @@ class operation extends REST_Controller{
         $today_date=$y."-".$m."-".$d."-".$time;
         /*END - Get Current Date Time */
         
-        $empID=$this->post('empID');
+        $shiftID=$this->post('shiftID');
         $personID=$this->post('personID');
         $comment=$this->post('comment');
         $paidDebit = $this->post('paidDebit');
@@ -217,7 +217,7 @@ class operation extends REST_Controller{
         
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$paidDebit,
-        "type" => 'return','dateTime'=>$today_date,'rest'=>0,"empID"=>$empID,
+        "type" => 'return','dateTime'=>$today_date,'rest'=>0,"shiftID"=>$shiftID,
         "personID"=>$personID,"note"=>$comment,'isSupply'=>0));
         $this->operation_model->add_debit_person($personID,-$paidDebit);
 
@@ -243,7 +243,7 @@ class operation extends REST_Controller{
         $today_date=$y."-".$m."-".$d."-".$time;
         /*END - Get Current Date Time */
         
-        $empID=$this->post('empID');
+        $shiftID=$this->post('shiftID');
         $supplierID=$this->post('supplierID');
         $amount = $this->post('totalPrice');
         $cost_liter = $this->post('cost_liter');
@@ -258,7 +258,7 @@ class operation extends REST_Controller{
                                                "type" => 'fuel',
                                                'dateTime'=>$today_date,
                                                'rest'=>0,
-                                               "empID"=>$empID,
+                                               "shiftID"=>$shiftID,
                                                "personID"=>$supplierID,
                                                'isSupply'=>1));
 

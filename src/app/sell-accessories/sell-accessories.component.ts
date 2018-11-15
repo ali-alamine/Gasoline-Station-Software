@@ -15,7 +15,7 @@ export interface Page<pageBtns>{
 export class SellAccessoriesComponent implements OnInit {
   accessories:any;
   selectedLubQuan:any;
-  empID:any;
+  shiftID:any;
   pageBtns:any;
   totalItems=0;
   itemPerPage:any=12;
@@ -40,10 +40,10 @@ export class SellAccessoriesComponent implements OnInit {
       this.invoiceType = params['invoiceType'] || -1;
     });
     this.getAccessories(this.itemPerPage,this.offset);
-    this.empID=localStorage.getItem("userID")  /*Get Employee ID */
+    this.shiftID=localStorage.getItem("shiftID")  /*Get Employee ID */
     this.pageBtns=[];
     SellAccessoriesComponent.accForm = this.fb.group({
-      empID: this.empID,
+      shiftID: this.shiftID,
       type:'access',
       invoiceType: this.invoiceType,
       totalProfit: '',

@@ -46,7 +46,7 @@ export class DebitFormComponent {
     
     if(this.typePage == "supplyAccess" || this.typePage == 'supplyLub'){
       this.debitForm = this.fb.group({
-        empID: this.debitData.empID,
+        shiftID: this.debitData.shiftID,
         type:this.debitData.type,
         invoiceType: this.debitData.invoiceType,
         totalProfit: 0,
@@ -70,7 +70,7 @@ export class DebitFormComponent {
       this.getClients(1);
     }else if(this.typePage == "sellAccess" || this.typePage == "sellLub"){
       this.debitForm = this.fb.group({
-        empID: this.debitData.empID,
+        shiftID: this.debitData.shiftID,
         type:this.debitData.type,
         invoiceType: this.debitData.invoiceType,
         totalProfit: this.debitData.totalProfit,
@@ -91,7 +91,7 @@ export class DebitFormComponent {
     }else if(this.typePage == "sellWash" ){
       this.debitData = WashingCarComponent.washForm.value;
       this.debitForm = this.fb.group({
-        empID: this.debitData.empID,
+        shiftID: this.debitData.shiftID,
         type:this.debitData.type,
         invoiceType: this.debitData.invoiceType,
         personID : '',
@@ -104,7 +104,6 @@ export class DebitFormComponent {
       });
       this.getClients(1);
     }
-    console.log(this.debitForm.value)
   }
   openPersonModal(personModal) {
     this.modalReference = this.modalService.open(personModal, { centered: true, ariaLabelledBy: 'modal-basic-title' });
@@ -189,7 +188,6 @@ export class DebitFormComponent {
   getSelectedClientData(event,person){
     if (event.source.selected) {
       this.debitForm.get('personID').setValue(person.PID);
-      console.log(person.PID)
     }
   }
   changeAmountPaid(){

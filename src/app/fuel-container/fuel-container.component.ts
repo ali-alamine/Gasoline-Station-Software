@@ -15,7 +15,7 @@ export class FuelContainerComponent implements OnInit {
   containers:any;
   modalReference: any;
   index:any;
-  empID:any;
+  shiftID:any;
   cost_per_liter=0;
   totalPrice:any;
   totalLiters:any;
@@ -26,7 +26,7 @@ export class FuelContainerComponent implements OnInit {
     totalPrice: new FormControl(''),
     supplierID:new FormControl(''),
     containerID:new FormControl(''),
-    empID:new FormControl(''),
+    shiftID:new FormControl(''),
     cost_liter:new FormControl(''),
   })
   isNaN: Function = Number.isNaN;
@@ -34,7 +34,7 @@ export class FuelContainerComponent implements OnInit {
   
   ngOnInit() {
     this.getContainers();
-    this.empID=localStorage.getItem('userID');
+    this.shiftID=localStorage.getItem('shiftID');
     
   }
   reset(){
@@ -79,7 +79,7 @@ export class FuelContainerComponent implements OnInit {
       });
     }
     submitSupply(){
-      this.supplyForm.get('empID').setValue(this.empID);
+      this.supplyForm.get('shiftID').setValue(this.shiftID);
       // this.supplyForm.get('cost_liter').setValue(this.cost_per_liter);
       console.log(this.supplyForm.value);
       this.fuelContServ.submitSupplyFuel(this.supplyForm.value).subscribe(

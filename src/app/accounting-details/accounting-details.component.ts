@@ -11,7 +11,7 @@ import { AccountingService } from '../accounting/accounting.service';
 export class AccountingDetailsComponent implements OnInit {
   private urlData;
   type;
-  empID;
+  empID;shiftID;
   totalAmount = 0;
   totalProfit = 0;
   details;
@@ -19,7 +19,7 @@ export class AccountingDetailsComponent implements OnInit {
   isOpened = 0;
   empType;
   selectedDetails = new Array();
-  empIDs;
+  shiftIDs;
   constructor(private router: Router, private route: ActivatedRoute,private accountingServ:AccountingService) { }
 
   ngOnInit() {
@@ -28,16 +28,16 @@ export class AccountingDetailsComponent implements OnInit {
       this.type = params['type'] || -1;
     });
     this.empID=localStorage.getItem('userID');
+    this.shiftID=localStorage.getItem('shiftID');
     this.empType=localStorage.getItem('activeUser');
-    this.empIDs=localStorage.getItem('empIDs');
-    this.getTypeDetails();
-    console.log(this.empIDs);
-    this.empIDs=this.empIDs.split(',');
-    console.log(this.empIDs);
+    this.shiftIDs=localStorage.getItem('shiftIDs');
+    this.getDetailInvoice();
+    this.shiftIDs=this.shiftIDs.split(',');
+    console.log(this.shiftIDs);
   }
-  getTypeDetails(){
-    let data={"type":this.type,"empID":this.empIDs};
-    this.accountingServ.getTypeDetails(data).subscribe(Response=>{
+  getDetailInvoice(){
+    let data={"type":this.type,"shiftIDs":this.shiftIDs};
+    this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
       if(Response!=0){
         this.details=Response;
         if(this.empType == 'admin'){
