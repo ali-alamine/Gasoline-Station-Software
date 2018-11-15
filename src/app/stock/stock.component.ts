@@ -5,7 +5,7 @@ import { StockService} from './stock.service'
 declare var $: any;
 import 'datatables.net';
 import 'datatables.net-bs4';
-import { MenuItem } from '../../../node_modules/primeng/api';
+import { MenuItem } from 'primeng/api';
 import Swal from "sweetalert2";
 
 @Component({

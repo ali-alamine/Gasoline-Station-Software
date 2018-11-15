@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountingComponent } from '../accounting/accounting.component';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AccountingService } from '../accounting/accounting.service';
-import { ShiftHistoryComponent } from '../shift-history/shift-history.component';
+import { HistoryTypeComponent } from '../history-type/history-type.component';
 
 @Component({
-  selector: 'app-accounting-details',
-  templateUrl: './accounting-details.component.html',
-  styleUrls: ['./accounting-details.component.scss']
+  selector: 'app-shift-history-details',
+  templateUrl: './shift-history-details.component.html',
+  styleUrls: ['./shift-history-details.component.scss']
 })
-export class AccountingDetailsComponent implements OnInit {
+export class ShiftHistoryDetailsComponent implements OnInit {
   private urlData;
   type;
   empID;
@@ -21,26 +19,26 @@ export class AccountingDetailsComponent implements OnInit {
   empType;
   selectedDetails = new Array();
   empIDs;
-  constructor(private router: Router, private route: ActivatedRoute,private accountingServ:AccountingService) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // console.log(ShiftHistoryComponent.filterForm.value)
     this.urlData = this.route.queryParams.subscribe(params => {
       this.type = params['type'] || -1;
     });
     this.empID=localStorage.getItem('userID');
     this.empType=localStorage.getItem('activeUser');
-    this.empIDs=localStorage.getItem('empIDs');
+    // this.empIDs=localStorage.getItem('empIDs');
+    // console.log(this.empIDs);
+    // this.empIDs=this.empIDs.split(',');
+    this.details = HistoryTypeComponent.details;
+    console.log(this.details);
     this.getTypeDetails();
-    console.log(this.empIDs);
-    this.empIDs=this.empIDs.split(',');
-    console.log(this.empIDs);
   }
   getTypeDetails(){
-    let data={"type":this.type,"empID":this.empIDs};
-    this.accountingServ.getTypeDetails(data).subscribe(Response=>{
-      if(Response!=0){
-        this.details=Response;
+    // let data={"type":this.type,"empID":this.empIDs};
+    // this.shiftHistoryServ.getTypeDetails(data).subscribe(Response=>{
+      // if(Response!=0){
+        // this.details=Response;
         if(this.empType == 'admin'){
           if(this.type == 'debits'){
             this.details.forEach(element => {
@@ -104,11 +102,11 @@ export class AccountingDetailsComponent implements OnInit {
               this.selectedDetails.push(element);
           });
         }
-      } 
-    },
-    error=>{
-      alert("error")
-    });
+      // } 
+    // },
+    // error=>{
+    //   alert("error")
+    // });
   }
   togglePanel(index:number) {
     this.isOpened = index;

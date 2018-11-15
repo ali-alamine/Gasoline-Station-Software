@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { WashingCarService } from './washing-car.service';
 import { MatSnackBar} from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup } from '../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-washing-car',

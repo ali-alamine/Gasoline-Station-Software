@@ -14,7 +14,7 @@ import { MatInputModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-import { MatButtonModule, MatCheckboxModule} from '@angular/material'
+import { MatButtonModule, MatCheckboxModule,MatNativeDateModule} from '@angular/material'
 import { MatToolbarModule} from '@angular/material/toolbar';
 import { MatDividerModule} from '@angular/material/divider';
 import { MatCardModule} from '@angular/material/card';
@@ -45,6 +45,11 @@ import { PaymentSupplyComponent } from './payment-supply/payment-supply.componen
 import { ReturnComponent } from './return/return.component';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { SupplierComponent } from './supplier/supplier.component';
+// import { ShiftHistoryComponent } from './shift-history/shift-history.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ShiftHistoryDetailsComponent } from './shift-history-details/shift-history-details.component';
+import { HistoryComponent } from './history/history.component';
+import { HistoryTypeComponent } from './history-type/history-type.component';
 
 @NgModule({
     declarations: [
@@ -67,7 +72,12 @@ import { SupplierComponent } from './supplier/supplier.component';
     PaymentCostComponent,
     PaymentSupplyComponent,
     ReturnComponent,
-    SupplierComponent
+    SupplierComponent,
+    // ShiftHistoryComponent,
+    ShiftHistoryDetailsComponent,
+    HistoryComponent,
+    HistoryTypeComponent,
+    // ShiftHistoryDetailsComponent
   ],
   imports: [
     MatCardModule,
@@ -95,7 +105,9 @@ import { SupplierComponent } from './supplier/supplier.component';
     MatSelectModule,
     MatPaginatorModule,
     MatListModule,
-    ContextMenuModule
+    ContextMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

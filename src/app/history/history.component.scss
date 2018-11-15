@@ -1,0 +1,23 @@
+.tile-image {
+    width:50%;
+    height: 75%;
+    margin:auto;
+  
+  //   margin-left: px;
+  //   margin-top: -0.01%;
+  }
+  .tile-grid{
+    padding-top: 10px;
+    border: solid lightblue 1px;
+  }
+  .selectedTile{
+      background-color:lightblue;
+  }
+  .resetSelection{
+      background-color:white;
+  }
+  
+  .example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }  

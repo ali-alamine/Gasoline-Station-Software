@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SellLubricantsService} from  './sell-lubricants.service'
 import { MatSnackBar} from '@angular/material';
 import { ActivatedRoute,Router } from '@angular/router';
-import { FormGroup, FormBuilder, FormArray } from '../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
 export interface Page<pageBtns>{
   color: string;
   text: string;

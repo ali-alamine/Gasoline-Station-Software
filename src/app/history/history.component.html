@@ -1,0 +1,57 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12" >
+      <form fxLayout="column" [formGroup]="filterForm" autocomplete="off">    
+        <mat-form-field style="width: 50%;">
+          <mat-select placeholder="Select employees"  formControlName="empIDs" [(ngModel)]="checked" multiple>
+            <mat-option *ngFor="let emp of employees " [value]="emp.empID">{{emp.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+            <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+              <mat-form-field class="inputField" style="width: 25%;">
+                <input matInput [matDatepicker]="expDateStart" placeholder="Exp Date Start" formControlName="fromExpDate">
+                <mat-datepicker-toggle matSuffix [for]="expDateStart" tabIndex="-1"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #expDateStart></mat-datepicker>
+              </mat-form-field>
+              <mat-form-field class="inputField" class="dateFilter" style="width: 25%;">
+                <input matInput [matDatepicker]="expDateEnd" placeholder="Exp Date End" formControlName="toExpDate">
+                <mat-datepicker-toggle matSuffix [for]="expDateEnd" tabIndex="-1"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #expDateEnd></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </form>
+          <button mat-raised-button class="searchFormBtn" name="searchBtn" color="primary" 
+          [disabled]="!filterForm.valid" (click)="getShiftDetails() ">Show Result Shift</button>
+    </div>
+    <div class="col-lg-12" *ngIf="shiftDetails != 0 || shiftDetails != ''"  >
+      <div class="container-fluid" style="margin-top: 10px">
+        <mat-grid-list cols="4" rowHeight="150px" class="tile-container">
+          <mat-grid-tile style ="margin-top:55px;" class="tile-grid"
+              *ngFor="let shift of shiftDetails; let i = index">
+              <h6 style="text-align: center;margin-right:20px"><u>Shift {{i+1}}</u></h6>
+              <!-- <div class="row"> -->
+                <div>
+                  <h6 style="color:firebrick;margin-top: -20px">
+                  Employee: {{shift.name}}<br>
+                  Date: {{shift.shift_date}}<br>
+                  Time in: {{shift.timeIn}}<br>
+                  Time out: {{shift.timeOut}}<br>
+                  Drawer : {{shift.initDrawer}}</h6>
+                </div>
+                <div>
+                  <button style="margin-left:40px;background-color:lightgreen" 
+                  (click)="addShift(i+1,shift.empID)" mat-fab>
+                      <mat-icon style="color:firebrick" matSuffix>subdirectory_arrow_right</mat-icon>
+                  </button>
+                </div>
+              <!-- </div> -->
+          </mat-grid-tile>
+        </mat-grid-list>
+        <div  style ="margin-top:55px; height:30px; text-align:center">
+            <button style="background-color:lightgreen ;float:center;" (click)="getDetail()" mat-fab>
+                <mat-icon style="color:firebrick" matSuffix>arrow_forward</mat-icon>
+            </button>
+        </div>
+      </div>
+    </div>
+</div>

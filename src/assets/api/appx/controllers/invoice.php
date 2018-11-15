@@ -20,6 +20,7 @@ class invoice extends REST_Controller{
     
     public function getTypeDetails_post()
     {
+
         $type = $this->post('type');
         // $isDebit = $this->post('isDebit');
         $empID = $this->post('empID');
@@ -42,6 +43,40 @@ class invoice extends REST_Controller{
             $this->response("Invoice information could not be saved. Try again.", 404);
         } else {
             $this->db->trans_commit();
+            $this->response($result, 200);
+        }
+    }
+    public function getShiftDetails_post()
+    {
+        // $type = $this->post('type');
+        $fromExpDate = $this->post('fromExpDate');
+        $toExpDate = $this->post('toExpDate');
+        $empIDs = $this->post('empIDs');
+        $result = $this->invoice_model->getShiftDetails($empIDs,$fromExpDate,$toExpDate);
+        $totalCount = $this->invoice_model->countShiftDetails($empIDs,$fromExpDate,$toExpDate);
+        $jsonData=[$result,$totalCount];
+        if ($result == 0) {
+            $this->response("shift information could not exist. Try again.", 404);
+        } else {
+            $this->response($jsonData, 200);
+        }
+    }
+    
+    public function getShiftTypeDetails_post()
+    {
+        $type = $this->post('type');
+        $empID = $this->post('empID');
+        $fromExpDate = $this->post('fromExpDate');
+        $toExpDate = $this->post('toExpDate');
+        $ids = array();
+        foreach ($empID as $id)
+        {
+            $ids[] = $id['empID'];
+        }
+        $result = $this->invoice_model->getShiftTypeDetails($type,$ids,$fromExpDate,$toExpDate);
+        if ($result == 0) {
+            $this->response("shift information could not exist. Try again.", 404);
+        } else {
             $this->response($result, 200);
         }
     }

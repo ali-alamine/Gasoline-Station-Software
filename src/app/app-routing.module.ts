@@ -18,6 +18,10 @@ import { PaymentCostComponent } from './payment-cost/payment-cost.component';
 import { PaymentSupplyComponent } from './payment-supply/payment-supply.component';
 import { ReturnComponent } from './return/return.component';
 import { SupplierComponent } from './supplier/supplier.component';
+// import { ShiftHistoryComponent } from './shift-history/shift-history.component';
+import { ShiftHistoryDetailsComponent } from './shift-history-details/shift-history-details.component';
+import { HistoryComponent } from './history/history.component';
+import { HistoryTypeComponent } from './history-type/history-type.component';
 
 
 const routes: Routes = [
@@ -75,6 +79,18 @@ const routes: Routes = [
   },
   {
     path:'return',component:ReturnComponent 
+  },
+  {
+    path:'history',component:HistoryComponent 
+  },
+  {
+    path:'historyType',component:HistoryTypeComponent 
+  },
+  // {
+  //   path:'shiftHistory',component:ShiftHistoryComponent 
+  // },
+  {
+    path:'shiftHistoryDetails',component:ShiftHistoryDetailsComponent 
   },
   {
     path:'',component:LoginComponent 
