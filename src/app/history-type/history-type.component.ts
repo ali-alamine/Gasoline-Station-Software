@@ -16,7 +16,7 @@ export interface Tile<tiles>{
   styleUrls: ['./history-type.component.scss']
 })
 export class HistoryTypeComponent implements OnInit {
-  static filterForm: FormGroup;
+  static shiftDataForm: FormGroup;
   shiftData :any;
   static details;
 
@@ -33,27 +33,26 @@ export class HistoryTypeComponent implements OnInit {
     {text: 'return', cols: 2, rows: 1},
   ];
   ngOnInit() {
-    // console.log(HistoryComponent.shiftForm.value)
     this.shiftData = HistoryComponent.shiftForm.value;
-    HistoryTypeComponent.filterForm = this.fb.group({
+    HistoryTypeComponent.shiftDataForm = this.fb.group({
       fromExpDate: HistoryComponent.shiftForm.value.fromExpDate,
       toExpDate : HistoryComponent.shiftForm.value.toExpDate,
       type: '',
-      empID: this.fb.array([])
+      shiftID: this.fb.array([])
     })
-    this.shiftData.empID.forEach(element => {
+    this.shiftData.shiftID.forEach(element => {
       const ID = this.fb.group({
-        empID:element['empID'] 
+        shiftID:element['shiftID'] 
       });
-      this.empIDForm.push(ID);
+      this.shiftIDForm.push(ID);
     });
-    console.log(HistoryTypeComponent.filterForm.value)
   }
   selectAccounting(accountingName,i){
-    HistoryTypeComponent.filterForm.get('type').setValue(accountingName)
-    console.log(HistoryTypeComponent.filterForm.value)
-    this.historyServ.getShiftTypeDetails(HistoryTypeComponent.filterForm.value).subscribe(Response=>{
-      if(Response!=0){
+    HistoryTypeComponent.shiftDataForm.get('type').setValue(accountingName)
+    // console.log(HistoryTypeComponent.shiftDataForm.value)
+    this.historyServ.getShiftTypeDetails(HistoryTypeComponent.shiftDataForm.value).subscribe(Response=>{
+      // console.log(Response)
+      // if(Response!=0){
         HistoryTypeComponent.details=Response;
         // console.log(ShiftHistoryComponent.details)
         switch(accountingName) { 
@@ -106,7 +105,7 @@ export class HistoryTypeComponent implements OnInit {
              break; 
           } 
         }
-      }
+      // }
       
        
     //     // if(this.empType == 'admin'){
@@ -181,9 +180,9 @@ export class HistoryTypeComponent implements OnInit {
     
   }
   get type() {
-    return HistoryTypeComponent.filterForm.get('type')
+    return HistoryTypeComponent.shiftDataForm.get('type')
   }
-  get empIDForm() {
-    return HistoryTypeComponent.filterForm.get('empID') as FormArray
+  get shiftIDForm() {
+    return HistoryTypeComponent.shiftDataForm.get('shiftID') as FormArray
   }
 }
