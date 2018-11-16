@@ -175,7 +175,10 @@ export class DebitFormComponent {
           setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
         }else
           setTimeout(()=>this.router.navigate(['/operations']),1000);
-  
+        this.debitForm.reset();
+        while (this.itemsForm.length !== 0) {
+          this.itemsForm.removeAt(0)
+        }
       },
       error=>{
         console.log("error: "+error);
@@ -188,7 +191,7 @@ export class DebitFormComponent {
   
         /* wait 3 sec untrill notification disappear and navigate to operations */
           setTimeout(()=>this.router.navigate(['/operations']),1000);
-  
+          this.debitForm.reset();
       },
       error=>{
         console.log("error: "+error);
@@ -205,7 +208,10 @@ export class DebitFormComponent {
           setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
         }else
           setTimeout(()=>this.router.navigate(['/operations']),1000);
-  
+        this.debitForm.reset();
+        while (this.itemsForm.length !== 0) {
+          this.itemsForm.removeAt(0)
+        }
       },
       error=>{
         console.log("error: "+error);
@@ -229,7 +235,7 @@ export class DebitFormComponent {
       }else if(this.typePage == "sellWash" || this.typePage == 'sellFuelDebit'){
         total = this.debitForm.get('totalPrice').value;      
       } else{
-        total = this.debitForm.controls[i].get('totalPrice').value;
+        total = this.debitForm.value.items[0].totalPrice;
       }
       if(amountPaid == '') amountPaid = 0;
       this.debitForm.get('amountRest').setValue(total - amountPaid);
