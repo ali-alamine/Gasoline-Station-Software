@@ -26,6 +26,7 @@ export class DebitFormComponent {
   rest; paid;
   private typePage;
   items:any;
+  
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -103,6 +104,20 @@ export class DebitFormComponent {
         nameCar:this.debitData.nameCar,
       });
       this.getClients(1);
+    }else if(this.typePage == "sellFuelDebit"){
+      var shiftID=localStorage.getItem('shiftID');
+      this.debitForm = this.fb.group({
+        shiftID: shiftID,
+        type:['', Validators.required],
+        invoiceType: 'sellFuelDebit',
+        personID : '',
+        personName: ['', Validators.required],
+        totalPrice:[0, [Validators.required, Validators.min(1)]],
+        amountPaid: [0, Validators.required],
+        amountRest: [0, Validators.required],
+        comment: ''
+      });
+      this.getClients(1);
     }
   }
   openPersonModal(personModal) {
@@ -148,7 +163,7 @@ export class DebitFormComponent {
 
   }
   submitDebitFormData(){
-    if(this.debitForm.get('type').value == 'wash')
+    if(this.typePage == "sellWash")
     {
       this.debitFormServ.sellWashServOnDebit(this.debitForm.value).subscribe(Response=>{
 
@@ -159,6 +174,19 @@ export class DebitFormComponent {
         if(this.debitForm.get('invoiceType').value == 'supply'){
           setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
         }else
+          setTimeout(()=>this.router.navigate(['/operations']),1000);
+  
+      },
+      error=>{
+        console.log("error: "+error);
+      });
+    }else if(this.typePage == "sellFuelDebit"){
+      this.debitFormServ.sellFuelOnDebit(this.debitForm.value).subscribe(Response=>{
+
+        /* notification message when sell sucess */
+        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+  
+        /* wait 3 sec untrill notification disappear and navigate to operations */
           setTimeout(()=>this.router.navigate(['/operations']),1000);
   
       },
@@ -193,18 +221,24 @@ export class DebitFormComponent {
   changeAmountPaid(){
       var amountPaid = this.debitForm.get('amountPaid').value;
       var total=0;
-      if(this.debitForm.get('invoiceType').value == 'supply'){
+      if(this.typePage == "supplyAccess" || this.typePage == 'supplyLub'){
         for (var i = 0; i < this.itemsForm.controls.length; i++) {
           var totalPrice = this.itemsForm.controls[i].get('totalPrice').value;
           total = total + totalPrice;
         }
+      }else if(this.typePage == "sellWash" || this.typePage == 'sellFuelDebit'){
+        total = this.debitForm.get('totalPrice').value;      
       } else{
-        total = this.debitData.items[0].totalPrice;
+        total = this.debitForm.controls[i].get('totalPrice').value;
       }
       if(amountPaid == '') amountPaid = 0;
       this.debitForm.get('amountRest').setValue(total - amountPaid);
   }
-
+  changeTotalPrice(){
+    var totalPrice = this.debitForm.get('totalPrice').value;
+    var amountPaid = this.debitForm.get('amountPaid').value;
+    this.debitForm.get('amountRest').setValue(totalPrice-amountPaid);
+  }
   rowChangePrice(index){
     var total=0;
     for (var i = 0; i < this.itemsForm.controls.length; i++) {

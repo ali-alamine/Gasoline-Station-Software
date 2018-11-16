@@ -15,6 +15,9 @@ export class DebitFormService {
   sellWashServOnDebit(data){
     return this.http.post(this.url +"operation/sellWashServiceOnDebit",data);
   }
+  sellFuelOnDebit(data){
+    return this.http.post(this.url +"operation/sellFuelOnDebit",data);
+  }
   addPerson(data){
     return this.http.post(this.url +"person/addPerson",data);
   }

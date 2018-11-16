@@ -30,7 +30,7 @@ export class OperationsComponent implements OnInit {
   totalDrawer;
   private urlData;
   private userName;
-  empID;
+  shiftID;
   modalReference: any;
   constructor(private router: Router, private route: ActivatedRoute,private operationServ: OperationsService,private modalService: NgbModal) {}
 
@@ -50,7 +50,7 @@ export class OperationsComponent implements OnInit {
 
   ngOnInit() {
     this.userType=localStorage.getItem('activeUser');
-    this.empID=localStorage.getItem('userID');
+    this.shiftID=localStorage.getItem('shiftID');
     this.newShift=localStorage.getItem('newShift');
     this.userName=localStorage.getItem('userName');
     this.userType=localStorage.getItem('activeUser');
@@ -63,7 +63,7 @@ export class OperationsComponent implements OnInit {
   }
 
   getTotalDarwer(){
-    this.operationServ.getTotalDarwer(this.empID).subscribe(Response => {
+    this.operationServ.getTotalDarwer(this.shiftID).subscribe(Response => {
       console.log(Response)
       this.totalDrawer = Response[0].total;
     },

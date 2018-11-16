@@ -37,10 +37,24 @@
           </div>
         </div>
       </div>
-    <p>
+      <div *ngIf="this.debitForm.value.invoiceType == 'sellFuelDebit'">
+        <mat-form-field style="width: 20%;margin-right: 5px;">
+          <mat-select matInput placeholder="Fuel"  formControlName="type">
+            <mat-option value="95_d">95</mat-option>
+            <mat-option value="98_d">98</mat-option>
+            <mat-option value="deiselR_d">Deisel R</mat-option>
+            <mat-option value="deiselG_d">Deisel G</mat-option>
+          </mat-select>
+      </mat-form-field>
+      </div>
+        <p>
+      <mat-form-field appearance="outline" style="padding-right: 50px;width:20%" *ngIf="this.debitForm.value.invoiceType == 'sellFuelDebit'">
+        <mat-label>Total Amount</mat-label>
+        <input matInput placeholder="Total Amount" step="500" type="number" formControlName="totalPrice" (ngModelChange)="changeTotalPrice()" >
+        </mat-form-field>
       <mat-form-field appearance="outline" style="width:20%">
-        <mat-label>Amount</mat-label>
-        <input matInput placeholder="Amount" step="500" type="number" formControlName="amountPaid" (ngModelChange)="changeAmountPaid()" >
+        <mat-label>Paid</mat-label>
+        <input matInput placeholder="Paid" step="500" type="number" formControlName="amountPaid" (ngModelChange)="changeAmountPaid()" >
         <mat-hint> <code ><h5 *ngIf="debitForm.value.amountRest >= 0">Rest: {{debitForm.value.amountRest}} </h5></code> </mat-hint>
       </mat-form-field>
   

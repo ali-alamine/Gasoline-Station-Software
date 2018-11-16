@@ -125,6 +125,7 @@ export class SellLubricantsComponent implements OnInit {
   }
   /* sell lubricant */
   sellLub(id,name,price,cost,quantity,totalPrice){
+    
     this.profit = totalPrice - (quantity * cost);
     if(this.invoiceType == "supply"){
       const item = this.fb.group({
@@ -159,15 +160,23 @@ export class SellLubricantsComponent implements OnInit {
         quantity:quantity  
       });
       this.itemsForm.push(item);
-      console.log(SellLubricantsComponent.lubForm.value)
-      // this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
-      // Response=>{
-      //   this.openSnackBar(name, "SOLD");
-      //   this.getLubricant(this.itemPerPage,this.offset);
-      // },
-      // error=>{
-      //   alert("error");
-      // });
+      // console.log(SellLubricantsComponent.lubForm.value)
+      this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
+      Response=>{
+        this.openSnackBar(name, "SOLD");
+        this.getLubricant(this.itemPerPage,this.offset);
+        SellLubricantsComponent.lubForm.reset();
+        SellLubricantsComponent.lubForm.get('shiftID').setValue(this.shiftID);
+        SellLubricantsComponent.lubForm.get('type').setValue('lub');
+        SellLubricantsComponent.lubForm.get('invoiceType').setValue(this.invoiceType);
+        while (this.itemsForm.length !== 0) {
+          this.itemsForm.removeAt(0)
+        }
+        // console.log(SellLubricantsComponent.lubForm.value)
+      },
+      error=>{
+        alert("error");
+      });
     }
   }
   /* highlight the selected tile */
