@@ -42,7 +42,7 @@ export class DebitsComponent implements OnInit {
          break; 
       } 
       case "debit_fuel": { 
-        this.router.navigate(['/debbiting'], { queryParams: { debit: true} });
+        this.router.navigate(['/debbiting'], { queryParams: { pageType: 'sellFuelDebit'} });
          break; 
       }
       case "debit_washing": {

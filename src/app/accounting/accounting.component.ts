@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AccountingService } from './accounting.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { OperationsService } from '../operations/operations.service';
 
 export interface Tile<tiles>{
   color: string;
@@ -33,7 +34,7 @@ export class AccountingComponent implements OnInit {
 
   constructor(private accountingServ:AccountingService,
     private router: Router, 
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,private operationServ: OperationsService) { }
   tiles=[
     {text: 'counters', cols: 2, rows: 1},
     {text: 'lubricants', cols: 2, rows: 1},
@@ -58,7 +59,7 @@ export class AccountingComponent implements OnInit {
     this.getTotalDarwer();
   }
   getTotalDarwer(){
-    this.accountingServ.getTotalDarwer(this.shiftID).subscribe(Response => {
+    this.operationServ.getTotalDarwer(this.shiftID).subscribe(Response => {
       if(Response == null) this.totalDrawer = 0;
       else this.totalDrawer = Response[0].total;
       },

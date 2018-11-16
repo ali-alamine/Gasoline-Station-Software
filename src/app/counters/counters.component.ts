@@ -138,7 +138,11 @@ export class CountersComponent implements OnInit {
     //           this.counter_1_from.reset();
     //           this.counter_2_from.reset();
     //           swal("Success", {
+<<<<<<< HEAD
     //             button: false,
+=======
+    //             // button: false,
+>>>>>>> 7c8c462ec70d5b4a65c2ab9d9948ac2ccb39e80c
     //             timer:500
     //           });
     //       },

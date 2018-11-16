@@ -164,6 +164,13 @@ export class SellAccessoriesComponent implements OnInit {
       Response=>{
         this.openSnackBar(name, "SOLD");
         this.getAccessories(this.itemPerPage,this.offset);
+        SellAccessoriesComponent.accForm.reset();
+        SellAccessoriesComponent.accForm.get('shiftID').setValue(this.shiftID);
+        SellAccessoriesComponent.accForm.get('type').setValue('access');
+        SellAccessoriesComponent.accForm.get('invoiceType').setValue(this.invoiceType);
+        while (this.itemsForm.length !== 0) {
+          this.itemsForm.removeAt(0)
+        }
   
       },
       error=>{

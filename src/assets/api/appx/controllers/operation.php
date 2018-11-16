@@ -232,7 +232,6 @@ class operation extends REST_Controller{
             
     }
     /* supply fuel */
-
     public function supplyFuel_post(){
         /*START - Get Current Date Time */
         $currentFullDate=getdate();
@@ -280,5 +279,40 @@ class operation extends REST_Controller{
             $this->response("success", 200);
         }
    }
+   /* sell fuel on debit */
+   public function sellFuelOnDebit_post(){
+    /*START - Get Current Date Time */
+    $currentFullDate=getdate();
+    $d=$currentFullDate['mday'];
+    $m=$currentFullDate['mon'];
+    $y=$currentFullDate['year'];
+    $time=date("h:i");
+    $today_date=$y."-".$m."-".$d."-".$time;
+    /*END - Get Current Date Time */
+
+   $shiftID=$this->post('shiftID');
+   $personID=$this->post('personID');
+   $amount = $this->post('totalPrice');
+   $rest=$this->post('amountRest');
+   $type = $this->post('type');
+   $comment=$this->post('comment');
+
+   /* insert into invoice  */
+   $result = $this->operation_model->add_inv(array("amount"=>$amount,
+   "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,
+   "shiftID"=>$shiftID,"personID"=>$personID,"note"=>$comment));
+   $str=$this->db->last_query();
+
+   /* add debit persone */
+   if($rest > 0){
+       $this->operation_model->add_debit_person($personID,$rest);
+   }
+   
+   if ($result === 0) {
+       $this->response("Item information could not be saved. Try again.", 404);
+   } else {
+       $this->response("success", 200);
+   }
+}
 }
 

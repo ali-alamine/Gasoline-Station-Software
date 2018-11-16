@@ -10,10 +10,10 @@ class drawer extends REST_Controller
 
     public function getTotalDarwer_get()
     {
-        $empID = $this->get('empID');
+        $shiftID = $this->get('shiftID');
         date_default_timezone_set("Asia/Beirut");
         $date=date("Y-m-d");
-        $result = $this->drawer_model->getTotalDarwer($date,$empID);
+        $result = $this->drawer_model->getTotalDarwer($date,$shiftID);
         if ($result) {
             $this->response($result, 200);
             exit;

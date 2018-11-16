@@ -92,6 +92,10 @@ export class WashingCarComponent implements OnInit {
         this.openSnackBar(name, "SOLD");
       this.openSnackBar(price + " Added to drawer", "success");
         // this.getAccessories(this.itemPerPage,this.offset);
+        WashingCarComponent.washForm.reset();
+        WashingCarComponent.washForm.get('shiftID').setValue(this.shiftID);
+        WashingCarComponent.washForm.get('type').setValue('wash');
+        WashingCarComponent.washForm.get('invoiceType').setValue('sell');
   
       },
       error=>{
