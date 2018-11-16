@@ -51,6 +51,15 @@ class employee_model extends CI_Model{
             return false;
         }
     }
+    public function getLastShiftID(){
+        if ($this->db->insert_id()) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+    /* Get last shift ID */
+
     /* Get All Employee in open shift today*/
     public function getTodayEmp(){
         date_default_timezone_set("Asia/Beirut");
@@ -93,7 +102,15 @@ class employee_model extends CI_Model{
         } else {
             return false;
         }
-
     }
-    
+
+    public function logout($shiftID){
+        $this->db->where('shiftID', $shiftID);
+        $this->db->set('isOpen', 0);
+        if ($this->db->update('shift')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

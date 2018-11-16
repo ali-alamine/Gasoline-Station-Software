@@ -30,30 +30,26 @@ export class AppComponent implements OnInit{
     }
 
     this.router.events.subscribe(event => {
-
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
-        // if(this.currentUrl=="/login" || this.currentUrl=="/operations" || this.currentUrl=="/counters" || this.currentUrl=="/selllub" || this.currentUrl=="/wash"){
-          // (<HTMLElement>document.querySelector('#sideBarNav')).style.display = 'none';
-          // (<HTMLElement>document.querySelector('#content')).style.padding = '0px';
-        // }
-        // else if(this.currentUrl=="/stock"){
-          // (<HTMLElement>document.querySelector('#content')).style.padding = '100px';
-          // (<HTMLElement>document.querySelector('#tabs')).style.marginTop = '-90px';
-          // (<HTMLElement>document.querySelector('#sideBarNav')).style.display = 'inline';
-        // }
-      // }
+        if(this.currentUrl.includes('startShift')){
+          var hide="true";
+        }else{ hide= 'false'}
+        if(this.currentUrl=="/login" || hide=="true"){
+          (<HTMLElement>document.querySelector('#header')).style.display = 'none';
+        }
+        else{
+          (<HTMLElement>document.querySelector('#header')).style.display = 'block';
+        }
       }
     });
 
   }
 
   checkOpenedSession(){
-
     this.ms.getActiveSessions().subscribe(Response=>{
       if(Response != ''){
         // alert('1');
-           
       }else{
         // alert('0')
       }
@@ -70,6 +66,14 @@ export class AppComponent implements OnInit{
     this.router.navigate(["/operations"]);
   }
   logout(){
+    let id=localStorage.getItem('shiftID');
+    alert(id);
+    this.ms.logout(id).subscribe(Response=>{
+      alert('1')
+    },
+    error=>{
+      alert("error")
+    });
     this.router.navigate(["/login"]);
     localStorage.setItem('userID','-1');
   }

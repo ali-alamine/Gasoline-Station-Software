@@ -112,7 +112,21 @@ class employee extends REST_Controller{
         if ($newShiftResult === 0) {
             $this->response("Client information could not be saved. Try again.", 404);
         } else {
-            $this->response("success", 200);
+            $lastShiftID=$this->employee_model->getLastShiftID();
+            $this->response($lastShiftID, 200);
+        }
+    }
+
+
+    /* logout */
+    public function logout_post(){
+        $shiftID=$this->post('id');
+        $logout=$this->employee_model->logout($shiftID);
+
+        if ($logout === 0) {
+            $this->response("error, Try again.", 404);
+        } else {
+            $this->response('success', 200);
         }
     }
 }

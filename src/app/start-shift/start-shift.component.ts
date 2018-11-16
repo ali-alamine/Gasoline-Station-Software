@@ -53,6 +53,8 @@ export class StartShiftComponent implements OnInit {
     this.shiftData={"empName":this.empName,"empID":this.empID,"drawerAmount":this.startDrawerAmount,"shiftDate":this.getDateTime('dateOnly'),"timeIn":this.getDateTime('timeOnly')};
     this.shiftServ.startShift(this.shiftData).subscribe( 
       Response=>{
+        var shiftID= Response.toString();
+        localStorage.setItem('shiftID',shiftID);
         this.router.navigate(['/operations']);
       },error=>{
         swal("please contact your software developer");

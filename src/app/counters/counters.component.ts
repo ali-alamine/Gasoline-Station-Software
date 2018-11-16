@@ -96,12 +96,13 @@ export class CountersComponent implements OnInit {
   submitCounters(liter_sold_1,liter_sold_2){
     if(liter_sold_1>0 && liter_sold_2 >0){
 
-      var text = document.createElement('div');
+      // var text = document.createElement('div');
 
-      text.innerHTML = "<span style='color:black;font-weight:bold'> counter " + this.counterType_1 + " at : " + "<span style='color:firebrick'>" + this.counter_1_from.value.counter_1 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_1 + " </span> <br><span style='color:firebrick'> ----------------------------------------------------------- </span> <br>" + "counter " + this.counterType_2 + " at : " + "<span style='color:firebrick'>" + this.counter_2_from.value.counter_2 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_2 + "</span></span>";
+      // text.innerHTML = "<span style='color:black;font-weight:bold'> counter " + this.counterType_1 + " at : " + "<span style='color:firebrick'>" + this.counter_1_from.value.counter_1 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_1 + " </span> <br><span style='color:firebrick'> ----------------------------------------------------------- </span> <br>" + "counter " + this.counterType_2 + " at : " + "<span style='color:firebrick'>" + this.counter_2_from.value.counter_2 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_2 + "</span></span>";
 
       swal({
-        content:text,
+        text:"<span style='color:black;font-weight:bold'> counter " + this.counterType_1 + " at : " + "<span style='color:firebrick'>" + this.counter_1_from.value.counter_1 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_1 + " </span> <br><span style='color:firebrick'> ----------------------------------------------------------- </span> <br>" + "counter " + this.counterType_2 + " at : " + "<span style='color:firebrick'>" + this.counter_2_from.value.counter_2 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_2 + "</span></span>";
+        html:true,
         title: "Summary",
         className: "success",
         closeOnClickOutside: false,
@@ -153,10 +154,11 @@ export class CountersComponent implements OnInit {
 
       });
     }else{
-      var message = document.createElement('h5');
-      message.innerHTML="Please make sure the counters are correct";
+      // var message = document.createElement('h5');
+      // message.innerHTML="";
       swal({
-        content:message,
+        text:"<h5>Please make sure the counters are correct</h5>",
+        html:true,
         buttons:{
           ok:{
             text:"Ok",

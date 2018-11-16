@@ -198,8 +198,9 @@ class invoice_model extends CI_Model{
             $this->db->where('invoice.type',$type);
             $this->db->where('invoice.isSupply = 0');
             $this->db->group_by('invoice.shiftID,invoice.dateTime'); 
-            
+           
             $query = $this->db->get();
+            $sql = $this->db->last_query();
         } 
         else if($type == 'wash' || $type == 'payC' || $type == 'return'){
             $this->db->select(' invoice.amount as amount,invoice.note as note,
