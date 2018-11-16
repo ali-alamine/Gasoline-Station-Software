@@ -29,6 +29,18 @@ class container extends REST_Controller
             $this->response($result, 200);
         }
     }
+    public function setNewPrices_post(){
+
+        $fyelType = $this->post('fuelType');
+        $newPrice_liter = $this->post('newPrice_liter');
+        $newCost_liter = $this->post('newCost_liter');
+        $result = $this->container_model->setNewPrices($fyelType,$newPrice_liter,$newCost_liter);
+        if ($result === 0) {
+            $this->response("Client information could not be saved. Try again.", 404);
+        } else {
+            $this->response($result, 200);
+        }
+    }
 
     
     // public function client_post() // used in I-print

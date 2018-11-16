@@ -120,13 +120,22 @@ class employee extends REST_Controller{
 
     /* logout */
     public function logout_post(){
+        /*START - Get Current Date Time */
+        $currentFullDate=getdate();
+        $d=$currentFullDate['mday'];
+        $m=$currentFullDate['mon'];
+        $y=$currentFullDate['year'];
+        $time=date("h:i");
+        $today_date=$y."-".$m."-".$d."-".$time;
+        /*END - Get Current Date Time */
         $shiftID=$this->post('id');
-        $logout=$this->employee_model->logout($shiftID);
+        $logout=$this->employee_model->logout($shiftID,$today_date);
 
         if ($logout === 0) {
             $this->response("error, Try again.", 404);
         } else {
             $this->response('success', 200);
         }
+    
     }
 }

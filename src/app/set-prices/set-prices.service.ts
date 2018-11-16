@@ -10,4 +10,8 @@ export class SetPricesService {
   getFuelPrices(){
     return this.http.get(this.url +"container/getFuelPrices");
   }
+
+  setNewPrices(data){
+    return this.http.post(this.url +"container/setNewPrices",data);
+  }
 }

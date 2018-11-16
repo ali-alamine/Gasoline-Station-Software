@@ -61,5 +61,4 @@ export class StartShiftComponent implements OnInit {
       }
     );
   }
-
 }

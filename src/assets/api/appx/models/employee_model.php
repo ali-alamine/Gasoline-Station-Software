@@ -104,9 +104,10 @@ class employee_model extends CI_Model{
         }
     }
 
-    public function logout($shiftID){
+    public function logout($shiftID,$today_date){
         $this->db->where('shiftID', $shiftID);
         $this->db->set('isOpen', 0);
+        $this->db->set('timeOut', $today_date);
         if ($this->db->update('shift')) {
             return true;
         } else {

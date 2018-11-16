@@ -36,6 +36,22 @@ class container_model extends CI_Model
         // $query = $this->db->query("SELECT * FROM dispanser");
         return $query->result();
     }
+    public function setNewPrices($fyelType,$newPrice_liter,$newCost_liter){
+        
+        $this->db->set('cost_liter',$newCost_liter, false);
+        $this->db->set('price_liter', $newPrice_liter, false);
+        $this->db->where('type', $fyelType);
+        
+        if ($this->db->update('container')) {
+            $str = $this->db->last_query();
+            return true;
+        }else {
+            $str = $this->db->last_query();
+            return false;
+        }
+    }
+
+    
 
 
 

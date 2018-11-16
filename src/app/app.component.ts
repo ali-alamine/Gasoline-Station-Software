@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { $ } from 'protractor';
 import { MessageServiceService } from './message-service.service';
+// import { OperationsComponent} from './operations/operations.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -66,15 +67,39 @@ export class AppComponent implements OnInit{
     this.router.navigate(["/operations"]);
   }
   logout(){
-    let id=localStorage.getItem('shiftID');
-    alert(id);
-    this.ms.logout(id).subscribe(Response=>{
-      alert('1')
-    },
-    error=>{
-      alert("error")
+    var username=localStorage.getItem("userName");
+    // var drawerAmount=OperationsComponent.this.getTotalDarwer();
+    swal({
+      title: "Confirmation",
+      text: username + " Are you sure you want to end your shift?" ,
+      buttons: {
+        continue: {
+          text: "Logout",
+          value: "continue",
+        },
+        noAction: {
+          text:"Cancel",
+          value: "Cancel",
+        },
+      },
+    })
+    .then((value) => {
+      switch (value) {
+        case "cancel":
+          break;
+        case "continue":
+          let id=localStorage.getItem('shiftID');
+          alert(id);
+          this.ms.logout(id).subscribe(Response=>{
+            alert('1')
+          },
+          error=>{
+            alert("error")
+          });
+          this.router.navigate(["/login"]);
+          localStorage.setItem('userID','-1');
+        break;
+      }
     });
-    this.router.navigate(["/login"]);
-    localStorage.setItem('userID','-1');
   }
 }
