@@ -8,8 +8,6 @@ export class StartShiftService {
   constructor(private http:HttpClient) { }
 
  startShift(data){
-   console.log("111")
-   console.log(data)
   return this.http.post(this.url +"addNewShift",data);
  }
 }

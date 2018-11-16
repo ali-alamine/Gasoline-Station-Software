@@ -46,7 +46,6 @@ export class LoginComponent implements OnInit {
               this.router.navigate(['/startShift'], { queryParams: this.empData});
             }
             localStorage.setItem("userName",Response[0][0].name);
-            
             /* END -  NO OPEN SHIFT */
           }else if(Response[0][0].user_type==1){
             swal({
