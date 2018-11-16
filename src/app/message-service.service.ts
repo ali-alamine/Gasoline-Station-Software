@@ -12,4 +12,8 @@ export class MessageServiceService {
 
         return this.httpClient.get(this.url +"employee/isShiftOpened");
     }
+
+    logout(id){
+        return this.httpClient.post(this.url +"employee/logout",{'id':id});
+    }
 }

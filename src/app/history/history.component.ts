@@ -62,9 +62,9 @@ export class HistoryComponent implements OnInit {
         empIDs: [new FormControl() , Validators.required],
       });
       HistoryComponent.shiftForm = this.fb.group({
-        fromExpDate: [HistoryComponent.fromExpDate, Validators.required],
-        toExpDate : [HistoryComponent.toExpDate, Validators.required],
-        shiftID: this.fb.array([]),
+        // fromExpDate: [HistoryComponent.fromExpDate, Validators.required],
+        // toExpDate : [HistoryComponent.toExpDate, Validators.required],
+        shiftID: ''
       });
       this.getEmployees();
   }
@@ -83,9 +83,9 @@ export class HistoryComponent implements OnInit {
     HistoryComponent.toExpDate=formatDate(this.filterForm.get('toExpDate').value,'yyyy-MM-dd','en');
     this.filterForm.get('fromExpDate').setValue(HistoryComponent.fromExpDate);
     this.filterForm.get('toExpDate').setValue(HistoryComponent.toExpDate);
-    HistoryComponent.shiftForm.get('fromExpDate').setValue(HistoryComponent.fromExpDate);
-    HistoryComponent.shiftForm.get('toExpDate').setValue(HistoryComponent.toExpDate);
-    console.log(this.filterForm.value)
+    // HistoryComponent.shiftForm.get('fromExpDate').setValue(HistoryComponent.fromExpDate);
+    // HistoryComponent.shiftForm.get('toExpDate').setValue(HistoryComponent.toExpDate);
+    // console.log(this.filterForm.value)
     this.historyServ.getShiftDetails(this.filterForm.value).subscribe(Response=>{
       this.shiftDetails=Response[0];
       this.totalItems=Response[1][0]['total'];
@@ -94,17 +94,18 @@ export class HistoryComponent implements OnInit {
       alert("error")
     });
   }
-  addShift(i,id){
-    const ids = this.fb.group({
-      shiftID:id  
-    });
-    this.shiftIDForm.push(ids);
-    this.openSnackBar("Shift "+i, "Add Detail");
+  getDetail(id){
+    // const ids = this.fb.group({
+    //   shiftID:id  
+    // });
+    // this.shiftIDForm.push(ids);
+    HistoryComponent.shiftForm.get('shiftID').setValue(id)
+    this.router.navigate(['/historyType']);
+    // this.openSnackBar("Shift "+i, "Add Detail");
   }
-  getDetail(){
-    if(this.shiftIDForm.value != '')
-      this.router.navigate(['/historyType']);
-  }
+  // getDetail(){
+  //   if(this.shiftIDForm.value != '')
+  // }
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {
       duration: 2000,
@@ -240,13 +241,13 @@ export class HistoryComponent implements OnInit {
   get toExpDate() {
     return this.filterForm.get('toExpDate')
   }
-  get shiftIDForm() {
-    return HistoryComponent.shiftForm.get('shiftID') as FormArray
+  get shiftID() {
+    return HistoryComponent.shiftForm.get('shiftID')
   }
-  get fromExpDate1() {
-    return HistoryComponent.shiftForm.get('fromExpDate')
-  }
-  get toExpDate1() {
-    return HistoryComponent.shiftForm.get('toExpDate')
-  }
+  // get fromExpDate1() {
+  //   return HistoryComponent.shiftForm.get('fromExpDate')
+  // }
+  // get toExpDate1() {
+  //   return HistoryComponent.shiftForm.get('toExpDate')
+  // }
 }
