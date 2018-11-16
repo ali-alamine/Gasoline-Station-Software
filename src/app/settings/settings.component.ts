@@ -25,7 +25,6 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
   }
   selectOperation(operationName,i){
-    alert(operationName)
     let selectedOperation = document.getElementsByClassName('tile-grid')[i-1];
     selectedOperation.classList.add('selectedTile');
 

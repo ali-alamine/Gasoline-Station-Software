@@ -10,29 +10,18 @@
                 </mat-action-row>
               </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-list role="list" *ngIf = " empType == 'admin'" >
+          <mat-list role="list" *ngIf = " detail.rest == detail.rest" >
             <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                  <div *ngIf="detail.rest == 0">
-                      <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
-                          ==> Employee: <u>{{detail.empName}}</u></h5>
-                  </div>
-                  <div *ngIf="detail.rest > 0 ">
-                          <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
-                              rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u>
-                               ==> Employee: <u>{{detail.empName}}</u></h5>
-                  </div>
+                <div *ngIf="detail.rest == 0">
+                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
+                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
+                <div *ngIf="detail.rest > 0 " style="color: brown">
+                        <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
+                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u>
+                            ==> Employee: <u>{{detail.empName}}</u></h5>
+                </div>
             </mat-list-item>
-          </mat-list>
-          <mat-list role="list" *ngIf = " empType != 'admin'">
-              <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                  <div *ngIf="detail.rest == 0">
-                      <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u></h5>
-                  </div>
-                  <div *ngIf="detail.rest > 0">
-                      <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
-                          rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
-                  </div>
-              </mat-list-item>
           </mat-list>
         </mat-expansion-panel>
     </mat-accordion>

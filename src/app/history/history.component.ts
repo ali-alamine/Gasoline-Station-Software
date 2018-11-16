@@ -64,7 +64,7 @@ export class HistoryComponent implements OnInit {
       HistoryComponent.shiftForm = this.fb.group({
         fromExpDate: [HistoryComponent.fromExpDate, Validators.required],
         toExpDate : [HistoryComponent.toExpDate, Validators.required],
-        empID: [this.fb.array([]), Validators.required],
+        shiftID: this.fb.array([]),
       });
       this.getEmployees();
   }
@@ -85,6 +85,7 @@ export class HistoryComponent implements OnInit {
     this.filterForm.get('toExpDate').setValue(HistoryComponent.toExpDate);
     HistoryComponent.shiftForm.get('fromExpDate').setValue(HistoryComponent.fromExpDate);
     HistoryComponent.shiftForm.get('toExpDate').setValue(HistoryComponent.toExpDate);
+    console.log(this.filterForm.value)
     this.historyServ.getShiftDetails(this.filterForm.value).subscribe(Response=>{
       this.shiftDetails=Response[0];
       this.totalItems=Response[1][0]['total'];
@@ -95,14 +96,13 @@ export class HistoryComponent implements OnInit {
   }
   addShift(i,id){
     const ids = this.fb.group({
-      empID:id  
+      shiftID:id  
     });
-    this.empIDForm.push(ids);
+    this.shiftIDForm.push(ids);
     this.openSnackBar("Shift "+i, "Add Detail");
   }
   getDetail(){
-    // console.log(this.empIDForm.value)
-    // if(this.empIDForm.get('empID').value != 'null')
+    if(this.shiftIDForm.value != '')
       this.router.navigate(['/historyType']);
   }
   openSnackBar(message: string, action: string) {
@@ -240,8 +240,8 @@ export class HistoryComponent implements OnInit {
   get toExpDate() {
     return this.filterForm.get('toExpDate')
   }
-  get empIDForm() {
-    return HistoryComponent.shiftForm.get('empID') as FormArray
+  get shiftIDForm() {
+    return HistoryComponent.shiftForm.get('shiftID') as FormArray
   }
   get fromExpDate1() {
     return HistoryComponent.shiftForm.get('fromExpDate')
