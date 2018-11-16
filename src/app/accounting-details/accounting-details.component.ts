@@ -29,6 +29,7 @@ export class AccountingDetailsComponent implements OnInit {
     });
     this.empID=localStorage.getItem('userID');
     this.shiftID=localStorage.getItem('shiftID');
+    alert(this.shiftID)
     this.empType=localStorage.getItem('activeUser');
     this.shiftIDs=localStorage.getItem('shiftIDs');
     this.getDetailInvoice();

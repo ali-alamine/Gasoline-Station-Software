@@ -19,6 +19,16 @@ class container extends REST_Controller
             $this->response($result, 200);
         }
     }
+    public function getFuelPrices_get(){
+
+        // $searchInput = $this->get('searchInput');
+        $result = $this->container_model->getFuelPrices();
+        if ($result === 0) {
+            $this->response("Client information could not be saved. Try again.", 404);
+        } else {
+            $this->response($result, 200);
+        }
+    }
 
     
     // public function client_post() // used in I-print

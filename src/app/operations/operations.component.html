@@ -1,9 +1,9 @@
 <div class="container-fluid">
-  <h1 *ngIf="this.newShift==='true'" style="border:solid lightblue 1px; text-align: center;">
+  <h1 *ngIf="this.newShift==='true'" style="border:solid thistle 1px; text-align: center;">
     <span style="float:left"><span>Name: </span><span style="color:green">{{userName}} </span></span>
     <span>Current Drawer: </span><span style="color:green">{{totalDrawer}}</span>
   </h1>
-  <h1 *ngIf="this.newShift==='false'" style="border:solid lightblue 1px; text-align: center;">
+  <h1 *ngIf="this.newShift==='false'" style="border:solid thistle 1px; text-align: center;">
       <span style="color:purple">Read Only Mode</span>
     </h1>
   <div id="adminTiles" *ngIf="this.isAdmin">

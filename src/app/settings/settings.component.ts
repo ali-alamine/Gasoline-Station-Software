@@ -50,6 +50,10 @@ export class SettingsComponent implements OnInit {
         this.router.navigate(["/history"]);
          break; 
       } 
+      case "setFuelPrice": { 
+        this.router.navigate(["/setFuelPrices"]);
+         break; 
+      } 
       default: { 
          break; 
       } 

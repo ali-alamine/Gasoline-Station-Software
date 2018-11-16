@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { SetPricesService } from './set-prices.service';
 @Component({
   selector: 'app-set-prices',
   templateUrl: './set-prices.component.html',
@@ -7,9 +7,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SetPricesComponent implements OnInit {
 
-  constructor() { }
+  fuelPrices:any;
+  constructor(private setPricesServ:SetPricesService) { }
 
   ngOnInit() {
+    this.getFuelPrices()
   }
 
+  getFuelPrices(){
+    this.setPricesServ.getFuelPrices().subscribe(
+      Response=>{
+        this.fuelPrices=Response;
+      },error=>{
+        console.log("0")
+      })
+  }
+
+  selectFuelType(index){
+    alert(index)
+  }
 }
