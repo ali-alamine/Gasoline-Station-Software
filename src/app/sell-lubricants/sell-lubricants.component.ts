@@ -160,14 +160,14 @@ export class SellLubricantsComponent implements OnInit {
       });
       this.itemsForm.push(item);
       console.log(SellLubricantsComponent.lubForm.value)
-      // this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
-      // Response=>{
-      //   this.openSnackBar(name, "SOLD");
-      //   this.getLubricant(this.itemPerPage,this.offset);
-      // },
-      // error=>{
-      //   alert("error");
-      // });
+      this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
+      Response=>{
+        this.openSnackBar(name, "SOLD");
+        this.getLubricant(this.itemPerPage,this.offset);
+      },
+      error=>{
+        alert("error");
+      });
     }
   }
   /* highlight the selected tile */
