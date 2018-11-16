@@ -2,16 +2,16 @@
   <div id="fuelType">
       <div id="adminTiles">
           <mat-grid-list cols="4" rowHeight="180px" class="tile-container">
-              <mat-grid-tile class="tile-grid" (click)="selectFuelType(i)"  
+              <mat-grid-tile class="tile-grid"  
                   *ngFor="let fuel of fuelPrices; let i = index" [attr.data-index]="i" 
                   [colspan]="2"
                   [rowspan]="1">
                   <div style="margin-top: 0px;margin-left: -140px;color:rgb(119, 4, 119)">
                     <h2>{{fuel.type}}</h2>
-                    <h4 style="color:firebrick">-Price/liter: <input class="form-control inputP " type="number" value="{{fuel.price_liter}}"></h4>
-                    <h4 style="color:firebrick">-Cost/liter: <input class="form-control" type="number" value="{{fuel.cost_liter}}"></h4>
+                    <h4 style="color:firebrick">-Price/liter: <input class="form-control inputP" type="number" value="{{fuel.price_liter}}"></h4>
+                    <h4 style="color:firebrick">-Cost/liter: <input class="form-control inputP" ([ngModel])="newCost_liter" type="number" value="{{fuel.cost_liter}}"></h4>
                 <div style="position: absolute;margin-left: 300px;margin-top:-150px;width:100px;height: 100px;">
-                    <button style="width:100%;height: 100%;" class="btn-success btn">Submit</button>
+                    <button style="width:100%;height: 100%;" (click)="selectFuelType(newCost_liter,fuel.price_liter)" class="btn-success btn">Submit</button>
                 </div>
                 </div>
               </mat-grid-tile>

@@ -8,6 +8,8 @@ import { SetPricesService } from './set-prices.service';
 export class SetPricesComponent implements OnInit {
 
   fuelPrices:any;
+  newCost_liter:any;
+  newPrice_liter:any;
   constructor(private setPricesServ:SetPricesService) { }
 
   ngOnInit() {
@@ -23,7 +25,7 @@ export class SetPricesComponent implements OnInit {
       })
   }
 
-  selectFuelType(index){
-    alert(index)
+  selectFuelType(cost_liter,price_liter){
+    alert(cost_liter + " -- " + price_liter)
   }
 }
