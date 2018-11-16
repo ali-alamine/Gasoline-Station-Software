@@ -35,24 +35,22 @@ export class HistoryTypeComponent implements OnInit {
   ngOnInit() {
     this.shiftData = HistoryComponent.shiftForm.value;
     HistoryTypeComponent.shiftDataForm = this.fb.group({
-      fromExpDate: HistoryComponent.shiftForm.value.fromExpDate,
-      toExpDate : HistoryComponent.shiftForm.value.toExpDate,
       type: '',
-      shiftID: this.fb.array([])
+      shiftID: HistoryComponent.shiftForm.value.shiftID
     })
-    this.shiftData.shiftID.forEach(element => {
-      const ID = this.fb.group({
-        shiftID:element['shiftID'] 
-      });
-      this.shiftIDForm.push(ID);
-    });
+        console.log(HistoryTypeComponent.shiftDataForm)
+    // this.shiftData.shiftID.forEach(element => {
+    //   const ID = this.fb.group({
+    //     shiftID:element['shiftID'] 
+    //   });
+    //   this.shiftIDForm.push(ID);
+    // });
   }
   selectAccounting(accountingName,i){
     HistoryTypeComponent.shiftDataForm.get('type').setValue(accountingName)
-    // console.log(HistoryTypeComponent.shiftDataForm.value)
     this.historyServ.getShiftTypeDetails(HistoryTypeComponent.shiftDataForm.value).subscribe(Response=>{
       // console.log(Response)
-      // if(Response!=0){
+      if(Response!=0){
         HistoryTypeComponent.details=Response;
         // console.log(ShiftHistoryComponent.details)
         switch(accountingName) { 
@@ -105,7 +103,10 @@ export class HistoryTypeComponent implements OnInit {
              break; 
           } 
         }
-      // }
+      }
+      else{
+        alert("No Resulte")
+      }
       
        
     //     // if(this.empType == 'admin'){
@@ -182,7 +183,7 @@ export class HistoryTypeComponent implements OnInit {
   get type() {
     return HistoryTypeComponent.shiftDataForm.get('type')
   }
-  get shiftIDForm() {
-    return HistoryTypeComponent.shiftDataForm.get('shiftID') as FormArray
-  }
+  // get shiftIDForm() {
+  //   return HistoryTypeComponent.shiftDataForm.get('shiftID') as FormArray
+  // }
 }

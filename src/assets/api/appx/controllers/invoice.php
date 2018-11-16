@@ -67,14 +67,14 @@ class invoice extends REST_Controller{
     {
         $type = $this->post('type');
         $shiftID = $this->post('shiftID');
-        $fromExpDate = $this->post('fromExpDate');
-        $toExpDate = $this->post('toExpDate');
-        $ids = array();
-        foreach ($shiftID as $id)
-        {
-            $ids[] = $id['shiftID'];
-        }
-        $result = $this->invoice_model->getShiftTypeDetails($type,$ids,$fromExpDate,$toExpDate);
+        // $fromExpDate = $this->post('fromExpDate');
+        // $toExpDate = $this->post('toExpDate');
+        // $ids = array();
+        // foreach ($shiftID as $id)
+        // {
+        //     $ids[] = $id['shiftID'];
+        // }
+        $result = $this->invoice_model->getShiftTypeDetails($type,$shiftID);
         // if ($result == 0) {
         //     $this->response("shift information could not exist. Try again.", 404);
         // } else {
