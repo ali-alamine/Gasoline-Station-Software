@@ -32,7 +32,6 @@ export class ShiftHistoryDetailsComponent implements OnInit {
     this.getTypeDetails();
   }
   getTypeDetails(){
-        // if(this.empType == 'admin'){
           if(this.type == 'debits'){
             this.details.forEach(element => {
               this.totalAmount = this.totalAmount + parseInt(element['rest']);
@@ -59,48 +58,7 @@ export class ShiftHistoryDetailsComponent implements OnInit {
           this.details.forEach(element => {
               this.selectedDetails.push(element);
           });
-        // }
-        // else{
-        //   if(this.type == 'debits'){
-        //     this.details.forEach(element => {
-        //       if(element['shiftEmpID'] == this.empID)
-        //         this.totalAmount = this.totalAmount + parseInt(element['rest']);
-        //     });
-        //   } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash'){
-        //     this.details.forEach(element => {
-        //       if(element['shiftEmpID'] == this.empID)
-        //         this.totalProfit = this.totalProfit + parseInt(element['profit']);
-        //         this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-        //     });
-        //   } 
-        //   else if (this.type == 'payC' || this.type == 'return'){
-        //     this.details.forEach(element => {
-        //       if(element['shiftEmpID'] == this.empID)
-        //         this.totalAmount = this.totalAmount + parseInt(element['amount']);
-        //     });
-        //   }
-        //   else if (this.type == 'allType'){
-        //     this.details.forEach(element => {
-        //       if(element['shiftEmpID'] == this.empID){
-        //         if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash'){
-        //           this.totalProfit = this.totalProfit + parseInt(element['profit']);
-        //           this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-        //         }else if(element['type'] == 'return' || element['type'] == 'payC'){
-        //           this.totalAmount = this.totalAmount + parseInt(element['amount']);
-        //         }
-        //       }
-        //     });
-        //   }
-        //   this.details.forEach(element => {
-        //     if(element['empType'] == 0)
-        //       this.selectedDetails.push(element);
-        //   });
-        // }
-      // } 
-    // },
-    // error=>{
-    //   alert("error")
-    // });
+       
   }
   togglePanel(index:number) {
     this.isOpened = index;

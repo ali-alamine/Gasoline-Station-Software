@@ -31,21 +31,22 @@ export class AccountingComponent implements OnInit {
   shiftIDForm = new FormControl();
   totalDrawer; shiftID;empID;
   checked;
+  static details;
 
   constructor(private accountingServ:AccountingService,
     private router: Router, 
     private route: ActivatedRoute,private operationServ: OperationsService) { }
-  tiles=[
-    {text: 'counters', cols: 2, rows: 1},
-    {text: 'lubricants', cols: 2, rows: 1},
-    {text: 'carWashing', cols: 2, rows: 1},
-    {text: 'accessories', cols: 2, rows: 1},
-    {text: 'debits', cols: 2, rows: 1},
-    {text: 'paymentsCost', cols: 2, rows: 1},
-    {text: 'paymentsSupply', cols: 2, rows: 1},
-    {text: 'sellAll', cols: 2, rows: 1},
-    {text: 'return', cols: 2, rows: 1},
-  ];
+    tiles=[
+      {text: 'counters', cols: 2, rows: 1},
+      {text: 'lub', cols: 2, rows: 1},
+      {text: 'wash', cols: 2, rows: 1},
+      {text: 'access', cols: 2, rows: 1},
+      {text: 'debits', cols: 2, rows: 1},
+      {text: 'payC', cols: 2, rows: 1},
+      {text: 'supply', cols: 2, rows: 1},
+      {text: 'allType', cols: 2, rows: 1},
+      {text: 'return', cols: 2, rows: 1},
+    ];
   ngOnInit() {
     this.shiftID=localStorage.getItem('shiftID');
     this.empID=localStorage.getItem('empID');
@@ -79,56 +80,70 @@ export class AccountingComponent implements OnInit {
   }
   selectAccounting(accountingName,i){
     localStorage.setItem("shiftIDs",this.shiftIDForm.value);
-    switch(accountingName) { 
-      case "counters": { 
-        console.log("counters")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'counters'} });
-         break; 
-      } 
-      case "lubricants": { 
-        console.log("lubricants")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'lub'} });
-         break; 
+    console.log(this.shiftIDForm.value)
+    let data={"type":accountingName,"shiftIDs":this.shiftIDForm.value};
+    this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
+      if(Response!=0){
+        AccountingComponent.details=Response;
+        switch(accountingName) { 
+          case "counters": { 
+            console.log("counters")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'counters'} });
+             break; 
+          } 
+          case "lub": { 
+            console.log("lub")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'lub'} });
+             break; 
+          }
+          case "wash": {
+            console.log("wash")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'wash'} });
+             break; 
+          } 
+          case "access": {
+            console.log("accessories")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'access'} });
+             break; 
+          } 
+          case "debits": {
+            console.log("debits")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'debits'} });
+             break; 
+          }
+          case "payC": {
+            console.log("paymentsCost")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'payC'} });
+             break; 
+          }
+          case "supply": {
+            console.log("paymentsSupply")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'supply'} });
+             break; 
+          }
+          case "allType": {
+            console.log("sellAll")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'allType'} });
+             break; 
+          }  
+          case "return": {
+            console.log("return")
+            this.router.navigate(['/accountDetails'], { queryParams: { type:'return'} });
+             break; 
+          } 
+          default: { 
+             break; 
+          } 
+       }
       }
-      case "carWashing": {
-        console.log("carWashing")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'wash'} });
-         break; 
-      } 
-      case "accessories": {
-        console.log("accessories")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'access'} });
-         break; 
-      } 
-      case "debits": {
-        console.log("debits")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'debits'} });
-         break; 
+      else{
+        alert("No Resulte")
       }
-      case "paymentsCost": {
-        console.log("paymentsCost")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'payC'} });
-         break; 
-      }
-      case "paymentsSupply": {
-        console.log("paymentsSupply")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'supply'} });
-         break; 
-      }
-      case "sellAll": {
-        console.log("sellAll")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'allType'} });
-         break; 
-      }  
-      case "return": {
-        console.log("return")
-        this.router.navigate(['/accountDetails'], { queryParams: { type:'return'} });
-         break; 
-      } 
-      default: { 
-         break; 
-      } 
-   }
+      },
+      error=>{
+        alert("error")
+      });
+    
    
   }
 }

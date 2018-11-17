@@ -16,7 +16,7 @@
                     <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
                         ==> Employee: <u>{{detail.empName}}</u></h5>
                 </div>
-                <div *ngIf="detail.rest > 0 ">
+                <div *ngIf="detail.rest > 0 "  style="color: brown">
                         <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
                             rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u>
                              ==> Employee: <u>{{detail.empName}}</u></h5>
@@ -28,7 +28,7 @@
                 <div *ngIf="detail.rest == 0">
                     <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u></h5>
                 </div>
-                <div *ngIf="detail.rest > 0">
+                <div *ngIf="detail.rest > 0"  style="color: brown">
                     <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
                         rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
                 </div>
@@ -52,7 +52,7 @@
                     <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
                         ==> Employee: <u>{{detail.empName}}</u></h5>
                 </div>
-                <div *ngIf="detail.rest > 0 ">
+                <div *ngIf="detail.rest > 0 "  style="color: brown">
                         <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
                             rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
                             ==> Employee: <u>{{detail.empName}}</u></h5>
@@ -64,7 +64,7 @@
                 <div *ngIf="detail.rest == 0">
                     <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u></h5>
                 </div>
-                <div *ngIf="detail.rest > 0">
+                <div *ngIf="detail.rest > 0"  style="color: brown">
                     <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
                         rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
                 </div>
@@ -88,7 +88,7 @@
                     <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
                         ==> Employee: <u>{{detail.empName}}</u></h5>
                 </div>
-                <div *ngIf="detail.rest > 0 ">
+                <div *ngIf="detail.rest > 0 "  style="color: brown">
                         <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
                             rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
                 </div>
@@ -99,7 +99,7 @@
                 <div *ngIf="detail.rest == 0">
                     <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u></h5>
                 </div>
-                <div *ngIf="detail.rest > 0">
+                <div *ngIf="detail.rest > 0"  style="color: brown">
                     <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
                         rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
                 </div>

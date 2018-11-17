@@ -15,20 +15,21 @@ class invoice_model extends CI_Model{
         $st=$this->db->last_query();
         return $query->result();
     }
-    /* Get All Invoice filter by type and date and empID */
-    public function getDetailInvoice($type,$shiftID,$date){
+    /* Get All Invoice filter by type and shiftIDs */
+    public function getDetailInvoice($type,$shiftID){
 
         if($type == 'debits'){
-            $query = $this->db->query("(select invoice.rest as rest,person.full_name as clientName,
+            $query = $this->db->query("select * from((select invoice.rest as rest,person.full_name as clientName,
             `item-service`.name as name,invoice.amount as amount,
             invoice.note as note,inv_order.quantity as quantity,invoice.type as type,
             employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
             FROM invoice 
-            INNER JOIN inv_order on inv_order.invID=invoice.invID 
-            INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-            INNER JOIN person on person.PID=invoice.personID 
-            INNER JOIN employee on employee.empID=invoice.empID 
-            WHERE type in ('access','lub') and date(invoice.dateTime) = '".$date."' 
+            left JOIN inv_order on inv_order.invID=invoice.invID 
+            left JOIN `item-service` on inv_order.itemID=`item-service`.itemID
+            left JOIN person on person.PID=invoice.personID 
+            left JOIN shift on shift.shiftID=invoice.shiftID 
+            left JOIN employee on employee.empID=invoice.empID 
+            WHERE type in ('access','lub') and invoice.shiftID in (array('".$shiftID."')) 
             and invoice.isSupply = 0 and invoice.rest > 0 ) 
             UNION (
                 select invoice.rest as rest,person.full_name as clientName,
@@ -36,55 +37,61 @@ class invoice_model extends CI_Model{
                     invoice.note as note,null as quantity,invoice.type as type,
                     employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
                     FROM invoice 
-                    INNER JOIN person on person.PID=invoice.personID 
-                    INNER JOIN employee on employee.empID=invoice.empID 
-                    WHERE type in ('wash') and date(invoice.dateTime) = '".$date."' 
+                    left JOIN person on person.PID=invoice.personID 
+                    left JOIN shift on shift.shiftID=invoice.shiftID 
+                    left JOIN employee on employee.empID=shift.empID 
+                    WHERE type in ('wash') and invoice.shiftID in (array('".$shiftID."')) 
                     and invoice.isSupply = 0 and invoice.rest > 0
-            ) ");
+            ))as table1");
         } 
         elseif($type == 'lub' || $type == 'access'){
-            $query = $this->db->query("select `item-service`.name as name,invoice.amount as amount,
-                invoice.note as note,inv_order.quantity as quantity,invoice.rest as rest,person.full_name as clientName,
-                employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
-                FROM invoice 
-                INNER JOIN person on person.PID=invoice.personID 
-                INNER JOIN inv_order on inv_order.invID=invoice.invID 
-                INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-                INNER JOIN employee on employee.empID=invoice.empID 
-                WHERE type = '".$type."' 
-                and date(invoice.dateTime) = '".$date."' 
-                and invoice.isSupply = 0");
-            // $this->db->from("invoice");
-            // $this->db->join('inv_order', 'inv_order.invID=invoice.invID', 'inner');
-            // $this->db->join('item-service', 'inv_order.itemID=item-service.itemID', 'inner');
-            // $this->db->where_in('invoice.empID',$empID);
-            // $this->db->where("invoice.type = '".$type."' 
-            //                 and date(invoice.dateTime) = '".$date."' and invoice.invoice.empID =  '".$empID.")
-            //                 and invoice.isSupply = 0 and invoice.rest = 0 ");
-            // $this->db->order_by("itemID", "DESC");
-            // $query = $this->db->get();
-            // return $query->result();
+            $this->db->select(" invoice.invID, `item-service`.name as name,invoice.amount as amount,
+            invoice.note as note,inv_order.quantity as quantity,invoice.rest as rest,person.full_name as clientName,
+            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit,invoice.shiftID as shiftID");
+            $this->db->from('invoice');
+            $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
+            $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
+            $this->db->join('person', 'person.PID=invoice.personID','inner');
+            $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
+            $this->db->join('employee', 'employee.empID=shift.empID','inner');
+            $this->db->where('invoice.type',$type);
+            $this->db->where('invoice.isSupply = 0');
+            $this->db->where_in('invoice.shiftID',$shiftID);
+            $query = $this->db->get();
+            return $query->result();
         } 
         else
         if($type == 'wash' || $type == 'payC' || $type == 'return'){
-            $query = $this->db->query("Select invoice.amount as amount,invoice.note as note,
+            
+            $this->db->select(" invoice.invID,invoice.amount as amount,invoice.note as note,
             invoice.rest as rest,person.full_name as clientName,
-            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
-            from invoice 
-            inner join person on personID=PID 
-            INNER JOIN employee on employee.empID=invoice.empID 
-            where type = '".$type."'  and date(dateTime) = '".$date."'  and isSupply = 0 ");
+            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit");
+            $this->db->from('invoice');
+            $this->db->join('person', 'person.PID=invoice.personID','inner');
+            $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
+            $this->db->join('employee', 'employee.empID=shift.empID','inner');
+            $this->db->where('invoice.type',$type);
+            $this->db->where('invoice.isSupply = 0');
+            $this->db->where_in('invoice.shiftID',$shiftID);
+            $query = $this->db->get();
+            return $query->result();
         } else if ($type == 'supply'){
-            $query = $this->db->query("Select invoice.amount as amount,
+            
+            
+            $this->db->select(" invoice.invID, invoice.amount as amount,
             invoice.rest as rest,person.full_name as clientName,`item-service`.name as name,
-            inv_order.quantity as quantity,employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID
-            from invoice
-            INNER JOIN inv_order on inv_order.invID=invoice.invID 
-            INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-            inner join person on invoice.personID=person.PID 
-            INNER JOIN employee on employee.empID=invoice.empID 
-            where type in ('access','lub')  and date(dateTime) = '".$date."'  and isSupply = 1 ");
-
+            inv_order.quantity as quantity,employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID");
+            $this->db->from('invoice');
+            $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
+            $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
+            $this->db->join('person', 'person.PID=invoice.personID','inner');
+            $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
+            $this->db->join('employee', 'employee.empID=shift.empID','inner');
+            $this->db->where_in('invoice.type','access,lub');
+            $this->db->where('invoice.isSupply = 1');
+            $this->db->where_in('invoice.shiftID',$shiftID);
+            $query = $this->db->get();
+            return $query->result();
         }else if ($type =='allType'){
             $query = $this->db->query(
                 "(select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
@@ -116,73 +123,24 @@ class invoice_model extends CI_Model{
     /* Get All Invoice filter by type and shiftID */
     public function getShiftTypeDetails($type,$shiftID){
         if($type == 'debits'){
-           // Query #1
-            // $this->db->select("invoice.rest as rest,person.full_name as clientName,
-            // `item-service`.name as name,invoice.amount as amount,
-            // invoice.note as note,inv_order.quantity as quantity,invoice.type as type,
-            // employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,
-            // invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time");
-            // $this->db->from('invoice');
-            // $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
-            // $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
-            // $this->db->join('person', 'person.PID=invoice.personID','inner');
-            // $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
-            // $this->db->join('employee', 'employee.empID=invoice.empID','inner');
-            // $this->db->where('invoice.empID',$shiftID);
-            // $this->db->where_in('type',"access,lub");
-            // $this->db->where('rest > 0');
-            // $this->db->where('invoice.isSupply = 0');
-            // $query1 = $this->db->get()->result();
-            // Query #2
-            // $this->db->select("invoice.rest as rest,person.full_name as clientName,
-            // '' as name,invoice.amount as amount,
-            // invoice.note as note,'' as quantity,invoice.type as type,
-            // employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,
-            // invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time");
-            // $this->db->from('invoice');
-            // $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
-            // $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
-            // $this->db->join('person', 'person.PID=invoice.personID','inner');
-            // $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
-            // $this->db->join('employee', 'employee.empID=invoice.empID','inner');
-            // $this->db->where('invoice.empID',$shiftID);
-            // $this->db->where('type',"wash");
-            // $this->db->where('rest > 0');
-            // $this->db->where('invoice.isSupply = 0');
-            // $query2 = $this->db->get()->result();
-            // $query = array_merge($query1, $query2);
-            // $query = $this->db->get();
-            
-            
-            
-            // $query = $this->db->query("(select invoice.rest as rest,person.full_name as clientName,
-            // `item-service`.name as name,invoice.amount as amount,
-            // invoice.note as note,inv_order.quantity as quantity,invoice.type as type,
-            // employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,
-            // invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time
-            // FROM invoice 
-            // INNER JOIN inv_order on inv_order.invID=invoice.invID 
-            // INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-            // INNER JOIN person on person.PID=invoice.personID 
-            // INNER JOIN shift on shift.shitID=invoice.shiftID
-            // INNER JOIN employee on employee.empID=invoice.empID 
-            // WHERE type in ('access','lub') and date(invoice.dateTime)  
-            // and invoice.isSupply = 0 and invoice.rest > 0  and invoice.empID ='".$shiftID.'")
-            // UNION (
-            //     select invoice.rest as rest,person.full_name as clientName,
-            //     null as name,invoice.amount as amount,
-            //     invoice.note as note,null as quantity,invoice.type as type,
-            //     employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,
-            //     invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time
-            //         FROM invoice 
-            //         INNER JOIN inv_order on inv_order.invID=invoice.invID 
-            //         INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-            //         INNER JOIN person on person.PID=invoice.personID 
-            //         INNER JOIN shift on shift.shitID=invoice.shiftID
-            //         INNER JOIN employee on employee.empID=invoice.empID 
-            //         WHERE type = wash and date(invoice.dateTime)
-            //         and invoice.isSupply = 0 and invoice.rest > 0 and invoice.empID ='".$shiftID."')
-            // ) ");
+            $query = $this->db->query("select * from
+            ((select invoice.rest as rest,person.full_name as clientName, `item-service`.name as name,invoice.amount as amount, invoice.note as note,inv_order.quantity as quantity,invoice.type as type, employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID, invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time 
+             FROM invoice 
+             left JOIN inv_order on inv_order.invID=invoice.invID 
+             left JOIN `item-service` on inv_order.itemID=`item-service`.itemID 
+             left JOIN person on person.PID=invoice.personID 
+             left JOIN shift on shift.shiftID=invoice.shiftID 
+             left JOIN employee on employee.empID=invoice.empID 
+             WHERE type in ('access','lub') and invoice.isSupply = 0 and invoice.rest > 0 and invoice.shiftID ='".$shiftID."') 
+             UNION 
+             ( select invoice.rest as rest,person.full_name as clientName, null as name,invoice.amount as amount, invoice.note as note,null as quantity,invoice.type as type, employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID, invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time 
+              FROM invoice 
+              left JOIN inv_order on inv_order.invID=invoice.invID 
+              left JOIN `item-service` on inv_order.itemID=`item-service`.itemID 
+              left JOIN person on person.PID=invoice.personID 
+              left JOIN shift on shift.shiftID=invoice.shiftID 
+              left JOIN employee on employee.empID=invoice.empID 
+              WHERE type = 'wash' and invoice.isSupply = 0 and invoice.rest > 0 and invoice.shiftID ='".$shiftID."'))as table1 ");
         } 
         elseif($type == 'lub' || $type == 'access'){
             
@@ -206,8 +164,7 @@ class invoice_model extends CI_Model{
         else if($type == 'wash' || $type == 'payC' || $type == 'return'){
             $this->db->select(" invoice.amount as amount,invoice.note as note,
             invoice.rest as rest,person.full_name as clientName,
-            employee.name as empName,employee.user_type as empType,
-            employee.empID as shiftEmpID,invoice.totalProfit as profit,,DATE_FORMAT(dateTime,'%H:%i %p') AS time");
+            employee.name as empName,employee.user_type as empType,invoice.totalProfit as profit,,DATE_FORMAT(dateTime,'%H:%i %p') AS time");
             $this->db->from('invoice');
             $this->db->join('person', 'person.PID=invoice.personID','inner');
             $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
@@ -220,7 +177,7 @@ class invoice_model extends CI_Model{
             $this->db->select(" invoice.amount as amount,
             invoice.rest as rest,person.full_name as clientName,`item-service`.name as name,
             inv_order.quantity as quantity,
-            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,DATE_FORMAT(dateTime,'%H:%i %p') AS time'");
+            employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,DATE_FORMAT(dateTime,'%H:%i %p') AS time");
             $this->db->from('invoice');
             $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
             $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
@@ -228,71 +185,36 @@ class invoice_model extends CI_Model{
             $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
             $this->db->join('employee', 'employee.empID=shift.empID','inner');
             $this->db->where('invoice.shiftID',$shiftID);
-            $this->db->where_in('invoice.type',"access','lub'");
+            $this->db->where_in('invoice.type',"access,lub");
             $this->db->where('invoice.isSupply = 1');
             $query = $this->db->get();
         }else if ($type =='allType'){
-
-            // Query #1
-            $this->db->select("invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
+            $query = $this->db->query("select * from((select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
             `item-service`.name as name,inv_order.quantity as quantity,
             employee.name as empName,employee.user_type as empType,
-            employee.empID as shiftEmpID,invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time'");
-            $this->db->from('invoice');
-            $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
-            $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
-            $this->db->join('person', 'person.PID=invoice.personID','inner');
-            $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
-            $this->db->join('employee', 'employee.empID=invoice.empID','inner');
-            $this->db->where('invoice.empID',$shiftID);
-            $this->db->where_in('type','access,lub');
-            $this->db->order_by("DATE_FORMAT(dateTime,'%H:%i A')", "DESC");
-            // $this->db->where('rest > 0');
-            // $this->db->where('invoice.isSupply = 0');
-            $query1 = $this->db->get()->result();
-            // Query #2
-            $this->db->select("invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
-            `item-service`.name as name,inv_order.quantity as quantity,
-            employee.name as empName,employee.user_type as empType,
-            employee.empID as shiftEmpID,invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time'");
-            $this->db->from('invoice');
-            $this->db->join('inv_order', 'inv_order.invID = invoice.invID','inner');
-            $this->db->join('`item-service`', 'inv_order.itemID=`item-service`.itemID','inner');
-            $this->db->join('person', 'person.PID=invoice.personID','inner');
-            $this->db->join('shift', 'shift.shiftID=invoice.shiftID','inner');
-            $this->db->join('employee', 'employee.empID=invoice.empID','inner');
-            $this->db->where('invoice.empID',$shiftID);
-            $this->db->where_in('type','wash,payC,return');
-            $this->db->order_by("DATE_FORMAT(dateTime,'%H:%i A')", "DESC");
+            employee.empID as shiftEmpID,invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time
+            FROM invoice 
+            left JOIN inv_order on inv_order.invID=invoice.invID 
+            left JOIN `item-service` on inv_order.itemID=`item-service`.itemID
+            left JOIN person on person.PID=invoice.personID 
+            left JOIN shift on shift.shiftID=invoice.shiftID
+            left JOIN employee on employee.empID=invoice.empID 
+            WHERE type in ('access','lub') and invoice.shiftID ='".$shiftID."')
+            UNION (
+                select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
+                null as name,null as quantity,
+                employee.name as empName,employee.user_type as empType,
+                employee.empID as shiftEmpID,invoice.totalProfit as profit,shift.shiftID as shiftID,DATE_FORMAT(dateTime,'%H:%i %p') AS time
+                    FROM invoice 
+                    left JOIN person on person.PID=invoice.personID 
+                    left JOIN shift on shift.shiftID=invoice.shiftID
+                    left JOIN employee on employee.empID=invoice.empID 
+                    WHERE type in ('wash','payC','return') and invoice.shiftID ='".$shiftID."'))as table1
+                   ");
+            //  order_by invoice.dateTime DESC 
 
-            // $this->db->where('rest > 0');
-            // $this->db->where('invoice.isSupply = 0');
-            $query2 = $this->db->get()->result();
-            // Merge both query results
-            $query = array_merge($query1, $query2);
             $query = $this->db->get();
 
-
-            // $query = $this->db->query(
-            //     "(select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
-            //     `item-service`.name as name,inv_order.quantity as quantity,
-            //     employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
-            //     FROM invoice 
-            //     INNER JOIN inv_order on inv_order.invID=invoice.invID 
-            //     INNER JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-            //     INNER JOIN person on person.PID=invoice.personID 
-            //     INNER JOIN employee on employee.empID=invoice.empID 
-            //     WHERE type in ('access','lub') and date(invoice.dateTime) BETWEEN '".$fromExpDate."' and '".$toExpDate."') 
-            //     UNION (
-            //     select invoice.*,DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
-            //     null as name,null as quantity,employee.name as empName,employee.user_type as empType,
-            //     employee.empID as shiftEmpID,invoice.totalProfit as profit
-            //     FROM invoice 
-            //     INNER JOIN person on person.PID=invoice.personID 
-            //     INNER JOIN employee on employee.empID=invoice.empID 
-            //     WHERE type in ('wash','payC','return') and date(invoice.dateTime) BETWEEN '".$fromExpDate."' and '".$toExpDate."')
-            //     order by DATE_FORMAT(dateTime,'%H:%i A') DESC"
-            // );
         }
         if ($query->num_rows() > 0) {
             return $query->result_array();

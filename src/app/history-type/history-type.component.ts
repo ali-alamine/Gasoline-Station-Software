@@ -38,64 +38,47 @@ export class HistoryTypeComponent implements OnInit {
       type: '',
       shiftID: HistoryComponent.shiftForm.value.shiftID
     })
-        console.log(HistoryTypeComponent.shiftDataForm)
-    // this.shiftData.shiftID.forEach(element => {
-    //   const ID = this.fb.group({
-    //     shiftID:element['shiftID'] 
-    //   });
-    //   this.shiftIDForm.push(ID);
-    // });
+    console.log(HistoryTypeComponent.shiftDataForm)
   }
   selectAccounting(accountingName,i){
     HistoryTypeComponent.shiftDataForm.get('type').setValue(accountingName)
     this.historyServ.getShiftTypeDetails(HistoryTypeComponent.shiftDataForm.value).subscribe(Response=>{
-      // console.log(Response)
       if(Response!=0){
         HistoryTypeComponent.details=Response;
-        // console.log(ShiftHistoryComponent.details)
         switch(accountingName) { 
           case "counters": { 
-            // console.log("counters")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'counters'} });
              break; 
           } 
-          case "lub": { 
-            // console.log("lub")
+          case "lub": {
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'lub'} });
              break; 
           }
           case "wash": {
-            // console.log("wash")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'wash'} });
              break; 
           } 
           case "access": {
-            // console.log("access")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'access'} });
              break; 
           } 
           case "debits": {
-            // console.log("debits")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'debits'} });
              break; 
           }
           case "payC": {
-            // console.log("payC")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'payC'} });
              break; 
           }
           case "supply": {
-            // console.log("supply")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'supply'} });
              break; 
           }
           case "allType": {
-            // console.log("allType")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'allType'} });
              break; 
           }  
           case "return": {
-            // console.log("return")
             this.router.navigate(['/shiftHistoryDetails'], { queryParams: { type:'return'} });
              break; 
           } 
@@ -107,83 +90,12 @@ export class HistoryTypeComponent implements OnInit {
       else{
         alert("No Resulte")
       }
-      
-       
-    //     // if(this.empType == 'admin'){
-    //     //   if(this.type == 'debits'){
-    //     //     this.details.forEach(element => {
-    //     //       this.totalAmount = this.totalAmount + parseInt(element['rest']);
-    //     //     });
-    //     //   } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash'){
-    //     //     this.details.forEach(element => {
-    //     //       this.totalProfit = this.totalProfit + parseInt(element['profit']);
-    //     //       this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-    //     //     });
-    //     //   } else if (this.type == 'payC' || this.type == 'return'){
-    //     //     this.details.forEach(element => {
-    //     //       this.totalAmount = this.totalAmount + parseInt(element['amount']);
-    //     //     });
-    //     //   }else if (this.type == 'allType'){
-    //     //     this.details.forEach(element => {
-    //     //       if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash'){
-    //     //         this.totalProfit = this.totalProfit + parseInt(element['profit']);
-    //     //         this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-    //     //       }else if(element['type'] == 'return' || element['type'] == 'payC'){
-    //     //         this.totalAmount = this.totalAmount + parseInt(element['amount']);
-    //     //       }
-    //     //     });
-    //     //   }
-    //     //   this.details.forEach(element => {
-    //     //       this.selectedDetails.push(element);
-    //     //   });
-    //     // }else{
-    //     //   if(this.type == 'debits'){
-    //     //     this.details.forEach(element => {
-    //     //       if(element['shiftEmpID'] == this.empID)
-    //     //         this.totalAmount = this.totalAmount + parseInt(element['rest']);
-    //     //     });
-    //     //   } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash'){
-    //     //     this.details.forEach(element => {
-    //     //       if(element['shiftEmpID'] == this.empID)
-    //     //         this.totalProfit = this.totalProfit + parseInt(element['profit']);
-    //     //         this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-    //     //     });
-    //     //   } 
-    //     //   else if (this.type == 'payC' || this.type == 'return'){
-    //     //     this.details.forEach(element => {
-    //     //       if(element['shiftEmpID'] == this.empID)
-    //     //         this.totalAmount = this.totalAmount + parseInt(element['amount']);
-    //     //     });
-    //     //   }
-    //     //   else if (this.type == 'allType'){
-    //     //     this.details.forEach(element => {
-    //     //       if(element['shiftEmpID'] == this.empID){
-    //     //         if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash'){
-    //     //           this.totalProfit = this.totalProfit + parseInt(element['profit']);
-    //     //           this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-    //     //         }else if(element['type'] == 'return' || element['type'] == 'payC'){
-    //     //           this.totalAmount = this.totalAmount + parseInt(element['amount']);
-    //     //         }
-    //     //       }
-    //     //     });
-    //     //   }
-    //     //   this.details.forEach(element => {
-    //     //     if(element['empType'] == 0)
-    //     //       this.selectedDetails.push(element);
-    //     //   });
-    //     // }
-    //   } 
     },
     error=>{
       alert("error")
-    });
-    // localStorage.setItem("empIDs",this.empIDForm.value);
-    
+    });    
   }
   get type() {
     return HistoryTypeComponent.shiftDataForm.get('type')
   }
-  // get shiftIDForm() {
-  //   return HistoryTypeComponent.shiftDataForm.get('shiftID') as FormArray
-  // }
 }

@@ -29,18 +29,23 @@ export class AccountingDetailsComponent implements OnInit {
     });
     this.empID=localStorage.getItem('userID');
     this.shiftID=localStorage.getItem('shiftID');
-    alert(this.shiftID)
+    // alert(this.type)
     this.empType=localStorage.getItem('activeUser');
     this.shiftIDs=localStorage.getItem('shiftIDs');
     this.getDetailInvoice();
     this.shiftIDs=this.shiftIDs.split(',');
-    console.log(this.shiftIDs);
+    // console.log(this.shiftIDs);
+    this.getDetailInvoice();
   }
   getDetailInvoice(){
-    let data={"type":this.type,"shiftIDs":this.shiftIDs};
-    this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
-      if(Response!=0){
-        this.details=Response;
+    // let data={"type":this.type,"shiftIDs":this.shiftIDs};
+    // this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
+    //   if(Response!=0){
+        this.details=AccountingComponent.details;
+        this.totalProfit= 0;
+        this.totalAmount= 0;
+        this.selectedDetails= [];
+        // console.log(this.details)
         if(this.empType == 'admin'){
           if(this.type == 'debits'){
             this.details.forEach(element => {
@@ -68,7 +73,10 @@ export class AccountingDetailsComponent implements OnInit {
           this.details.forEach(element => {
               this.selectedDetails.push(element);
           });
-        }else{
+        // console.log(this.selectedDetails)
+
+        }
+        else{
           if(this.type == 'debits'){
             this.details.forEach(element => {
               if(element['shiftEmpID'] == this.empID)
@@ -104,11 +112,11 @@ export class AccountingDetailsComponent implements OnInit {
               this.selectedDetails.push(element);
           });
         }
-      } 
-    },
-    error=>{
-      alert("error")
-    });
+      // } 
+    // },
+    // error=>{
+    //   alert("error")
+    // });
   }
   togglePanel(index:number) {
     this.isOpened = index;
