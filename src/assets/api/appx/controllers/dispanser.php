@@ -70,6 +70,8 @@ class dispanser extends REST_Controller
         $result_submitCounter = $this->dispanser_model->submit_dispnser_counters(array("dispID" => $dispID,
                                                                         "counter_1" => $counter_1,
                                                                         "counter_2" => $counter_2,
+                                                                        "counter_1_quan"=>$liters_sold_1,
+                                                                        "counter_2_quan"=>$liters_sold_2,
                                                                         "empID" => $empID)
                                                                     );
 

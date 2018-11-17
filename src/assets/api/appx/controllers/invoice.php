@@ -24,13 +24,6 @@ class invoice extends REST_Controller{
         $type = $this->post('type');
         // $isDebit = $this->post('isDebit');
         $shiftIDs = $this->post('shiftIDs');
-        $shiftID = array();
-        foreach ($shiftIDs as $id)
-        {
-            $shiftID[] = $id;
-        }
-        // date_default_timezone_set("Asia/Beirut");
-        // $date=date("Y-m-d");
 
         // $this->db->trans_begin();
         $result = $this->invoice_model->getDetailInvoice($type,$shiftIDs);
