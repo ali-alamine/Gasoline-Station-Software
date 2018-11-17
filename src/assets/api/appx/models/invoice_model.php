@@ -1,17 +1,15 @@
 <?php
 class invoice_model extends CI_Model{
-
     public function __construct(){
         $this->load->database();
     }
-
     /* Get All Invoice filter by type */
     public function selectAll_byType(){
         $this->db->select("*");
         $this->db->from("item-service");
         $this->db->where("item_type","lub");
         $this->db->order_by("itemID", "DESC");
-        $query = $this->db->get();  
+        $query = $this->db->get();
         $st=$this->db->last_query();
         return $query->result();
     }
@@ -44,8 +42,6 @@ class invoice_model extends CI_Model{
                     WHERE type in ('wash') and invoice.shiftID in ($shiftID) 
                     and invoice.isSupply = 0 and invoice.rest > 0
             ))as table1");
-            $sql=$this->db->last_query();
-            $ss=1;
         } 
         elseif($type == 'lub' || $type == 'access'){
             $this->db->select(" invoice.invID, `item-service`.name as name,invoice.amount as amount,
@@ -254,11 +250,9 @@ class invoice_model extends CI_Model{
                     left JOIN employee on employee.empID=shift.empID 
                     WHERE type in ('wash','payC','return','Diesel G','Diesel R','95','98','98_d','95_d','dieselG_d','dieselR_d') and invoice.shiftID ='".$shiftID."'))as table1
                    ");
-
         }else if($type == "counters"){
             $query = $this->db->query("       
 SELECT `invoice`.`invID`, `invoice`.`amount` as `amount`,
-
  `invoice`.`note` as `note`,`invoice`.`fuel_liters` as `quantity`, 
  `invoice`.`rest` as `rest`, `person`.`full_name` as `clientName`, 
  `employee`.`name` as `empName`, `employee`.`user_type` as `empType`, 
@@ -270,7 +264,6 @@ left JOIN `shift` ON `shift`.`shiftID`=`invoice`.`shiftID`
 left JOIN `employee` ON `employee`.`empID`=`shift`.`empID`  
 WHERE `invoice`.`type` IN('Diesel G','Diesel R','95','98','98_d','95_d','dieselG_d','dieselR_d') 
 AND `invoice`.`isSupply` = 0 AND `invoice`.`shiftID` = '".$shiftID."'
-
         ");
             // $this->db->select(" invoice.invID,invoice.amount as amount,
             // invoice.note as note,counter.counter_1_quan as quantity1,counter.counter_2_quan as quantity2,
@@ -287,7 +280,6 @@ AND `invoice`.`isSupply` = 0 AND `invoice`.`shiftID` = '".$shiftID."'
             // $this->db->where('invoice.shiftID',$shiftID);
             // $query = $this->db->get();
             // return $query->result();
-
         }
         if ($query->num_rows() > 0) {
             return $query->result_array();
@@ -297,7 +289,6 @@ AND `invoice`.`isSupply` = 0 AND `invoice`.`shiftID` = '".$shiftID."'
     }
     /* Get All shift filter by  date and shiftID */
     public function getShiftDetails($shiftID,$fromExpDate,$toExpDate){
-
         $this->db->select('*');
         $this->db->from('shift');
         $this->db->join('employee', 'employee.empID=shift.empID','inner');
