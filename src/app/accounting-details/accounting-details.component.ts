@@ -69,6 +69,15 @@ export class AccountingDetailsComponent implements OnInit {
                 this.totalAmount = this.totalAmount + parseInt(element['amount']);
               }
             });
+          }else if(this.type == 'counters'){
+            this.details.forEach(element => {
+              if(element['type'] == 'deiselG_d' || element['type'] == 'deiselR_d' || element['type'] == '95_d'|| element['type'] == '98_d' ){
+                this.totalProfit = this.totalProfit + parseInt(element['profit']);
+                this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
+              }else if(element['type'] == 'Deisel G' || element['type'] == 'Deisel R' || element['type'] == '95'|| element['type'] == '98'){
+                this.totalAmount = this.totalAmount + parseInt(element['amount']);
+              }
+            });
           }
           this.details.forEach(element => {
               this.selectedDetails.push(element);
