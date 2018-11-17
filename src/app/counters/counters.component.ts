@@ -22,14 +22,15 @@ export class CountersComponent implements OnInit {
   counterType_2:any;
   index:any;
   empID:any;
-  
+  shiftID;
+
   counter_1_from = new FormGroup({
     counter_1: new FormControl(''),
     dispID:new FormControl(''),
     containerID:new FormControl(''),
     cost_liter:new FormControl(''),
     liters_sold:new FormControl(''),
-    empID:new FormControl(''),
+    shiftID:new FormControl(''),
     fuel_type:new FormControl(''),
     price_liter:new FormControl(''),
     
@@ -41,7 +42,7 @@ export class CountersComponent implements OnInit {
     containerID:new FormControl(''),
     cost_liter:new FormControl(''),
     liters_sold:new FormControl(''),
-    empID:new FormControl(''),
+    shiftID:new FormControl(''),
     fuel_type:new FormControl(''),
     price_liter:new FormControl(''),
 
@@ -55,6 +56,7 @@ export class CountersComponent implements OnInit {
 
   ngOnInit() {
     this.getDispansersCounters();
+    this.shiftID=localStorage.getItem('shiftID');
     this.empID=localStorage.getItem('userID');
     // this.openCountersModal('countersModal',2);
   }
@@ -100,70 +102,70 @@ export class CountersComponent implements OnInit {
 
       text.innerHTML = "<span style='color:black;font-weight:bold'> counter " + this.counterType_1 + " at : " + "<span style='color:firebrick'>" + this.counter_1_from.value.counter_1 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_1 + " </span> <br><span style='color:firebrick'> ----------------------------------------------------------- </span> <br>" + "counter " + this.counterType_2 + " at : " + "<span style='color:firebrick'>" + this.counter_2_from.value.counter_2 + "</span> - Sold Liters: " + "<span style='color:firebrick'>" + liter_sold_2 + "</span></span>";
 
-      // swal({
-      //   content:text,
-      //   title: "Summary",
-      //   className: "success",
-      //   closeOnClickOutside: false,
-      //   closeOnEsc: false,
-      //   dangerMode: true,
+      swal({
+        content:text,
+        title: "Summary",
+        className: "success",
+        closeOnClickOutside: false,
+        closeOnEsc: false,
+        dangerMode: true,
 
-      //   buttons: {
-      //     submit: {
-      //       text: "Continue",
-      //       value: "submit",
-      //     },
-      //     noAction: {
-      //       text:"Cancel",
-      //       value: "Cancel",
-      //     },
-      //   },
-      // })
-      // .then((value) => {
-      //   switch (value) {
-      //     case "cancel":
-      //       break;
-      //     case "submit":
-      //     this.counter_1_from.get('liters_sold').setValue(liter_sold_1);
-      //     this.counter_2_from.get('liters_sold').setValue(liter_sold_2);
-      //     this.counter_1_from.get('empID').setValue(this.empID);
-      //     this.counter_2_from.get('empID').setValue(this.empID);
+        buttons: {
+          submit: {
+            text: "Continue",
+            value: "submit",
+          },
+          noAction: {
+            text:"Cancel",
+            value: "Cancel",
+          },
+        },
+      })
+      .then((value) => {
+        switch (value) {
+          case "cancel":
+            break;
+          case "submit":
+          this.counter_1_from.get('liters_sold').setValue(liter_sold_1);
+          this.counter_2_from.get('liters_sold').setValue(liter_sold_2);
+          this.counter_1_from.get('shiftID').setValue(this.shiftID);
+          this.counter_2_from.get('shiftID').setValue(this.shiftID);
   
-      //     this.countersForm.get('counterForm_1').setValue(this.counter_1_from.value);
-      //     this.countersForm.get('counterForm_2').setValue(this.counter_2_from.value);
-      //     console.log(this.countersForm.value);
-      //     this.counterServ.submitCounters(this.countersForm.value).subscribe( 
-      //       Response=>{
-      //         this.getDispansersCounters();
-      //         this.counter_1_from.reset();
-      //         this.counter_2_from.reset();
-      //         swal("Success", {
-      //           // button: false,
-      //           timer:500
-      //         });
-      //     },
-      //     error=>{
-      //       swal("please contact your software developer");
-      //     }
-      //   );
+          this.countersForm.get('counterForm_1').setValue(this.counter_1_from.value);
+          this.countersForm.get('counterForm_2').setValue(this.counter_2_from.value);
+          console.log(this.countersForm.value);
+          this.counterServ.submitCounters(this.countersForm.value).subscribe( 
+            Response=>{
+              this.getDispansersCounters();
+              this.counter_1_from.reset();
+              this.counter_2_from.reset();
+              swal("Success", {
+                // button: false,
+                timer:500
+              });
+          },
+          error=>{
+            swal("please contact your software developer");
+          }
+        );
 
           
-      //       break;
-      //   }
+            break;
+        }
 
-      // });
+      });
     }else{
       var message = document.createElement('h5');
       message.innerHTML="Please make sure the counters are correct";
-      // swal({
-      //   content:message,
-      //   buttons:{
-      //     ok:{
-      //       text:"Ok",
-      //       value:"ok"
-      //     }
-      //   }
-      // });
+      swal({
+        content:message,
+        buttons:{
+          ok:{
+            text:"Ok",
+            value:"ok"
+          }
+        }
+      });
     }
   }
 

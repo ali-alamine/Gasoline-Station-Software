@@ -36,7 +36,7 @@ export class ShiftHistoryDetailsComponent implements OnInit {
             this.details.forEach(element => {
               this.totalAmount = this.totalAmount + parseInt(element['rest']);
             });
-          } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash'){
+          } else if (this.type == 'access' || this.type == 'lub' || this.type == 'supply' || this.type == 'wash' ){
             this.details.forEach(element => {
               this.totalProfit = this.totalProfit + parseInt(element['profit']);
               this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
@@ -45,12 +45,24 @@ export class ShiftHistoryDetailsComponent implements OnInit {
             this.details.forEach(element => {
               this.totalAmount = this.totalAmount + parseInt(element['amount']);
             });
+          
           }else if (this.type == 'allType'){
             this.details.forEach(element => {
-              if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash'){
+              if(element['type'] == 'access' || element['type'] == 'lub' || element['type'] == 'wash' 
+              || element['type'] == 'dieselG_d' || element['type'] == 'dieselR_d' || element['type'] == '95_d'|| element['type'] == '98_d' ){
                 this.totalProfit = this.totalProfit + parseInt(element['profit']);
                 this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
-              }else if(element['type'] == 'return' || element['type'] == 'payC'){
+              }else if(element['type'] == 'return' || element['type'] == 'payC' || 
+              element['type'] == 'Diesel G' || element['type'] == 'Diesel R' || element['type'] == '95'|| element['type'] == '98'){
+                this.totalAmount = this.totalAmount + parseInt(element['amount']);
+              }
+            });
+          }else if(this.type == 'counters'){
+            this.details.forEach(element => {
+              if(element['type'] == 'dieselG_d' || element['type'] == 'dieselR_d' || element['type'] == '95_d'|| element['type'] == '98_d' ){
+                this.totalProfit = this.totalProfit + parseInt(element['profit']);
+                this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
+              }else if(element['type'] == 'Diesel G' || element['type'] == 'Diesel R' || element['type'] == '95'|| element['type'] == '98'){
                 this.totalAmount = this.totalAmount + parseInt(element['amount']);
               }
             });
