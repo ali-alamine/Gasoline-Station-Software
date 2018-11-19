@@ -71,8 +71,12 @@ class operation_model extends CI_Model{
         $res=$query->result_array();
         $oldQuan=$res[0]['quantity'];
         $oldCost=$res[0]['cost'];
-        $avgCost=( (($oldQuan*$oldCost) + ($newCost*$newQuan) ) / ($oldQuan + $newQuan));
-        return $avgCost;
+        if($oldCost > 0){
+            $avgCost=( (($oldQuan*$oldCost) + ($newCost*$newQuan) ) / ($oldQuan + $newQuan));
+            return $avgCost;
+        }else{
+            return $newCost;
+        }
     }
     public function calculate_avg_cost($containerID,$newQuan,$newCost){
         $this->db->select("current_quan_liter,cost_liter");
