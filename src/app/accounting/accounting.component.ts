@@ -29,7 +29,7 @@ export class AccountingComponent implements OnInit {
   private urlData;
   employees:any;
   shiftIDForm = new FormControl();
-  totalDrawer; shiftID;empID;
+  totalDrawer; shiftID; empID;
   checked;
   static details;
 

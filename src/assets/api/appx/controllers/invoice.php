@@ -18,25 +18,23 @@ class invoice extends REST_Controller{
         }
     }  
     
-    public function getDetailInvoice_post()
-    {
+    // public function getDetailInvoice_post(){
 
-        $type = $this->post('type');
-        // $isDebit = $this->post('isDebit');
-        $shiftIDs = $this->post('shiftIDs');
+    //     $type = $this->post('type');
+    //     // $isDebit = $this->post('isDebit');
+    //     $shiftIDs = $this->post('shiftIDs');
 
-        // $this->db->trans_begin();
-        $result = $this->invoice_model->getDetailInvoice($type,$shiftIDs);
-        // if ($this->db->trans_status() === false) {
-        //     $this->db->trans_rollback();
-        //     $this->response("Invoice information could not be saved. Try again.", 404);
-        // } else {
-        //     $this->db->trans_commit();
-            $this->response($result, 200);
-        // }
-    }
-    public function getShiftDetails_post()
-    {
+    //     // $this->db->trans_begin();
+    //     $result = $this->invoice_model->getDetailInvoice($type,$shiftIDs);
+    //     // if ($this->db->trans_status() === false) {
+    //     //     $this->db->trans_rollback();
+    //     //     $this->response("Invoice information could not be saved. Try again.", 404);
+    //     // } else {
+    //     //     $this->db->trans_commit();
+    //         $this->response($result, 200);
+    //     // }
+    // }
+    public function getShiftDetails_post(){
         // $type = $this->post('type');
         $fromExpDate = $this->post('fromExpDate');
         $toExpDate = $this->post('toExpDate');
@@ -56,8 +54,7 @@ class invoice extends REST_Controller{
         }
     }
     
-    public function getShiftTypeDetails_post()
-    {
+    public function getShiftTypeDetails_post(){
         $type = $this->post('type');
         $shiftID = $this->post('shiftID');
         $result = $this->invoice_model->getShiftTypeDetails($type,$shiftID);

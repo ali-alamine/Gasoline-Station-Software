@@ -18,7 +18,7 @@ class invoice_model extends CI_Model{
         
         if($type == 'debits'){
             $shiftID = "'" .implode("','", $shiftIDs  ) . "'";
-            $query = $this->db->query("select * from((select invoice.rest as rest,person.full_name as clientName,
+            $query = $this->db->query("SELECT * from((select invoice.rest as rest,person.full_name as clientName,
             `item-service`.name as name,invoice.amount as amount,
             invoice.note as note,inv_order.quantity as quantity,invoice.type as type,
             employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit
@@ -61,7 +61,6 @@ class invoice_model extends CI_Model{
         } 
         else
         if($type == 'wash' || $type == 'return'){
-            
             $this->db->select(" invoice.invID,invoice.amount as amount,invoice.note as note,
             invoice.rest as rest,person.full_name as clientName,
             employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit");
@@ -76,7 +75,6 @@ class invoice_model extends CI_Model{
             // return $query->result();
         } else
         if($type == 'payC'){
-            
             $this->db->select(" invoice.invID,invoice.amount as amount,invoice.note as note,
             invoice.rest as rest,
             employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,invoice.totalProfit as profit");
@@ -89,8 +87,6 @@ class invoice_model extends CI_Model{
             $query = $this->db->get();
             // return $query->result();
         }else if ($type == 'supply'){
-            
-            
             $this->db->select(" invoice.invID, invoice.amount as amount,
             invoice.rest as rest,person.full_name as clientName,`item-service`.name as name,
             inv_order.quantity as quantity,employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID");
@@ -252,19 +248,19 @@ class invoice_model extends CI_Model{
                    ");
         }else if($type == "counters"){
             $query = $this->db->query("       
-SELECT `invoice`.`invID`, `invoice`.`amount` as `amount`,
- `invoice`.`note` as `note`,`invoice`.`fuel_liters` as `quantity`, 
- `invoice`.`rest` as `rest`, `person`.`full_name` as `clientName`, 
- `employee`.`name` as `empName`, `employee`.`user_type` as `empType`, 
- `employee`.`empID` as `shiftEmpID`, `invoice`.`totalProfit` as `profit`, 
- `invoice`.`shiftID` as `shiftID`, `invoice`.`type` as `type`,DATE_FORMAT(dateTime,'%H:%i %p') AS time
-FROM `invoice` 
-left JOIN `person` ON `person`.`PID`=`invoice`.`personID` 
-left JOIN `shift` ON `shift`.`shiftID`=`invoice`.`shiftID` 
-left JOIN `employee` ON `employee`.`empID`=`shift`.`empID`  
-WHERE `invoice`.`type` IN('Diesel G','Diesel R','95','98','98_d','95_d','dieselG_d','dieselR_d') 
-AND `invoice`.`isSupply` = 0 AND `invoice`.`shiftID` = '".$shiftID."'
-        ");
+            SELECT `invoice`.`invID`, `invoice`.`amount` as `amount`,
+            `invoice`.`note` as `note`,`invoice`.`fuel_liters` as `quantity`, 
+            `invoice`.`rest` as `rest`, `person`.`full_name` as `clientName`, 
+            `employee`.`name` as `empName`, `employee`.`user_type` as `empType`, 
+            `employee`.`empID` as `shiftEmpID`, `invoice`.`totalProfit` as `profit`, 
+            `invoice`.`shiftID` as `shiftID`, `invoice`.`type` as `type`,DATE_FORMAT(dateTime,'%H:%i %p') AS time
+            FROM `invoice` 
+            left JOIN `person` ON `person`.`PID`=`invoice`.`personID` 
+            left JOIN `shift` ON `shift`.`shiftID`=`invoice`.`shiftID` 
+            left JOIN `employee` ON `employee`.`empID`=`shift`.`empID`  
+            WHERE `invoice`.`type` IN('Diesel G','Diesel R','95','98','98_d','95_d','dieselG_d','dieselR_d') 
+            AND `invoice`.`isSupply` = 0 AND `invoice`.`shiftID` = '".$shiftID."'
+                    ");
             // $this->db->select(" invoice.invID,invoice.amount as amount,
             // invoice.note as note,counter.counter_1_quan as quantity1,counter.counter_2_quan as quantity2,
             // invoice.rest as rest,person.full_name as clientName,

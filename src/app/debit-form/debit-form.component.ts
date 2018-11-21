@@ -88,7 +88,7 @@ export class DebitFormComponent {
           totalPrice:this.debitData.items[0].totalPrice,      
         }])
       });
-      this.getClients(0);
+      this.getClients(1);
     }else if(this.typePage == "sellWash" ){
       this.debitData = WashingCarComponent.washForm.value;
       this.debitForm = this.fb.group({

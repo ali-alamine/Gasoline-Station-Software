@@ -35,7 +35,7 @@ export class AccountingDetailsComponent implements OnInit {
     this.getDetailInvoice();
     this.shiftIDs=this.shiftIDs.split(',');
     // console.log(this.shiftIDs);
-    this.getDetailInvoice();
+    // this.getDetailInvoice();
   }
   getDetailInvoice(){
     // let data={"type":this.type,"shiftIDs":this.shiftIDs};
