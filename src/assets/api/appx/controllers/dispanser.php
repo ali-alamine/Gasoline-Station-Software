@@ -64,6 +64,9 @@ class dispanser extends REST_Controller
 
         $totalProfit_1=($price_liter_1 - $cost_liter_1) * $liters_sold_1;
         $totalProfit_2=($price_liter_2 - $cost_liter_2) * $liters_sold_2;
+
+        $totalPrice_1=$price_liter_1 * $liters_sold_1;
+        $totalPrice_2=$price_liter_2 * $liters_sold_2;
         /* start execut querys */ 
         $this->db->trans_begin();
         
@@ -81,14 +84,14 @@ class dispanser extends REST_Controller
 
 
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_1,
-                                                                "amount" => $price_liter_1,
+                                                                "amount" => $totalPrice_1,
                                                                 "note" => "test Note",
                                                                 "totalProfit" => $totalProfit_1,
                                                                 "shiftID" => $shiftID,
                                                                 "fuel_liters" => $liters_sold_1)
                                                             );
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_2,
-                                                                "amount" => $price_liter_2,
+                                                                "amount" => $totalPrice_2,
                                                                 "note" => "test Note",
                                                                 "totalProfit" => $totalProfit_2,
                                                                 "shiftID" => $shiftID,

@@ -68,7 +68,7 @@ export class DebitFormComponent {
         });
         this.itemsForm.push(item);
       });
-      this.getClients(1);
+      this.getClients(0);
     }else if(this.typePage == "sellAccess" || this.typePage == "sellLub"){
       this.debitForm = this.fb.group({
         shiftID: this.debitData.shiftID,
@@ -88,7 +88,7 @@ export class DebitFormComponent {
           totalPrice:this.debitData.items[0].totalPrice,      
         }])
       });
-      this.getClients(0);
+      this.getClients(1);
     }else if(this.typePage == "sellWash" ){
       this.debitData = WashingCarComponent.washForm.value;
       this.debitForm = this.fb.group({
@@ -139,6 +139,7 @@ export class DebitFormComponent {
     });
   }
   getClients(isClient){
+    let data = {'isClient':isClient}
     this.debitFormServ.getAllClients(isClient).subscribe(Response=>{
       debitFormServ => this.clients = debitFormServ;
       this.clients=Response;
@@ -176,9 +177,9 @@ export class DebitFormComponent {
         }else
           setTimeout(()=>this.router.navigate(['/operations']),1000);
         this.debitForm.reset();
-        while (this.itemsForm.length !== 0) {
-          this.itemsForm.removeAt(0)
-        }
+        // while (this.itemsForm.length !== 0) {
+        //   this.itemsForm.removeAt(0)
+        // }
       },
       error=>{
         console.log("error: "+error);

@@ -32,6 +32,7 @@ export class AppComponent implements OnInit{
 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
+        // alert("oirog")
         this.currentUrl = event.url;
         if(this.currentUrl.includes('startShift')){
           var hide="true";

@@ -33,9 +33,9 @@
                     <mat-form-field style="padding-left: 10px">
                       <input formControlName="selling" matInput placeholder="Item Price" type="number" step="500" required>
                     </mat-form-field>
-                    <!-- <mat-form-field style="padding-left: 10px">
+                    <mat-form-field style="padding-left: 10px">
                       <input formControlName="cost" matInput placeholder="Item Cost" type="number" step="500" required>
-                    </mat-form-field> -->
+                    </mat-form-field>
                     <mat-action-row>
                       <button mat-button color="primary" (click)="addLubricant()" [disabled]="!addLubForm.valid">Submit</button>
                       <button mat-button color="warn" (click)="collapse()">Cancel</button>
@@ -78,9 +78,9 @@
                   <mat-form-field style="padding-left: 10px">
                     <input matInput formControlName="selling" placeholder="Item Price" type="number" required>
                   </mat-form-field>
-                  <!-- <mat-form-field style="padding-left: 10px">
+                  <mat-form-field style="padding-left: 10px">
                     <input matInput formControlName="cost" placeholder="Item Cost" type="number" required>
-                  </mat-form-field> -->
+                  </mat-form-field>
                </form >
                 <mat-action-row>
                     <button mat-button color="primary" (click)="addNewAccess()" [disabled]="!addAccessForm.valid" >Submit</button>
