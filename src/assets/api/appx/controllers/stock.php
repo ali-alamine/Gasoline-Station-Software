@@ -13,10 +13,11 @@ class stock extends REST_Controller{
         $name = $this->post('name');
         $quantity = $this->post('quantity');
         $selling = $this->post('selling');
+        $cost = $this->post('cost');
         $item_type = 'lub';
 
         $result = $this->stock_model->add(array("name" => $name, "selling_price" => $selling,
-        "item_type" => $item_type,"quantity"=>$quantity));
+        "item_type" => $item_type,"quantity"=>$quantity,'cost'=>$cost));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -28,10 +29,11 @@ class stock extends REST_Controller{
         $name = $this->post('name');
         $quantity = $this->post('quantity');
         $selling = $this->post('selling');
+        $cost = $this->post('cost');
         $item_type = 'access';
 
         $result = $this->stock_model->add(array("name" => $name, "selling_price" => $selling,
-        "item_type" => $item_type,"quantity"=>$quantity));
+        "item_type" => $item_type,"quantity"=>$quantity,'cost'=>$cost));
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);
         } else {
@@ -114,9 +116,11 @@ class stock extends REST_Controller{
         $name = $this->post('name');
         $quantity = $this->post('quantity');
         $selling = $this->post('selling');
+        $cost = $this->post('cost');
         $itemID = $this->post('itemID');
 
-        $result = $this->stock_model->update($itemID, array("name" => $name, "quantity" => $quantity, "selling_price" => $selling));
+        $result = $this->stock_model->update($itemID, array("name" => $name, "quantity" => $quantity,
+         "selling_price" => $selling,'cost'=>$cost));
         if ($result === 0) {
             $this->response("person information could not be saved. Try again.", 404);
         } else {
