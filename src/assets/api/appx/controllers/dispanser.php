@@ -38,7 +38,7 @@ class dispanser extends REST_Controller
         $liters_sold_1=$counter_form_1['liters_sold'];
         $liters_sold_2=$counter_form_2['liters_sold'];
 
-        $ =$counter_form_1['price_liter'];
+        $price_liter_1 =$counter_form_1['price_liter'];
         $price_liter_2=$counter_form_2['price_liter'];
 
         $cost_liter_1=$counter_form_1['cost_liter'];

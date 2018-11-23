@@ -136,6 +136,5 @@ class employee extends REST_Controller{
         } else {
             $this->response('success', 200);
         }
-    
     }
 }

@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 })
 
 export class StockComponent implements OnInit {
+  containers:any;
   itemName = new FormControl('');
   itemPrice = new FormControl('');
   private globalDataTable;
@@ -298,6 +299,15 @@ export class StockComponent implements OnInit {
       this.globalAccessDT.ajax.reload(null, false);
     }
   }
+  getAllFuelContainers(){
+    this.stockServ.getAllFuelContainers().subscribe( 
+      Response=>{
+        this.containers = Response;
+        console.log(Response)
+        console.log( this.containers);
+    }
+  );
+}
   displayTables(selectedTab){
   // debugger
     if(selectedTab.index==1){
@@ -310,16 +320,6 @@ export class StockComponent implements OnInit {
       //  var cc=$("#accessDT").DataTable();
       //  this.globalDataTable=cc;
     }
-  }
-  getAllFuelContainers(){
-    this.stockServ.getAllFuelContainers().subscribe(Response=>{
-      
-      stockServ => this.fuelContainers = stockServ; this.fuelContainers=Response;
-      // console.log(this.fuelContainers);
-    },
-    error=>{
-      alert("error")
-    });
   }
   openLubModal() {
       this.typeSubmitLub = "Edit";

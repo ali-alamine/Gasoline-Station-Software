@@ -4,31 +4,31 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StockService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/stock/";
+  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private http:HttpClient) { }
 
   addNewLub(lubData){
-    return this.http.post(this.url +"addNewLub",lubData);
+    return this.http.post(this.url +"stock/addNewLub",lubData);
   }
   addNewAccess(accessData){
-    return this.http.post(this.url +"addNewAccess",accessData);
+    return this.http.post(this.url +"stock/addNewAccess",accessData);
   }
 
   getAllLubricants(){
-    return this.http.get(this.url +"getAllLubricants");
+    return this.http.get(this.url +"stock/getAllLubricants");
   }
   getAllAccess(){
-    return this.http.get(this.url +"getAllAccess");
+    return this.http.get(this.url +"stock/getAllAccess");
   }
 
-  getAllFuelContainers(){
-    return this.http.get(this.url +"getAllFuelContainers");
-  }
   editStock(data){
-    return this.http.post(this.url +"editStock",data);
+    return this.http.post(this.url +"stock/editStock",data);
   }
   deleteStock(itemID){
-    return this.http.get(this.url +"deleteStock",{params:{itemID:itemID}});
+    return this.http.get(this.url +"stock/deleteStock",{params:{itemID:itemID}});
+  }
+  getAllFuelContainers(){
+    return this.http.get(this.url +"container/getFuelContainer");
   }
 
 }
