@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { $ } from 'protractor';
 import { MessageServiceService } from './message-service.service';
+import { OperationsComponent } from './operations/operations.component';
 // import { OperationsComponent} from './operations/operations.component';
 @Component({
   selector: 'app-root',
@@ -90,9 +91,13 @@ export class AppComponent implements OnInit{
           break;
         case "continue":
           let id=localStorage.getItem('shiftID');
-          alert(id);
-          this.ms.logout(id).subscribe(Response=>{
-            alert('1')
+          // alert(id);
+          // OperationsComponent.getTotalDarwer();
+          OperationsComponent.staticTotalDrawer;
+          console.log(OperationsComponent.staticTotalDrawer)
+          let data ={'shiftID' : id,'totalDrawer': OperationsComponent.staticTotalDrawer};
+          this.ms.logout(data).subscribe(Response=>{
+            // alert('1')
           },
           error=>{
             alert("error")

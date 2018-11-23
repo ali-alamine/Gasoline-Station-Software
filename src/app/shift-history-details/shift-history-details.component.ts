@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HistoryTypeComponent } from '../history-type/history-type.component';
+import { HistoryService } from '../history/history.service';
 
 @Component({
   selector: 'app-shift-history-details',
@@ -19,7 +20,7 @@ export class ShiftHistoryDetailsComponent implements OnInit {
   empType;
   selectedDetails = new Array();
   empIDs;
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute,private historyService:HistoryService) { }
 
   ngOnInit() {
     this.urlData = this.route.queryParams.subscribe(params => {
@@ -35,6 +36,7 @@ export class ShiftHistoryDetailsComponent implements OnInit {
     this.selectedDetails = [];
     this.totalAmount = 0;
     this.totalProfit = 0;
+    this.selectedDetails= [];
     if(this.type == 'debits'){
       this.details.forEach(element => {
         this.totalAmount = this.totalAmount + parseInt(element['rest']);
@@ -63,9 +65,9 @@ export class ShiftHistoryDetailsComponent implements OnInit {
     } else if(this.type == 'counters'){
       this.details.forEach(element => {
         if(element['type'] == 'dieselG_d' || element['type'] == 'dieselR_d' || element['type'] == '95_d'|| element['type'] == '98_d' ){
-          this.totalProfit = this.totalProfit + parseInt(element['profit']);
           this.totalAmount = this.totalAmount + (parseInt(element['amount']) - parseInt(element['rest']));
         }else if(element['type'] == 'Diesel G' || element['type'] == 'Diesel R' || element['type'] == '95'|| element['type'] == '98'){
+          this.totalProfit = this.totalProfit + parseInt(element['profit']);
           this.totalAmount = this.totalAmount + parseInt(element['amount']);
         }
       });
@@ -79,4 +81,5 @@ export class ShiftHistoryDetailsComponent implements OnInit {
     // alert("45")
     this.isOpened = index;
   }
+  
 }

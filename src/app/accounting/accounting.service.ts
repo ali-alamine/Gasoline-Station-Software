@@ -15,6 +15,10 @@ export class AccountingService {
     return this.httpClient.post(this.url +"employee/getTodayEmp",'');
   }
   getDetailInvoice(data): Observable<any>{
-    return this.httpClient.post('http://localhost/eSafe-gasoline_station/src/assets/api/invoice/getDetailInvoice', data);
+    return this.httpClient.post(this.url +"invoice/getDetailInvoice", data);
+  }
+  deleteInvoice(data):Observable<any>{  
+    console.log(data) 
+    return this.httpClient.put(this.url+"invoice/deleteInvoice",data);
   }
 }

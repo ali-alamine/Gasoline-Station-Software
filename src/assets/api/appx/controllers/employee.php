@@ -128,8 +128,10 @@ class employee extends REST_Controller{
         $time=date("h:i");
         $today_date=$y."-".$m."-".$d."-".$time;
         /*END - Get Current Date Time */
-        $shiftID=$this->post('id');
-        $logout=$this->employee_model->logout($shiftID,$today_date);
+        $shiftID=$this->post('shiftID');
+        $totalDrawer=$this->post('totalDrawer');
+        $logout=$this->employee_model->logout($shiftID,$today_date,$totalDrawer);
+        $add=$this->employee_model->insertDrawer(array('shiftID'=> $shiftID , 'date' => $today_date, 'amount'=>$totalDrawer));
 
         if ($logout === 0) {
             $this->response("error, Try again.", 404);

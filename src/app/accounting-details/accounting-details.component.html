@@ -1,38 +1,34 @@
-<div class="container-fluid">
+<div class="container-fluid" style="float: right; text-align: right" dir="rtl">
   <mat-accordion style="margin:5px;" *ngIf="type == 'lub'">
       <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                    Lubricant: {{totalAmount}} Profit: {{totalProfit}}
-                </h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع بيع الزيوت : {{totalAmount}} الأرباح: {{totalProfit}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div *ngIf="detail.rest == 0">
-                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
-                        ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
-                <div *ngIf="detail.rest > 0 "  style="color: brown">
-                        <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
-                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u>
-                             ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
+        <mat-list role="list">
+          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+            <h5>
+                <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                    <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                </button>
+            </h5> 
+            <div  *ngIf="detail.rest == 0"  >
+                <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                إسم الموظف:<u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div *ngIf="detail.rest > 0 " style="color: brown;">
+                <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                    الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    إسم الموظف:<u>{{detail.empName}}</u>
+                </h5>
+            </div>
           </mat-list-item>
-        </mat-list>
-        <mat-list role="list" *ngIf = " empType != 'admin'">
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div *ngIf="detail.rest == 0">
-                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u></h5>
-                </div>
-                <div *ngIf="detail.rest > 0"  style="color: brown">
-                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> lubricant for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
-                </div>
-            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -41,34 +37,31 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                      Accessories: {{totalAmount}} Profit: {{totalProfit}}</h3>
-              </mat-action-row>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع بيع إكسسوارات : {{totalAmount}} الأرباح: {{totalProfit}}
+                    </h3>
+                </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+        <mat-list role="list" >
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
                 <div *ngIf="detail.rest == 0">
-                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
-                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                  <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                      إسم الموظف : <u>{{detail.empName}}</u>
+                  </h5>
                 </div>
                 <div *ngIf="detail.rest > 0 "  style="color: brown">
-                        <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
-                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
-                            ==> Employee: <u>{{detail.empName}}</u></h5>
+                  <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                      الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                      إسم الموظف : <u>{{detail.empName}}</u>
+                  </h5>
                 </div>
           </mat-list-item>
-        </mat-list>
-        <mat-list role="list" *ngIf = " empType != 'admin'">
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div *ngIf="detail.rest == 0">
-                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u></h5>
-                </div>
-                <div *ngIf="detail.rest > 0"  style="color: brown">
-                    <h5><u>{{detail.name}}</u> : Sold <u>{{detail.quantity}}</u> accessories for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
-                </div>
-            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -77,33 +70,31 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                    Washing: {{totalAmount}}  Profit: {{totalProfit}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع البيع : {{totalAmount}} الأرباح: {{totalProfit}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-          <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
                 <div *ngIf="detail.rest == 0">
-                    <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                  <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount}}</u> 
+                       إسم الموظف : <u>{{detail.empName}}</u>
+                  </h5>
                 </div>
                 <div *ngIf="detail.rest > 0 "  style="color: brown">
-                        <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                  <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount}}</u> 
+                      الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u>
+                       إسم الموظف : <u>{{detail.empName}}</u>
+                  </h5>
                 </div>
           </mat-list-item>
-        </mat-list>
-        <mat-list role="list" *ngIf = " empType != 'admin'">
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div *ngIf="detail.rest == 0">
-                    <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u></h5>
-                </div>
-                <div *ngIf="detail.rest > 0"  style="color: brown">
-                    <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
-                </div>
-            </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -112,40 +103,40 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >Debits: {{totalAmount}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع الديون : {{totalAmount}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
                 <div  *ngIf="detail.quantity != null">
-                    <h5><u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
-                        client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
-                        ==> Employee: <u>{{detail.empName}}</u></h5>
+                  <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                      الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                       إسم الموظف : <u>{{detail.empName}}</u>
+                  </h5>
                 </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'wash'">
-                        <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
+                <div *ngIf="detail.quantity == null && detail.type == 'wash'"  style="color: brown">
+                      <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount}}</u> 
+                          الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u>
+                           إسم الموظف : <u>{{detail.empName}}</u>
+                      </h5>
                 </div>
-                <!-- <div *ngIf="detail.quantity == null && detail.type == 'payC'">
-                    <h5><u>{{detail.clientName}}</u>: Payment for total <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div> -->
+                <div *ngIf="detail.quantity == null && 
+                  (detail.type =='dieselG_d' || detail.type == 'dieselR_d' || detail.type == '95_d'|| detail.type == '98_d')"  
+                  style="color: brown">
+                  <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                      الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>
+                   إسم الموظف : <u>{{detail.empName}}</u>
+                  </h5>
+                </div>
             </mat-list-item>
-        </mat-list>
-            <mat-list role="list" *ngIf = " empType != 'admin'">
-                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                    <div  *ngIf="detail.quantity != null">
-                        <h5><u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
-                            client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
-                    </div>
-                    <div *ngIf="detail.quantity == null && detail.type == 'wash'">
-                            <h5><u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                                rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
-                    </div>
-                    <!-- <div *ngIf="detail.quantity == null && detail.type == 'payC'">
-                        <h5><u>{{detail.clientName}}</u>: Payment for total <u>{{detail.amount}}</u></h5>
-                    </div> -->
-                </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
@@ -154,20 +145,22 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >Returns: {{totalAmount}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع المرتجعات : {{totalAmount}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <h5><u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-            </mat-list-item>
-        </mat-list>
-        <mat-list role="list" *ngIf = " empType != 'admin'">
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-            <div *ngIf="detail.empType == 0">
-                <h5><u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u></h5>
-            </div>
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
+                <h5>* {{detail.time}}: تسديد دين من <u>{{detail.clientName}}</u> مبلغ <u>{{detail.amount}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>  
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
             </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
@@ -177,20 +170,22 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >Payments: {{totalAmount}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع المدفوعات : {{totalAmount}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <h5>Payment: <u>{{detail.amount}}</u> Note: <u>{{detail.note}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-            </mat-list-item>
-        </mat-list>
-        <mat-list role="list" *ngIf = " empType != 'admin'">
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-            <div *ngIf="detail.empType == 0">
-                <h5>Payment: <u>{{detail.amount}}</u> Note: <u>{{detail.note}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-            </div>
+        <mat-list role="list" >
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
+                <h5>* {{detail.time}}: مدفوع مبلغ : <u>{{detail.amount}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    إسم الموظف : <u>{{detail.empName}}</u>                
+                </h5>
             </mat-list-item>
         </mat-list>
       </mat-expansion-panel>
@@ -200,25 +195,33 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >Supply : {{totalAmount}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع البضاعة الواردة : {{totalAmount}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                    <h5><u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                </mat-list-item>
-            </mat-list>
-            <mat-list role="list" *ngIf = " empType != 'admin'">
-                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div *ngIf="detail.empType == 0">
-                    <h5><u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u></h5>
+        <mat-list role="list">
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
+                <div  *ngIf="detail.type == 'access' || detail.type == 'lub'">
+                    <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                        <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest}}</u></span> إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                            إسم الموظف : <u>{{detail.empName}}</u>
+                    </h5>
                 </div>
-                </mat-list-item>
-            </mat-list>
+                <div  *ngIf="detail.type != 'access' && detail.type != 'lub'">
+                    <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> من لتر <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                        <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest}}</u></span> إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                        إسم الموظف : <u>{{detail.empName}}</u>
+                    </h5>
+                </div>
+            </mat-list-item>
+        </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion style="margin:5px;" *ngIf="type == 'allType'">
@@ -226,56 +229,76 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                      Invoice : {{totalAmount}} Profit: {{totalProfit}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع الفواتير : {{totalAmount}} الأرباح: {{totalProfit}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-list role="list" *ngIf = " empType == 'admin'" >
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div  *ngIf="detail.quantity != null && detail.isSupply == 0">
-                    <h5> Time: {{detail.time}} <u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
-                        client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> 
-                        ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0">
-                        <h5> Time: {{detail.time}} <u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'payC' && detail.isSupply == 0">
-                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u>: Payment for total price <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'return' && detail.isSupply == 0">
-                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity != null && detail.isSupply == 1">
-                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                </div>
+        <mat-list role="list"  >
+        <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+            <h5>
+                <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                    <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                </button>
+            </h5> 
+            <div  *ngIf="detail.rest == 0 && detail.quantity != null && detail.isSupply == 0 && 
+                (detail.type == 'access' || detail.type == 'lub')">
+                <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div  *ngIf="detail.quantity != null && detail.isSupply == 0 && 
+                (detail.type =='Diesel G' || detail.type == 'Diesel R' || detail.type == '95'|| detail.type == '98')">
+                <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div  *ngIf="detail.rest != 0 && detail.quantity != null && detail.isSupply == 0 && 
+                (detail.type == 'access' || detail.type == 'lub')" style="color: brown">
+                <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                    الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div  *ngIf="detail.rest != 0 && detail.quantity == null && detail.isSupply == 0 && 
+                (detail.type =='dieselG_d' || detail.type == 'dieselR_d' || detail.type == '95_d'|| detail.type == '98_d')" 
+                style="color: brown">
+                <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                    الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0 && detail.rest > 0" style="color: brown">
+                <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount}}</u> 
+                    الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u>
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0 && detail.rest == 0">
+                <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount}}</u> 
+                    إسم الموظف : <u>{{detail.empName}}</u>
+                </h5>
+            </div>
+            <div *ngIf="detail.quantity == null && detail.type == 'payC' && detail.isSupply == 0">
+                    <h5>* {{detail.time}}: مدفوع مبلغ : <u>{{detail.amount}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                            إسم الموظف : <u>{{detail.empName}}</u>                
+                    </h5>
+            </div>
+            <div *ngIf="detail.quantity == null && detail.type == 'return' && detail.isSupply == 0">
+                    <h5>* {{detail.time}}: تسديد دين من <u>{{detail.clientName}}</u> مبلغ <u>{{detail.amount}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>  
+                                إسم الموظف : <u>{{detail.empName}}</u>
+                    </h5>
+            </div>
+            <div *ngIf="detail.quantity != null && detail.isSupply == 1" >
+                    <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                        <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest}}</u></span> 
+                        إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                        إسم الموظف : <u>{{detail.empName}}</u>
+                    </h5>
+            </div>
             </mat-list-item>
         </mat-list>
-        <mat-list role="list" *ngIf = " empType != 'admin'">
-            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <div  *ngIf="detail.quantity != null && detail.isSupply == 0">
-                    <h5> Time: {{detail.time}} <u>{{detail.name}}</u>: Sold <u>{{detail.quantity}}</u> for total price <u>{{detail.amount}}</u> rest <u>{{detail.rest}}</u>
-                        client <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0">
-                        <h5> Time: {{detail.time}} <u>{{detail.note}}</u> : washing for total price <u>{{detail.amount}}</u> 
-                            rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'payC' && detail.isSupply == 0">
-                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u>: Payment for total price <u>{{detail.amount}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity == null && detail.type == 'return' && detail.isSupply == 0">
-                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> Note: <u>{{detail.note}}</u> return: <u>{{detail.amount}}</u></h5>
-                </div>
-                <div *ngIf="detail.quantity != null && detail.isSupply == 1">
-                    <h5> Time: {{detail.time}} <u>{{detail.clientName}}</u> : supply <u>{{detail.quantity}}</u> name: <u>{{detail.name}}</u> for total price <u>{{detail.amount}}</u> 
-                        rest <u>{{detail.rest}}</u></h5>
-                </div>
-            </mat-list-item>
-            </mat-list>
       </mat-expansion-panel>
   </mat-accordion>
   <mat-accordion style="margin:5px;" *ngIf="type == 'counters'">
@@ -283,21 +306,31 @@
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <h3 style="margin-left:450px; color: rgb(97, 64, 111);" mat-button color="primary" >Fuel : {{totalAmount}}</h3>
+                    <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                        مجموع الفيول : {{totalAmount}} الأرباح: {{totalProfit}}
+                    </h3>
               </mat-action-row>
             </mat-panel-title>
         </mat-expansion-panel-header>
         <mat-list role="list"  >
-                <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                      <div  *ngIf="detail.type =='Deisel G' || detail.type == 'Deisel R' || detail.type == '95'|| detail.type == '98'">
-                              <h5>Time: {{detail.time}}: <u>{{detail.type}}</u> : <u>{{detail.quantity}}</u> litre for total price <u>{{detail.amount}}</u> 
-                                  ==> Employee: <u>{{detail.empName}}</u></h5>
-                          </div>
-                          <div *ngIf="detail.type =='deiselG_d' || detail.type == 'deiselR_d' || detail.type == '95_d'|| detail.type == '98_d'">
-                                  <h5> Time: {{detail.time}} <u>{{detail.note}}</u> : <u>{{detail.type}}</u> for total price <u>{{detail.amount}}</u> 
-                                      rest <u>{{detail.rest}}</u> client <u>{{detail.clientName}}</u> ==> Employee: <u>{{detail.empName}}</u></h5>
-                          </div>
-                    
+            <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails; let i=index" >
+                <h5>
+                    <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type,detail.isSupply,detail.amount,detail.rest,detail.PID,detail.note,detail.fuel_liters,detail.shiftID)" color="warn" tabindex="-1">
+                        <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
+                    </button>
+                </h5>
+                  <div  *ngIf="detail.type =='Diesel G' || detail.type == 'Diesel R' || detail.type == '95'|| detail.type == '98'">
+                      <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                           إسم الموظف : <u>{{detail.empName}}</u>
+                      </h5>
+                  </div>
+                  <div *ngIf="detail.type =='dieselG_d' || detail.type == 'dieselR_d' || detail.type == '95_d'|| 
+                      detail.type == '98_d'" style="color: brown">
+                      <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount}}</u> 
+                          الباقي <u>{{detail.rest}}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                           إسم الموظف : <u>{{detail.empName}}</u>
+                      </h5>
+                  </div>
                 </mat-list-item>
             </mat-list>
       </mat-expansion-panel>
