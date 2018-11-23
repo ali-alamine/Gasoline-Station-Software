@@ -7,13 +7,8 @@ export class DebitFormService {
   private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private http:HttpClient) { }
   getAllClients(isClient){
-<<<<<<< HEAD
-    alert(isClient)
-    return this.http.post(this.url +"person/getAllPerson/",{'isClient':isClient});
-=======
     console.log(isClient)
     return this.http.post(this.url +"person/getAllPerson",{'isClient':isClient});
->>>>>>> efa0f330a280bd997fdf960bb401401393b1dba4
   }
   addInvoice(data){
     return this.http.post(this.url +"operation/addInvoice",data);
