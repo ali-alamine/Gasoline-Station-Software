@@ -13,19 +13,21 @@
           </mat-grid-list>
       </mat-tab> -->
      <mat-tab label="Fuel">
-      <div id="fuelContView" class="container-fluid " style="border:1px solid #000000; margin-top: 20px">
-        <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}">
-            <span class="contLabel"> {{container.name }} {{container.capacity }}</span>
-            <br>
-            <span class="contLabel" style="color:firebrick; background-color: rgba(176, 91, 212, 0.5);border-radius: 10px;font-weight: bold"> Liters: {{container.current_quan_liter }} | Price: {{container.price_liter }}</span>
-          <img (click)="openContainerSupplyModal(containerModal,i)"  class="container" src="../assets/icons/containerIcons/0.png">
+       <div class="container-fluid ">
+        <div id="fuelContView" style="border:1px solid #000000; margin-top: 20px">
+          <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}">
+              <span class="contLabel"> {{container.name }} {{container.capacity }}</span>
+              <br>
+              <span class="contLabel" style="color:firebrick; background-color: rgba(176, 91, 212, 0.5);border-radius: 10px;font-weight: bold"> Liters: {{container.current_quan_liter }} | Price: {{container.price_liter }}</span>
+            <img (click)="openContainerSupplyModal(containerModal,i)"  class="container" src="../assets/icons/containerIcons/0.png">
+          </div>
+        
+          <div class="officeDiv">
+            <span class="officeLabel">Office</span>
+              <img class="office" src="../assets/icons/office.png">    
+          </div>
+        
         </div>
-      
-        <div class="officeDiv">
-          <span class="officeLabel">Office</span>
-            <img class="office" src="../assets/icons/office.png">    
-        </div>
-      
       </div>
     </mat-tab> 
       <mat-tab label="Lubricants">
