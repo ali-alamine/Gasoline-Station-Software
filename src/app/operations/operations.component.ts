@@ -65,7 +65,7 @@ export class OperationsComponent implements OnInit {
       this.isAdmin=false;
     }
     this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
-      this.ms.changeTotal(Response[0].total);
+      // this.ms.changeTotal(Response[0].total);
       if(Response == null) this.totalDrawer = 0;
       else this.totalDrawer = Response[0].total;
     });
