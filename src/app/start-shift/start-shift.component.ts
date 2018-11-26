@@ -34,7 +34,7 @@ export class StartShiftComponent implements OnInit {
 		months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
     // days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     if(format=='default'){
-      return ' at ' +hours +' on ' +d.getFullYear()+'-'+months[d.getMonth()]+'-'+d.getDate();
+      return d.getFullYear()+'-'+months[d.getMonth()]+'-'+d.getDate()+' الساعة ' +hours ;
     }else if(format=='timeOnly'){
       return hours;
     }else if(format=='dateOnly'){
@@ -57,7 +57,7 @@ export class StartShiftComponent implements OnInit {
         localStorage.setItem('shiftID',shiftID);
         this.router.navigate(['/operations']);
       },error=>{
-        swal("please contact your software developer");
+        swal("يرجى الاتصال بمطور البرامج الخاص بك");
       }
     );
   }

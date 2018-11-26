@@ -18,9 +18,11 @@ export class AppComponent implements OnInit{
   isAdmin:boolean;
   shiftID:any;
   drawerAmount:any;
+  totalDrawer:any;
   constructor(private router: Router,private location: Location,private ms:MessageServiceService) {}
 
   ngOnInit() {
+    this.shiftID=localStorage.getItem('shiftID');
     // (<HTMLElement>document.querySelector('#header')).style.display = 'none';
     this.checkOpenedSession();
      this.userType=localStorage.getItem('activeUser');
@@ -45,6 +47,11 @@ export class AppComponent implements OnInit{
           (<HTMLElement>document.querySelector('#header')).style.display = 'block';
         }
       }
+    });
+    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+      this.totalDrawer = Response[0].total;      
+      this.getTotalDarwer();
+      this.ms.changeTotal(Response[0].total);
     });
 
   }
@@ -154,5 +161,16 @@ export class AppComponent implements OnInit{
       swal("contact your software developer");
     }
   );
+  }
+  getTotalDarwer(){
+    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+      console.log(Response)
+      this.totalDrawer = Response[0].total;
+    },
+    error=>{
+      alert('Error Sum drawer!');
+    }
+  );
+
   }
 }

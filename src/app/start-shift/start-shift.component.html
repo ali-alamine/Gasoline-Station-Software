@@ -1,17 +1,19 @@
-<div class="container">
+<div class="container" style="float: right; text-align: right;margin-top: 10px;" dir="rtl">
   <div id="newShift">
     <div id="infoLabel">
-      <h2>START NEW SHIFT</h2>
-      <h3 style="margin-top:10%;">Shift will start by <span style="color:firebrick;font-weight: bold">{{this.empName}}</span> <span style="color:firebrick">{{this.getDateTime('default')}}</span></h3>
+      <h2>بداية شفت جديد</h2>
+      <h3 style="margin-top:20px;">الشفت سوف يبدأ من قبل<span style="color:firebrick;font-weight: bold">{{this.empName}}</span> بتاريخ <span style="color:firebrick;">{{this.getDateTime('default')}}</span></h3>
     </div>
     <div id="setDrawer">
-      <mat-form-field style="width: 50%;height:60%; margin-left:50px">
-          <input style="color:firebrick;font-weight: bold;font-size: 50px" matInput step="1000" type="number" placeholder="Declare Drawer Amount" [(ngModel)]="this.startDrawerAmount">
-      </mat-form-field>                                                                                                                             
-    </div>
+      <mat-form-field style="width: 50%;height:30%; margin-left:50px">
+          <mat-label>إدخال مبلغ الجارور</mat-label>
+          <input style="color:firebrick;font-weight: bold;font-size: 50px" 
+          matInput step="1000" type="number" placeholder="إدخال مبلغ الجارور" [(ngModel)]="this.startDrawerAmount" autofocus>
+        </mat-form-field>                                                                                                                             
+</div>
     <div id="actions">
-        <button mat-raised-button color="primary"style="width: 50px;height: 50px;font-size: 20px"(click)="startShift()">START</button>
-        <button mat-raised-button color="basic" style="width: 50px;height: 50px;font-size: 20px;margin: 5px" (click)="startCancel()">Cancel</button>
+        <button mat-raised-button color="primary"style="width: 50px;height: 50px;font-size: 20px"(click)="startShift()">إبدأ</button>
+        <button mat-raised-button color="basic" style="width: 50px;height: 50px;font-size: 20px;margin: 5px" (click)="startCancel()">إلغاء</button>
     </div>
   </div>
 </div>

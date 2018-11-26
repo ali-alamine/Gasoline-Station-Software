@@ -62,35 +62,13 @@ export class WashingCarComponent implements OnInit {
     WashingCarComponent.washForm.get('totalPrice').setValue(price);
 
     if(this.debit == 'true'){
-      // let sellWashingData={
-      //   "itemID":2,
-      //   "shiftID":this.shiftID,
-      //   "nameCar":name,
-      //   "price":price,
-      //   "totalProfit":price,
-      //   "quantity":1,
-      //   "totalPrice":price,
-      //   "type":'wash',
-      //   'invoiceType':'sell'
-      // };
       this.router.navigate(['/debbiting'],{queryParams:{pageType:'sellWash'}});
     }
     else{
-      // let sellWashingData={
-      //   "itemID":2,
-      //   "shiftID":this.shiftID,
-      //   "nameCar":name,
-      //   "price":price,
-      //   "totalProfit":price,
-      //   "quantity":1,
-      //   "totalPrice":price,
-      //   "type":'wash',
-      //   'invoiceType':'sell'
-      // };
       this.washServ.sellWashService(WashingCarComponent.washForm.value).subscribe(
       Response=>{
-        this.openSnackBar(name, "SOLD");
-      this.openSnackBar(price + " Added to drawer", "success");
+        this.openSnackBar(name, "تم البيع");
+      this.openSnackBar(price + " يضاف إلى درج", "success");
         // this.getAccessories(this.itemPerPage,this.offset);
         WashingCarComponent.washForm.reset();
         WashingCarComponent.washForm.get('shiftID').setValue(this.shiftID);
@@ -102,16 +80,6 @@ export class WashingCarComponent implements OnInit {
         alert("error");
       });
     }
-
-    
-    // let data={"machineName":name,"price":price,"shiftID":this.shiftID};
-    // this.washServ.sellWashService(data).subscribe(
-    // Response=>{
-    //   this.openSnackBar(price + " Added to drawer", "success");
-    // },
-    // error=>{
-    //   alert("error");
-    // });
   }
 
   get nameCar() {

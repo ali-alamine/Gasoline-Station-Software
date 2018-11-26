@@ -26,8 +26,6 @@ export class ShiftHistoryDetailsComponent implements OnInit {
     this.urlData = this.route.queryParams.subscribe(params => {
       this.type = params['type'] || -1;
     });
-    // this.empID=localStorage.getItem('userID');
-    // this.empType=localStorage.getItem('activeUser');
     this.details = HistoryTypeComponent.details;
     console.log(this.details);
     this.getTypeDetails();

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class OperationsService {
 
   constructor(private httpClient: HttpClient) { }
-  getTotalDarwer(shiftID): Observable<any>{
-    return this.httpClient.get('http://localhost/eSafe-gasoline_station/src/assets/api/drawer/getTotalDarwer', {params:{shiftID:shiftID}});
-  }
+  // getTotalDarwer(shiftID): Observable<any>{
+  //   return this.httpClient.get('http://localhost/eSafe-gasoline_station/src/assets/api/drawer/getTotalDarwer', {params:{shiftID:shiftID}});
+  // }
 }

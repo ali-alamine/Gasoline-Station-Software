@@ -51,23 +51,24 @@ export class DebitFormComponent {
         type:this.debitData.type,
         invoiceType: this.debitData.invoiceType,
         totalProfit: 0,
-        personID : '',
+        personID : ['', Validators.required],
         personName: ['', Validators.required],
         amountPaid: [0, Validators.required],
         amountRest: [0, Validators.required],
         comment: '',
-        items: this.fb.array([])
+        items:this.fb.array([])
       });
       this.debitData.items.forEach(element => {
         const item = this.fb.group({
-          itemID:element['itemID'],
-          name:element['name'],
+          itemID:[element['itemID'], Validators.required],
+          name:[element['name'], Validators.required],
           quantity:[element['quantity'], Validators.required],
           price:[element['price'], [Validators.required, Validators.min(1)]],
           totalPrice:[element['totalPrice'], [Validators.required, Validators.min(1)]],    
         });
         this.itemsForm.push(item);
       });
+      this.person="المورد"
       this.getClients(0);
     }else if(this.typePage == "sellAccess" || this.typePage == "sellLub"){
       this.debitForm = this.fb.group({
@@ -75,7 +76,7 @@ export class DebitFormComponent {
         type:this.debitData.type,
         invoiceType: this.debitData.invoiceType,
         totalProfit: this.debitData.totalProfit,
-        personID : '',
+        personID : ['', Validators.required],
         personName: ['', Validators.required],
         amountPaid: [0, Validators.required],
         amountRest: [this.debitData.items[0].totalPrice, Validators.required],
@@ -88,6 +89,7 @@ export class DebitFormComponent {
           totalPrice:this.debitData.items[0].totalPrice,      
         }])
       });
+      this.person="الزبون"
       this.getClients(1);
     }else if(this.typePage == "sellWash" ){
       this.debitData = WashingCarComponent.washForm.value;
@@ -95,7 +97,7 @@ export class DebitFormComponent {
         shiftID: this.debitData.shiftID,
         type:this.debitData.type,
         invoiceType: this.debitData.invoiceType,
-        personID : '',
+        personID : ['', Validators.required],
         personName: ['', Validators.required],
         amountPaid: [0, Validators.required],
         amountRest: [this.debitData.totalPrice, Validators.required],
@@ -103,6 +105,7 @@ export class DebitFormComponent {
         totalPrice:[this.debitData.totalPrice],      
         nameCar:this.debitData.nameCar,
       });
+      this.person="الزبون"
       this.getClients(1);
     }else if(this.typePage == "sellFuelDebit"){
       var shiftID=localStorage.getItem('shiftID');
@@ -110,13 +113,14 @@ export class DebitFormComponent {
         shiftID: shiftID,
         type:['', Validators.required],
         invoiceType: 'sellFuelDebit',
-        personID : '',
+        personID : ['', Validators.required],
         personName: ['', Validators.required],
         totalPrice:[0, [Validators.required, Validators.min(1)]],
         amountPaid: [0, Validators.required],
         amountRest: [0, Validators.required],
         comment: ''
       });
+      this.person="الزبون"
       this.getClients(1);
     }
   }
@@ -169,7 +173,7 @@ export class DebitFormComponent {
       this.debitFormServ.sellWashServOnDebit(this.debitForm.value).subscribe(Response=>{
 
         /* notification message when sell sucess */
-        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "منته" );
   
         /* wait 3 sec untrill notification disappear and navigate to operations */
         if(this.debitForm.get('invoiceType').value == 'supply'){
@@ -188,7 +192,7 @@ export class DebitFormComponent {
       this.debitFormServ.sellFuelOnDebit(this.debitForm.value).subscribe(Response=>{
 
         /* notification message when sell sucess */
-        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "منته" );
   
         /* wait 3 sec untrill notification disappear and navigate to operations */
           setTimeout(()=>this.router.navigate(['/operations']),1000);
@@ -197,26 +201,50 @@ export class DebitFormComponent {
       error=>{
         console.log("error: "+error);
       });
-    } else{
-
+    }else if(this.typePage == "sellLub" || this.typePage == 'sellAccess'){
       this.debitFormServ.addInvoice(this.debitForm.value).subscribe(Response=>{
-  
         /* notification message when sell sucess */
-        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
-  
+        this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "منته" );
         /* wait 3 sec untrill notification disappear and navigate to operations */
-        if(this.debitForm.get('invoiceType').value == 'supply'){
-          setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
-        }else
+        // if(this.debitForm.get('invoiceType').value == 'supply'){
+        //   setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
+        // }else
           setTimeout(()=>this.router.navigate(['/operations']),1000);
         this.debitForm.reset();
-        while (this.itemsForm.length !== 0) {
-          this.itemsForm.removeAt(0)
-        }
+        // while (this.itemsForm.length !== 0) {
+        //   this.itemsForm.removeAt(0)
+        // }
       },
       error=>{
         console.log("error: "+error);
       });
+    }else if(this.typePage == "supplyLub" || this.typePage == 'supplyAccess'){
+      if(this.itemsForm.length != 0){
+        this.debitFormServ.addInvoice(this.debitForm.value).subscribe(Response=>{
+          /* notification message when sell sucess */
+          this.openSnackBar(this.debitForm.get('amountRest').value + " added to " +this.debitForm.get('personName').value+ " account", "Done" );
+          /* wait 3 sec untrill notification disappear and navigate to operations */
+          if(this.debitForm.get('invoiceType').value == 'supply'){
+            setTimeout(()=>this.router.navigate(['/paymentSupply']),1000);
+          }else
+            setTimeout(()=>this.router.navigate(['/operations']),1000);
+          this.debitForm.reset();
+          while (this.itemsForm.length !== 0) {
+            this.itemsForm.removeAt(0)
+          }
+        },
+        error=>{
+          console.log("error: "+error);
+        });
+      }else{
+        swal({
+          type: 'error',
+          title: 'تنبية',
+          text:'لا يوجد منتج للشراء',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     }
   }
 

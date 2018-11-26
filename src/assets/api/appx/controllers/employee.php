@@ -126,7 +126,7 @@ class employee extends REST_Controller{
         $m=$currentFullDate['mon'];
         $y=$currentFullDate['year'];
         $time=date("h:i");
-        $today_date=$y."-".$m."-".$d."-".$time;
+        $today_date=$time;
         /*END - Get Current Date Time */
         $shiftID=$this->post('shiftID');
         $totalDrawer=$this->post('totalDrawer');

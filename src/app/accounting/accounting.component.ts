@@ -3,6 +3,7 @@ import { AccountingService } from './accounting.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { OperationsService } from '../operations/operations.service';
+import { MessageServiceService } from '../message-service.service';
 
 export interface Tile<tiles>{
   color: string;
@@ -35,7 +36,8 @@ export class AccountingComponent implements OnInit {
 
   constructor(private accountingServ:AccountingService,
     private router: Router, 
-    private route: ActivatedRoute,private operationServ: OperationsService) { }
+    private route: ActivatedRoute,private operationServ: OperationsService,
+    private ms:MessageServiceService) { }
     tiles=[
       {text: 'counters', cols: 2, rows: 1},
       {text: 'lub', cols: 2, rows: 1},
@@ -57,18 +59,22 @@ export class AccountingComponent implements OnInit {
     }else{
       this.isAdmin=false
     }
-    this.getTotalDarwer();
-  }
-  getTotalDarwer(){
-    this.operationServ.getTotalDarwer(this.shiftID).subscribe(Response => {
+    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+      this.ms.changeTotal(Response[0].total);
       if(Response == null) this.totalDrawer = 0;
       else this.totalDrawer = Response[0].total;
-      },
-      error=>{
-        alert('Error Sum drawer!')
-      }
-    );
+    });
   }
+  // getTotalDarwer(){
+  //   this.operationServ.getTotalDarwer(this.shiftID).subscribe(Response => {
+  //     if(Response == null) this.totalDrawer = 0;
+  //     else this.totalDrawer = Response[0].total;
+  //     },
+  //     error=>{
+  //       alert('Error Sum drawer!')
+  //     }
+  //   );
+  // }
   getEmployees(){
     this.accountingServ.getTodayEmp().subscribe(Response=>{
       this.employees=Response;
@@ -146,7 +152,13 @@ export class AccountingComponent implements OnInit {
          }
         }
         else{
-          alert("No Resulte")
+          swal({
+            type: 'error',
+            title: 'تنبية',
+            text:'لا يوجد نتيجة',
+            showConfirmButton: false,
+            timer: 2000
+          });
         }
         },
         error=>{

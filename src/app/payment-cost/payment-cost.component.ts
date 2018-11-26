@@ -34,11 +34,11 @@ export class PaymentCostComponent implements OnInit {
         console.log(this.paymentCostForm.value)
         this.paymentCostServ.addPaymentCostInvoice(this.paymentCostForm.value).subscribe(
       Response=>{
-        this.openSnackBar(this.paymentCostForm.get('amount').value, "Payment");
+        this.openSnackBar(this.paymentCostForm.get('amount').value, "دفع");
         setTimeout(()=>this.router.navigate(['/operations']),1000);
         // this.getLubricant(this.itemPerPage,this.offset);
         this.paymentCostForm.reset();
-        console.log(this.paymentCostForm.value)
+        // console.log(this.paymentCostForm.value)
       },
       error=>{
         alert("error");

@@ -74,7 +74,7 @@ export class ReturnComponent implements OnInit {
     submitDebit(){
       this.returnServ.addReturnInvoice(this.debitForm.value).subscribe(
         Response=>{
-        this.openSnackBar(this.debitForm.get('paidDebit').value + " return debit to " +this.debitForm.get('personName').value+ " account", "Done" );
+        this.openSnackBar(this.debitForm.get('paidDebit').value + " return debit to " +this.debitForm.get('personName').value+ " account", "منته" );
         // this.openSnackBar(this.debitForm.get('paidDebit').value, "Return debit");
           setTimeout(()=>this.router.navigate(['/debits']),1000);
         this.debitForm.reset();
