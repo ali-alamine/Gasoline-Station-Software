@@ -1,25 +1,35 @@
 <html>
 <body>
-<div class="container-fluid">
+<div class="container-fluid" >
     <div class="noselect header" id="header">
-        <div id="navigation" >
-            <button mat-icon-button (click)="goBack()">
-                <i class="material-icons"><img style="width:50px;height:50px" src="../assets/icons/backIcon.png"></i>
-            </button>
-            
-            <button mat-icon-button (click)="goHome()" style="margin-left:20px">
-                <!-- <i class="material-icons" style="color:#643e71;font-size: 50px">home</i> -->
-                <i class="material-icons"><img style="width:50px;height:60px" src="../assets/icons/home.png"></i>
-            </button>
-            <button mat-icon-button (click)="logout()" style="margin-left:20px">
-                <!-- <i class="material-icons" style="color:#643e71;font-size: 50px">home</i> -->
-                <i class="material-icons"><img style="width:50px;height:50px;margin-left:1100px;" src="../assets/icons/logout.png"></i>
-            </button>
+        <!-- <div id="navigation" > -->
+            <div class="row" style="margin-top: 0px;" dir="rtl" >
+                <div class="col-lg-4">
+                    <button mat-icon-button (click)="goBack()">
+                        <i class="material-icons"><img style="width:50px;height:50px" src="../assets/icons/backIcon.png"></i>
+                    </button>
+                    <button mat-icon-button (click)="goHome()" style="margin-right:20px">
+                        <!-- <i class="material-icons" style="color:#643e71;font-size: 50px">home</i> -->
+                        <i class="material-icons"><img style="width:50px;height:60px" src="../assets/icons/home.png"></i>
+                    </button>
+                </div>
+                <div class="col-lg-4">
+                    <span id="title" style="font-size: 20px">
+                        <b>مشغل بواسطة </b> <b style="color:#843c9e"><ins>E-Safe Solutions</ins></b><i class="material-icons">
+                            <img style="width:60px;height:60px;" src="../assets/icons/eSafeLogo.png"></i>
+                            <!-- position: absolute;margin-top:-25px -->
+                    </span>
+                </div>
+                <div class="col-lg-4">
+                    <button mat-icon-button (click)="logout()" style="margin-left:20px">
+                        <!-- <i class="material-icons" style="color:#643e71;font-size: 50px">home</i> -->
+                        <i class="material-icons"><img style="width:50px;height:50px;margin-left:1100px;" src="../assets/icons/logout.png"></i>
+                    </button>
+                </div>
+            </div>            
         </div>
-            <span id="title" style="font-size: 20px">
-               <b>Powered By </b> <b style="color:#843c9e"><ins>E-Safe Solutions</ins></b><i class="material-icons"><img style="width:60px;height:60px;position: absolute;margin-top:-25px" src="../assets/icons/eSafeLogo.png"></i>
-            </span>
-    </div>
+            
+    <!-- </div> -->
         <div id="container" class="container-fluid">
     
             <div id="content">

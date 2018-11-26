@@ -1,18 +1,18 @@
-<div class="container-fluid">
+<div class="container-fluid" dir="rtl" style="margin-top: 10px;">
   <div class="row">
     <div class="col-lg-6" >
       <h2>
         <mat-form-field style="width: 100%;" *ngIf="this.isAdmin == true" >
-            <mat-select placeholder="Select employees" [formControl]="shiftIDForm" [(ngModel)]="checked" multiple>
-              <mat-option *ngFor="let emp of employees " [value]="emp.shiftID">{{emp.name}} من {{emp.timeIn}} إلى {{emp.timeOut}}</mat-option>
+            <mat-select placeholder="تحديد موظف" [formControl]="shiftIDForm" [(ngModel)]="checked" multiple>
+              <mat-option *ngFor="let emp of employees " [value]="emp.shiftID">{{emp.name}} من الساعة {{emp.timeIn}} إلى {{emp.timeOut}}</mat-option>
             </mat-select>
           </mat-form-field>
       </h2>
     </div>
-    <div class="col-lg-6" style="padding-top: 50px;width: 100%;">
+    <div class="col-lg-6" style="padding-top: 40px;width: 100%; text-align: center;">
       <h2 >
-        <span>Current Drawer: </span>
-        <span style="color:green;">{{totalDrawer}}</span>
+        <span>جارور: </span> 
+        <span style="color:green;">{{totalDrawer | currency:'LL ':'symbol':'1.0-0' }}</span>
       </h2>
     </div>
   </div>

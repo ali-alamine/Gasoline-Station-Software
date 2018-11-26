@@ -49,15 +49,15 @@ export class LoginComponent implements OnInit {
             /* END -  NO OPEN SHIFT */
           }else if(Response[0][0].user_type==1){
             swal({
-              title: "Can not start a new shift!",
-              text: "Last Shift has not been close yet!, continue as visitor anyway?",
+              title: "لا يمكن بدء شفت جديد!",
+              text: "الشفت الأخير لم يغلق بعد !، تابع كزائر على أي حال?",
               buttons: {
                 noAction: {
-                  text:"Cancel",
+                  text:"إلغاء",
                   value: "Cancel",
                 },
                 continue: {
-                  text: "Continue as read only",
+                  text: "متابعة للقراءة فقط",
                   value: "continue",
                 },
               },
@@ -74,10 +74,10 @@ export class LoginComponent implements OnInit {
               }
             });
           }else{
-             swal("You don't have permission to start a new shift");
+             swal("ليس لديك إذن لبدء شفت جديد");
           }
        }else{
-         alert("username / password incorrect")
+         alert("اسم المستخدم / كلمة المرور غير صحيحة")
        }
     },
      error=>{

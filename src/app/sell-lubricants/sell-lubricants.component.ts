@@ -163,7 +163,7 @@ export class SellLubricantsComponent implements OnInit {
       // console.log(SellLubricantsComponent.lubForm.value)
       this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
       Response=>{
-        this.openSnackBar(name, "SOLD");
+        this.openSnackBar(name, "تم البيع");
         this.getLubricant(this.itemPerPage,this.offset);
         SellLubricantsComponent.lubForm.reset();
         SellLubricantsComponent.lubForm.get('shiftID').setValue(this.shiftID);
@@ -199,7 +199,17 @@ export class SellLubricantsComponent implements OnInit {
   }
   sellLubRouter(){
     this.pageType = 'supplyLub';
+    if(this.itemsForm.length != 0)
       this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
+    else{
+      swal({
+        type: 'error',
+        title: 'تنبية',
+        text:'يجب تحديد منتج واحد على الأقل',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
   }
   get itemsForm() {
     return SellLubricantsComponent.lubForm.get('items') as FormArray

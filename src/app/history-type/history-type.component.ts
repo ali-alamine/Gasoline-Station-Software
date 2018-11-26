@@ -88,7 +88,13 @@ export class HistoryTypeComponent implements OnInit {
         }
       }
       else{
-        alert("No Resulte")
+        swal({
+          type: 'error',
+          title: 'تنبية',
+          text:'لا يوجد نتيجة',
+          showConfirmButton: false,
+          timer: 2000
+        });
       }
     },
     error=>{

@@ -16,11 +16,12 @@ export class AppComponent implements OnInit{
   currentUrl: string;
   userType:string;
   isAdmin:boolean;
-
-
+  totalDrawer;
+  shiftID;
   constructor(private router: Router,private location: Location,private ms:MessageServiceService) {}
 
   ngOnInit() {
+    this.shiftID=localStorage.getItem('shiftID');
     // (<HTMLElement>document.querySelector('#header')).style.display = 'none';
     this.checkOpenedSession();
      this.userType=localStorage.getItem('activeUser');
@@ -46,6 +47,11 @@ export class AppComponent implements OnInit{
         }
       }
     });
+    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+      this.totalDrawer = Response[0].total;      
+      this.getTotalDarwer();
+      this.ms.changeTotal(Response[0].total);
+    });
 
   }
 
@@ -69,18 +75,19 @@ export class AppComponent implements OnInit{
     this.router.navigate(["/operations"]);
   }
   logout(){
+    this.getTotalDarwer();
     var username=localStorage.getItem("userName");
     // var drawerAmount=OperationsComponent.this.getTotalDarwer();
     swal({
-      title: "Confirmation",
-      text: username + " Are you sure you want to end your shift?" ,
+      title: "التأكيد",
+      text:" هل أنت متأكد من أنك تريد إنهاء نوبتك؟"+username ,
       buttons: {
         continue: {
-          text: "Logout",
+          text: "الخروج",
           value: "continue",
         },
         noAction: {
-          text:"Cancel",
+          text:"إلغاء",
           value: "Cancel",
         },
       },
@@ -90,12 +97,8 @@ export class AppComponent implements OnInit{
         case "cancel":
           break;
         case "continue":
-          let id=localStorage.getItem('shiftID');
-          // alert(id);
-          // OperationsComponent.getTotalDarwer();
-          OperationsComponent.staticTotalDrawer;
-          console.log(OperationsComponent.staticTotalDrawer)
-          let data ={'shiftID' : id,'totalDrawer': OperationsComponent.staticTotalDrawer};
+          let data ={'shiftID' : this.shiftID,'totalDrawer': this.totalDrawer};
+          // console.log(data)
           this.ms.logout(data).subscribe(Response=>{
             // alert('1')
           },
@@ -107,5 +110,16 @@ export class AppComponent implements OnInit{
         break;
       }
     });
+  }
+  getTotalDarwer(){
+    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+      console.log(Response)
+      this.totalDrawer = Response[0].total;
+    },
+    error=>{
+      alert('Error Sum drawer!');
+    }
+  );
+
   }
 }

@@ -162,7 +162,7 @@ export class SellAccessoriesComponent implements OnInit {
       this.itemsForm.push(item);
       this.sellAccServ.addInvoice(SellAccessoriesComponent.accForm.value).subscribe(
       Response=>{
-        this.openSnackBar(name, "SOLD");
+        this.openSnackBar(name, "تم البيع");
         this.getAccessories(this.itemPerPage,this.offset);
         SellAccessoriesComponent.accForm.reset();
         SellAccessoriesComponent.accForm.get('shiftID').setValue(this.shiftID);
@@ -196,8 +196,17 @@ export class SellAccessoriesComponent implements OnInit {
   }
   sellAccRouter(){
     this.pageType = 'supplyAccess';
-    console.log(SellAccessoriesComponent.accForm.value)
+    if(this.itemsForm.length != 0)
       this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
+    else{
+      swal({
+        type: 'error',
+        title: 'تنبية',
+        text:'يجب تحديد منتج واحد على الأقل',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
   }
   get itemsForm() {
     return SellAccessoriesComponent.accForm.get('items') as FormArray

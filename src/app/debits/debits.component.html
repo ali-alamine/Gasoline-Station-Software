@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid" style="float: right; text-align: right;margin-top: 10px;" dir="rtl">
     <mat-grid-list  cols="4" rowHeight="160px" class="tile-container">
         <mat-grid-tile class="tile-grid"  (click)="openDebitModal(debitModal,this.tile.text,i)"
             *ngFor="let tile of debit; let i = index" [attr.data-index]="i" 
@@ -10,37 +10,3 @@
         </mat-grid-tile>
     </mat-grid-list>
 </div>
-<ng-template #debitModal let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">{{clientModalTitle}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form fxLayout="column" [formGroup]="clientForm" autocomplete="off">
-        <div class="input-row" fxLayout="row">
-          <mat-form-field class="inputField" fxFlex>
-            <input matInput placeholder="Name" formControlName="name" type="text" name="nameInput" autofocus>
-            <mat-error> client name is required</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-          <mat-form-field class="inputField" fxFlex>
-            <input matInput placeholder="Phone Number" formControlName="phone" type="text">
-            <mat-error> client phone is required</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-          <mat-form-field class="inputField" fxFlex>
-            <input matInput placeholder="Address" formControlName="address" type="text">
-            <mat-error> client address is required</mat-error>
-          </mat-form-field>
-        </div>
-        
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button mat-raised-button name="addButton" color="primary" (click)="addEditClient()" [disabled]="!clientForm.valid">{{clientModalTitle}}</button>
-    </div>
-  </ng-template>

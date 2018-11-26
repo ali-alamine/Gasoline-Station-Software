@@ -1,7 +1,7 @@
-<div class="container-fluid">
+<div class="container-fluid" dir="rtl" style="margin-top: 10px;">
   <h1 *ngIf="this.newShift==='true'" style="border:solid thistle 1px; text-align: center;">
-    <span style="float:left"><span>Name: </span><span style="color:green">{{userName}} </span></span>
-    <span>Current Drawer: </span><span style="color:green">{{totalDrawer}}</span>
+    <span style="float: right;"><span>إسم الموظف: </span><span style="color:green">{{userName}} </span></span>
+    <span>جارور: </span><span style="color:green">{{totalDrawer | currency:'LL ':'symbol':'1.0-0' }}</span>
   </h1>
   <h1 *ngIf="this.newShift==='false'" style="border:solid thistle 1px; text-align: center;">
       <span style="color:purple">Read Only Mode</span>

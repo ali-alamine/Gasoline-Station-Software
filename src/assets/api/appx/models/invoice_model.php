@@ -81,7 +81,6 @@ class invoice_model extends CI_Model{
             $query = $this->db->get();
             // return $query->result();
         } else if($type == 'payC'){
-            
             $this->db->select(" invoice.invID as invID,invoice.amount as amount,invoice.note as note,
             invoice.rest as rest,
             employee.name as empName,employee.user_type as empType,employee.empID as shiftEmpID,
@@ -126,7 +125,7 @@ class invoice_model extends CI_Model{
             $query = $this->db->query("select * from((select DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
             `item-service`.name as name,inv_order.quantity as quantity,
             employee.name as empName,employee.user_type as empType,
-            employee.empID as shiftEmpID,IFNULL(invoice.totalProfit,0)  as profit,shift.shiftID as shiftID,invoice.type as type,
+            employee.empID as shiftEmpID,IFNULL(invoice.totalProfit,0)  as profit,invoice.type as type,
             invoice.amount as amount,invoice.rest as rest,invoice.isSupply as isSupply,invoice.note as note,
             invoice.invID as invID,dateTime,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
             FROM invoice 
@@ -140,7 +139,7 @@ class invoice_model extends CI_Model{
                 select DATE_FORMAT(dateTime,'%H:%i %p') AS time,person.full_name as clientName,
                 invoice.type as name,invoice.fuel_liters as quantity,
                 employee.name as empName,employee.user_type as empType,
-                employee.empID as shiftEmpID,IFNULL(invoice.totalProfit,0)  as profit,shift.shiftID as shiftID,invoice.type as type,
+                employee.empID as shiftEmpID,IFNULL(invoice.totalProfit,0)  as profit,invoice.type as type,
                 invoice.amount as amount,invoice.rest as rest,invoice.isSupply as isSupply,invoice.note as note,
                 invoice.invID as invID,dateTime,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
                     FROM invoice 
@@ -158,8 +157,7 @@ class invoice_model extends CI_Model{
                 `invoice`.`note` as `note`,`invoice`.`fuel_liters` as `quantity`, 
                 `invoice`.`rest` as `rest`, `person`.`full_name` as `clientName`, 
                 `employee`.`name` as `empName`, `employee`.`user_type` as `empType`, 
-                `employee`.`empID` as `shiftEmpID`, `invoice`.`totalProfit` as `profit`, 
-                `invoice`.`shiftID` as `shiftID`, `invoice`.`type` as `type`,
+                `employee`.`empID` as `shiftEmpID`, `invoice`.`totalProfit` as `profit`, `invoice`.`type` as `type`,
                 dateTime,DATE_FORMAT(dateTime,'%H:%i %p') AS time,invoice.isSupply as isSupply,
                 invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
                 FROM `invoice` 
@@ -331,12 +329,13 @@ class invoice_model extends CI_Model{
     /* Get All shift filter by  date and shiftID */
     public function getShiftDetails($shiftID,$fromExpDate,$toExpDate){
 
-        $this->db->select('*');
+        $this->db->select('*,drawer.amount as drawerOut');
         $this->db->from('shift');
-        $this->db->join('employee', 'employee.empID=shift.empID','inner');
+        $this->db->join('employee', 'employee.empID=shift.empID','left');
+        $this->db->join('drawer', 'drawer.shiftID=shift.shiftID','left');
         $this->db->where_in('shift.empID',$shiftID);
         $this->db->where("shift.shift_date BETWEEN '".$fromExpDate."' and '".$toExpDate."'");
-        $this->db->order_by("shiftID", "ASC");
+        $this->db->order_by("shift.shiftID", "ASC");
         // $this->db->limit($offset, $limit);
         $query = $this->db->get();
         $st=$this->db->last_query();
