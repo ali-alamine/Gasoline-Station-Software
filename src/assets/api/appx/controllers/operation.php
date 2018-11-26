@@ -107,10 +107,10 @@ class operation extends REST_Controller{
         $totalProfit = $this->post('totalPrice');
         $type = $this->post('type');
         //  $type = 'wash';
-        $name='Washing: '.$this->post('nameCar');
+        $name='غسيل : '.$this->post('nameCar');
         $comment=$this->post('comment');
         if($comment != '')
-        $name = $name. ' Note: '.$comment;
+        $name = $name. '. ملاحظة : '.$comment;
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"totalProfit"=>$totalProfit,
@@ -152,7 +152,7 @@ class operation extends REST_Controller{
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,
-        "totalProfit"=>$totalProfit,"shiftID"=>$shiftID,"personID"=>$personID,"note"=>'Washing: '.$name));
+        "totalProfit"=>$totalProfit,"shiftID"=>$shiftID,"personID"=>$personID,"note"=>'غسيل : '.$name));
         $str=$this->db->last_query();
         if ($result === 0) {
             $this->response("Item information could not be saved. Try again.", 404);

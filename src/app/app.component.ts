@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { $ } from 'protractor';
 import { MessageServiceService } from './message-service.service';
+import { OperationsComponent } from './operations/operations.component';
 // import { OperationsComponent} from './operations/operations.component';
 @Component({
   selector: 'app-root',

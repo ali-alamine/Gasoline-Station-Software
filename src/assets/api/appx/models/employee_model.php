@@ -114,4 +114,12 @@ class employee_model extends CI_Model{
             return false;
         }
     }
+    /* add new drawer */
+    public function insertDrawer($data){
+        if ($this->db->insert('drawer', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

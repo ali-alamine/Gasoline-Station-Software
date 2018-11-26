@@ -14,6 +14,9 @@ export class MessageServiceService {
     logout(id){
         return this.httpClient.post(this.url +"employee/logout",{'id':id});
     }
+    // logout(data){
+    //     return this.httpClient.post(this.url +"employee/logout",data);
+    // }
     getTotalDarwer(shiftID): Observable<any>{
         return this.httpClient.get('http://localhost/eSafe-gasoline_station/src/assets/api/drawer/getTotalDarwer', {params:{shiftID:shiftID}});
     }

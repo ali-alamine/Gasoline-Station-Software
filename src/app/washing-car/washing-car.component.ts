@@ -15,11 +15,11 @@ export class WashingCarComponent implements OnInit {
   shiftID:any;
   name: string;
   machines=[
-    {"id":1,"name":"Car","imgSrc":"../assets/icons/washingIcons/car.png","price":6000},
-    {"id":2,"name":"Moto","imgSrc":"../assets/icons/washingIcons/moto.png","price":3000},
-    {"id":2,"name":"Big Car","imgSrc":"../assets/icons/washingIcons/bigCar.png","price":7000},
-    {"id":3,"name":"Bus","imgSrc":"../assets/icons/washingIcons/bus.png","price":3000},
-    {"id":3,"name":"Interior","imgSrc":"../assets/icons/washingIcons/interior.png","price":55000}
+    {"id":1,"name":"سيارة","imgSrc":"../assets/icons/washingIcons/car.png","price":6000},
+    {"id":2,"name":"موتو","imgSrc":"../assets/icons/washingIcons/moto.png","price":3000},
+    {"id":2,"name":"جيب","imgSrc":"../assets/icons/washingIcons/bigCar.png","price":7000},
+    {"id":3,"name":"باصات","imgSrc":"../assets/icons/washingIcons/bus.png","price":3000},
+    {"id":3,"name":"فرش","imgSrc":"../assets/icons/washingIcons/interior.png","price":55000}
   ]
   urlData:any;
   invoiceType;

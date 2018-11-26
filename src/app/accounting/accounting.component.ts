@@ -82,68 +82,76 @@ export class AccountingComponent implements OnInit {
     localStorage.setItem("shiftIDs",this.shiftIDForm.value);
     console.log(this.shiftIDForm.value)
     let data={"type":accountingName,"shiftIDs":this.shiftIDForm.value};
-    this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
-      if(Response!=0){
-        AccountingComponent.details=Response;
-        switch(accountingName) { 
-          case "counters": { 
-            console.log("counters")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'counters'} });
-             break; 
-          } 
-          case "lub": { 
-            console.log("lub")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'lub'} });
-             break; 
-          }
-          case "wash": {
-            console.log("wash")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'wash'} });
-             break; 
-          } 
-          case "access": {
-            console.log("accessories")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'access'} });
-             break; 
-          } 
-          case "debits": {
-            console.log("debits")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'debits'} });
-             break; 
-          }
-          case "payC": {
-            console.log("paymentsCost")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'payC'} });
-             break; 
-          }
-          case "supply": {
-            console.log("paymentsSupply")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'supply'} });
-             break; 
-          }
-          case "allType": {
-            console.log("sellAll")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'allType'} });
-             break; 
-          }  
-          case "return": {
-            console.log("return")
-            this.router.navigate(['/accountDetails'], { queryParams: { type:'return'} });
-             break; 
-          } 
-          default: { 
-             break; 
-          } 
-       }
-      }
-      else{
-        alert("No Resulte")
-      }
-      },
-      error=>{
-        alert("error")
+    if(this.shiftIDForm.value == ''){
+      swal({
+        type: 'error',
+        title: 'تنبية',
+        text:'يجب تحديد الموظف',
+        showConfirmButton: false,
+        timer: 2000
       });
-    
-   
+    }else {
+      this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
+        if(Response!=0){
+          AccountingComponent.details=Response;
+          switch(accountingName) { 
+            case "counters": { 
+              console.log("counters")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'counters'} });
+               break; 
+            } 
+            case "lub": { 
+              console.log("lub")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'lub'} });
+               break; 
+            }
+            case "wash": {
+              console.log("wash")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'wash'} });
+               break; 
+            } 
+            case "access": {
+              console.log("accessories")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'access'} });
+               break; 
+            } 
+            case "debits": {
+              console.log("debits")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'debits'} });
+               break; 
+            }
+            case "payC": {
+              console.log("paymentsCost")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'payC'} });
+               break; 
+            }
+            case "supply": {
+              console.log("paymentsSupply")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'supply'} });
+               break; 
+            }
+            case "allType": {
+              console.log("sellAll")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'allType'} });
+               break; 
+            }  
+            case "return": {
+              console.log("return")
+              this.router.navigate(['/accountDetails'], { queryParams: { type:'return'} });
+               break; 
+            } 
+            default: { 
+               break; 
+            } 
+         }
+        }
+        else{
+          alert("No Resulte")
+        }
+        },
+        error=>{
+          alert("error")
+        });
+    }
   }
 }

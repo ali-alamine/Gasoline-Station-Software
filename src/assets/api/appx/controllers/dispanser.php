@@ -67,14 +67,14 @@ class dispanser extends REST_Controller
 
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_1,
                                                                 "amount" => $totalPrice_1,
-                                                                "note" => "test Note",
+                                                                "note" => "counter_1",
                                                                 "totalProfit" => $totalProfit_1,
                                                                 "shiftID" => $shiftID,
                                                                 "fuel_liters" => $liters_sold_1)
                                                             );
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_2,
                                                                 "amount" => $totalPrice_2,
-                                                                "note" => "test Note",
+                                                                "note" => "counter_2",
                                                                 "totalProfit" => $totalProfit_2,
                                                                 "shiftID" => $shiftID,
                                                                 "fuel_liters" => $liters_sold_2)
