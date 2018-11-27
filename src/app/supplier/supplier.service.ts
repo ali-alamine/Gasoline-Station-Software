@@ -11,11 +11,11 @@ export class SupplierService {
     return this.http.post(this.url +"addPerson",data);
   }
   editSupplier(data){
-    return this.http.put(this.url +"editPerson",data);
+    return this.http.post(this.url +"editPerson",data);
   }
   deleteSupplier(PID){
     console.log(PID)
-    return this.http.post(this.url +"deletePerson",{params:{PID:PID}});
+    return this.http.get(this.url +"deletePerson",{params:{PID:PID}});
   }
   getAllSupplier(isClient){
     return this.http.post(this.url +"getAllPerson",{params:{isClient:isClient}});

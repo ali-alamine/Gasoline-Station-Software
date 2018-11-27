@@ -26,13 +26,12 @@ export class PaymentCostComponent implements OnInit {
     this.paymentCostForm = this.fb.group({
       // userID : this.userID,
       shiftID : this.shiftID,
-      amount: ['', Validators.required],
+      amount: ['',[Validators.required, Validators.min(1)]],
       comment: ['']
     });
   }
   postPaymentCost(){
-        console.log(this.paymentCostForm.value)
-        this.paymentCostServ.addPaymentCostInvoice(this.paymentCostForm.value).subscribe(
+    this.paymentCostServ.addPaymentCostInvoice(this.paymentCostForm.value).subscribe(
       Response=>{
         this.openSnackBar(this.paymentCostForm.get('amount').value, "دفع");
         setTimeout(()=>this.router.navigate(['/operations']),1000);

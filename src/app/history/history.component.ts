@@ -84,6 +84,7 @@ export class HistoryComponent implements OnInit {
     this.filterForm.get('fromExpDate').setValue(HistoryComponent.fromExpDate);
     this.filterForm.get('toExpDate').setValue(HistoryComponent.toExpDate);
     this.historyServ.getShiftDetails(this.filterForm.value).subscribe(Response=>{
+      console.log(Response)
       if(Response[1][0]['total'] != 0){
         this.shiftDetails=Response[0];
         this.totalItems=Response[1][0]['total'];

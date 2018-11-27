@@ -71,7 +71,7 @@ export class AppComponent implements OnInit{
   logoutTemp(){
     var username=localStorage.getItem("userName");
     // this.getTotalDarwer();
-    debugger
+    // debugger
     if(this.drawerAmount != undefined ){
       swal({
         title: "Confirmation",
@@ -115,10 +115,11 @@ export class AppComponent implements OnInit{
     this.shiftID=localStorage.getItem('shiftID');
     this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
       this.drawerAmount = Response[0].total;
+      console.log(this.drawerAmount)
       if(this.drawerAmount != undefined ){
         var text = document.createElement('div');
-        this.drawerAmount=this.numberWithCommas(this.drawerAmount);
-        text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + this.drawerAmount +" </h1>";
+        var drawerAmount=this.numberWithCommas(this.drawerAmount);
+        text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + drawerAmount +" </h1>";
         swal({
           title: "Confirmation",
           content:text  ,
@@ -138,7 +139,9 @@ export class AppComponent implements OnInit{
             case "cancel":
               break;
             case "continue":
-            let data ={'shiftID' : this.shiftID,'totalDrawer': this.drawerAmount};
+            console.log(this.drawerAmount)
+            var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
+            console.log(data)
               this.ms.logout(data).subscribe(Response=>{
               },
               error=>{

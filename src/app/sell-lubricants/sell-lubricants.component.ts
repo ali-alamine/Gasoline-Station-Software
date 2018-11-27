@@ -172,6 +172,7 @@ export class SellLubricantsComponent implements OnInit {
         while (this.itemsForm.length !== 0) {
           this.itemsForm.removeAt(0)
         }
+        this.router.navigate(['/operations']);
         // console.log(SellLubricantsComponent.lubForm.value)
       },
       error=>{

@@ -171,7 +171,7 @@ export class SellAccessoriesComponent implements OnInit {
         while (this.itemsForm.length !== 0) {
           this.itemsForm.removeAt(0)
         }
-  
+        this.router.navigate(['/operations']);  
       },
       error=>{
         alert("error");

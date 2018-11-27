@@ -33,7 +33,7 @@ export class ClientComponent implements OnInit {
   private globalClientDT;
   items: MenuItem[];
   editFlag = false;
-  typeSubmit = 'Add';
+  typeSubmit = 'إضافة';
   
 
   constructor(private clientServ:ClientService,public snackBar: MatSnackBar) { }
@@ -53,7 +53,7 @@ export class ClientComponent implements OnInit {
     this.isOpened=0;
     this.addClientForm.reset();
     this.editFlag = false;
-    this.typeSubmit = 'Add';
+    this.typeSubmit = 'إضافة';
   }
   // displayTable(){
   //   setTimeout(function () {$(function () {$('#clientTable').DataTable();});}, 10);  
@@ -62,10 +62,11 @@ export class ClientComponent implements OnInit {
     if(this.editFlag == false){
       this.clientServ.addNewClient(this.addClientForm.value).subscribe(
         Response=>{
-          this.openSnackBar(this.addClientForm.value['name'], "Successfully Added");
+          this.openSnackBar(this.addClientForm.value['name'], "إضافة ناجحة");
           /* START- collapse accordion and rest form values */
-          this.isOpened=0;
+          // this.isOpened=0;
           this.addClientForm.reset();
+          this.collapse();
           /* END- collapse accordion and rest form values */
               this.globalClientDT.ajax.reload(null, false);
               // this.getAllClients();
@@ -76,12 +77,13 @@ export class ClientComponent implements OnInit {
     } else{
       this.clientServ.editClient(this.addClientForm.value).subscribe(
         Response=>{
-          this.openSnackBar(this.addClientForm.value['name'], "Successfully Edit");
+          this.openSnackBar(this.addClientForm.value['name'], "تعديلات ناجحة");
           /* START- collapse accordion and rest form values */
-          this.isOpened=0;
+          // this.isOpened=0;
           this.addClientForm.reset();
+          this.collapse();
           this.editFlag = true;
-          this.typeSubmit = 'Add';
+          // this.typeSubmit = 'إضافة';
           /* END- collapse accordion and rest form values */
               this.globalClientDT.ajax.reload(null, false);
               // this.getAllClients();
@@ -100,12 +102,12 @@ export class ClientComponent implements OnInit {
       processing: true,
       ordering: true,
       stateSave: false,
-      fixedHeader: true,
+      fixedHeader: false,
       select: {
-        "style": "single"
+        style: "single"
       },
       searching: true,
-      lengthMenu: [[5, 10, 25, 50, 100, 150, 200, 300], [5, 10, 25, 50, 100, 150, 200, 300]],
+      lengthMenu: [[50, 100, 150], [50, 100, 150]],
       ajax: {
         type: "get",
         url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/personDataTable.php",
@@ -116,16 +118,40 @@ export class ClientComponent implements OnInit {
       order: [[0, 'asc']],
       columns: [
         { data: "PID", title: "ID" },
-        { data: "full_name", title: "Name" },
-        { data: "phone_number", title: "Phone" },
-        { data: "debitAmount", title: "Debit" , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ') }
+        { data: "full_name", title: "الإسم الكامل" },
+        { data: "phone_number", title: "رقم الهاتف" },
+        { data: "debitAmount", title: "الدين" , render: $.fn.dataTable.render.number(',', '.', 0, 'ل.ل ') }
 
-      ]
+      ],
+      language: {
+        sProcessing: " جارٍ التحميل... ",
+        sLengthMenu: " أظهر _MENU_ مدخلات ",
+        sZeroRecords: " لم يعثر على أية سجلات ",
+        sInfo: " إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل ",
+        sInfoEmpty: " يعرض 0 إلى 0 من أصل 0 سجل ",
+        sInfoFiltered: "( منتقاة من مجموع _MAX_ مُدخل )",
+        sInfoPostFix: "",
+        sSearch: " ابحث: ",
+        sUrl: "",
+        oPaginate: {
+          sFirst: " الأول ",
+          sPrevious: " السابق ",
+          sNext: " التالي ",
+          sLast: " الأخير "
+        },
+        select: {
+          rows: {
+            _: "||  %d أسطر محدد  ",
+            0: "||  انقر فوق صف لتحديده ",
+            1: "||  صف واحد محدد  "
+          }
+        }
+      }
     });
 
     this.items = [
       {
-        label: 'Edit',
+        label: 'تعديل',
         icon: 'pi pi-fw pi-pencil',
         command: (event) => {
           let element: HTMLElement = document.getElementById('editClientBtn') as HTMLElement;
@@ -133,7 +159,7 @@ export class ClientComponent implements OnInit {
         }
 
       },{
-        label: "Delete",
+        label: "حذف",
         icon: "pi pi-fw pi-times",
         command: event => {
           let element: HTMLElement = document.getElementById(
@@ -175,37 +201,25 @@ export class ClientComponent implements OnInit {
 
   }
   openClientModal() {
-    // this.modalReference = this.modalService.open(clientModal, {
-    //   centered: true,
-    //   ariaLabelledBy: "modal-basic-title"
-    // });
-    // if (this.editFlag == true) {
-      this.typeSubmit = "Edit";
+      this.isOpened=1;
+      this.typeSubmit = "تعديل";
       this.addClientForm.get('PID').setValue(ClientComponent.selectedClientID);
       this.addClientForm.get('name').setValue(ClientComponent.selectedRowData["full_name"]);
       this.addClientForm.get('phone').setValue(ClientComponent.selectedRowData["phone_number"]);
       this.addClientForm.get('initDebitAmount').setValue(ClientComponent.selectedRowData["debitAmount"]);
-    // }
-    // this.addClientForm = this.fb.group({
-    //   name: [name, [Validators.required, Validators.minLength(3)]],
-    //   phone: [phone, Validators.required],
-    //   address: [address, Validators.required]
-    // });
-    // this.onClientIsExistChange();
-    // this.isExist == false;
   }
   deleteClient() {
     
     console.log(ClientComponent.selectedClientID)
     Swal({
-      title: "Delete",
-      text: "you really want to delete?",
+      title: "حذف",
+      text: "هل حقا تريد حذفها؟",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes!",
-      cancelButtonText: "No"
+      confirmButtonText: "نعم!",
+      cancelButtonText: "كلا"
     }).then(result => {
       if (result.value) {
         this.clientServ
@@ -215,7 +229,7 @@ export class ClientComponent implements OnInit {
               this.globalClientDT.ajax.reload(null, false);
               Swal({
                 type: "success",
-                title: "Success",
+                title: "نجاح الحذف",
                 showConfirmButton: false,
                 timer: 1000
               });
@@ -223,10 +237,10 @@ export class ClientComponent implements OnInit {
             error => {
               Swal({
                 type: "error",
-                title: "Warning",
-                text: "This customer is in invoices",
-                confirmButtonText: "Ok",
-    });
+                title: "تحذير",
+                text: "هذا الزبون موجود في الفواتير",
+                confirmButtonText: "نعم",
+              });
             }
           );
       }

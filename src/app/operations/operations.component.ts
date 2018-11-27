@@ -40,10 +40,11 @@ export class OperationsComponent implements OnInit {
     private ms:MessageServiceService) {}
 
   adminTiles=[
-    {text:"More Settings", cols: 2, rows: 1},
-    {text:"Account", cols: 2, rows: 1}
+    {text:"More Settings", cols: 2, rows: 1}
+    // {text:"Account", cols: 2, rows: 1}
   ]
   tiles=[
+    {text:"Account", cols: 2, rows: 1}
     {text: 'counters', cols: 2, rows: 1},
     {text: 'lubricants', cols: 2, rows: 1},
     {text: 'carWashing', cols: 2, rows: 1},

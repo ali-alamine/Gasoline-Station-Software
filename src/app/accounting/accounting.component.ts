@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { OperationsService } from '../operations/operations.service';
 import { MessageServiceService } from '../message-service.service';
+import Swal from "sweetalert2";
 
 export interface Tile<tiles>{
   color: string;
@@ -60,21 +61,10 @@ export class AccountingComponent implements OnInit {
       this.isAdmin=false
     }
     this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
-      this.ms.changeTotal(Response[0].total);
       if(Response == null) this.totalDrawer = 0;
       else this.totalDrawer = Response[0].total;
     });
   }
-  // getTotalDarwer(){
-  //   this.operationServ.getTotalDarwer(this.shiftID).subscribe(Response => {
-  //     if(Response == null) this.totalDrawer = 0;
-  //     else this.totalDrawer = Response[0].total;
-  //     },
-  //     error=>{
-  //       alert('Error Sum drawer!')
-  //     }
-  //   );
-  // }
   getEmployees(){
     this.accountingServ.getTodayEmp().subscribe(Response=>{
       this.employees=Response;
@@ -86,10 +76,9 @@ export class AccountingComponent implements OnInit {
   }
   selectAccounting(accountingName,i){
     localStorage.setItem("shiftIDs",this.shiftIDForm.value);
-    console.log(this.shiftIDForm.value)
     let data={"type":accountingName,"shiftIDs":this.shiftIDForm.value};
     if(this.shiftIDForm.value == ''){
-      swal({
+      Swal({
         type: 'error',
         title: 'تنبية',
         text:'يجب تحديد الموظف',
@@ -98,6 +87,7 @@ export class AccountingComponent implements OnInit {
       });
     }else {
       this.accountingServ.getDetailInvoice(data).subscribe(Response=>{
+        console.log(Response)
         if(Response!=0){
           AccountingComponent.details=Response;
           switch(accountingName) { 
@@ -152,7 +142,7 @@ export class AccountingComponent implements OnInit {
          }
         }
         else{
-          swal({
+          Swal({
             type: 'error',
             title: 'تنبية',
             text:'لا يوجد نتيجة',

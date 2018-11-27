@@ -1,13 +1,24 @@
 <div class="container-fluid" dir="rtl" style="margin-top: 10px;">
   <h1 *ngIf="this.newShift==='true'" style="border:solid thistle 1px; text-align: center;">
-    <!-- <span style="float:left"><span>Manger: </span><span style="color:green">{{userName}} </span></span>
-    <span>Cash: </span><span style="color:green">{{totalDrawer | number}} LBP</span> -->
     <span style="float: right;"><span>إسم الموظف: </span><span style="color:green">{{userName}} </span></span>
     <span>جارور المحتسب: </span><span style="color:green">{{totalDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
   </h1>
   <h1 *ngIf="this.newShift==='false'" style="border:solid thistle 1px; text-align: center;">
       <span style="color:purple">Read Only Mode</span>
     </h1>
+  
+  <div *ngIf="this.newShift==='true'">
+    <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
+        <mat-grid-tile class="tile-grid" (click)="selectOperation(this.tile.text,i+1)"  
+            *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color">
+            <!-- {{i+1}} -->  
+          <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/operationIcons/{{i}}.png">
+        </mat-grid-tile>
+    </mat-grid-list>
+  </div>
   <div id="adminTiles" *ngIf="this.isAdmin">
       <mat-grid-list  cols="4" rowHeight="160px" class="tile-container">
           <mat-grid-tile class="tile-grid" (click)="selectOperation(this.tile.text,i+1);"
@@ -19,17 +30,5 @@
             <img class="tile-image" src="../assets/icons/operationIcons/{{i}}_admin.png">
           </mat-grid-tile>
         </mat-grid-list>
-  </div>
-  <div *ngIf="this.newShift==='true'">
-    <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
-        <mat-grid-tile class="tile-grid" (click)="selectOperation(this.tile.text,i+1)"  
-            *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
-            [colspan]="tile.cols"
-            [rowspan]="tile.rows"
-            [style.background]="tile.color">
-            <!-- {{i+1}} -->  
-          <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/operationIcons/{{i+1}}.png">
-        </mat-grid-tile>
-    </mat-grid-list>
   </div>
 </div>

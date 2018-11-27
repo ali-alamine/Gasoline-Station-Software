@@ -4,29 +4,29 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
               <mat-action-row>
-                  <button mat-button color="primary" >{{typeSubmit}} Employee +</button>
+                  <button mat-button color="primary" >{{typeSubmit}} موظف +</button>
               </mat-action-row>
             </mat-panel-title>
           </mat-expansion-panel-header>
          <form [formGroup]="addEmpForm">
             <mat-form-field>
-                <input formControlName="empFullName" matInput placeholder="Full Name" required>
+                <input formControlName="empFullName" matInput placeholder="الإسم الكامل" required>
               </mat-form-field>
-              <mat-form-field style="padding-left: 10px">
-                <input formControlName="empUserName" matInput placeholder="Username" required>
+              <mat-form-field style="padding-right: 10px">
+                <input formControlName="empUserName" matInput placeholder="اسم المستخدم" required>
               </mat-form-field>
-              <mat-form-field style="padding-left: 10px">
-                <input formControlName="empPassword" matInput placeholder="Password" required>
+              <mat-form-field style="padding-right: 10px">
+                <input formControlName="empPassword" matInput placeholder="كلمه السر" required>
               </mat-form-field>
-                <mat-checkbox formControlName="empType" tyle="padding-left: 10px" 
+                <mat-checkbox formControlName="empType" tyle="padding-right: 10px" 
                 class="example-margin" [(ngModel)]="checked">
                   Admin
                 </mat-checkbox>
 
          </form>
           <mat-action-row>
-              <button mat-button color="primary" (click)="addNewEmployee()" [disabled]="!addEmpForm.valid">Submit</button>
-              <button mat-button color="warn" (click)="collapse()" >Cancel</button>
+              <button mat-button color="primary" (click)="addNewEmployee()" [disabled]="!addEmpForm.valid">{{typeSubmit}}</button>
+              <button mat-button color="warn" (click)="collapse()" >إلغاء</button>
           </mat-action-row>
         </mat-expansion-panel>
     </mat-accordion>
