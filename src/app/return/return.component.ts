@@ -26,7 +26,6 @@ export class ReturnComponent implements OnInit {
     private route: ActivatedRoute,
     private returnServ:ReturnService,
     public snackBar: MatSnackBar,
-    // private modalService: NgbModal,
     private fb: FormBuilder) { }
 
     ngOnInit(){
@@ -35,7 +34,7 @@ export class ReturnComponent implements OnInit {
         personID : [],
         personName: ['', Validators.required],
         debit: ['', Validators.required],
-        paidDebit: ['', Validators.required],
+        paidDebit: ['', [Validators.required, Validators.min(1)]],
         totalDebit: ['', Validators.required],
         comment: [''],
         shiftID:this.shiftID
@@ -76,7 +75,7 @@ export class ReturnComponent implements OnInit {
         Response=>{
         this.openSnackBar(this.debitForm.get('paidDebit').value + " return debit to " +this.debitForm.get('personName').value+ " account", "منته" );
         // this.openSnackBar(this.debitForm.get('paidDebit').value, "Return debit");
-          setTimeout(()=>this.router.navigate(['/debits']),1000);
+          setTimeout(()=>this.router.navigate(['/operations']),1000);
         this.debitForm.reset();
         },
         error=>{

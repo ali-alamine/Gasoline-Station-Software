@@ -10,8 +10,8 @@ class drawer_model extends CI_Model
     {
         $query = $this->db->query("select
         (shift.initDrawer +  IFNULL(tableSumLub.totalLub,0) +  IFNULL(tableSumAcc.totalAcc,0) +  IFNULL(tableSumWash.totalWash,0) +
-         IFNULL(tableSumReturn.totalReturn,0) + IFNULL(tableSumFuel.totalFuel,0) + IFNULL(tableSumFuel_d.totalFuel_d,0) - 
-         IFNULL(tableSumPayC.totalPayC,0) ) as total from shift 
+         IFNULL(tableSumReturn.totalReturn,0) + IFNULL(tableSumFuel.totalFuel,0) + IFNULL(tableSumFuel_d.totalFuel_d,0)) - 
+         IFNULL(tableSumPayC.totalPayC,0)  as total from shift 
         left join 
         (select coalesce(sum(amount-rest),0) as totalLub,shiftID as shiftID1 FROM invoice WHERE type = 'lub' and isSupply= 0 
         and shiftID = '".$shiftID."' ) as tableSumLub on shift.shiftID = tableSumLub.shiftID1

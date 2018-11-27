@@ -4,26 +4,27 @@
           <mat-expansion-panel-header>
             <mat-panel-title>
                 <mat-action-row>
-                    <button mat-button color="primary" >{{typeSubmit}} Client +</button>
+                    <button mat-button color="primary" >{{typeSubmit}} زبون +</button>
                   </mat-action-row>
                 </mat-panel-title>
           </mat-expansion-panel-header>
          <form [formGroup]="addClientForm">
             <mat-form-field>
-                <input  matInput placeholder="Full Name" formControlName="name" required>
+                <input  matInput placeholder="الإسم الكامل" formControlName="name" required>
               </mat-form-field>
           
-              <mat-form-field style="padding-left: 10px">
-                <input matInput placeholder="Contact Number" formControlName="phone">
+              <mat-form-field style="padding-right: 10px">
+                <input matInput placeholder="رقم الهاتف" formControlName="phone">
               </mat-form-field>
               
-              <mat-form-field style="padding-left: 10px">
-                <input matInput type="number" step="500" placeholder="Debit Amount" formControlName="initDebitAmount" required  >
+              <mat-form-field style="padding-right: 10px">
+                <input matInput type="number" step="500" placeholder="مبلغ الدين" formControlName="initDebitAmount" required  >
+                <span matSuffix>ل.ل&nbsp;</span>
               </mat-form-field>
          </form>
           <mat-action-row>
-              <button mat-button color="primary" (click)="addNewClient()" [disabled]="!addClientForm.valid">Submit</button>
-              <button mat-button color="warn" (click)="collapse()">Cancel</button>
+              <button mat-button color="primary" (click)="addNewClient()" [disabled]="!addClientForm.valid">{{typeSubmit}}</button>
+              <button mat-button color="warn" (click)="collapse()">إلغاء</button>
             </mat-action-row>
         </mat-expansion-panel>
     </mat-accordion>
@@ -31,74 +32,15 @@
     
     <table class="table table-striped table-bordered table-hover table-sm noselect " id="clientsDT">
       <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Address</th>
-          <th>Code</th>
-        </tr>
       </thead>
       <tbody #contextScope>
       </tbody>
     </table>
     <p-contextMenu [target]="contextScope" [model]="items" oncontextmenu="return false;"></p-contextMenu>
-  <!-- </div> -->
-    <!-- <table id="clientTable" class="table table-hover table-bordered">
-      <thead>
-        <tr class="text-center">
-          <th>Number</th>
-          <th>Full Name</th>
-          <th>Contact Number</th>
-          <th>Debit Amount</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="text-center" *ngFor="let client of clients; let i = index">
-            <td>{{i}}</td>
-            <td>{{client.full_name}}</td>
-            <td>{{client.phone_number}}</td>
-            <td>{{client.debitAmount}}</td>
-        </tr>
-      </tbody>
-    </table> -->
+  
 </div>
 <div hidden>
     <button id="deleteBtn" (click)="deleteClient()"></button>
     <button id="editClientBtn" (click)="editFlag=true;openClientModal()"></button>
   </div>
   
-  <!-- <ng-template #clientModal let-c="close" let-d="dismiss">
-    <div class="modal-header noselect">
-      <h4 class="modal-title" id="modal-basic-title">{{clientModalTitle}}</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body noselect">
-      <form fxLayout="column" [formGroup]="clientForm" autocomplete="off">
-        <div class="input-row" fxLayout="row">
-          <mat-form-field class="inputField" fxFlex>
-            <input matInput placeholder="Nom" formControlName="name" type="text" name="nameInput" autofocus>
-            <mat-error> Le nom du client est obligatoire avec 3 lettres minimum</mat-error>
-          </mat-form-field>
-          <span *ngIf="isExist == true && editFlag==false" style="color:red"> Client exist!</span>
-        </div>
-        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-          <mat-form-field class="inputField" fxFlex>
-            <input matInput placeholder="Numéro de téléphone" formControlName="phone" type="text">
-            <mat-error> Téléphone client est obligatoire</mat-error>
-          </mat-form-field>
-        </div>
-        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-          <mat-form-field class="inputField" fxFlex>
-            <input matInput placeholder="Addresse" formControlName="address" type="text">
-            <mat-error> L'adresse du client est obligatoire</mat-error>
-          </mat-form-field>
-        </div>
-  
-      </form>
-    </div>
-    <div class="modal-footer noselect">
-      <button mat-raised-button name="addButton" color="primary" (click)="addEditClient()" [disabled]="!clientForm.valid || isExist == true">{{clientModalTitle}}</button>
-    </div>
-  </ng-template> -->

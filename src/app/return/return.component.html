@@ -5,7 +5,7 @@
         <mat-select placeholder="إسم الزبون" formControlName="personName">
           <mat-option *ngFor="let c of clients " 
           (onSelectionChange)="getSelectedClientData($event,c)" 
-          [value]="c.full_name" >{{c.full_name}} | <span style="color:red"> مبلغ الدين: {{c.debitAmount | currency:'LL ':'symbol':'1.0-0' }}</span>
+          [value]="c.full_name" >{{c.full_name}} | <span style="color:red"> مبلغ الدين: {{c.debitAmount | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -13,7 +13,9 @@
       <mat-form-field appearance="outline" style="width:20%">
         <mat-label>المبلع</mat-label>
         <input matInput placeholder="المبلع" step="500" type="number" formControlName="paidDebit">
-        <mat-hint> <code ><h5 *ngIf="debitForm.value.debit != 0 ">الدين: {{debitForm.value.debit | currency:'LL ':'symbol':'1.0-0' }} </h5></code> </mat-hint>
+        <mat-hint > <code ><h5 style="width:1000%;" *ngIf="debitForm.value.debit != 0 ">الدين: {{debitForm.value.debit | currency:'ل.ل ':'symbol':'1.0-0' }} </h5></code> </mat-hint>
+        <!-- <span matPrefi x>$&nbsp;</span> -->
+        <span matSuffix>ل.ل&nbsp;</span>
       </mat-form-field>
   
       <mat-form-field appearance="outline" style="padding-left: 50px;width:600px">

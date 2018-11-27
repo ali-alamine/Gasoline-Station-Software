@@ -221,7 +221,7 @@ class invoice_model extends CI_Model{
             $query = $this->db->get();
             $sql = $this->db->last_query();
         } else if($type == 'wash' || $type == 'return'){
-            $this->db->select(" invoice.amount as amount,invoice.note as note,
+            $this->db->select(" invoice.amount as amount,invoice.note as note,,
             invoice.rest as rest,person.full_name as clientName,
             employee.name as empName,employee.user_type as empType,invoice.totalProfit as profit,
             DATE_FORMAT(dateTime,'%H:%i %p') AS time,invoice.invID as invID,dateTime");
@@ -327,7 +327,7 @@ class invoice_model extends CI_Model{
     /* Get All shift filter by  date and shiftID */
     public function getShiftDetails($shiftID,$fromExpDate,$toExpDate){
 
-        $this->db->select('*,drawer.amount as drawerOut');
+        $this->db->select('*,drawer.amount as drawerOut,shift.shiftID as shiftID');
         $this->db->from('shift');
         $this->db->join('employee', 'employee.empID=shift.empID','left');
         $this->db->join('drawer', 'drawer.shiftID=shift.shiftID','left');

@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-top: 10px;" dir="rtl">
+<div class="container-fluid" style="margin-top: 10px;float: right; text-align: right;"  dir="rtl">
     <mat-tab-group id="tabs" mat-stretch-tabs (selectedTabChange)="displayTables($event)">
       <!-- <mat-tab label="Fuel">
         <mat-grid-list cols="4" rowHeight="180px" class="tile-container">
@@ -12,8 +12,8 @@
             </mat-grid-tile>
           </mat-grid-list>
       </mat-tab> -->
-     <mat-tab label="Fuel">
-       <div class="container-fluid ">
+     <mat-tab label="فيول">
+       <div class="container-fluid " >
         <div id="fuelContView" style="border:1px solid #000000; margin-top: 20px">
           <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}">
               <span class="contLabel"> {{container.name }} {{container.capacity }}</span>
@@ -30,33 +30,35 @@
         </div>
       </div>
     </mat-tab> 
-      <mat-tab label="Lubricants">
-        <div class="container-fluid">
+      <mat-tab label="زيوت">
+        <div class="container-fluid" >
             <mat-accordion>
                 <form [formGroup]="addLubForm">  
                   <mat-expansion-panel  [expanded]="isOpened === 1" (opened)="togglePanel(1)">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                           <mat-action-row>
-                              <button mat-button color="primary" >{{typeSubmitLub}} Item +</button>
+                              <button mat-button color="primary" >{{typeSubmitLub}} زيت +</button>
                           </mat-action-row>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-form-field>
-                      <input formControlName="name" matInput placeholder="Item Name" required>
+                      <input formControlName="name" matInput placeholder="الإسم" required>
                     </mat-form-field>
-                    <mat-form-field style="padding-left: 10px">
-                      <input formControlName="quantity" matInput placeholder="Initial Quantity" type="number" required>
+                    <mat-form-field style="padding-right: 10px">
+                      <input formControlName="quantity" matInput placeholder="الكمية" type="number" required>
                     </mat-form-field>
-                    <mat-form-field style="padding-left: 10px">
-                      <input formControlName="selling" matInput placeholder="Item Price" type="number" step="500" required>
+                    <mat-form-field style="padding-right: 10px">
+                      <input formControlName="selling" matInput placeholder="سعر البيع" type="number" step="500" required>
+                      <span matSuffix>ل.ل&nbsp;</span>
                     </mat-form-field>
-                    <mat-form-field style="padding-left: 10px">
-                      <input formControlName="cost" matInput placeholder="Item Cost" type="number" step="500" required>
+                    <mat-form-field style="padding-right: 10px">
+                      <input formControlName="cost" matInput placeholder="سعر الشراء" type="number" step="500" required>
+                      <span matSuffix>ل.ل&nbsp;</span>
                     </mat-form-field>
                     <mat-action-row>
-                      <button mat-button color="primary" (click)="addLubricant()" [disabled]="!addLubForm.valid">Submit</button>
-                      <button mat-button color="warn" (click)="collapse()">Cancel</button>
+                      <button mat-button color="primary" (click)="addLubricant()" [disabled]="!addLubForm.valid">{{typeSubmitLub}}</button>
+                      <button mat-button color="warn" (click)="collapse()">إلغاء</button>
                     </mat-action-row>
                   </mat-expansion-panel>
                 </form>
@@ -75,34 +77,36 @@
             </div>
         </div>
       </mat-tab>
-      <mat-tab label="Accessories">
-        <div class="container-fluid">
+      <mat-tab label="إكسسوارات">
+        <div class="container-fluid" > 
           <mat-accordion>
               <mat-expansion-panel [expanded]="isOpenedAccess === 1" (opened)="togglePanelAccess(1)">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                       <mat-action-row>
-                          <button mat-button color="primary" >{{typeSubmitAccess}} Accessories +</button>
+                          <button mat-button color="primary" >{{typeSubmitAccess}} إكسسوارات +</button>
                       </mat-action-row>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                <form [formGroup]="addAccessForm">  
                   <mat-form-field>
-                    <input matInput formControlName="name"  placeholder="Item Name" type="text" required>
+                    <input matInput formControlName="name"  placeholder="الإسم" type="text" required>
                   </mat-form-field>
-                  <mat-form-field style="padding-left: 10px">
-                    <input matInput formControlName="quantity" placeholder="Initial Quantity" type="number" required>
+                  <mat-form-field style="padding-right: 10px">
+                    <input matInput formControlName="quantity" placeholder="الكمية" type="number" required>
                   </mat-form-field>
-                  <mat-form-field style="padding-left: 10px">
-                    <input matInput formControlName="selling" placeholder="Item Price" type="number" required>
+                  <mat-form-field style="padding-right: 10px">
+                    <input matInput formControlName="selling" placeholder="سعر البيع" type="number" required>
+                    <span matSuffix>ل.ل&nbsp;</span>
                   </mat-form-field>
-                  <mat-form-field style="padding-left: 10px">
-                    <input matInput formControlName="cost" placeholder="Item Cost" type="number" required>
+                  <mat-form-field style="padding-right: 10px">
+                    <input matInput formControlName="cost" placeholder="سعر الشراء" type="number" required>
+                    <span matSuffix>ل.ل&nbsp;</span>
                   </mat-form-field>
                </form >
                 <mat-action-row>
-                    <button mat-button color="primary" (click)="addNewAccess()" [disabled]="!addAccessForm.valid" >Submit</button>
-                    <button mat-button color="warn" (click)="collapseAccess()">Cancel</button>
+                    <button mat-button color="primary" (click)="addNewAccess()" [disabled]="!addAccessForm.valid" >{{typeSubmitAccess}}</button>
+                    <button mat-button color="warn" (click)="collapseAccess()">إلغاء</button>
                   </mat-action-row>
               </mat-expansion-panel>
           </mat-accordion>

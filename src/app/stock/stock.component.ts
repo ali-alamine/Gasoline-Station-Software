@@ -46,7 +46,7 @@ export class StockComponent implements OnInit {
   private globalLubDT;
   itemsLub: MenuItem[];
   editLubFlag = false;
-  typeSubmitLub = 'Add';
+  typeSubmitLub = 'إضافة';
 
   
   private static selectedRowAccessData;
@@ -54,7 +54,7 @@ export class StockComponent implements OnInit {
   private globalAccessDT;
   itemsAccess: MenuItem[];
   editAccessFlag = false;
-  typeSubmitAccess = 'Add';
+  typeSubmitAccess = 'إضافة';
 
   constructor(private stockServ: StockService,public snackBar: MatSnackBar) { }
   ngOnInit(){
@@ -75,7 +75,7 @@ export class StockComponent implements OnInit {
     this.isOpened=0;
     this.addLubForm.reset();
     this.editLubFlag = false;
-    this.typeSubmitLub = 'Add';
+    this.typeSubmitLub = 'إضافة';
   }
   togglePanelAccess(index:number) {
     this.isOpenedAccess = index;
@@ -84,7 +84,7 @@ export class StockComponent implements OnInit {
     this.isOpenedAccess=0;
     this.addAccessForm.reset();
     this.editAccessFlag = false;
-    this.typeSubmitAccess = 'Add';
+    this.typeSubmitAccess = 'إضافة';
   }
   getAllLubricants(){
     // this.stockServ.getAllLubricants().subscribe(Response=>{
@@ -105,13 +105,12 @@ export class StockComponent implements OnInit {
         processing: true,
         ordering: true,
         stateSave: false,
-        fixedHeader: true,
+        fixedHeader: false,
         select: {
-          "style": "single"
+          style: "single"
         },
         searching: true,
-        lengthMenu: [[5, 10, 25, 50, 100, 150, 200, 300], [5, 10, 25, 50, 100, 150, 200, 300]],
-        // data: this.accessories,
+        lengthMenu: [[50, 100, 150], [50, 100, 150]],
         ajax: {
           type: "get",
           url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/stockDataTable.php",
@@ -122,31 +121,42 @@ export class StockComponent implements OnInit {
         order: [[0, 'asc']],
         columns: [
           // { data: "empID", title: "#" },
-          { data: "name", title: "Name" },
-          { data: "quantity", title: "Quantity" },
-          { data: "selling_price", title: "Selling Price","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
-          { data: "cost", title: "Cost","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
-          { data: "total", title: "Total" ,"searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')}
+          { data: "name", title: "الإسم" },
+          { data: "quantity", title: "الكمية" },
+          { data: "selling_price", title: "سعر البيع","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
+          { data: "cost", title: "سعر الشراء","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
+          { data: "total", title: "المجموع" ,"searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')}
   
         ],
-        // "columnDefs": [
-        //   {
-        //     "targets": 4,
-        //     "data": "user_type",
-        //     "render": function (data, type, rowData, meta) {
-        //       if (data == 0) {
-        //         return 'Employee';
-        //       } else if (data == 1){
-        //         return 'Admin';
-        //       }    
-        //     }
-        //   }
-        // ]
+        language: {
+          sProcessing: " جارٍ التحميل... ",
+          sLengthMenu: " أظهر _MENU_ مدخلات ",
+          sZeroRecords: " لم يعثر على أية سجلات ",
+          sInfo: " إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل ",
+          sInfoEmpty: " يعرض 0 إلى 0 من أصل 0 سجل ",
+          sInfoFiltered: "( منتقاة من مجموع _MAX_ مُدخل )",
+          sInfoPostFix: "",
+          sSearch: " ابحث: ",
+          sUrl: "",
+          oPaginate: {
+            sFirst: " الأول ",
+            sPrevious: " السابق ",
+            sNext: " التالي ",
+            sLast: " الأخير "
+          },
+          select: {
+            rows: {
+              _: "||  %d أسطر محدد  ",
+              0: "||  انقر فوق صف لتحديده ",
+              1: "||  صف واحد محدد  "
+            }
+          }
+        }
       });
   
       this.itemsLub = [
         {
-          label: 'Edit',
+          label: 'تعديل',
           icon: 'pi pi-fw pi-pencil',
           command: (event) => {
             let element: HTMLElement = document.getElementById('editLubBtn') as HTMLElement;
@@ -154,7 +164,7 @@ export class StockComponent implements OnInit {
           }
   
         },{
-          label: "Delete",
+          label: "حذف",
           icon: "pi pi-fw pi-times",
           command: event => {
             let element: HTMLElement = document.getElementById(
@@ -200,22 +210,21 @@ export class StockComponent implements OnInit {
   getAllAccess(){
     if(this.globalAccessDT == null){
       var subscriberDataTable = $('#accessDT').DataTable({
-        responsive: false,
-        paging: true,
-        pagingType: "full_numbers",
-        serverSide: true,
-        processing: true,
-        ordering: true,
-        stateSave: false,
-        fixedHeader: true,
-        select: {
-          "style": "single"
-        },
-        searching: true,
-        lengthMenu: [[5, 10, 25, 50, 100, 150, 200, 300], [5, 10, 25, 50, 100, 150, 200, 300]],
-        // data: this.accessories,
-        ajax: {
-          type: "get",
+      responsive: false,
+      paging: true,
+      pagingType: "full_numbers",
+      serverSide: true,
+      processing: true,
+      ordering: true,
+      stateSave: false,
+      fixedHeader: false,
+      select: {
+        style: "single"
+      },
+      searching: true,
+      lengthMenu: [[50, 100, 150], [50, 100, 150]],
+      ajax: {
+        type: "get",
           url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/stockDataTable.php",
           data : {'type' : 'access'},
           cache: true,
@@ -224,31 +233,42 @@ export class StockComponent implements OnInit {
         order: [[0, 'asc']],
         columns: [
           // { data: "empID", title: "#" },
-          { data: "name", title: "Name" },
-          { data: "quantity", title: "Quantity" },
-          { data: "selling_price", title: "Selling Price","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
-          { data: "cost", title: "Cost","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
-          { data: "total", title: "Total" ,"searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')}
+          { data: "name", title: "الإسم" },
+          { data: "quantity", title: "الكمية" },
+          { data: "selling_price", title: "سعر البيع","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
+          { data: "cost", title: "سعر الشراء","searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')},
+          { data: "total", title: "المجموع" ,"searchable": false,"sortable": false , render: $.fn.dataTable.render.number(',', '.', 0, 'LL ')}
 
         ],
-        // "columnDefs": [
-        //   {
-        //     "targets": 4,
-        //     "data": "user_type",
-        //     "render": function (data, type, rowData, meta) {
-        //       if (data == 0) {
-        //         return 'Employee';
-        //       } else if (data == 1){
-        //         return 'Admin';
-        //       }    
-        //     }
-        //   }
-        // ]
+        language: {
+          sProcessing: " جارٍ التحميل... ",
+          sLengthMenu: " أظهر _MENU_ مدخلات ",
+          sZeroRecords: " لم يعثر على أية سجلات ",
+          sInfo: " إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل ",
+          sInfoEmpty: " يعرض 0 إلى 0 من أصل 0 سجل ",
+          sInfoFiltered: "( منتقاة من مجموع _MAX_ مُدخل )",
+          sInfoPostFix: "",
+          sSearch: " ابحث: ",
+          sUrl: "",
+          oPaginate: {
+            sFirst: " الأول ",
+            sPrevious: " السابق ",
+            sNext: " التالي ",
+            sLast: " الأخير "
+          },
+          select: {
+            rows: {
+              _: "||  %d أسطر محدد  ",
+              0: "||  انقر فوق صف لتحديده ",
+              1: "||  صف واحد محدد  "
+            }
+          }
+        }
       });
 
       this.itemsAccess = [
         {
-          label: 'Edit',
+          label: 'تعديل',
           icon: 'pi pi-fw pi-pencil',
           command: (event) => {
             let element: HTMLElement = document.getElementById('editAccessBtn') as HTMLElement;
@@ -256,7 +276,7 @@ export class StockComponent implements OnInit {
           }
 
         },{
-          label: "Delete",
+          label: "حذف",
           icon: "pi pi-fw pi-times",
           command: event => {
             let element: HTMLElement = document.getElementById(
@@ -275,7 +295,6 @@ export class StockComponent implements OnInit {
           var ID = subscriberDataTable.row(indexes).data()['itemID'];
           var name = subscriberDataTable.row(indexes).data()['name'];
           StockComponent.selectedAccessID = ID;
-          // StockComponent.selectedClientName = name;
         }
         else if (type === 'column') {
           StockComponent.selectedAccessID = -1;
@@ -303,26 +322,20 @@ export class StockComponent implements OnInit {
     this.stockServ.getAllFuelContainers().subscribe( 
       Response=>{
         this.containers = Response;
-        console.log(Response)
-        console.log( this.containers);
     }
   );
 }
   displayTables(selectedTab){
-  // debugger
     if(selectedTab.index==1){
       this.getAllLubricants();
-      //  var cc=$("#lubDT").DataTable();
-      //  this.globalDataTable=cc;
     }
     if(selectedTab.index==2){
       this.getAllAccess();
-      //  var cc=$("#accessDT").DataTable();
-      //  this.globalDataTable=cc;
     }
   }
   openLubModal() {
-      this.typeSubmitLub = "Edit";
+      this.isOpened=1;
+      this.typeSubmitLub = "تعديل";
       this.addLubForm.get('itemID').setValue(StockComponent.selectedRowLubData["itemID"]);
       this.addLubForm.get('name').setValue(StockComponent.selectedRowLubData["name"]);
       this.addLubForm.get('quantity').setValue(StockComponent.selectedRowLubData["quantity"]);
@@ -330,7 +343,8 @@ export class StockComponent implements OnInit {
       this.addLubForm.get('cost').setValue(StockComponent.selectedRowLubData["cost"]);
   }
   openAccessModal() {
-    this.typeSubmitAccess = "Edit";
+    this.isOpenedAccess=1;
+    this.typeSubmitAccess = "تعديل";
     this.addAccessForm.get('itemID').setValue(StockComponent.selectedRowAccessData["itemID"]);
     this.addAccessForm.get('name').setValue(StockComponent.selectedRowAccessData["name"]);
     this.addAccessForm.get('quantity').setValue(StockComponent.selectedRowAccessData["quantity"]);
@@ -339,14 +353,14 @@ export class StockComponent implements OnInit {
   }
   deleteLub() {
     Swal({
-      title: "Delete",
-      text: "you really want to delete?",
+      title: "حذف",
+      text: "هل حقا تريد حذفه؟",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes!",
-      cancelButtonText: "No"
+      confirmButtonText: "نعم!",
+      cancelButtonText: "كلا"
     }).then(result => {
       if (result.value) {
         this.stockServ
@@ -356,7 +370,7 @@ export class StockComponent implements OnInit {
               this.globalLubDT.ajax.reload(null, false);
               Swal({
                 type: "success",
-                title: "Success",
+                title: "نجاح الحذف",
                 showConfirmButton: false,
                 timer: 1000
               });
@@ -364,9 +378,9 @@ export class StockComponent implements OnInit {
             error => {
               Swal({
                 type: "error",
-                title: "Warning",
-                text: "This item is in invoices",
-                confirmButtonText: "Ok",
+                title: "تحذير",
+                text: "هذا الزيت موجود في الفواتير",
+                confirmButtonText: "نعم",
               });
             }
           );
@@ -375,14 +389,14 @@ export class StockComponent implements OnInit {
   }
   deleteAccess() {
     Swal({
-      title: "Delete",
-      text: "you really want to delete?",
+      title: "حذف",
+      text: "هل حقا تريد حذفها؟",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes!",
-      cancelButtonText: "No"
+      confirmButtonText: "نعم!",
+      cancelButtonText: "كلا"
     }).then(result => {
       if (result.value) {
         this.stockServ
@@ -392,17 +406,16 @@ export class StockComponent implements OnInit {
               this.globalAccessDT.ajax.reload(null, false);
               Swal({
                 type: "success",
-                title: "Success",
+                title: "نجاح الحذف",
                 showConfirmButton: false,
                 timer: 1000
               });
             },
             error => {
               Swal({
-                type: "error",
-                title: "Warning",
-                text: "This item is in invoices",
-                confirmButtonText: "Ok",
+                title: "تحذير",
+                text: "هذا الإكسسوار موجود في الفواتير",
+                confirmButtonText: "نعم",
               });
             }
           );
@@ -413,12 +426,13 @@ export class StockComponent implements OnInit {
     if(this.editLubFlag == false){
       this.stockServ.addNewLub(this.addLubForm.value).subscribe(
         Response=>{
-          this.openSnackBar(this.addLubForm.value['name'], "Successfully Added");
+          this.openSnackBar(this.addLubForm.value['name'], "إضافة ناجحة");
           /* START- collapse accordion and rest form values */
-          this.isOpened=0;
-          this.isOpenedAccess=0;
+          // this.isOpened=0;
+          // this.isOpenedAccess=0;
           this.addLubForm.reset();
           /* END- collapse accordion and rest form values */
+          this.collapse();
               this.globalLubDT.ajax.reload(null, false);
               // this.getAllLubricants();
       },
@@ -428,14 +442,15 @@ export class StockComponent implements OnInit {
     } else{
       this.stockServ.editStock(this.addLubForm.value).subscribe(
         Response=>{
-          this.openSnackBar(this.addLubForm.value['name'], "Successfully Edit");
+          this.openSnackBar(this.addLubForm.value['name'], "تعديلات ناجحة");
           /* START- collapse accordion and rest form values */
-          this.isOpened=0;
-          this.addLubForm.reset();
+          // this.isOpened=0;
           this.editLubFlag = false;
-          this.typeSubmitLub = 'Add';
+          // this.typeSubmitLub = 'إضافة';
           /* END- collapse accordion and rest form values */
-              this.globalLubDT.ajax.reload(null, false);
+          this.addLubForm.reset();
+        this.collapse();
+        this.globalLubDT.ajax.reload(null, false);
       },
       error=>{
         alert("error");
@@ -447,10 +462,11 @@ export class StockComponent implements OnInit {
     if(this.editAccessFlag == false){
       this.stockServ.addNewAccess(this.addAccessForm.value).subscribe(
       Response=>{
-        this.openSnackBar(this.addAccessForm.value['name'], "Successfully Added");
+        this.openSnackBar(this.addAccessForm.value['name'], "إضافة ناجحة");
         /* START- collapse accordion and rest form values */
-        this.isOpenedAccess=0;
+        // this.isOpenedAccess=0;
         this.addAccessForm.reset();
+      this.collapseAccess();
         /* END- collapse accordion and rest form values */
             this.globalAccessDT.ajax.reload(null, false);
             // this.getAllAccess();
@@ -461,12 +477,14 @@ export class StockComponent implements OnInit {
   } else{
     this.stockServ.editStock(this.addAccessForm.value).subscribe(
       Response=>{
-        this.openSnackBar(this.addAccessForm.value['name'], "Successfully Edit");
+        this.openSnackBar(this.addAccessForm.value['name'], "تعديلات ناجحة");
         /* START- collapse accordion and rest form values */
-        this.isOpened=0;
+        // this.isOpened=0;
         this.addAccessForm.reset();
+      this.collapseAccess();
+
         this.editAccessFlag = false;
-        this.typeSubmitAccess = 'Add';
+        // this.typeSubmitAccess = 'إضافة';
         /* END- collapse accordion and rest form values */
             this.globalAccessDT.ajax.reload(null, false);
     },

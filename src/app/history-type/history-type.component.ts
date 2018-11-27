@@ -43,7 +43,8 @@ export class HistoryTypeComponent implements OnInit {
   selectAccounting(accountingName,i){
     HistoryTypeComponent.shiftDataForm.get('type').setValue(accountingName)
     this.historyServ.getShiftTypeDetails(HistoryTypeComponent.shiftDataForm.value).subscribe(Response=>{
-      if(Response!=0){
+      console.log(Response)
+      if(Response !=0 ){
         HistoryTypeComponent.details=Response;
         switch(accountingName) { 
           case "counters": { 

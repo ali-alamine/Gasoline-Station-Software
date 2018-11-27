@@ -1,29 +1,30 @@
-<div class="container-fluid" dir="rtl" style="margin-top: 20px;">
+<div class="container-fluid" dir="rtl" style="margin-top: 20px;float: right; text-align: right" >
   <mat-accordion class="accordion">
       <mat-expansion-panel [expanded]="isOpened === 1" (opened)="togglePanel(1)">
         <mat-expansion-panel-header>
           <mat-panel-title>
               <mat-action-row>
-                  <button mat-button color="primary" >{{typeSubmit}} Supplier +</button>
+                  <button mat-button color="primary" > {{typeSubmit}} مورد +</button>
                 </mat-action-row>
               </mat-panel-title>
         </mat-expansion-panel-header>
        <form [formGroup]="supplierForm">
-          <mat-form-field>
-              <input  matInput placeholder="Full Name" formControlName="name" required>
+          <mat-form-field style="text-align: right">
+              <input  matInput placeholder="الإسم الكامل" formControlName="name" required>
             </mat-form-field>
         
-            <mat-form-field style="padding-left: 10px">
-              <input matInput placeholder="Contact Number" formControlName="phone">
+            <mat-form-field style="padding-left: 10px;text-align: right" >
+              <input matInput placeholder="رقم الهاتف" formControlName="phone">
             </mat-form-field>
             
-            <mat-form-field style="padding-left: 10px">
-              <input matInput type="number" step="500" placeholder="Debit Amount" formControlName="initDebitAmount" required  >
+            <mat-form-field style="padding-left: 10px;text-align: right">
+              <input matInput type="number" step="500" placeholder="مبلغ الدين" formControlName="initDebitAmount" required  >
+              <span matSuffix>ل.ل&nbsp;</span>
             </mat-form-field>
        </form>
         <mat-action-row>
-            <button mat-button color="primary" (click)="addEditSupplier()" [disabled]="!supplierForm.valid">Submit</button>
-            <button mat-button color="warn" (click)="collapse()">Cancel</button>
+            <button mat-button color="primary" (click)="addEditSupplier()" [disabled]="!supplierForm.valid">{{typeSubmit}}</button>
+            <button mat-button color="warn" (click)="collapse()">إلغاء</button>
           </mat-action-row>
       </mat-expansion-panel>
   </mat-accordion>

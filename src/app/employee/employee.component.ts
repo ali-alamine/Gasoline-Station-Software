@@ -32,7 +32,7 @@ export class EmployeeComponent implements OnInit {
     this.isOpened=0;
     this.addEmpForm.reset();
     this.editFlag = false;
-    this.typeSubmit = 'Add';
+    this.typeSubmit = 'إضافة';
   }
   addEmpForm = new FormGroup({
     empFullName: new FormControl(''),
@@ -66,12 +66,12 @@ export class EmployeeComponent implements OnInit {
       processing: true,
       ordering: true,
       stateSave: false,
-      fixedHeader: true,
+      fixedHeader: false,
       select: {
-        "style": "single"
+        style: "single"
       },
       searching: true,
-      lengthMenu: [[5, 10, 25, 50, 100, 150, 200, 300], [5, 10, 25, 50, 100, 150, 200, 300]],
+      lengthMenu: [[50, 100, 150], [50, 100, 150]],
       ajax: {
         type: "get",
         url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/employeeDT.php",
@@ -81,10 +81,10 @@ export class EmployeeComponent implements OnInit {
       order: [[0, 'asc']],
       columns: [
         { data: "empID", title: "ID" },
-        { data: "name", title: "Full Name" },
-        { data: "user_name", title: "Username" },
-        { data: "passkey", title: "Password"},
-        { data: "user_type", title: "Type"}
+        { data: "name", title: "الإسم الكامل" },
+        { data: "user_name", title: "اسم المستخدم" },
+        { data: "passkey", title: "كلمه السر"},
+        { data: "user_type", title: "النوع"}
 
       ],
       "columnDefs": [
@@ -99,12 +99,36 @@ export class EmployeeComponent implements OnInit {
             }    
           }
         }
-      ]
+      ],
+      language: {
+        sProcessing: " جارٍ التحميل... ",
+        sLengthMenu: " أظهر _MENU_ مدخلات ",
+        sZeroRecords: " لم يعثر على أية سجلات ",
+        sInfo: " إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل ",
+        sInfoEmpty: " يعرض 0 إلى 0 من أصل 0 سجل ",
+        sInfoFiltered: "( منتقاة من مجموع _MAX_ مُدخل )",
+        sInfoPostFix: "",
+        sSearch: " ابحث: ",
+        sUrl: "",
+        oPaginate: {
+          sFirst: " الأول ",
+          sPrevious: " السابق ",
+          sNext: " التالي ",
+          sLast: " الأخير "
+        },
+        select: {
+          rows: {
+            _: "||  %d أسطر محدد  ",
+            0: "||  انقر فوق صف لتحديده ",
+            1: "||  صف واحد محدد  "
+          }
+        }
+      }
     });
 
     this.items = [
       {
-        label: 'Edit',
+        label: 'تعديل',
         icon: 'pi pi-fw pi-pencil',
         command: (event) => {
           let element: HTMLElement = document.getElementById('editBtn') as HTMLElement;
@@ -112,7 +136,7 @@ export class EmployeeComponent implements OnInit {
         }
 
       },{
-        label: "Delete",
+        label: "حذف",
         icon: "pi pi-fw pi-times",
         command: event => {
           let element: HTMLElement = document.getElementById(
@@ -157,12 +181,13 @@ export class EmployeeComponent implements OnInit {
     if(this.editFlag == false){
       this.empServ.addNewEmployee(this.addEmpForm.value).subscribe(
         Response=>{
-        this.openSnackBar(this.addEmpForm.value['empFullName'], "Successfully Added");
+        this.openSnackBar(this.addEmpForm.value['empFullName'], "إضافة ناجحة");
         
         /* START- collapse accordion and rest form values */
-        this.isOpened=0;
+        // this.isOpened=0;
         this.addEmpForm.reset();
-        /* END- collapse accordion and rest form values */
+          this.collapse();
+          /* END- capsollapse accordion and rest form values */
         this.globalEmployeeDT.ajax.reload(null, false);
       },
       error=>{
@@ -171,12 +196,13 @@ export class EmployeeComponent implements OnInit {
     } else{
       this.empServ.editEmployee(this.addEmpForm.value).subscribe(
         Response=>{
-          this.openSnackBar(this.addEmpForm.value['empFullName'], "Successfully Edit");
+          this.openSnackBar(this.addEmpForm.value['empFullName'], "تعديلات ناجحة");
           /* START- collapse accordion and rest form values */
-          this.isOpened=0;
+          // this.isOpened=0;
           this.addEmpForm.reset();
+          this.collapse();
           this.editFlag = true;
-          this.typeSubmit = 'Add';
+          // this.typeSubmit = 'إضافة';
           /* END- collapse accordion and rest form values */
               this.globalEmployeeDT.ajax.reload(null, false);
       },
@@ -187,7 +213,8 @@ export class EmployeeComponent implements OnInit {
     
   }
   openEmployeeModal() {
-      this.typeSubmit = "Edit";
+      this.isOpened=1;
+      this.typeSubmit = "تعديل";
       this.addEmpForm.get('empID').setValue(EmployeeComponent.selectedEmployeeID);
       this.addEmpForm.get('empFullName').setValue(EmployeeComponent.selectedRowData["name"]);
       this.addEmpForm.get('empUserName').setValue(EmployeeComponent.selectedRowData["user_name"]);
@@ -199,14 +226,14 @@ export class EmployeeComponent implements OnInit {
   }
   deleteEmployee() {
     Swal({
-      title: "Delete",
-      text: "you really want to delete?",
+      title: "حذف",
+      text: "هل حقا تريد حذفه؟",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes!",
-      cancelButtonText: "No"
+      confirmButtonText: "نعم!",
+      cancelButtonText: "كلا"
     }).then(result => {
       if (result.value) {
         this.empServ
@@ -216,7 +243,7 @@ export class EmployeeComponent implements OnInit {
               this.globalEmployeeDT.ajax.reload(null, false);
               Swal({
                 type: "success",
-                title: "Success",
+                title: "نجاح الحذف",
                 showConfirmButton: false,
                 timer: 1000
               });
@@ -224,9 +251,9 @@ export class EmployeeComponent implements OnInit {
             error => {
               Swal({
                 type: "error",
-                title: "Warning",
-                text: "This customer is in invoices",
-                confirmButtonText: "Ok",
+                title: "تحذير",
+                text: "هذا الموظف موجود في الفواتير",
+                confirmButtonText: "نعم",
     });
             }
           );

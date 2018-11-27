@@ -5,7 +5,7 @@
             <mat-panel-title>
                 <mat-action-row>
                   <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                      مجموع بيع الزيوت : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'LL ':'symbol':'1.0-0' }}
+                      مجموع بيع الزيوت : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'ل.ل ':'symbol':'1.0-0' }}
                   </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -16,13 +16,13 @@
                     <!-- <button mat-icon-button (click)="deleteInvoice(i,detail.invID,detail.dateTime,detail.type)" color="warn" tabindex="-1">
                         <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
                     </button> -->
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                         إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div *ngIf="detail.rest > 0 " style="color: brown;">
-                        <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                            الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                        <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                            الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                             إسم الموظف : <u>{{detail.empName}}</u>
                         </h5>
                 </div>
@@ -36,7 +36,7 @@
             <mat-panel-title>
                 <mat-action-row>
                     <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                        مجموع بيع إكسسوارات : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'LL ':'symbol':'1.0-0' }}
+                        مجموع بيع إكسسوارات : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'ل.ل ':'symbol':'1.0-0' }}
                     </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -44,13 +44,13 @@
           <mat-list role="list" >
             <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
                   <div *ngIf="detail.rest == 0">
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                         إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                   </div>
                   <div *ngIf="detail.rest > 0 "  style="color: brown">
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                         إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                   </div>
@@ -64,7 +64,7 @@
             <mat-panel-title>
                 <mat-action-row>
                     <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                        مجموع البيع : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'LL ':'symbol':'1.0-0' }}
+                        مجموع البيع : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'ل.ل ':'symbol':'1.0-0' }}
                     </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -72,13 +72,13 @@
           <mat-list role="list">
             <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
                   <div *ngIf="detail.rest == 0">
-                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                   </div>
                   <div *ngIf="detail.rest > 0 "  style="color: brown">
-                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u>
+                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u>
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                   </div>
@@ -92,7 +92,7 @@
             <mat-panel-title>
                 <mat-action-row>
                     <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                        مجموع الديون : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }}
+                        مجموع الديون : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }}
                     </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -100,22 +100,22 @@
           <mat-list role="list">
               <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
                   <div  *ngIf="detail.quantity != null">
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                   </div>
                   <div *ngIf="detail.quantity == null && detail.type == 'wash'"  style="color: brown">
-                        <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                            الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u>
+                        <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                            الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u>
                              إسم الموظف : <u>{{detail.empName}}</u>
                         </h5>
                   </div>
                   <div *ngIf="detail.quantity == null && 
                     (detail.type =='dieselG_d' || detail.type == 'dieselR_d' || detail.type == '95_d'|| detail.type == '98_d')"  
                     style="color: brown">
-                    <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>
+                    <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>
                      إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                   </div>
@@ -129,14 +129,14 @@
             <mat-panel-title>
                 <mat-action-row>
                     <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                        مجموع المرتجعات : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }}
+                        مجموع المرتجعات : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }}
                     </h3>
                 </mat-action-row>
               </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list role="list" >
               <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                <h5>* {{detail.time}}: تسديد دين من <u>{{detail.clientName}}</u> مبلغ <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>  
+                <h5>* {{detail.time}}: تسديد دين من <u>{{detail.clientName}}</u> مبلغ <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>  
                      إسم الموظف : <u>{{detail.empName}}</u>
                 </h5>
               </mat-list-item>
@@ -149,14 +149,14 @@
             <mat-panel-title>
                 <mat-action-row>
                     <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                        مجموع المدفوعات : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }}
+                        مجموع المدفوعات : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }}
                     </h3>
                 </mat-action-row>
               </mat-panel-title>
           </mat-expansion-panel-header>
           <mat-list role="list" >
               <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
-                    <h5>* {{detail.time}}: مدفوع مبلغ : <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    <h5>* {{detail.time}}: مدفوع مبلغ : <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                          إسم الموظف : <u>{{detail.empName}}</u>                
                     </h5>
               </mat-list-item>
@@ -169,7 +169,7 @@
             <mat-panel-title>
                 <mat-action-row>
                     <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                        مجموع البضاعة الواردة : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }}
+                        مجموع البضاعة الواردة : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }}
                     </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -177,14 +177,14 @@
             <mat-list role="list">
                   <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
                         <div  *ngIf="detail.type == 'access' || detail.type == 'lub'">
-                            <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                                <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u></span> إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                            <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                                <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u></span> إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                                  إسم الموظف : <u>{{detail.empName}}</u>
                             </h5>
                         </div>
                         <div  *ngIf="detail.type != 'access' && detail.type != 'lub'">
-                            <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> من لتر <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                                <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u></span> إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                            <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> من لتر <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                                <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u></span> إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                              إسم الموظف : <u>{{detail.empName}}</u>
                             </h5>
                         </div>
@@ -198,7 +198,7 @@
             <mat-panel-title>
                 <mat-action-row>
                         <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                            مجموع الفواتير : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'LL ':'symbol':'1.0-0' }}
+                            مجموع الفواتير : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'ل.ل ':'symbol':'1.0-0' }}
                         </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -207,55 +207,55 @@
               <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" > 
                 <div  *ngIf="detail.rest == 0 && detail.quantity != null && detail.isSupply == 0 && 
                     (detail.type == 'access' || detail.type == 'lub')">
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div  *ngIf="detail.quantity != null && detail.isSupply == 0 && 
                     (detail.type =='Diesel G' || detail.type == 'Diesel R' || detail.type == '95'|| detail.type == '98')">
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div  *ngIf="detail.rest != 0 && detail.quantity != null && detail.isSupply == 0 && 
                     (detail.type == 'access' || detail.type == 'lub')" style="color: brown">
-                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                    <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div  *ngIf="detail.rest != 0 && detail.quantity == null && detail.isSupply == 0 && 
                     (detail.type =='dieselG_d' || detail.type == 'dieselR_d' || detail.type == '95_d'|| detail.type == '98_d')" 
                     style="color: brown">
-                    <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>
+                    <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0 && detail.rest > 0" style="color: brown">
-                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                        الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u>
+                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                        الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u>
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div *ngIf="detail.quantity == null && detail.type == 'wash' && detail.isSupply == 0 && detail.rest == 0">
-                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                    <h5>* {{detail.time}}: <u>{{detail.note}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                          إسم الموظف : <u>{{detail.empName}}</u>
                     </h5>
                 </div>
                 <div *ngIf="detail.quantity == null && detail.type == 'payC' && detail.isSupply == 0">
-                        <h5>* {{detail.time}}: مدفوع مبلغ : <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                        <h5>* {{detail.time}}: مدفوع مبلغ : <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                                  إسم الموظف : <u>{{detail.empName}}</u>                
                         </h5>
                 </div>
                 <div *ngIf="detail.quantity == null && detail.type == 'return' && detail.isSupply == 0">
-                        <h5>* {{detail.time}}: تسديد دين من <u>{{detail.clientName}}</u> مبلغ <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>  
+                        <h5>* {{detail.time}}: تسديد دين من <u>{{detail.clientName}}</u> مبلغ <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> <span *ngIf="detail.note != ''"> ملاحظة: <u>{{detail.note}}</u></span>  
                                      إسم الموظف : <u>{{detail.empName}}</u>
                         </h5>
                 </div>
                 <div *ngIf="detail.quantity != null && detail.isSupply == 1" >
-                        <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                            <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u></span> 
+                        <h5>* {{detail.time}}: شراء <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                            <span *ngIf="detail.rest > 0">الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u></span> 
                             إسم المورد <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                              إسم الموظف : <u>{{detail.empName}}</u>
                         </h5>
@@ -270,7 +270,7 @@
             <mat-panel-title>
                 <mat-action-row>
                         <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
-                            مجموع الفيول : {{totalAmount | currency:'LL ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'LL ':'symbol':'1.0-0' }}
+                            مجموع الفيول : {{totalAmount | currency:'ل.ل ':'symbol':'1.0-0' }} الأرباح: {{totalProfit  | currency:'ل.ل ':'symbol':'1.0-0' }}
                         </h3>
                 </mat-action-row>
               </mat-panel-title>
@@ -278,14 +278,14 @@
           <mat-list role="list"  >
                   <mat-list-item role="listitem"  *ngFor="let detail of selectedDetails" >
                     <div  *ngIf="detail.type =='Diesel G' || detail.type == 'Diesel R' || detail.type == '95'|| detail.type == '98'">
-                        <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
+                        <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                              إسم الموظف : <u>{{detail.empName}}</u>
                         </h5>
                     </div>
                     <div *ngIf="detail.type =='dieselG_d' || detail.type == 'dieselR_d' || detail.type == '95_d'|| 
                         detail.type == '98_d'" style="color: brown">
-                        <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'LL ':'symbol':'1.0-0' }}</u> 
-                            الباقي <u>{{detail.rest | currency:'LL ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
+                        <h5>* {{detail.time}}: بيع <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
+                            الباقي <u>{{detail.rest | currency:'ل.ل ':'symbol':'1.0-0' }}</u> إسم الزبون <u>{{detail.clientName}}</u> <span *ngIf="detail.note != null"> ملاحظة: <u>{{detail.note}}</u></span>
                              إسم الموظف : <u>{{detail.empName}}</u>
                         </h5>
                     </div>

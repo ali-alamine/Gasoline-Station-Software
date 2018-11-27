@@ -10,7 +10,7 @@
             [colspan]="1"
             [rowspan]="1"
             [style.background]="lub.color" [style.border]="this.isDebit === '1' ? 'solid salmon 1px' : ''">
-            <div style="width:40%; margin-left:10px;">
+            <div style="width:60%; margin-left:10px;">
                     <h6 style="color:firebrick;width: 200%;margin-top: -60px">{{lub.name}}</h6>
             <mat-form-field style="width:60%">
                 <mat-label>Quantity</mat-label>
@@ -36,7 +36,7 @@
                     <mat-option class="text-center" value="19">19</mat-option>
                     <mat-option class="text-center" value="20">20</mat-option>
                 </mat-select>
-                <mat-hint *ngIf="invoiceType != 'supply'" style="color:firebrick">Price:{{lub.selling_price}}<br> Stock:{{lub.quantity}}</mat-hint>
+                <mat-hint *ngIf="invoiceType != 'supply'" style="color:firebrick">Price:{{lub.selling_price | currency:'ل.ل ':'symbol':'1.0-0' }}<br> Stock:{{lub.quantity}}</mat-hint>
                 <!-- <mat-hint *ngIf="invoiceType == 'supply'" style="color:firebrick">Price:{{lub.cost}}<br> Stock:{{lub.quantity}}</mat-hint> -->
             </mat-form-field>
             </div>
