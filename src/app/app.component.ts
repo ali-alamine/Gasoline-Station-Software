@@ -110,53 +110,53 @@ export class AppComponent implements OnInit{
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       return parts.join(".");
   }
-  // logout(){
-  //   var username=localStorage.getItem("userName");
-  //   this.shiftID=localStorage.getItem('shiftID');
-  //   this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
-  //     this.drawerAmount = Response[0].total;
-  //     console.log(this.drawerAmount)
-  //     if(this.drawerAmount != undefined ){
-  //       var text = document.createElement('div');
-  //       var drawerAmount=this.numberWithCommas(this.drawerAmount);
-  //       text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + drawerAmount +" </h1>";
-  //       swal({
-  //         title: "Confirmation",
-  //         content:text  ,
-  //         buttons: {
-  //           continue: {
-  //             text: "Logout",
-  //             value: "continue",
-  //           },
-  //           noAction: {
-  //             text:"Cancel",
-  //             value: "Cancel",
-  //           },
-  //         },
-  //       })
-  //       .then((value) => {
-  //         switch (value) {
-  //           case "cancel":
-  //             break;
-  //           case "continue":
-  //           console.log(this.drawerAmount)
-  //           var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
-  //           console.log(data)
-  //             this.ms.logout(data).subscribe(Response=>{
-  //             },
-  //             error=>{
-  //               alert("error")
-  //             });
-  //             this.router.navigate(["/login"]);
-  //             localStorage.setItem('userID','-1');
-  //           break;
-  //         }
-  //       });
-  //     }
-  //   },
-  //   error=>{
-  //     swal("contact your software developer");
-  //   }
-  // );
-  // }
+  logout(){
+    var username=localStorage.getItem("userName");
+    this.shiftID=localStorage.getItem('shiftID');
+    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+      this.drawerAmount = Response[0].total;
+      console.log(this.drawerAmount)
+      if(this.drawerAmount != undefined ){
+        var text = document.createElement('div');
+        var drawerAmount=this.numberWithCommas(this.drawerAmount);
+        text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + drawerAmount +" </h1>";
+        swal({
+          title: "Confirmation",
+          content:text  ,
+          buttons: {
+            continue: {
+              text: "Logout",
+              value: "continue",
+            },
+            noAction: {
+              text:"Cancel",
+              value: "Cancel",
+            },
+          },
+        })
+        .then((value) => {
+          switch (value) {
+            case "cancel":
+              break;
+            case "continue":
+            console.log(this.drawerAmount)
+            var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
+            console.log(data)
+              this.ms.logout(data).subscribe(Response=>{
+              },
+              error=>{
+                alert("error")
+              });
+              this.router.navigate(["/login"]);
+              localStorage.setItem('userID','-1');
+            break;
+          }
+        });
+      }
+    },
+    error=>{
+      swal("contact your software developer");
+    }
+  );
+  }
 }
