@@ -19,6 +19,6 @@ export class AccountingService {
   }
   deleteInvoice(data):Observable<any>{  
     console.log(data) 
-    return this.httpClient.put(this.url+"invoice/deleteInvoice",data);
+    return this.httpClient.post(this.url+"invoice/deleteInvoice",data);
   }
 }

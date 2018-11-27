@@ -52,7 +52,7 @@ class dispanser extends REST_Controller
         /* start execut querys */ 
         $this->db->trans_begin();
         
-        $result = $this->dispanser_model->submit_dispnser_counters(array("dispID" => $dispID,
+        $counterID = $this->dispanser_model->submit_dispnser_counters(array("dispID" => $dispID,
                                                                                         "counter_1" => $counter_1,
                                                                                         "counter_2" => $counter_2,
                                                                                         "counter_1_quan"=>$liters_sold_1,
@@ -67,14 +67,14 @@ class dispanser extends REST_Controller
 
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_1,
                                                                 "amount" => $totalPrice_1,
-                                                                "note" => "counter_1",
+                                                                "note" => "counter_1-".$counterID,
                                                                 "totalProfit" => $totalProfit_1,
                                                                 "shiftID" => $shiftID,
                                                                 "fuel_liters" => $liters_sold_1)
                                                             );
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_2,
                                                                 "amount" => $totalPrice_2,
-                                                                "note" => "counter_2",
+                                                                "note" => "counter_2-".$counterID,
                                                                 "totalProfit" => $totalProfit_2,
                                                                 "shiftID" => $shiftID,
                                                                 "fuel_liters" => $liters_sold_2)

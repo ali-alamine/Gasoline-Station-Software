@@ -24,7 +24,7 @@ class dispanser_model extends CI_Model
     public function submit_dispnser_counters($data){
         
         if ($this->db->insert('counter', $data)) {
-            return true;
+            return $this->db->insert_id();
         } else {
             return false;
         }

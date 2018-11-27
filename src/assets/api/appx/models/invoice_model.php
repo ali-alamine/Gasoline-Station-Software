@@ -431,4 +431,43 @@ class invoice_model extends CI_Model{
             return false;
         }
     }
+    /* Get Invoice Sell details filter by invoice ID and type */
+    public function updateCounter($counterID,$data){
+       
+        $this->db->where('counterID', $counterID);
+        if ($this->db->update('counter', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function updateDispanser($dispID,$counter,$fuel_liters){
+       
+        $this->db->where('dispID', $dispID);
+        $this->db->set($counter, $counter .'-'. $fuel_liters, false);
+        if ($this->db->update('dispanser')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getDispID($counterID){
+
+        $this->db->select('*');
+        $this->db->from('counter');
+        $this->db->where("counterID",$counterID);
+        $query = $this->db->get();
+        // $st=$this->db->last_query();
+        return $query->result_array(); 
+    }
+    public function updateContainer($outputContID,$fuel_liters){
+       
+        $this->db->where('contID', $outputContID);
+        $this->db->set('current_quan_liter', 'current_quan_liter - '. $fuel_liters, false);
+        if ($this->db->update('container')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

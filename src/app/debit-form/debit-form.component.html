@@ -55,11 +55,11 @@
         <input matInput placeholder="المبلغ الإجمالي" step="500" type="number" formControlName="totalPrice" (ngModelChange)="changeTotalPrice()" >
         <span matSuffix>ل.ل&nbsp;</span>
       </mat-form-field>
-      <mat-form-field appearance="outline" style="width:20%">
+      <mat-form-field appearance="outline" style="width:40%">
         <mat-label>دفع</mat-label>
         <input matInput placeholder="دفع" step="500" type="number" formControlName="amountPaid" (ngModelChange)="changeAmountPaid()" >
         <span matSuffix>ل.ل&nbsp;</span>
-        <mat-hint> <code ><h5 style="width:1000%;" *ngIf="debitForm.value.amountRest >= 0">البافي: {{debitForm.value.amountRest | currency:'ل.ل ':'symbol':'1.0-0' }} </h5></code> </mat-hint>
+        <mat-hint> <code ><h5 style="width:100%;" *ngIf="debitForm.value.amountRest >= 0">البافي: {{debitForm.value.amountRest | currency:'ل.ل ':'symbol':'1.0-0' }} </h5></code> </mat-hint>
       </mat-form-field>
   
       <mat-form-field appearance="outline" style="padding-left: 50px;width:600px">
