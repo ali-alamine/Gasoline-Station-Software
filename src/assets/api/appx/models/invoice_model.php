@@ -452,19 +452,26 @@ class invoice_model extends CI_Model{
         }
     }
     public function getDispID($counterID){
-
-        $this->db->select('*');
+        $this->db->select('dispID');
         $this->db->from('counter');
         $this->db->where("counterID",$counterID);
         $query = $this->db->get();
         // $st=$this->db->last_query();
-        return $query->result_array(); 
+        return $query->result_array()[0]['dispID']; 
+    }
+    public function getContainerID($dispID,$outPutContID){
+        $this->db->select($outPutContID);
+        $this->db->from('dispanser');
+        $this->db->where("dispID",$dispID);
+        $query = $this->db->get();
+        // $st=$this->db->last_query();
+        return $query->result_array()[0][$outPutContID];  
     }
     public function updateContainer($outputContID,$fuel_liters){
-       
         $this->db->where('contID', $outputContID);
-        $this->db->set('current_quan_liter', 'current_quan_liter - '. $fuel_liters, false);
+        $this->db->set('current_quan_liter', 'current_quan_liter + '. $fuel_liters, false);
         if ($this->db->update('container')) {
+            $st=$this->db->last_query();
             return true;
         } else {
             return false;
