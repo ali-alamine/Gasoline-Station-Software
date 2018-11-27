@@ -28,6 +28,7 @@ export class FuelContainerComponent implements OnInit {
     containerID:new FormControl(''),
     shiftID:new FormControl(''),
     cost_liter:new FormControl(''),
+    fuel_type: new FormControl('')
   })
   isNaN: Function = Number.isNaN;
   constructor(private fuelContServ: FuelContainerService,private modalService: NgbModal,public snackBar: MatSnackBar) {}
@@ -64,7 +65,8 @@ export class FuelContainerComponent implements OnInit {
     );
   }
   
-  openContainerSupplyModal(countersModal,index) {
+  openContainerSupplyModal(countersModal,index,type) {
+    this.supplyForm.get('fuel_type').setValue(type);
     this.index=index;
     this.getAllSuppliers();
     this.modalReference = this.modalService.open(countersModal, {

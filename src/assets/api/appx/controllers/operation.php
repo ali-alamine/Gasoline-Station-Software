@@ -248,13 +248,14 @@ class operation extends REST_Controller{
         $cost_liter = $this->post('cost_liter');
         $totalQuantityPerLiter = $this->post('quantityPerLiter');
         $containerID = $this->post('containerID');
+        $fuel_type = $this->post('fuel_type');
 
         /* start execut querys */ 
         $this->db->trans_begin();
 
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
-                                               "type" => 'fuel',
+                                               "type" => $fuel_type,
                                                'dateTime'=>$today_date,
                                                'rest'=>0,
                                                "shiftID"=>$shiftID,

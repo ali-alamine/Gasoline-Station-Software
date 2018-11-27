@@ -60,17 +60,17 @@ class invoice extends REST_Controller{
         $result = $this->invoice_model->getShiftTypeDetails($type,$shiftID);
         $this->response($result, 200);
     }
-    public function deleteInvoice_put()
+    public function deleteInvoice_post()
     {
-        $invID = $this->put('invID');
-        $type = $this->put('type');
-        $isSupply = $this->put('isSupply');
-        $rest = $this->put('rest');
-        $amount = $this->put('amount');
-        $PID = $this->put('PID');
-        $note = $this->put('note');
-        $fuel_liters = $this->put('fuel_liters');
-        $shiftID = $this->put('shiftID');
+        $invID = $this->post('invID');
+        $type = $this->post('type');
+        $isSupply = $this->post('isSupply');
+        $rest = $this->post('rest');
+        $amount = $this->post('amount');
+        $PID = $this->post('PID');
+        $note = $this->post('note');
+        $fuel_liters = $this->post('fuel_liters');
+        $shiftID = $this->post('shiftID');
 
         $this->db->trans_begin();
 
@@ -88,7 +88,7 @@ class invoice extends REST_Controller{
                         $AVGCost = $row['AVGCost'];
                         $oldQuan = $quantityStock - $quantityOrder;
                         $oldCost = ( ($AVGCost * ($quantityOrder + $oldQuan) ) - ($quantityOrder * $newCost) ) / $oldQuan;
-                        $this->invoice_model->updateStock($itemID,array('quantity' => $oldQuan,'cost' => $oldCost));
+                        $this->invoice_model->updateStock('counter',$itemID,array('quantity' => $oldQuan,'cost' => $oldCost));
                     }
                     $this->invoice_model->deleteOrderInvoice($invID);
                 }
@@ -112,13 +112,31 @@ class invoice extends REST_Controller{
             $this->invoice_model->updateAmountDrawer($shiftID,-($amount-$rest));
             $this->invoice_model->deleteInvoice($invID);
 
+        }else if($type = 'Diesel G' || $type = 'Diesel R' || $type = '95' || $type == '98'){
+            //sell
+            if($isSupply == '0'){
+                $noteExplode = explode('-',$note);
+                $counter=$noteExplode[0];
+                $counterID=$noteExplode[1];
+                $result = $this->invoice_model->updateCounter($counterID,array($counter.'_quan'=>0,$counter=>0,));
+                $result = $this->invoice_model->getDispID($counterID);
+                // $indexExplode = explode('_',$counter);
+                // $index=$indexExplode[1];
+                // $kye = 'outputContID_'.$index;
+                foreach($result as $row){
+                    $dispID = $row['dispID'];
+                    $outputContID = $row['outputContID_1'];
+                    // $outputContID_2 = $row['outputContID_2'];
+                }
+                $result = $this->invoice_model->updateDispanser($dispID,$counter,$fuel_liters);
+                $result = $this->invoice_model->updateContainer($outputContID,$fuel_liters);
+                $this->invoice_model->deleteInvoice($invID);
+            // if($note == 'counter_1') $counter_1 = $note;
+            //     if($note == 'counter_2') $counter_2 = $note;
+            }else{
+                //supply
+            }
         }
-        // else if($type = 'Diesel G' || $type = 'Diesel R' || $type = '95' || $type == 'fuel'){
-        //     if($isSupply == 0){
-        //         if($note == 'counter_1') $counter_1 = $note;
-        //         if($note == 'counter_2') $counter_2 = $note;
-        //     }
-        // }
 
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
