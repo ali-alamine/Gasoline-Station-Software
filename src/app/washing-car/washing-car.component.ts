@@ -74,6 +74,7 @@ export class WashingCarComponent implements OnInit {
         WashingCarComponent.washForm.get('shiftID').setValue(this.shiftID);
         WashingCarComponent.washForm.get('type').setValue('wash');
         WashingCarComponent.washForm.get('invoiceType').setValue('sell');
+        setTimeout(()=>this.router.navigate(['/operations']),1000);
   
       },
       error=>{
