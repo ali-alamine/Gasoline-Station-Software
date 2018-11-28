@@ -1,4 +1,4 @@
-<div class="container-fluid" style="margin-top: 10px" [style.background-color]="this.debit === 'true' ? 'thistle' : ''">
+<div class="container-fluid" style="margin-top: 10px" [style.background-color]="this.debit === 'true' ? '' : ''">
       <mat-grid-list cols="4" rowHeight="3.5:1" class="tile-container">
           <mat-grid-tile class="tile-grid"  
               *ngFor="let machine of machines; let i = index" [attr.data-index]="i" 
@@ -6,7 +6,8 @@
               [rowspan]="2"
               [style.background]="machine.color" >
                 <!-- {{i+1}} -->  
-            <img class="tile-image" src="{{machine.imgSrc}}" style="margin-top:10px;margin-left:5px">
+            <img *ngIf="this.debit !== 'true'" class="tile-image" src="{{machine.imgSrc}}" style="margin-top:10px;margin-left:5px">
+            <img *ngIf="this.debit === 'true'" class="tile-image" src="{{machine.imgSrc_d}}" style="margin-top:10px;margin-left:5px">
             <div class="infoSection">
                 <h4 style="color:firebrick">{{machine.name}}</h4>
             <img class="tile-image DpriceArrow " src="../assets/icons/washingIcons/upArrow.png" (click)="incPrice(this.machine.price,i)">

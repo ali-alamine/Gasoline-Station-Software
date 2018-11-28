@@ -322,6 +322,7 @@ export class StockComponent implements OnInit {
     this.stockServ.getAllFuelContainers().subscribe( 
       Response=>{
         this.containers = Response;
+        console.log(this.containers)
     }
   );
 }

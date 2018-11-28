@@ -15,11 +15,11 @@ export class WashingCarComponent implements OnInit {
   shiftID:any;
   name: string;
   machines=[
-    {"id":1,"name":"سيارة","imgSrc":"../assets/icons/washingIcons/car.png","price":6000},
-    {"id":2,"name":"موتو","imgSrc":"../assets/icons/washingIcons/moto.png","price":3000},
-    {"id":2,"name":"جيب","imgSrc":"../assets/icons/washingIcons/bigCar.png","price":7000},
-    {"id":3,"name":"باصات","imgSrc":"../assets/icons/washingIcons/bus.png","price":3000},
-    {"id":3,"name":"فرش","imgSrc":"../assets/icons/washingIcons/interior.png","price":55000}
+    {"id":1,"name":"سيارة","imgSrc":"../assets/icons/washingIcons/car.png","imgSrc_d":"../assets/icons/washingIcons/car_d.png","price":6000},
+    {"id":2,"name":"موتو","imgSrc":"../assets/icons/washingIcons/moto.png","imgSrc_d":"../assets/icons/washingIcons/moto_d.png","price":3000},
+    {"id":2,"name":"جيب","imgSrc":"../assets/icons/washingIcons/bigCar.png","imgSrc_d":"../assets/icons/washingIcons/bigCar_d.png","price":7000},
+    {"id":3,"name":"باصات","imgSrc":"../assets/icons/washingIcons/bus.png","imgSrc_d":"../assets/icons/washingIcons/bus_d.png","price":3000},
+    {"id":3,"name":"فرش","imgSrc":"../assets/icons/washingIcons/interior.png","imgSrc_d":"../assets/icons/washingIcons/interior_d.png","price":55000}
   ]
   urlData:any;
   invoiceType;

@@ -12,8 +12,8 @@
             </mat-grid-tile>
           </mat-grid-list>
       </mat-tab> -->
-     <mat-tab label="فيول">
-       <div class="container-fluid " >
+     <mat-tab label="فيول" >
+       <div class="container-fluid "dir="ltr" >
         <div id="fuelContView" style="border:1px solid #000000; margin-top: 20px">
           <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}">
               <span class="contLabel"> {{container.name }} {{container.capacity }}</span>
@@ -24,7 +24,7 @@
         
           <div class="officeDiv">
             <span class="officeLabel">Office</span>
-              <img class="office" src="../assets/icons/office.png">    
+              <img class="office" src="../assets/icons/office.png">
           </div>
         
         </div>

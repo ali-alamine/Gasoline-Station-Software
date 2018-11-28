@@ -83,9 +83,9 @@ export class AccountingComponent implements OnInit {
     }
     if(this.shiftIDForm.value == ''){
       Swal({
-        type: 'error',
-        title: 'تنبية',
-        text:'يجب تحديد الموظف',
+        type: 'info',
+        // title: 'تنبية',
+        html:"<h4 style='color:#7a327a'>لا يوجد نتيجة</h4>",
         showConfirmButton: false,
         timer: 2000
       });
@@ -147,9 +147,10 @@ export class AccountingComponent implements OnInit {
         }
         else{
           Swal({
-            type: 'error',
-            title: 'تنبية',
-            text:'لا يوجد نتيجة',
+            type: 'info',
+            title: '',
+            html:"<h4 style='color:#7a327a'>لا يوجد نتيجة</h4>",
+            // html:true,
             showConfirmButton: false,
             timer: 2000
           });
