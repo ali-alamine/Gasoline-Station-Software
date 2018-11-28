@@ -202,13 +202,13 @@ export class SellLubricantsComponent implements OnInit {
     if(this.itemsForm.length != 0)
       this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
     else{
-      swal({
-        type: 'error',
-        title: 'تنبية',
-        text:'يجب تحديد منتج واحد على الأقل',
-        showConfirmButton: false,
-        timer: 2000
-      });
+      // swal({
+      //   type: 'error',
+      //   title: 'تنبية',
+      //   text:'يجب تحديد منتج واحد على الأقل',
+      //   showConfirmButton: false,
+      //   timer: 2000
+      // });
     }
   }
   get itemsForm() {
