@@ -126,11 +126,11 @@ class employee extends REST_Controller{
         $m=$currentFullDate['mon'];
         $y=$currentFullDate['year'];
         $time=date("h:i");
-        $today_date=$time;
+        $today_date=$y."-".$m."-".$d;
         /*END - Get Current Date Time */
         $shiftID=$this->post('shiftID');
         $totalDrawer=$this->post('totalDrawer');
-        $logout=$this->employee_model->logout($shiftID,$today_date);
+        $logout=$this->employee_model->logout($shiftID,$time);
         $add=$this->employee_model->insertDrawer(array('shiftID'=> $shiftID , 'date' => $today_date, 'amount'=>$totalDrawer));
 
         if ($logout === 0) {

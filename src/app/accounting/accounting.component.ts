@@ -75,8 +75,12 @@ export class AccountingComponent implements OnInit {
     });
   }
   selectAccounting(accountingName,i){
-    localStorage.setItem("shiftIDs",this.shiftIDForm.value);
-    let data={"type":accountingName,"shiftIDs":this.shiftIDForm.value};
+    let data={};
+    if(this.isAdmin == true){
+      data={"type":accountingName,"shiftIDs":this.shiftIDForm.value};
+    }else{
+      data={"type":accountingName,"shiftIDs":Array(this.shiftID)};
+    }
     if(this.shiftIDForm.value == ''){
       Swal({
         type: 'error',
