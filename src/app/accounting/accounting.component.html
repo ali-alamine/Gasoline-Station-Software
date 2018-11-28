@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-lg-6" >
       <h2>
-        <mat-form-field style="width: 100%;" *ngIf="this.isAdmin == true" >
+        <mat-form-field style="width: 100%;" *ngIf="isAdmin == true" >
             <mat-select placeholder="تحديد موظف" [formControl]="shiftIDForm" [(ngModel)]="checked" multiple>
               <mat-option *ngFor="let emp of employees " [value]="emp.shiftID">{{emp.name}} من الساعة {{emp.timeIn}} إلى {{emp.timeOut}}</mat-option>
             </mat-select>

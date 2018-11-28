@@ -31,9 +31,9 @@ export class AccountingDetailsComponent implements OnInit {
     this.shiftID=localStorage.getItem('shiftID');
     // alert(this.type)
     this.empType=localStorage.getItem('activeUser');
-    this.shiftIDs=localStorage.getItem('shiftIDs');
+    // this.shiftIDs=localStorage.getItem('shiftIDs');
     // this.getDetailInvoice();
-    this.shiftIDs=this.shiftIDs.split(',');
+    // this.shiftIDs=this.shiftIDs.split(',');
     // console.log(this.shiftIDs);
     this.details=AccountingComponent.details;
     console.log("-------")
@@ -89,7 +89,7 @@ export class AccountingDetailsComponent implements OnInit {
   }
   deleteInvoice(i,id,date,type,isSupply,amount,rest,PID,note,fuel_liters,shiftID) {
     let data = {'invID':id,'type':type,'isSupply':isSupply,'amount':amount,
-    'rest':rest,'PID':PID,'note':note,'fuel_liters':fuel_liters,'shiftID':shiftID};
+    'rest':rest,'PID':PID,'note':note,'fuel_liters':fuel_liters,'shiftID':shiftID,'newShiftID':this.shiftID};
     console.log(data)
     // let now = new Date();
     // let invoiceDate = new Date(date);

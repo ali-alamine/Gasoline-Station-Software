@@ -258,6 +258,7 @@ class operation extends REST_Controller{
                                                "type" => $fuel_type,
                                                'dateTime'=>$today_date,
                                                'rest'=>0,
+                                               'note'=>$containerID,
                                                "shiftID"=>$shiftID,
                                                "personID"=>$supplierID,
                                                'isSupply'=>1,

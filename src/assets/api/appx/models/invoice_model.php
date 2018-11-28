@@ -98,7 +98,7 @@ class invoice_model extends CI_Model{
             invoice.rest as rest,person.full_name as clientName,`item-service`.name as name,
             inv_order.quantity as quantity,employee.name as empName,employee.user_type as empType,
             employee.empID as shiftEmpID,dateTime,invoice.type as type,DATE_FORMAT(dateTime,'%H:%i %p') AS time,
-            invoice.isSupply as isSupply,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
+            invoice.isSupply as isSupply,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID,invoice.note as note
             from invoice 
             left JOIN inv_order on inv_order.invID=invoice.invID 
             left JOIN `item-service` on inv_order.itemID=`item-service`.itemID
@@ -111,12 +111,12 @@ class invoice_model extends CI_Model{
                 invoice.rest as rest,person.full_name as clientName,invoice.type as name,
                 invoice.fuel_liters as quantity,employee.name as empName,employee.user_type as empType,
                 employee.empID as shiftEmpID,dateTime,invoice.type as type,DATE_FORMAT(dateTime,'%H:%i %p') AS time,
-                invoice.isSupply as isSupply,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
+                invoice.isSupply as isSupply,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID,invoice.note as note
                 from invoice 
                 left JOIN person on person.PID=invoice.personID 
                 left JOIN shift on shift.shiftID=invoice.shiftID
                 left JOIN employee on employee.empID=shift.empID 
-                where invoice.type in ('fuel') and invoice.isSupply = 1 and invoice.shiftID in ($shiftID))
+                where invoice.type in ('Diesel G','Diesel R','95','98') and invoice.isSupply = 1 and invoice.shiftID in ($shiftID))
             )as table1 ");
         } else if ($type =='allType'){
             $shiftID = "'" .implode("','", $shiftIDs  ) . "'";
@@ -267,7 +267,7 @@ class invoice_model extends CI_Model{
                 left JOIN person on person.PID=invoice.personID 
                 left JOIN shift on shift.shiftID=invoice.shiftID
                 left JOIN employee on employee.empID=shift.empID 
-                where invoice.type in ('fuel') and invoice.isSupply = 1 and invoice.shiftID = '".$shiftID."')
+                where invoice.type in ('Diesel G','Diesel R','95','98') and invoice.isSupply = 1 and invoice.shiftID = '".$shiftID."')
             )as table1 ");
 
         } else if ($type =='allType'){
@@ -464,14 +464,33 @@ class invoice_model extends CI_Model{
         $this->db->from('dispanser');
         $this->db->where("dispID",$dispID);
         $query = $this->db->get();
-        // $st=$this->db->last_query();
         return $query->result_array()[0][$outPutContID];  
     }
-    public function updateContainer($outputContID,$fuel_liters){
+    public function updateQuantityContainer($outputContID,$fuel_liters){
         $this->db->where('contID', $outputContID);
         $this->db->set('current_quan_liter', 'current_quan_liter + '. $fuel_liters, false);
         if ($this->db->update('container')) {
             $st=$this->db->last_query();
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getContainerDetails($contID){
+        $this->db->select('current_quan_liter as quantityStock,cost_liter as AVGCost');
+        $this->db->from('container');
+        $this->db->where('contID', $contID);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return 0;
+        }
+    }
+    /* update container */
+    public function updateContainer($contID, $data){
+        $this->db->where('contID', $contID);
+        if ($this->db->update('container', $data)) {
             return true;
         } else {
             return false;
