@@ -7,6 +7,7 @@ import { MessageServiceService } from './message-service.service';
 import { OperationsComponent } from './operations/operations.component';
 // import { OperationsComponent} from './operations/operations.component';
 import swal from 'sweetalert2';
+import { debug } from 'util';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -70,39 +71,66 @@ export class AppComponent implements OnInit{
     this.router.navigate(["/operations"]);
   }
   logoutTemp(){
+    debugger
     var username=localStorage.getItem("userName");
     // this.getTotalDarwer();
     // debugger
     if(this.drawerAmount != undefined ){
+      
+      var msg = username + " Are you sure you want to end your shift?" +" " +this.drawerAmount;
+      // msg = msg +'<br/> Vous voulez imprimer?';
       swal({
-        title: "Confirmation",
-        text: username + " Are you sure you want to end your shift?" +" " +this.drawerAmount ,
-        buttons: {
-          continue: {
-            text: "Logout",
-            value: "continue",
+        type: 'warning',
+        title: 'Info',
+        html: msg,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non',
+      }).then((result) => {
+        if (result.value) {
+          this.ms.logout(this.shiftID).subscribe(Response=>{
           },
-          noAction: {
-            text:"Cancel",
-            value: "Cancel",
-          },
-        },
-      })
-      .then((value) => {
-        switch (value) {
-          case "cancel":
-            break;
-          case "continue":
-            this.ms.logout(this.shiftID).subscribe(Response=>{
-            },
-            error=>{
-              alert("error")
-            });
-            this.router.navigate(["/login"]);
-            localStorage.setItem('userID','-1');
-          break;
+          error=>{
+            alert("error")
+          });
+          this.router.navigate(["/login"]);
+          localStorage.setItem('userID','-1');
         }
-      });
+      })
+      // swal({
+      //   title: "Confirmation",
+      //   text: username + " Are you sure you want to end your shift?" +" " +this.drawerAmount ,
+      //   buttons: [true, true],                              // booleans
+      //   buttons: ['Stay on this page', 'Continue'],         // strings
+      //   buttons: [true, 'Delete'], 
+      //   buttons: {
+      //     continue: {
+      //       text: "Logout",
+      //       value: "continue",
+      //     },
+      //     noAction: {
+      //       text:"Cancel",
+      //       value: "Cancel",
+      //     },
+      //   },
+      // })
+      // .then((value) => {
+      //   switch (value) {
+      //     case "cancel":
+      //       break;
+      //     case "continue":
+      //       this.ms.logout(this.shiftID).subscribe(Response=>{
+      //       },
+      //       error=>{
+      //         alert("error")
+      //       });
+      //       this.router.navigate(["/login"]);
+      //       localStorage.setItem('userID','-1');
+      //     break;
+      //   }
+      // });
     }
 
   }
@@ -118,29 +146,20 @@ export class AppComponent implements OnInit{
       this.drawerAmount = Response[0].total;
       console.log(this.drawerAmount)
       if(this.drawerAmount != undefined ){
-        // var text = document.createElement('div');
         var drawerAmount=this.numberWithCommas(this.drawerAmount);
-        // text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + drawerAmount +" </h1>";
+        var msg = "<h3 style='color:red'> "+drawerAmount  + " اغلاق حساب الصندوق ب  ل.ل </h3><h1>?</h1>";
+        // msg = msg +'<br/> Vous voulez imprimer?';
         swal({
-          title: "Confirmation",
-          text:"text",
-          buttons: {
-            continue: {
-              text: "Logout",
-              value: "continue",
-            },
-            noAction: {
-              text:"Cancel",
-              value: "Cancel",
-            },
-          },
-        })
-        .then((value) => {
-          switch (value) {
-            case "cancel":
-              break;
-            case "continue":
-            console.log(this.drawerAmount)
+          type: 'warning',
+          title: username+' اقفال دوام عمل',
+          html: msg,
+          showCancelButton: true,
+          confirmButtonColor: 'purple',
+          cancelButtonColor: 'gray',
+          confirmButtonText: 'Continue',
+          cancelButtonText: 'Cancel',
+        }).then((result) => {
+          if (result.value) {
             var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
             console.log(data)
               this.ms.logout(data).subscribe(Response=>{
@@ -150,9 +169,8 @@ export class AppComponent implements OnInit{
               });
               this.router.navigate(["/login"]);
               localStorage.setItem('userID','-1');
-            break;
           }
-        });
+        })
       }
     },
     error=>{
@@ -161,3 +179,5 @@ export class AppComponent implements OnInit{
   );
   }
 }
+
+
