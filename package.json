@@ -24,6 +24,7 @@
     "@angular/router": "^6.0.3",
     "@auth0/angular-jwt": "^2.0.0",
     "@ng-bootstrap/ng-bootstrap": "^3.3.1",
+    "@toverux/ngx-sweetalert2": "^4.0.0",
     "core-js": "^2.5.4",
     "datatables.net": "^1.10.19",
     "datatables.net-bs4": "^1.10.19",
@@ -32,7 +33,7 @@
     "primeng": "^6.1.4",
     "rxjs": "^6.0.0",
     "sweetalert": "^2.1.2",
-    "sweetalert2": "^7.28.11",
+    "sweetalert2": "^7.30.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

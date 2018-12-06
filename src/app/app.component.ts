@@ -6,6 +6,7 @@ import { $ } from 'protractor';
 import { MessageServiceService } from './message-service.service';
 import { OperationsComponent } from './operations/operations.component';
 // import { OperationsComponent} from './operations/operations.component';
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -117,12 +118,12 @@ export class AppComponent implements OnInit{
       this.drawerAmount = Response[0].total;
       console.log(this.drawerAmount)
       if(this.drawerAmount != undefined ){
-        var text = document.createElement('div');
+        // var text = document.createElement('div');
         var drawerAmount=this.numberWithCommas(this.drawerAmount);
-        text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + drawerAmount +" </h1>";
+        // text.innerHTML=username + " Are you sure you want to end your shift?" +" " +"<h1 style='color:firebrick'> " + drawerAmount +" </h1>";
         swal({
           title: "Confirmation",
-          content:text  ,
+          text:"text",
           buttons: {
             continue: {
               text: "Logout",

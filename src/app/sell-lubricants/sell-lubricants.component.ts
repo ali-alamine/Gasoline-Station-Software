@@ -3,6 +3,7 @@ import { SellLubricantsService} from  './sell-lubricants.service'
 import { MatSnackBar} from '@angular/material';
 import { ActivatedRoute,Router } from '@angular/router';
 import { FormGroup, FormBuilder, FormArray } from '@angular/forms';
+import swal from 'sweetalert2';
 export interface Page<pageBtns>{
   color: string;
   text: string;
@@ -203,9 +204,9 @@ export class SellLubricantsComponent implements OnInit {
       this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
     else{
       swal({
-        type: 'info',
         title: 'تنبية',
         html:"<h4 style='color:#7a327a'>يجب تحديد منتج واحد على الأقل'</h4>",
+        type: 'info',
         showConfirmButton: false,
         timer: 2000
       });

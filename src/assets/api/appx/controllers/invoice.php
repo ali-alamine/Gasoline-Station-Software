@@ -107,14 +107,14 @@ class invoice extends REST_Controller{
             $this->invoice_model->updatePersonDebit($PID, +$amount);
             $this->invoice_model->deleteInvoice($invID);
 
-        }else if($type == 'wash' || $type = '98_d' || $type = '95_d' || $type = 'dieselG_d' || $type = 'dieselR_d'){
+        }else if($type == 'wash' || $type == '98_d' || $type == '95_d' || $type == 'dieselG_d' || $type == 'dieselR_d'){
             if($rest > 0){
                 $this->invoice_model->updatePersonDebit($PID, -$rest);   
             }
             if($newShiftID != $shiftID)
                 $this->invoice_model->updateAmountDrawer($shiftID,-($amount-$rest));
             $this->invoice_model->deleteInvoice($invID);
-        }else if($type = 'Diesel G' || $type = 'Diesel R' || $type = '95' || $type == '98'){
+        }else if($type == 'Diesel G' || $type == 'Diesel R' || $type == '95' || $type == '98'){
             //sell
             if($isSupply == 0){
                 $noteExplode = explode('-',$note);

@@ -8,7 +8,7 @@
   }
   .tile-grid{
     padding-top: 10px;
-    border: solid lightblue 1px;
+    border: solid lightgreen 1px;
   }
   .selectedTile{
       background-color:lightblue;
@@ -20,4 +20,7 @@
   .example-additional-selection {
     opacity: 0.75;
     font-size: 0.75em;
-  }  
+  } 
+  .tile-grid:hover{
+    background-color: lightgreen;
+  }
