@@ -7,7 +7,6 @@ class invoice extends REST_Controller{
         parent::__construct();
         $this->load->model('invoice_model');
     }
-
     /* Get All Lubricants */
     public function getSoldLubricants_get(){
         $result = $this->invoice_model->selectAll_byType($invoice_type);
@@ -52,8 +51,7 @@ class invoice extends REST_Controller{
         } else {
             $this->response($jsonData, 200);
         }
-    }
-    
+    }  
     public function getShiftTypeDetails_post(){
         $type = $this->post('type');
         $shiftID = $this->post('shiftID');
@@ -160,4 +158,5 @@ class invoice extends REST_Controller{
             $this->response("success", 200);
         }
     }
+    
 }

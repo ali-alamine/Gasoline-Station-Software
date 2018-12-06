@@ -18,18 +18,18 @@
           <div *ngFor="let item of itemsForm.controls; let i=index" [formGroupName]="i">
               <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
                   <mat-form-field fxFlex  class="searchInput" style="text-align: center;">
-                      <input matInput placeholder="الإسم" formControlName="name" type="text" 
+                      <input style="font-size:30px" matInput placeholder="الإسم" formControlName="name" type="text" 
                       name="nameInput"  [readonly]="true">
                   </mat-form-field>
                   <mat-form-field fxFlex class="itemInputs">
-                      <input matInput placeholder="الكمية" formControlName="quantity" type="number" min="0" (ngModelChange)="rowChangePrice(i)" >
+                      <input style="font-size:30px"  matInput placeholder="الكمية" formControlName="quantity" type="number" min="0" (ngModelChange)="rowChangePrice(i)" >
                   </mat-form-field>
                   <mat-form-field fxFlex class="itemInputs">
-                      <input matInput placeholder="مبلغ الشراء" formControlName="price" type="number" min="0" (ngModelChange)="rowChangePrice(i)" >
+                      <input style="font-size:30px" matInput placeholder="كلفة الشراء" formControlName="price" type="number" min="0" (ngModelChange)="rowChangePrice(i)" >
                       <span matSuffix>ل.ل&nbsp;</span>
                   </mat-form-field>
                   <mat-form-field fxFlex class="itemInputs">
-                      <input matInput placeholder="المجوع" formControlName="totalPrice" type="number" min="0" [readonly]="true">
+                      <input style="font-size:30px"  matInput placeholder="المجوع" formControlName="totalPrice" type="number" min="0" [readonly]="true">
                       <span matSuffix>ل.ل&nbsp;</span>
                   </mat-form-field>
                   <button mat-icon-button (click)="deleteItem(i,true)" color="warn" tabindex="-1">

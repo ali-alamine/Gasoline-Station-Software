@@ -1,6 +1,6 @@
 <div class="container-fluid" dir="rtl" style="margin-top: 10px;">
   <h1 *ngIf="this.newShift==='true'" style="border:solid thistle 1px; text-align: center;">
-    <span style="float: right;"><span>إسم الموظف: </span><span style="color:green">{{userName}} </span></span>
+    <span style="float: right;"><span>الأسم: </span><span style="color:green">{{userName}} </span></span>
     <span>الصندوق: </span><span style="color:green">{{totalDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
   </h1>
   <h1 *ngIf="this.newShift==='false'" style="border:solid thistle 1px; text-align: center;">

@@ -199,14 +199,14 @@ export class SellAccessoriesComponent implements OnInit {
     if(this.itemsForm.length != 0)
       this.router.navigate(['/debbiting'], {queryParams:{pageType:this.pageType}});
     else{
-      swal({
-        type: 'info',
-        // title: 'تنبية',
-        // text:',
-        html:"<h4 style='color:#7a327a'>يجب تحديد منتج واحد على الأقل'</h4>",
-        showConfirmButton: false,
-        timer: 2000
-      });
+      // swal({
+      //   type: 'info',
+      //   // title: 'تنبية',
+      //   // text:',
+      //   html:"<h4 style='color:#7a327a'>يجب تحديد منتج واحد على الأقل'</h4>",
+      //   showConfirmButton: false,
+      //   timer: 2000
+      // });
     }
   }
   get itemsForm() {
