@@ -10,7 +10,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./payment-cost.component.scss']
 })
 export class PaymentCostComponent implements OnInit {
-  private paymentCostForm: FormGroup;
+  public paymentCostForm: FormGroup;
   userID;shiftID;
 
   constructor(private router: Router,

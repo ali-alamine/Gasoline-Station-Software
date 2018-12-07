@@ -9,11 +9,11 @@ import swal from 'sweetalert';
 })
 export class StartShiftComponent implements OnInit {
   private urlData;
-  private empName;
-  private empID;
-  private empData;
+  public empName;
+  public empID;
+  public empData;
   public startDrawerAmount;
-  private shiftData={"empName":"","empID":"","drawerAmount":"","shiftDate":"","timeIn":""};
+  public shiftData={"empName":"","empID":"","drawerAmount":"","shiftDate":"","timeIn":""};
   constructor(private router: Router,private route: ActivatedRoute,private shiftServ:StartShiftService) { }
 
   ngOnInit() {

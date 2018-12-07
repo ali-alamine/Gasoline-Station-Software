@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { formatDate } from '@angular/common';
 import { HistoryService } from './history.service';
 import { MatSnackBar } from '../../../node_modules/@angular/material';
-
+import swal from 'sweetalert2';
 export interface Tile<tiles>{
   color: string;
   cols: number; 
@@ -89,13 +89,17 @@ export class HistoryComponent implements OnInit {
         this.shiftDetails=Response[0];
         this.totalItems=Response[1][0]['total'];
       }else{
+        var msg = "<h4>Contact your software developer</h4>";
         swal({
-          type: 'error',
-          title: 'تنبية',
-          text:'لا يوجد نتيجة',
-          showConfirmButton: false,
-          timer: 2000
-        });
+            type: 'error',
+            title: "تنبيه",
+            html: msg,
+            showCancelButton: true,
+            // confirmButtonColor: 'purple',
+            cancelButtonColor: 'gray',
+            // confirmButtonText: 'Continue',
+            cancelButtonText: 'ok',
+        })
       }
     },
     error=>{

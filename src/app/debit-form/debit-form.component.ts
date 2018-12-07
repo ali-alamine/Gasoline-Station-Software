@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SellAccessoriesComponent } from '../sell-accessories/sell-accessories.component';
 import { WashingCarComponent } from '../washing-car/washing-car.component';
 import { SellLubricantsComponent } from '../sell-lubricants/sell-lubricants.component';
-
+import swal from 'sweetalert2';
 @Component({
   selector: 'app-debit-form',
   templateUrl: './debit-form.component.html',
@@ -20,11 +20,11 @@ export class DebitFormComponent {
   debitData :any;
   clients:any;
   person;
-  private debitForm : FormGroup;
-  private personForm;
+  public debitForm : FormGroup;
+  public personForm;
   modalReference: any;
   rest; paid;
-  private typePage;
+  public typePage;
   items:any;
   
 
@@ -237,13 +237,18 @@ export class DebitFormComponent {
           console.log("error: "+error);
         });
       }else{
+        
+        var msg = "<h4>Contact your software developer</h4>";
         swal({
-          type: 'error',
-          title: 'تنبية',
-          text:'لا يوجد منتج للشراء',
-          showConfirmButton: false,
-          timer: 2000
-        });
+            type: 'error',
+            title: "تنبيه",
+            html: msg,
+            showCancelButton: true,
+            // confirmButtonColor: 'purple',
+            cancelButtonColor: 'gray',
+            // confirmButtonText: 'Continue',
+            cancelButtonText: 'ok',
+        })
       }
     }
   }

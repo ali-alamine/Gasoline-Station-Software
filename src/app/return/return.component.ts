@@ -15,7 +15,7 @@ export class ReturnComponent implements OnInit {
   debitData:any;
   clients:any;
   person;
-  private debitForm: FormGroup;
+  public debitForm: FormGroup;
   // isOpened = 0;
   // private personForm;
   modalReference: any;

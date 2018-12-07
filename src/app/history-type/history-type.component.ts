@@ -3,7 +3,7 @@ import { HistoryComponent } from '../history/history.component';
 import { FormGroup, FormBuilder, FormControl, FormArray } from '../../../node_modules/@angular/forms';
 import { Router } from '../../../node_modules/@angular/router';
 import { HistoryService } from '../history/history.service';
-
+import swal from 'sweetalert2';
 export interface Tile<tiles>{
   color: string;
   cols: number; 
@@ -89,13 +89,17 @@ export class HistoryTypeComponent implements OnInit {
         }
       }
       else{
+        var msg = "<h4>Contact your software developer</h4>";
         swal({
-          type: 'error',
-          title: 'تنبية',
-          text:'لا يوجد نتيجة',
-          showConfirmButton: false,
-          timer: 2000
-        });
+            type: 'error',
+            title: "تنبيه",
+            html: msg,
+            showCancelButton: true,
+            // confirmButtonColor: 'purple',
+            cancelButtonColor: 'gray',
+            // confirmButtonText: 'Continue',
+            cancelButtonText: 'ok',
+        })
       }
     },
     error=>{

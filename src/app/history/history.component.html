@@ -23,20 +23,20 @@
           <button mat-raised-button class="searchFormBtn" name="searchBtn" color="primary" 
           [disabled]="!filterForm.valid" (click)="getShiftDetails() ">إظهار النتيجة</button>
     </div>
-    <div class="col-lg-12" *ngIf="shiftDetails != 0 || shiftDetails != ''"  >
+    <div class="col-lg-12" *ngIf="shiftDetails != ''"  >
       <div class="container-fluid" style="margin-top: 10px">
         <mat-grid-list cols="4" rowHeight="150px" class="tile-container">
           <mat-grid-tile style ="margin-top:55px;text-align: right" class="tile-grid"
               *ngFor="let shift of shiftDetails; let i = index">
-              <h6 style="text-align: center;margin-left:10px"><u>شفت {{i+1}}</u></h6>
+              <h6 style="text-align: center;margin-left:10px"><u>{{i+1}}</u></h6>
                 <div>
                   <h6 style="color:firebrick;">
-                  موظف: {{shift.name}}<br>
-                  تاريخ: {{shift.shift_date}}<br>
-                  بدأ الوقت: {{shift.timeIn}}<br>
-                  إنتهاء الوقت: {{shift.timeOut}}<br>
-                 بدأ جارور: {{shift.initDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}<br>
-                 إنتهاء جارور: {{shift.drawerOut | currency:'ل.ل ':'symbol':'1.0-0' }}</h6>
+                  الأسم: <span style="color:purple">{{shift.name}}</span><br>
+                  تاريخ: <span style="color:purple">{{shift.shift_date}}</span> <br>
+                  بدأ الوقت: <span style="color:purple">{{shift.timeIn}}</span><br>
+                  إنتهاء الوقت: <span style="color:purple">{{shift.timeOut}}</span><br>
+                 بدأ جارور: <span style="color:purple">{{shift.initDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}</span> <br>
+                 إنتهاء جارور: <span style="color:purple">{{shift.drawerOut | currency:'ل.ل ':'symbol':'1.0-0' }}</span> </h6>
                 </div>
                 <div>
                   <button style="margin-right:40px;background-color:lightgreen" 
