@@ -135,17 +135,7 @@ export class CountersComponent implements OnInit {
         }
       })
     }else{
-      var message = document.createElement('h5');
-      message.innerHTML="Please make sure the counters are correct";
-      // swal({
-      //   content:message,
-      //   buttons:{
-      //     ok:{
-      //       text:"Ok",
-      //       value:"ok"
-      //     }
-      //   }
-      // });
+      swal("خطأ في ادخال العدادات")
     }
   }
 

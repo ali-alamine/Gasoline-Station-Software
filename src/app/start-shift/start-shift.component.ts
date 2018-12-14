@@ -12,11 +12,13 @@ export class StartShiftComponent implements OnInit {
   public empName;
   public empID;
   public empData;
+  public userType;
   public startDrawerAmount;
   public shiftData={"empName":"","empID":"","drawerAmount":"","shiftDate":"","timeIn":""};
   constructor(private router: Router,private route: ActivatedRoute,private shiftServ:StartShiftService) { }
 
   ngOnInit() {
+    this.userType=localStorage.getItem('activeUser');
     this.urlData = this.route.queryParams.subscribe(params => {
       this.empData = params || -1;
       
@@ -24,6 +26,7 @@ export class StartShiftComponent implements OnInit {
       this.empID=this.empData['empID'];
     });
   }
+  
   // toLocaleString('en-US', { hour: 'numeric', hour12: true })
   getDateTime(format){
 		var d = new Date();
@@ -46,6 +49,10 @@ export class StartShiftComponent implements OnInit {
   startCancel(){
     this.router.navigate(['/login']);
   }
+  goToSettings(){
+    localStorage.setItem('mode','configMode');
+    this.router.navigate(['/settings']);
+  }
   startShift(){
     if(this.startDrawerAmount===null || this.startDrawerAmount===undefined){
       this.startDrawerAmount=0;
@@ -56,8 +63,9 @@ export class StartShiftComponent implements OnInit {
         var shiftID= Response.toString();
         localStorage.setItem('shiftID',shiftID);
         this.router.navigate(['/operations']);
+        localStorage.setItem('mode','newShift');
       },error=>{
-        swal("يرجى الاتصال بمطور البرامج الخاص بك");
+        swal("Please Contact your Software Developer");
       }
     );
   }

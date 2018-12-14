@@ -20,6 +20,7 @@ export class AppComponent implements OnInit{
   isAdmin:boolean;
   shiftID:any;
   drawerAmount:any;
+  mode;
   constructor(private router: Router,private location: Location,private ms:MessageServiceService) {}
 
   ngOnInit() {
@@ -68,7 +69,13 @@ export class AppComponent implements OnInit{
     this.location.back();
   }
   goHome(){
-    this.router.navigate(["/operations"]);
+    var mode=localStorage.getItem('mode');
+    if(mode != 'configMode'){
+      this.router.navigate(["/operations"]);
+    }else{
+      this.router.navigate(["/settings"]);
+    }
+    
   }
   logoutTemp(){
     debugger
@@ -140,44 +147,56 @@ export class AppComponent implements OnInit{
       return parts.join(".");
   }
   logout(){
-    var username=localStorage.getItem("userName");
-    this.shiftID=localStorage.getItem('shiftID');
-    this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
-      this.drawerAmount = Response[0].total;
-      console.log(this.drawerAmount)
-      if(this.drawerAmount != undefined ){
-        var drawerAmount=this.numberWithCommas(this.drawerAmount);
-        var msg = "<h3 style='color:red'> "+drawerAmount  + " اغلاق حساب الصندوق ب  ل.ل </h3><h1>?</h1>";
-        // msg = msg +'<br/> Vous voulez imprimer?';
-        swal({
-          type: 'warning',
-          title: username+' اقفال دوام عمل',
-          html: msg,
-          showCancelButton: true,
-          confirmButtonColor: 'purple',
-          cancelButtonColor: 'gray',
-          confirmButtonText: 'Continue',
-          cancelButtonText: 'Cancel',
-        }).then((result) => {
-          if (result.value) {
-            var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
-            console.log(data)
-              this.ms.logout(data).subscribe(Response=>{
-              },
-              error=>{
-                alert("error")
-              });
-              this.router.navigate(["/login"]);
-              localStorage.setItem('userID','-1');
+      this.mode=localStorage.getItem('mode');
+      if(this.mode != 'configMode'){
+        var username=localStorage.getItem("userName");
+        this.shiftID=localStorage.getItem('shiftID');
+        this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
+          this.drawerAmount = Response[0].total;
+          console.log(this.drawerAmount)
+          if(this.drawerAmount != undefined ){
+            var drawerAmount=this.numberWithCommas(this.drawerAmount);
+            var msg = "<h3 style='color:red'> "+drawerAmount  + " اغلاق حساب الصندوق ب  ل.ل </h3><h1>?</h1>";
+            // msg = msg +'<br/> Vous voulez imprimer?';
+            swal({
+              type: 'warning',
+              title: username+' اقفال دوام عمل',
+              html: msg,
+              showCancelButton: true,
+              confirmButtonColor: 'purple',
+              cancelButtonColor: 'gray',
+              confirmButtonText: 'Continue',
+              cancelButtonText: 'Cancel',
+            }).then((result) => {
+              if (result.value) {
+                var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
+                console.log(data)
+                  this.ms.logout(data).subscribe(Response=>{
+                    localStorage.setItem('shiftID','');
+                    localStorage.setItem('shiftIDs','');
+                    localStorage.setItem('userID','');
+                    localStorage.setItem('activeUser','');
+                    localStorage.setItem('mode','');
+                  },
+                  error=>{
+                    alert("error")
+                  });
+                  this.router.navigate(["/login"]);
+                  localStorage.setItem('userID','-1');
+              }
+            })
           }
-        })
-      }
-    },
-    error=>{
-      swal("contact your software developer");
+        },
+        error=>{
+          swal("contact your software developer");
+        }
+      );
+    }else{
+      localStorage.setItem('mode','');
+      this.router.navigate(["/login"]);
     }
-  );
   }
+  
 }
 
 

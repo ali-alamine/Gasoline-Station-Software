@@ -242,13 +242,13 @@
                     <mat-icon aria-label="Delete Item" title="Delete Item">close</mat-icon>
                 </button>
             </h5> 
-            <div  *ngIf="detail.rest == 0 && detail.quantity != null && detail.isSupply == 0 && 
+            <div *ngIf="detail.rest == 0 && detail.quantity != null && detail.isSupply == 0 && 
                 (detail.type == 'access' || detail.type == 'lub')">
                 <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> حبة من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                     إسم الموظف : <u>{{detail.empName}}</u>
                 </h5>
             </div>
-            <div  *ngIf="detail.quantity != null && detail.isSupply == 0 && 
+            <div style="background-color:aqua" *ngIf="detail.quantity != null && detail.isSupply == 0 && 
                 (detail.type =='Diesel G' || detail.type == 'Diesel R' || detail.type == '95'|| detail.type == '98')">
                 <h5>* {{detail.time}}: بيع  <u>{{detail.quantity}}</u> لتر من <u>{{detail.name}}</u> بسعر <u>{{detail.amount | currency:'ل.ل ':'symbol':'1.0-0' }}</u> 
                     إسم الموظف : <u>{{detail.empName}}</u>
