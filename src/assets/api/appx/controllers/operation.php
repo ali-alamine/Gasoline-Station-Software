@@ -24,7 +24,7 @@ class operation extends REST_Controller{
         $items = $this->post('items');
         $shiftID = $this->post('shiftID');
         $type = $this->post('type');
-        $comment=$this->post('commit');
+        $comment=$this->post('comment');
         $invoiceType = $this->post('invoiceType');
         $rest = $this->post('amountRest');
         $paid = $this->post('amountPaid');

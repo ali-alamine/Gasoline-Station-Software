@@ -114,11 +114,36 @@ class employee_model extends CI_Model{
             return false;
         }
     }
+
     /* add new drawer */
     public function insertDrawer($data){
         if ($this->db->insert('drawer', $data)) {
-            return true;
+            return $lastId = $this->db->insert_id();
         } else {
+            return false;
+        }
+    }
+
+    public function select_totalProfit($shiftID){
+        /* Select Total Profit */
+        $query = $this->db->query("
+            SELECT IFNULL(sum(totalProfit), 0) as totalProfit FROM invoice WHERE shiftID = '".$shiftID."';
+        ");
+        if ($query->num_rows() > 0) {
+            return $query->result_array()[0]['totalProfit'];
+            $pause="";
+        } else {
+            return 0;
+        }
+    }
+
+    public function insert_totalProfit($totalProfit,$drawerID){
+        $pause2="2";
+        $this->db->set('totalProfit', $totalProfit, false);
+        $this->db->where('drawerID', $drawerID);
+        if ($this->db->update('drawer')) {
+            return true;
+        }else {
             return false;
         }
     }

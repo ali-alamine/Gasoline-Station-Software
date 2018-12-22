@@ -15,10 +15,12 @@ export class AccountingService {
     return this.httpClient.post(this.url +"employee/getTodayEmp",'');
   }
   getDetailInvoice(data): Observable<any>{
+    console.log("data")
+    console.log(data)
     return this.httpClient.post(this.url +"invoice/getDetailInvoice", data);
   }
-  deleteInvoice(data):Observable<any>{  
-    // console.log(data) 
+  deleteInvoice(data):Observable<any>{
+    // console.log(data)
     return this.httpClient.post(this.url+"invoice/deleteInvoice",data);
   }
 }

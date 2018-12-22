@@ -1,7 +1,52 @@
 <div class="container-fluid" dir="rtl" style="margin-top: 10px;">
   <h1 *ngIf="this.newShift==='true'" style="border:solid thistle 1px; text-align: center;">
-    <span style="float: right;"><span>الأسم: </span><span style="color:green">{{userName}} </span></span>
-    <span>الصندوق: </span><span style="color:green">{{totalDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
+      <mat-accordion class="accordion">
+          <mat-expansion-panel [expanded]="isOpened === 1" (opened)="getDrawerDetail()">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                  <mat-action-row>
+                      <h3>
+                          <span style="float: right;"><span style="color: rgb(97, 64, 111)">الأسم: </span><span style="color:green">{{userName}} </span></span>
+                      </h3>
+                      <h3 style="margin-right:450px; color: rgb(97, 64, 111);" mat-button color="primary" >
+                          <span>الصندوق: </span><span style="color:green;font-weight: bold">{{totalDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
+                      </h3>
+                </mat-action-row>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+                <mat-form-field> 
+                  <mat-label style="font-size:20px;color:rgb(97, 64, 111); text-align: center"> المحروقات: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerFuel  == null ? 0:drawerDetail[0].drawerFuel | number}} </span></mat-label>
+                  <input matInput disabled>
+                  <mat-hint> <span style="font-size:15px;font-weight: bold">ديون محروقات: </span> <span style="color:red;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerFuelDebit  == null ? 0:drawerDetail[0].drawerFuelDebit | number}} </span> </mat-hint>
+                </mat-form-field>
+                <mat-form-field style="padding-right: 10px">
+                    <mat-label style="font-size:20px;color:rgb(97, 64, 111);"> الزيوت: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerLub ==null ? 0:drawerDetail[0].drawerLub| number}} </span></mat-label>
+                  <input matInput disabled>
+                </mat-form-field>
+                <mat-form-field style="padding-right: 10px">
+                    <mat-label style="font-size:20px;color:rgb(97, 64, 111);"> اكسسوارات: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerAccess==null ? 0:drawerDetail[0].drawerAccess | number}} </span></mat-label>
+                  <input matInput disabled>
+                </mat-form-field>
+                <mat-form-field style="padding-right: 10px">
+                    <mat-label style="font-size:20px;color:rgb(97, 64, 111);"> الغسيل: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerWash==null ? 0:drawerDetail[0].drawerWash| number}} </span></mat-label>
+                  <input matInput disabled>
+                </mat-form-field>
+                <mat-form-field style="padding-right: 10px">
+                    <mat-label style="font-size:20px;color:rgb(97, 64, 111);"> الديون: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].totalDebits==null?0:drawerDetail[0].totalDebits| number}} </span></mat-label>
+                  <input matInput disabled>
+                </mat-form-field>
+                <mat-form-field style="padding-right: 10px">
+                    <mat-label style="font-size:20px;color:rgb(97, 64, 111);"> المدفوعات: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerPayC==null ? 0:drawerDetail[0].drawerPayC| number}} </span></mat-label>
+                      <input matInput disabled>
+                </mat-form-field>
+                <mat-form-field style="padding-right: 10px">
+                    <mat-label style="font-size:20px;color:rgb(97, 64, 111);"> المرتجعات: <span style="color:green;font-size: 15px;font-weight: bold">{{drawerDetail[0].drawerReturn==null ? 0:drawerDetail[0].drawerReturn| number}}</span></mat-label>
+                      <input matInput disabled>
+                </mat-form-field>
+          </mat-expansion-panel>
+      </mat-accordion>
+    <!-- <span style="float: right;"><span>الأسم: </span><span style="color:green">{{userName}} </span></span>
+    <span>الصندوق: </span><span style="color:green">{{totalDrawer | currency:'ل.ل ':'symbol':'1.0-0' }}</span> -->
   </h1>
   <h1 *ngIf="this.newShift==='false'" style="border:solid thistle 1px; text-align: center;">
       <span style="color:purple">الدخول ك زائر</span>

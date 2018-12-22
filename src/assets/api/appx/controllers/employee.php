@@ -52,7 +52,7 @@ class employee extends REST_Controller{
         $empUserName = $this->post('empUserName');
         $empPassword = $this->post('empPassword');
         $empType = $this->post('empType');
-        $result = $this->employee_model->add('employee',array("name" => $full_name, "user_name" => $empUserName, "passkey" => $empPassword, "user_type" => $empType));
+        $result = $this->employee_model->add(array("name" => $full_name, "user_name" => $empUserName, "passkey" => $empPassword, "user_type" => $empType));
 
         if ($result === 0) {
             $this->response("Client information could not be saved. Try again.", 404);
@@ -120,6 +120,7 @@ class employee extends REST_Controller{
 
     /* logout */
     public function logout_post(){
+        $this->db->trans_begin();
         /*START - Get Current Date Time */
         $currentFullDate=getdate();
         $d=$currentFullDate['mday'];
@@ -131,9 +132,19 @@ class employee extends REST_Controller{
         $shiftID=$this->post('shiftID');
         $totalDrawer=$this->post('totalDrawer');
         $logout=$this->employee_model->logout($shiftID,$time);
-        $add=$this->employee_model->insertDrawer(array('shiftID'=> $shiftID , 'date' => $today_date, 'amount'=>$totalDrawer));
+        $drawerLastID=$this->employee_model->insertDrawer(array('shiftID'=> $shiftID , 'date' => $today_date, 'amount'=>$totalDrawer));
+        $totalProfit=$this->employee_model->select_totalProfit($shiftID);
+        $insert_totalProft=$this->employee_model->insert_totalProfit($totalProfit,$drawerLastID);
 
-        if ($logout === 0) {
+
+        /* Check trans status and commit if true */
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+        }
+        else {
+            $this->db->trans_commit();
+        }
+        if ($logout === 0){
             $this->response("error, Try again.", 404);
         } else {
             $this->response('success', 200);

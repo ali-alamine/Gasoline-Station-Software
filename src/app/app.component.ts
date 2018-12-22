@@ -24,6 +24,7 @@ export class AppComponent implements OnInit{
   constructor(private router: Router,private location: Location,private ms:MessageServiceService) {}
 
   ngOnInit() {
+  
     // (<HTMLElement>document.querySelector('#header')).style.display = 'none';
     this.checkOpenedSession();
      this.userType=localStorage.getItem('activeUser');
@@ -33,7 +34,6 @@ export class AppComponent implements OnInit{
     }else{
       this.isAdmin=false
     }
-
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // alert("oirog")
@@ -41,7 +41,7 @@ export class AppComponent implements OnInit{
         if(this.currentUrl.includes('startShift')){
           var hide="true";
         }else{ hide= 'false'}
-        if(this.currentUrl=="/login" || hide=="true"){
+        if(this.currentUrl=="/login" || hide=="true" || this.currentUrl=="/" ){
           (<HTMLElement>document.querySelector('#header')).style.display = 'none';
         }
         else{
@@ -66,7 +66,10 @@ export class AppComponent implements OnInit{
   }
 
   goBack(){
-    this.location.back();
+    if(this.currentUrl != "/operations"){
+      this.location.back();
+    }
+    
   }
   goHome(){
     var mode=localStorage.getItem('mode');
@@ -147,6 +150,7 @@ export class AppComponent implements OnInit{
       return parts.join(".");
   }
   logout(){
+    debugger
       this.mode=localStorage.getItem('mode');
       if(this.mode != 'configMode'){
         var username=localStorage.getItem("userName");
@@ -170,19 +174,20 @@ export class AppComponent implements OnInit{
             }).then((result) => {
               if (result.value) {
                 var data ={'shiftID' : this.shiftID,'totalDrawer':this.drawerAmount};
-                console.log(data)
+                console.log(data);
                   this.ms.logout(data).subscribe(Response=>{
                     localStorage.setItem('shiftID','');
                     localStorage.setItem('shiftIDs','');
                     localStorage.setItem('userID','');
                     localStorage.setItem('activeUser','');
                     localStorage.setItem('mode','');
+                    this.router.navigate(["/login"]);
+                    localStorage.setItem('userID','-1');
                   },
                   error=>{
                     alert("error")
                   });
-                  this.router.navigate(["/login"]);
-                  localStorage.setItem('userID','-1');
+                  
               }
             })
           }

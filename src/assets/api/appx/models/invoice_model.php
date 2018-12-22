@@ -24,11 +24,11 @@ class invoice_model extends CI_Model{
             invoice.totalProfit as profit,invoice.invID as invID,dateTime,DATE_FORMAT(dateTime,'%H:%i %p') AS time,
             invoice.isSupply as isSupply,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
             FROM invoice 
-            left JOIN inv_order on inv_order.invID=invoice.invID 
-            left JOIN `item-service` on inv_order.itemID=`item-service`.itemID
-            left JOIN person on person.PID=invoice.personID 
-            left JOIN shift on shift.shiftID=invoice.shiftID 
-            left JOIN employee on employee.empID=shift.empID 
+            LEFT JOIN inv_order on inv_order.invID=invoice.invID 
+            LEFT JOIN `item-service` on inv_order.itemID=`item-service`.itemID
+            LEFT JOIN person on person.PID=invoice.personID 
+            LEFT JOIN shift on shift.shiftID=invoice.shiftID 
+            LEFT JOIN employee on employee.empID=shift.empID 
             WHERE type in ('access','lub') and invoice.shiftID in ($shiftID)
             and invoice.isSupply = 0 and invoice.rest > 0 ) 
             UNION (
@@ -39,10 +39,10 @@ class invoice_model extends CI_Model{
                     invoice.totalProfit as profit,invoice.invID as invID,dateTime,DATE_FORMAT(dateTime,'%H:%i %p') AS time,
                     invoice.isSupply as isSupply,invoice.personID as PID,invoice.fuel_liters as fuel_liters,invoice.shiftID as shiftID
                     FROM invoice 
-                    left JOIN person on person.PID=invoice.personID 
-                    left JOIN shift on shift.shiftID=invoice.shiftID 
-                    left JOIN employee on employee.empID=shift.empID 
-                    WHERE type in ('wash') and invoice.shiftID in ($shiftID) 
+                    LEFT JOIN person on person.PID=invoice.personID 
+                    LEFT JOIN shift on shift.shiftID=invoice.shiftID 
+                    LEFT JOIN employee on employee.empID=shift.empID 
+                    WHERE type in ('wash','98_d','95_d','dieselG_d','dieselR_d') and invoice.shiftID in ($shiftID) 
                     and invoice.isSupply = 0 and invoice.rest > 0
             ))as table1");
         } else if($type == 'lub' || $type == 'access'){
@@ -390,8 +390,7 @@ class invoice_model extends CI_Model{
         }
     }
     /* update amount drawer */
-    public function updateAmountDrawer($shiftID, $amount)
-    {
+    public function updateAmountDrawer($shiftID, $amount){
         $this->db->where('shiftID', $shiftID);
         $this->db->set('amount', 'amount + ' . $amount, false);
         if ($this->db->update('drawer')) {
@@ -401,8 +400,7 @@ class invoice_model extends CI_Model{
         }
     }
     /* update person debit */
-    public function updatePersonDebit($id, $amount)
-    {
+    public function updatePersonDebit($id, $amount){
         $this->db->where('PID', $id);
         $this->db->set('debitAmount	', 'debitAmount	 + ' . $amount, false);
         if ($this->db->update('person')) {
@@ -412,8 +410,7 @@ class invoice_model extends CI_Model{
         }
     }
     /* deleted invoice */
-    public function deleteInvoice($invID)
-    {
+    public function deleteInvoice($invID){
         $this->db->where('invID', $invID);
         if ($this->db->delete('invoice')) {
             return true;
@@ -422,8 +419,7 @@ class invoice_model extends CI_Model{
         }
     }
     /* deleted order invoice */
-    public function deleteOrderInvoice($invID)
-    {
+    public function deleteOrderInvoice($invID){
         $this->db->where('invID', $invID);
         if ($this->db->delete('inv_order')) {
             return true;

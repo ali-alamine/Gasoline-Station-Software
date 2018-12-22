@@ -31,6 +31,8 @@ export class OperationsComponent implements OnInit {
   newShift:any;
   static staticTotalDrawer;
   totalDrawer;
+  drawerDetail= [{initDrawer: "", drawerLub: "", drawerAccess: "", drawerWash: "", drawerReturn: '', drawerFuel:'',drawerFuelDebit:'',drawerPayC:''}];
+  ;
   private urlData;
   private userName;
   shiftID;
@@ -52,6 +54,8 @@ export class OperationsComponent implements OnInit {
     {text: 'accessories', cols: 2, rows: 1},
     {text: 'paymentsCost', cols: 2, rows: 1},
     {text: 'paymentsSupply', cols: 2, rows: 1},
+    {text: 'stock', cols: 2, rows: 1},
+    {text: 'setFuelPrice', cols: 2, rows: 1},
   ];
 
   ngOnInit() {
@@ -72,24 +76,29 @@ export class OperationsComponent implements OnInit {
     });
   }
 
-  // getTotalDarwer(){
-  //   this.operationServ.getTotalDarwer(this.shiftID).subscribe(Response => {
-  //     console.log(Response)
-  //     this.totalDrawer = Response[0].total;
-  //     OperationsComponent.staticTotalDrawer = Response[0].total;
-  //   },
-  //   error=>{
-  //     alert('Error Sum drawer!');
-  //   }
-  // );
+  getDrawerDetail(){
+    this.operationServ.getDrawerDetails(this.shiftID).subscribe(Response => {
+      this.drawerDetail = Response;
+      console.log("drawers")
+      console.log(this.drawerDetail)
+      console.log("drawers")
+    },
+    error=>{
+      alert('Error Sum drawer!');
+    }
+  );
 
-  // }
+  }
   selectOperation(operationName,i){
     // alert(operationName)
     // let selectedOperation = document.getElementsByClassName('tile-grid')[i+1];
     // selectedOperation.classList.add('selectedTile');
 
     switch(operationName) { 
+      case "stock": { 
+        this.router.navigate(["/stock"]);
+         break; 
+      }
       case "counters": { 
         this.router.navigate(["/counters"]);
          break; 
@@ -110,6 +119,10 @@ export class OperationsComponent implements OnInit {
         this.router.navigate(["/settings"]);
          break; 
       } 
+      case "setFuelPrice": { 
+        this.router.navigate(["/setFuelPrices"]);
+         break; 
+      }
       case "accessories": {
         this.router.navigate(["/sellAcc"]);
          break; 

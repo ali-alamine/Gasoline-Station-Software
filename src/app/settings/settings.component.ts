@@ -15,9 +15,9 @@ export class SettingsComponent implements OnInit {
 
   constructor(private router: Router) { }
   settOperations=[
-    {text: 'stock', cols: 2, rows: 1},
+    // {text: 'stock', cols: 2, rows: 1},
     {text: 'history', cols: 2, rows: 1},
-    {text: 'setFuelPrice', cols: 2, rows: 1},
+    // {text: 'setFuelPrice', cols: 2, rows: 1},
     {text: 'Employees', cols: 2, rows: 1},
     {text: 'Clients', cols: 2, rows: 1},
     {text: 'Supplier', cols: 2, rows: 1},
@@ -28,11 +28,7 @@ export class SettingsComponent implements OnInit {
     let selectedOperation = document.getElementsByClassName('tile-grid')[i-1];
     selectedOperation.classList.add('selectedTile');
 
-    switch(operationName) { 
-      case "stock": { 
-        this.router.navigate(["/stock"]);
-         break; 
-      } 
+    switch(operationName) {  
       case "Employees": { 
         this.router.navigate(["/employee"]);
          break; 
@@ -48,11 +44,7 @@ export class SettingsComponent implements OnInit {
       case "history": { 
         this.router.navigate(["/history"]);
          break; 
-      } 
-      case "setFuelPrice": { 
-        this.router.navigate(["/setFuelPrices"]);
-         break; 
-      } 
+      }  
       default: { 
          break; 
       } 

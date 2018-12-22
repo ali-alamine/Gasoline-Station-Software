@@ -18,7 +18,6 @@ class invoice extends REST_Controller{
     }  
     
     public function getDetailInvoice_post(){
-
         $type = $this->post('type');
         // $isDebit = $this->post('isDebit');
         $shiftIDs = $this->post('shiftIDs');
@@ -33,6 +32,7 @@ class invoice extends REST_Controller{
             $this->response($result, 200);
         // }
     }
+    
     public function getShiftDetails_post(){
         // $type = $this->post('type');
         $fromExpDate = $this->post('fromExpDate');
@@ -120,7 +120,7 @@ class invoice extends REST_Controller{
                 $noteExplode = explode('-',$note);
                 $counter=$noteExplode[0];
                 $counterID=$noteExplode[1];
-                    $result = $this->invoice_model->updateQuantityCounter($counterID,array($counter.'_quan'=>0,$counter=>0));
+                    // $result = $this->invoice_model->updateQuantityCounter($counterID,array($counter.'_quan'=>0,$counter=>0));
                 
                 $indexExplode = explode('_',$counter);
                 $index=$indexExplode[1];
