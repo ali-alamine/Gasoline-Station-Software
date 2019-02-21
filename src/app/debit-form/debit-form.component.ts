@@ -20,6 +20,7 @@ export class DebitFormComponent {
   debitData :any;
   clients:any;
   person;
+  empID;
   public debitForm : FormGroup;
   public personForm;
   modalReference: any;
@@ -36,6 +37,7 @@ export class DebitFormComponent {
     private fb: FormBuilder){}
 
   ngOnInit(){
+    this.empID=localStorage.getItem('userID');
     this.urlData = this.route.queryParams.subscribe(params => {
       this.typePage = params['pageType']|| -1; 
     });
@@ -74,6 +76,7 @@ export class DebitFormComponent {
       this.debitForm = this.fb.group({
         shiftID: this.debitData.shiftID,
         type:this.debitData.type,
+        empID:this.empID,
         invoiceType: this.debitData.invoiceType,
         totalProfit: this.debitData.totalProfit,
         personID : ['', Validators.required],
@@ -99,6 +102,7 @@ export class DebitFormComponent {
         invoiceType: this.debitData.invoiceType,
         personID : ['', Validators.required],
         personName: ['', Validators.required],
+        empID:this.empID,
         amountPaid: [0, Validators.required],
         amountRest: [this.debitData.totalPrice, Validators.required],
         comment: '',
@@ -111,6 +115,7 @@ export class DebitFormComponent {
       var shiftID=localStorage.getItem('shiftID');
       this.debitForm = this.fb.group({
         shiftID: shiftID,
+        empID:this.empID,
         type:['', Validators.required],
         invoiceType: 'sellFuelDebit',
         personID : ['', Validators.required],

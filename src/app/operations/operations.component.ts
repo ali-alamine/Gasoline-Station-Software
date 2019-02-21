@@ -42,8 +42,8 @@ export class OperationsComponent implements OnInit {
     private ms:MessageServiceService) {}
 
   adminTiles=[
-    {text:"More Settings", cols: 2, rows: 1}
-    // {text:"Account", cols: 2, rows: 1}
+    {text:"More Settings", cols: 2, rows: 1},
+    {text: 'reports', cols: 2, rows: 1},
   ]
   tiles=[
     {text:"Account", cols: 2, rows: 1},
@@ -55,7 +55,7 @@ export class OperationsComponent implements OnInit {
     {text: 'paymentsCost', cols: 2, rows: 1},
     {text: 'paymentsSupply', cols: 2, rows: 1},
     {text: 'stock', cols: 2, rows: 1},
-    {text: 'setFuelPrice', cols: 2, rows: 1},
+    {text: 'setFuelPrice', cols: 2, rows: 1}
   ];
 
   ngOnInit() {
@@ -137,6 +137,10 @@ export class OperationsComponent implements OnInit {
       }
       case "paymentsSupply": {
         this.router.navigate(["/paymentSupply"]);
+         break; 
+      }
+      case "reports": {
+        this.router.navigate(["/reports"]);
          break; 
       }
       default: { 

@@ -24,6 +24,7 @@ import { HistoryTypeComponent } from './history-type/history-type.component';
 import { StartShiftComponent } from './start-shift/start-shift.component';
 import { FuelContainerComponent } from './fuel-container/fuel-container.component';
 import { SetPricesComponent } from './set-prices/set-prices.component';
+import { ReportsComponent } from './reports/reports.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,9 @@ const routes: Routes = [
   },
   {
     path:'counters',component:CountersComponent 
+  },
+  {
+    path:'reports',component:ReportsComponent 
   },
   {
     path:'login',component:LoginComponent 

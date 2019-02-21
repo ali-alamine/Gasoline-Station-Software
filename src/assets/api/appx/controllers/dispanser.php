@@ -24,6 +24,8 @@ class dispanser extends REST_Controller
 
         $dispID=$counter_form_1['dispID'];
 
+        $empID=$counter_form_1['empID'];
+
         $counter_1=$counter_form_1['counter_1'];
         $counter_2=$counter_form_2['counter_2'];
 
@@ -67,6 +69,7 @@ class dispanser extends REST_Controller
 
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_1,
                                                                 "amount" => $totalPrice_1,
+                                                                "empID" => $empID,
                                                                 "note" => "counter_1-".$counterID,
                                                                 "totalProfit" => $totalProfit_1,
                                                                 "shiftID" => $shiftID,
@@ -74,6 +77,7 @@ class dispanser extends REST_Controller
                                                             );
         $result_add_inv= $this->dispanser_model->add_inv(array("type" => $fuel_type_2,
                                                                 "amount" => $totalPrice_2,
+                                                                "empID" => $empID,
                                                                 "note" => "counter_2-".$counterID,
                                                                 "totalProfit" => $totalProfit_2,
                                                                 "shiftID" => $shiftID,

@@ -1,0 +1,49 @@
+<div class="container-fluid noselect" style="margin-top:10px;">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Search Creiteria
+        </mat-panel-title>
+        <mat-panel-description>
+          Enter your desired search Creiteria
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <form fxLayout="column" [formGroup]="filterForm" autocomplete="off">
+        <mat-checkbox style="margin:5px" formControlName="expenses"><span style="color:black;font-size:20px">تكاليف</span></mat-checkbox>
+        <mat-checkbox style="margin:5px" formControlName="sell"><span style="color:black;font-size:20px">البيع</span></mat-checkbox>
+        <mat-checkbox style="margin:5px" formControlName="debits"><span style="color:black;font-size:20px">الديون</span></mat-checkbox>
+
+        <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
+          <mat-form-field class="inputField">
+            <input matInput [matDatepicker]="fromDate" placeholder="From Date" formControlName="fromDateCtrl">
+            <mat-datepicker-toggle matSuffix [for]="fromDate" tabIndex="-1"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #fromDate></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="inputField" class="dateFilter" style="margin-left:30px">
+            <input matInput [matDatepicker]="toDate" placeholder="To Date" formControlName="toDateCtrl">
+            <mat-datepicker-toggle matSuffix [for]="toDate" tabIndex="-1"></mat-datepicker-toggle>
+            <mat-datepicker touchUi #toDate></mat-datepicker>
+          </mat-form-field>
+        <br>
+          <mat-form-field>
+              <mat-select placeholder="Select Employee" formControlName="selectedEmpId" [(ngModel)]="checked" multiple>
+                <mat-option *ngFor="let emp of employees" [value]="emp.empID">{{emp.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+        </div>
+      </form>
+      <button mat-raised-button class="searchFormBtn" name="searchBtn" color="primary" [disabled]="!filterForm.valid"
+        (click)="getResult() ">Get Result</button>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="reportResult">
+
+    <div *ngFor="let res of reportResult" style="border:solid purple 2px; width:100px; height: 100px; margin-top:10px">
+
+    </div>
+
+  </div>
+</div>

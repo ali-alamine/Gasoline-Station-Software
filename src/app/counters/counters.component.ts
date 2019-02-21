@@ -33,6 +33,7 @@ export class CountersComponent implements OnInit {
     shiftID:new FormControl(''),
     fuel_type:new FormControl(''),
     price_liter:new FormControl(''),
+    empID:new FormControl(''),
     
 
   })
@@ -45,6 +46,7 @@ export class CountersComponent implements OnInit {
     shiftID:new FormControl(''),
     fuel_type:new FormControl(''),
     price_liter:new FormControl(''),
+    empID:new FormControl(''),
 
   })
   countersForm = new FormGroup({
@@ -76,6 +78,9 @@ export class CountersComponent implements OnInit {
 
     this.counter_1_from.get('dispID').setValue(dispID);
     this.counter_2_from.get('dispID').setValue(dispID);
+
+    this.counter_1_from.get('empID').setValue(this.empID);
+    this.counter_2_from.get('empID').setValue(this.empID);
     
     this.counter_1_from.get('containerID').setValue(outputContID_1);
     this.counter_2_from.get('containerID').setValue(outputContID_2);
@@ -93,6 +98,12 @@ export class CountersComponent implements OnInit {
       centered: true,
       ariaLabelledBy: "modal-basic-title"
     });
+
+    console.log("here we go - form 1")
+    console.log(this.counter_1_from.value)
+
+    console.log("here we go - form 2")
+    console.log(this.counter_2_from.value)
   }
 
   submitCounters(liter_sold_1,liter_sold_2){

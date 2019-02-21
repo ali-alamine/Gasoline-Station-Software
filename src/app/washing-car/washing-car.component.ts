@@ -13,6 +13,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 export class WashingCarComponent implements OnInit {
   shiftID:any;
+  empID:any;
   name: string;
   machines=[
     {"id":1,"name":"سيارة","imgSrc":"../assets/icons/washingIcons/car.png","imgSrc_d":"../assets/icons/washingIcons/car_d.png","price":6000},
@@ -31,6 +32,7 @@ export class WashingCarComponent implements OnInit {
     private fb: FormBuilder) {}
 
   ngOnInit() {
+    this.empID=localStorage.getItem('userID');
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debit = params['debit'] || false;
     });
@@ -38,6 +40,7 @@ export class WashingCarComponent implements OnInit {
     WashingCarComponent.washForm = this.fb.group({
       shiftID:this.shiftID,
       nameCar:'',
+      empID:'',
       quantity:1,
       totalPrice:'',
       type:'wash',
@@ -60,7 +63,10 @@ export class WashingCarComponent implements OnInit {
   sellWashService(price,name){
     WashingCarComponent.washForm.get('nameCar').setValue(name);
     WashingCarComponent.washForm.get('totalPrice').setValue(price);
+    WashingCarComponent.washForm.get('empID').setValue(this.empID);
 
+    console.log("check here we go")
+    console.log(WashingCarComponent.washForm.value)
     if(this.debit == 'true'){
       this.router.navigate(['/debbiting'],{queryParams:{pageType:'sellWash'}});
     }

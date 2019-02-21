@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material';
 })
 export class PaymentCostComponent implements OnInit {
   public paymentCostForm: FormGroup;
-  userID;shiftID;
+  empID;shiftID;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -20,11 +20,11 @@ export class PaymentCostComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    // this.userID=localStorage.getItem('userID');
+    this.empID=localStorage.getItem('userID');
     this.shiftID=localStorage.getItem('shiftID');
 
     this.paymentCostForm = this.fb.group({
-      // userID : this.userID,
+      empID : this.empID,
       shiftID : this.shiftID,
       amount: ['',[Validators.required, Validators.min(1)]],
       comment: ['']

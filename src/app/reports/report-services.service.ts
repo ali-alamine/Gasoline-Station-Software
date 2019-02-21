@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PaymentCostService {
+export class ReportServicesService {
   private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
 
-  addPaymentCostInvoice(data){
-    console.log("payment cost data");
+  getAllEmployees(){
+    return this.httpClient.post(this.url +"employee/getAllEmp",'');
+  }
+  getReportResult(data){
     console.log(data)
-    return this.httpClient.post(this.url +"operation/addPaymentCostInvoice",data);
+    return this.httpClient.post(this.url +"report/getReportResult",{"data":data});
   }
 }

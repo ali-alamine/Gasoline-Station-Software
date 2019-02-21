@@ -22,6 +22,7 @@ export class SellAccessoriesComponent implements OnInit {
   offset=0;
   currentPage=1;
   urlData:any;
+  empID:any;
   invoiceType;
   debit;
   profit;
@@ -35,6 +36,8 @@ export class SellAccessoriesComponent implements OnInit {
     private fb: FormBuilder) { }
  
   ngOnInit() {
+    this.empID=localStorage.getItem('userID');
+    alert(this.empID)
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debit = params['debit'] || false;
       this.invoiceType = params['invoiceType'] || -1;
@@ -47,6 +50,7 @@ export class SellAccessoriesComponent implements OnInit {
       type:'access',
       invoiceType: this.invoiceType,
       totalProfit: '',
+      empID: '',
       amountPaid:'',
       items: this.fb.array([]),
     });
@@ -126,6 +130,8 @@ export class SellAccessoriesComponent implements OnInit {
     });
   }
   sellAcc(id,name,price,cost,quantity,totalPrice){
+    SellAccessoriesComponent.accForm.get('empID').setValue(this.empID);
+    alert(SellAccessoriesComponent.accForm.value.empID)
     this.profit = totalPrice - (quantity*cost);
     if(this.invoiceType == "supply"){
       const item = this.fb.group({

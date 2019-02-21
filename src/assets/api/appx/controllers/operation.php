@@ -21,6 +21,8 @@ class operation extends REST_Controller{
         if($personID == null){
             $personID = 1 ;  /* refer to client debit sell */
         }
+
+        $empID=$this->post('empID');
         $items = $this->post('items');
         $shiftID = $this->post('shiftID');
         $type = $this->post('type');
@@ -48,7 +50,7 @@ class operation extends REST_Controller{
         }
         /* insert into invoice  */
         $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,'totalProfit'=>$totalProfit,"shiftID"=>$shiftID,
+        "type" => $type,"empID"=>$empID,'dateTime'=>$today_date,'rest'=>$rest,'totalProfit'=>$totalProfit,"shiftID"=>$shiftID,
         "personID"=>$personID,"note"=>$comment,'isSupply'=>$isSupply));
 
         /* Get last inserted invoice ID */
@@ -101,7 +103,9 @@ class operation extends REST_Controller{
          /*END - Get Current Date Time */
 
         $shiftID=$this->post('shiftID');
+        $empID=$this->post('empID');
         $personID=$this->post('personID');
+        $empID=$this->post('empID');
         $amount = $this->post('totalPrice');
         $rest=$this->post('amountRest');
         $totalProfit = $this->post('totalPrice');
@@ -112,7 +116,7 @@ class operation extends REST_Controller{
         if($comment != '')
         $name = $name. '. ملاحظة : '.$comment;
         /* insert into invoice  */
-        $result = $this->operation_model->add_inv(array("amount"=>$amount,
+        $result = $this->operation_model->add_inv(array("amount"=>$amount,"empID"=>$empID,
         "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,"totalProfit"=>$totalProfit,
         "shiftID"=>$shiftID,"personID"=>$personID,"note"=>$name));
         $str=$this->db->last_query();
@@ -143,6 +147,7 @@ class operation extends REST_Controller{
         $shiftID=$this->post('shiftID');
         $personID=1; /* no registered client */
         $amount =$this->post('totalPrice');
+        $empID=$this->post('empID');
         $totalProfit =$this->post('totalPrice');
         $rest=0;
         $type = $this->post('type');
@@ -151,7 +156,7 @@ class operation extends REST_Controller{
          
         /* insert into invoice  */
         $result = $this->operation_model->add_inv(array("amount"=>$amount,
-        "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,
+        "type" => $type,"empID"=>$empID,'dateTime'=>$today_date,'rest'=>$rest,
         "totalProfit"=>$totalProfit,"shiftID"=>$shiftID,"personID"=>$personID,"note"=>'غسيل : '.$name));
         $str=$this->db->last_query();
         if ($result === 0) {
@@ -175,13 +180,13 @@ class operation extends REST_Controller{
         $shiftID=$this->post('shiftID');
         $comment=$this->post('comment');
         $amount = $this->post('amount');
-    
+        $empID=$this->post('empID');
         /* start execut querys */ 
         $this->db->trans_begin();
 
         
         /* insert into invoice  */
-        $this->operation_model->add_inv(array("amount"=>$amount,
+        $this->operation_model->add_inv(array("amount"=>$amount,"empID"=>$empID,
         "type" => 'payC','dateTime'=>$today_date,'rest'=>0,"shiftID"=>$shiftID,
         "note"=>$comment,'isSupply'=>0));
 
@@ -210,13 +215,14 @@ class operation extends REST_Controller{
         $personID=$this->post('personID');
         $comment=$this->post('comment');
         $paidDebit = $this->post('paidDebit');
+        $empID=$this->post('empID');
     
         /* start execut querys */ 
         $this->db->trans_begin();
 
         
         /* insert into invoice  */
-        $this->operation_model->add_inv(array("amount"=>$paidDebit,
+        $this->operation_model->add_inv(array("amount"=>$paidDebit,"empID"=>$empID,
         "type" => 'return','dateTime'=>$today_date,'rest'=>0,"shiftID"=>$shiftID,
         "personID"=>$personID,"note"=>$comment,'isSupply'=>0));
         $this->operation_model->add_debit_person($personID,-$paidDebit);
@@ -295,13 +301,14 @@ class operation extends REST_Controller{
 
     $shiftID=$this->post('shiftID');
     $personID=$this->post('personID');
+    $empID=$this->post('empID');
     $amount = $this->post('totalPrice');
     $rest=$this->post('amountRest');
     $type = $this->post('type');
     $comment=$this->post('comment');
 
     /* insert into invoice  */
-    $result = $this->operation_model->add_inv(array("amount"=>$amount,
+    $result = $this->operation_model->add_inv(array("amount"=>$amount,"empID"=>$empID,
     "type" => $type,'dateTime'=>$today_date,'rest'=>$rest,
     "shiftID"=>$shiftID,"personID"=>$personID,"note"=>$comment));
     $str=$this->db->last_query();

@@ -14,6 +14,7 @@ export class ReturnComponent implements OnInit {
   private urlData;
   debitData:any;
   clients:any;
+  empID:any;
   person;
   public debitForm: FormGroup;
   // isOpened = 0;
@@ -29,9 +30,11 @@ export class ReturnComponent implements OnInit {
     private fb: FormBuilder) { }
 
     ngOnInit(){
+      this.empID=localStorage.getItem("userID");
         this.shiftID = localStorage.getItem('shiftID');
       this.debitForm = this.fb.group({
         personID : [],
+        empID : this.empID,
         personName: ['', Validators.required],
         debit: ['', Validators.required],
         paidDebit: ['', [Validators.required, Validators.min(1)]],

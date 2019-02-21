@@ -52,7 +52,8 @@ import { HistoryTypeComponent } from './history-type/history-type.component';
 import { StartShiftComponent } from './start-shift/start-shift.component';
 import { FuelContainerComponent } from './fuel-container/fuel-container.component';
 import { SetPricesComponent } from './set-prices/set-prices.component';
-
+import { ReportsComponent } from './reports/reports.component';
+import {MultiSelectModule} from 'primeng/multiselect';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import { SetPricesComponent } from './set-prices/set-prices.component';
     HistoryTypeComponent,
     StartShiftComponent,
     FuelContainerComponent,
-    SetPricesComponent
+    SetPricesComponent,
+    ReportsComponent
   ],
   imports: [
     MatCardModule,
@@ -111,7 +113,8 @@ import { SetPricesComponent } from './set-prices/set-prices.component';
     MatListModule,
     ContextMenuModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MultiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
