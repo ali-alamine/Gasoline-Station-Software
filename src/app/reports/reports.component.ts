@@ -18,8 +18,8 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     this.getEmployees();
     this.filterForm = this.fb.group({
-      fromDateCtrl: [],
-      toDateCtrl: [],
+      fromDateCtrl: '',
+      toDateCtrl: '',
       selectedEmpId:[],
       expenses: [true],
       sell: [true],
@@ -38,11 +38,13 @@ export class ReportsComponent implements OnInit {
   }
 
   getResult(){
-    // console.log(this.filterForm.value)
+    if(this.filterForm.value.selectedEmpId === undefined){
+      this.filterForm.get('selectedEmpId').setValue(null)
+    }
 
     this.repServ.getReportResult(this.filterForm.value).subscribe(Response=>{
       this.reportResult=Response;
-      console.log(this.employees)
+      console.log(this.reportResult)
     },
     error=>{
       alert("error")

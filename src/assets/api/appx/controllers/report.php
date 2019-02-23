@@ -15,17 +15,9 @@ class report extends REST_Controller{
         $result = $this->report_model->getReportResult($data);
 
         if ($result === 0) {
-            $this->response("Error. Try again.", 404);
-        }else {
-            $checkShift = $this->report_model->isShiftOpen();
-            // $this->response($result, 200);
-            if ($checkShift === 0) {
-                $this->response("Error. Try again.", 404);
-            }else {
-                $checkShift = $this->report_model->isShiftOpen();
-                $resp=[$result,$checkShift];
-                $this->response($resp, 200);
-            }
+            $this->response("Client information could not be saved. Try again.", 404);
+        } else {
+            $this->response($result, 200);
         }
     }
 

@@ -39,10 +39,22 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <div class="reportResult">
-
-    <div *ngFor="let res of reportResult" style="border:solid purple 2px; width:100px; height: 100px; margin-top:10px">
-
+  <div class="reportResult" style="margin-top:50px">
+    <div class="table">
+      <table class="table table-bordered table-striped  table-hover text-center">
+        <thead>
+          <th>Type</th>
+          <th>Total Amount</th>
+          <th>Total Profit</th>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let result of reportResult">
+            <td style = "color:black;font-weight: bold">{{result.type == 95 ? "Benzene 95" : result.type == 98 ? "Benzene 98" :result.type== 'access' ? "Accessories" : result.type == 'lub' ? "Lubricants" : result.type=='payC' ? "Payments" : result.type=='wash'? "Wash" : result.type=="Diesel G" ? "Diesel Green" : "" }}</td>
+            <td>{{result.totalSale | number}}</td>
+            <td>{{result.totalProfit | number}}</td>
+          </tr>
+        </tbody>
+    </table>
     </div>
 
   </div>
