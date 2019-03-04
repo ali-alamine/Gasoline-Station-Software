@@ -7,7 +7,7 @@ class report extends REST_Controller{
         $this->load->model('report_model');
     }
 
-    /* check login  */
+    /* General Report */
     public function getReportResult_post(){
 
         $data = $this->post('data');
@@ -20,5 +20,22 @@ class report extends REST_Controller{
             $this->response($result, 200);
         }
     }
+
+
+    /* Payment Report  */
+    public function getPaymentReportResult_post(){
+
+        $data = $this->post('data');
+  
+        $result = $this->report_model->getPaymentReportResult($data);
+
+        if ($result === 0) {
+            $this->response("Client information could not be saved. Try again.", 404);
+        } else {
+            $this->response($result, 200);
+        }
+    }
+
+    
 
 }

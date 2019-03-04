@@ -25,10 +25,10 @@ import { StartShiftComponent } from './start-shift/start-shift.component';
 import { FuelContainerComponent } from './fuel-container/fuel-container.component';
 import { SetPricesComponent } from './set-prices/set-prices.component';
 import { ReportsComponent } from './reports/reports.component';
-
+import { ReportOptionsComponent } from './report-options/report-options.component';
+import { PaymentsReportComponent } from './payments-report/payments-report.component';
 
 const routes: Routes = [
-  
   {
     path:'operations',component:OperationsComponent
   },
@@ -36,7 +36,13 @@ const routes: Routes = [
     path:'counters',component:CountersComponent 
   },
   {
+    path:'payments-report',component:PaymentsReportComponent 
+  },
+  {
     path:'reports',component:ReportsComponent 
+  },
+  {
+    path:'report-options',component:ReportOptionsComponent 
   },
   {
     path:'login',component:LoginComponent 
@@ -107,7 +113,6 @@ const routes: Routes = [
   {
     path:'',component:LoginComponent 
   },
-  
 ];
 
 @NgModule({

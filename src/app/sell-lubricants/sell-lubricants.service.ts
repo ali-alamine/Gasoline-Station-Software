@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SellLubricantsService {
+  
   private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
 
@@ -11,12 +12,16 @@ export class SellLubricantsService {
     let data={'limit':limit,'offset':offset};
     return this.httpClient.post(this.url +"stock/getLubricant",data);
   }
+
   addInvoice(sellLubData){
+    console.log("sellLubData")
     console.log(sellLubData)
     return this.httpClient.post(this.url +"operation/addInvoice",sellLubData);
   }
+
   supplyLubricants(sellLubData){
     console.log(sellLubData)
     return this.httpClient.post(this.url +"operation/supply",sellLubData);
   }
+
 }

@@ -26,6 +26,7 @@ export class SellLubricantsComponent implements OnInit {
   currentPage=1;
   invoiceType;
   profit;
+  empID;
   pageType;
   static lubForm: FormGroup;
 
@@ -34,6 +35,7 @@ export class SellLubricantsComponent implements OnInit {
     private fb: FormBuilder) { }
  
   ngOnInit() {
+    this.empID=localStorage.getItem('userID');
     this.urlData = this.route.queryParams.subscribe(params => {
       this.debit = params['debit'] || false;
       this.invoiceType = params['invoiceType'] || -1;
@@ -44,6 +46,7 @@ export class SellLubricantsComponent implements OnInit {
     SellLubricantsComponent.lubForm = this.fb.group({
       shiftID: this.shiftID,
       type:'lub',
+      empID:this.empID,
       invoiceType: this.invoiceType,
       totalProfit: '',
       amountPaid:'',
@@ -126,7 +129,8 @@ export class SellLubricantsComponent implements OnInit {
   }
   /* sell lubricant */
   sellLub(id,name,price,cost,quantity,totalPrice){
-    
+    SellLubricantsComponent.lubForm.get('empID').setValue(this.empID);
+    // alert(SellLubricantsComponent.lubForm.value.empID)
     this.profit = totalPrice - (quantity * cost);
     if(this.invoiceType == "supply"){
       const item = this.fb.group({
@@ -162,6 +166,7 @@ export class SellLubricantsComponent implements OnInit {
       });
       this.itemsForm.push(item);
       // console.log(SellLubricantsComponent.lubForm.value)
+      SellLubricantsComponent.lubForm.get('empID').setValue(this.empID);
       this.sellLubServ.addInvoice(SellLubricantsComponent.lubForm.value).subscribe(
       Response=>{
         this.openSnackBar(name, "تم البيع");

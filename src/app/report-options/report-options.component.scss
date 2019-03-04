@@ -1,0 +1,34 @@
+.tile-image {
+    width:50%;
+    height: 75%;
+    margin:auto;
+  
+  //   margin-left: px;
+  //   margin-top: -0.01%;
+  }
+  .container-fluid{
+    height: 900px;
+  }
+  .tile-grid{
+    padding-top: 10px;
+    border: solid thistle 1px;
+  }
+  .selectedTile{
+      background-color:thistle;
+  }
+  .resetSelection{
+      background-color:white;
+  }
+  .tile-grid:hover{
+    background-color: thistle;
+  }
+  .mat-form-field {
+    // display: block;
+    position: relative;
+    flex: auto;
+    min-width: 0;
+    width: 160px; 
+  }
+  // [dir=rtl] .mat-form-field {
+  //   text-align: center;
+  // }

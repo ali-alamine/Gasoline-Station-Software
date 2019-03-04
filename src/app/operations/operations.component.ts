@@ -43,7 +43,7 @@ export class OperationsComponent implements OnInit {
 
   adminTiles=[
     {text:"More Settings", cols: 2, rows: 1},
-    {text: 'reports', cols: 2, rows: 1},
+    {text: 'report-options', cols: 2, rows: 1},
   ]
   tiles=[
     {text:"Account", cols: 2, rows: 1},
@@ -139,8 +139,8 @@ export class OperationsComponent implements OnInit {
         this.router.navigate(["/paymentSupply"]);
          break; 
       }
-      case "reports": {
-        this.router.navigate(["/reports"]);
+      case "report-options": {
+        this.router.navigate(["/report-options"]);
          break; 
       }
       default: { 

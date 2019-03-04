@@ -1,0 +1,14 @@
+<div class="container-fluid" dir="rtl" style="margin-top: 10px;">
+  <div>
+    <mat-grid-list cols="4" rowHeight="130px" class="tile-container">
+        <mat-grid-tile class="tile-grid" (click)="selectOperation(this.tile.text,i+1)"  
+            *ngFor="let tile of tiles; let i = index" [attr.data-index]="i" 
+            [colspan]="tile.cols"
+            [rowspan]="tile.rows"
+            [style.background]="tile.color">
+
+          <img style="width: 321px; height: 118px;" class="tile-image" src="../assets/icons/reportOptionsIcons/{{i}}.png">
+        </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

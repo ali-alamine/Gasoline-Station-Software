@@ -10,9 +10,9 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <form fxLayout="column" [formGroup]="filterForm" autocomplete="off">
-        <mat-checkbox style="margin:5px" formControlName="expenses"><span style="color:black;font-size:20px">تكاليف</span></mat-checkbox>
-        <mat-checkbox style="margin:5px" formControlName="sell"><span style="color:black;font-size:20px">البيع</span></mat-checkbox>
-        <mat-checkbox style="margin:5px" formControlName="debits"><span style="color:black;font-size:20px">الديون</span></mat-checkbox>
+        <!-- <mat-checkbox style="margin:5px" formControlName="expenses"><span style="color:black;font-size:20px">تكاليف</span></mat-checkbox> -->
+        <!-- <mat-checkbox style="margin:5px" formControlName="sell"><span style="color:black;font-size:20px">البيع</span></mat-checkbox> -->
+        <!-- <mat-checkbox style="margin:5px" formControlName="debits"><span style="color:black;font-size:20px">الديون</span></mat-checkbox> -->
 
         <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
           <mat-form-field class="inputField">
@@ -43,15 +43,15 @@
     <div class="table">
       <table class="table table-bordered table-striped  table-hover text-center">
         <thead>
-          <th>مجموع الأرباح </th>
-          <th>مجموع المبيعات</th>
+          <th>عدد العمليات </th>
+          <th>مجموع المدفوعات</th>
           <th>الأسم</th>
         </thead>
         <tbody>
           <tr *ngFor = "let result of reportResult">
-            <td style="color:green">{{result.totalProfit | number}}</td>
-            <td>{{result.totalSale | number}}</td>
-            <td style = "color:black;font-weight: bold">{{result.type == 95 ? "Benzene 95" : result.type == 98 ? "Benzene 98" :result.type== 'access' ? "اكسسوارات" : result.type == 'lub' ? "زيوت" : result.type=='payC' ? "مدفوعات" : result.type=='wash'? "غسيل" : result.type=="Diesel G" ? "Diesel Green" : "" }}</td>
+            <td style="color:green">{{result.totalCount}}</td>
+            <td>{{result.totalPayments | number}}</td>
+            <td style = "color:black;font-weight: bold">{{result.paymentNote ==''? 'غير محدد':result.paymentNote}}</td>
           </tr>
         </tbody>
     </table>

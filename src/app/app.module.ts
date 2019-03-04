@@ -54,6 +54,8 @@ import { FuelContainerComponent } from './fuel-container/fuel-container.componen
 import { SetPricesComponent } from './set-prices/set-prices.component';
 import { ReportsComponent } from './reports/reports.component';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { ReportOptionsComponent } from './report-options/report-options.component';
+import { PaymentsReportComponent } from './payments-report/payments-report.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +85,9 @@ import {MultiSelectModule} from 'primeng/multiselect';
     StartShiftComponent,
     FuelContainerComponent,
     SetPricesComponent,
-    ReportsComponent
+    ReportsComponent,
+    ReportOptionsComponent,
+    PaymentsReportComponent
   ],
   imports: [
     MatCardModule,

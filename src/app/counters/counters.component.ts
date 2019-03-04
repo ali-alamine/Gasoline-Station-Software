@@ -79,6 +79,7 @@ export class CountersComponent implements OnInit {
     this.counter_1_from.get('dispID').setValue(dispID);
     this.counter_2_from.get('dispID').setValue(dispID);
 
+    debugger;
     this.counter_1_from.get('empID').setValue(this.empID);
     this.counter_2_from.get('empID').setValue(this.empID);
     
