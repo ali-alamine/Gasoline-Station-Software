@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
                     case "cancel":
                       break;
                     case "continue":
-                      
                     localStorage.setItem('newShift','true');
                     this.router.navigate(['/operations']);
                       break;

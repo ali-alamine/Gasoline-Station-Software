@@ -54,6 +54,7 @@ class person_model extends CI_Model
     }
     /* add new client */
     public function add($data){
+        
         if ($this->db->insert('person', $data)) {
             return true;
         } else {

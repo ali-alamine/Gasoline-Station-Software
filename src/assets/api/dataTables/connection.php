@@ -7,6 +7,8 @@ function openConn(){
 	$password = "root_ess";
 	$db = "gasoline_station";
 	$conn = mysqli_connect($servername, $username, $password, $db);
+	mysqli_set_charset($conn,'utf8');
+	mysqli_query($conn,"SET collation_connection=utf8_general_ci");
 	return $conn;
 }
 // close connection
