@@ -1,8 +1,8 @@
 <div class="container-fluid" style="border:solid thisle 1px;margin-top: 10px;">
   <div id="fuelType">
-      <div id="adminTiles">
+      <div id="adminTiles" >
           <mat-grid-list cols="4" rowHeight="180px" class="tile-container">
-              <mat-grid-tile class="tile-grid"  
+              <mat-grid-tile id="tile{{fuel.type}}" class="tile-grid" (mouseover)="lockotherButtons($event,fuel.type)" 
                   *ngFor="let fuel of fuelPrices; let i = index" [attr.data-index]="i" 
                   [colspan]="2"
                   [rowspan]="1">
@@ -12,7 +12,7 @@
                             <h4 style="color:firebrick">-Price/liter: <input formControlName="newPrice_liter" matInput required class="form-control inputP" type="number" placeholder="{{fuel.price_liter}}"></h4>
                             <h4 style="color:firebrick">-Cost/liter: <input formControlName="newCost_liter" matInput required price_liter class="form-control inputP" type="number" placeholder="{{fuel.cost_liter}}"></h4>
                             <div style="position: absolute;margin-left: 300px;margin-top:-150px;width:100px;height: 100px;">
-                                <button style="width:100%;height: 100%;" (click)="submitNewPrices(i,fuel.type)" class="btn-success btn">Submit</button>
+                                <button id="bttn{{fuel.type}}" style="width:100%;height: 100%;margin-left: 20px" (click)="submitNewPrices(i,fuel.type)" class="btn-success btn">Submit</button>
                             </div>
                         </div>
                     </form>

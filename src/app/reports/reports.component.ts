@@ -43,7 +43,13 @@ export class ReportsComponent implements OnInit {
   }
 
   getResult(){
-    this.blockUI.start("loading")
+  
+    // this.blockUI.start("loading")
+    if(this.filterForm.value.fromDateCtrl && this.filterForm.value.toDateCtrl){
+      var formElement = <HTMLFormElement>document.getElementById('container');
+      formElement.style.opacity='0.1';
+
+
     this.filterForm.value.fromDateCtrl = formatDate(this.filterForm.get("fromDateCtrl").value,"yyyy-MM-dd","en");
     this.filterForm.value.toDateCtrl = formatDate(this.filterForm.get("toDateCtrl").value,"yyyy-MM-dd","en");
 
@@ -53,14 +59,21 @@ export class ReportsComponent implements OnInit {
 
     this.repServ.getReportResult(this.filterForm.value).subscribe(Response=>{
       debugger
-      this.blockUI.stop();
+      // this.blockUI.stop();
+      var formElement = <HTMLFormElement>document.getElementById('container');
+      formElement.style.opacity='1';
       this.reportResult=Response;
       console.log(this.reportResult)
     },
     error=>{
-      alert("error")
+      var formElement = <HTMLFormElement>document.getElementById('container');
+      formElement.style.opacity='1';
+      swal("please contact your softwar developer");
     });
 
+  }else{
+    swal("التاريخ غير محدد");
   }
 
+  }
 }

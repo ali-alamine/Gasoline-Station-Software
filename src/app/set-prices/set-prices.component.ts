@@ -9,6 +9,8 @@ import swal from 'sweetalert'
 })
 export class SetPricesComponent implements OnInit {
   fuelPrices:any;
+  isValidtile98:boolean=false;
+  isValidtile95:boolean=false;
   setFuelPrices = new FormGroup({
     newCost_liter: new FormControl(''),
     newPrice_liter: new FormControl(''),
@@ -66,12 +68,74 @@ export class SetPricesComponent implements OnInit {
               this.setFuelPrices.reset();
               swal("Success")
             },
-            error=>{swal("Please contact E-Safe Solutions")})
+            error=>{swal("Please contact your software developer")})
             break;
         }
       });
 
     }
   
+  }
+
+  lockotherButtons(e,fuelType){
+
+    if(e.type){
+      if(fuelType=='95'){
+        var formElement = <HTMLFormElement>document.getElementById('tile95');
+        formElement.style.opacity='1';
+        var formElement = <HTMLFormElement>document.getElementById('bttn95');
+        formElement.disabled = false;
+
+        var formElement = <HTMLFormElement>document.getElementById('tile98');
+        formElement.style.opacity='0.5';
+        var formElement = <HTMLFormElement>document.getElementById('tileDiesel G');
+        formElement.style.opacity='0.5';
+        // disable buttons
+        var formElement = <HTMLFormElement>document.getElementById('bttn98');
+        formElement.disabled = true;
+        var formElement = <HTMLFormElement>document.getElementById('bttnDiesel G');
+        formElement.disabled = true;
+
+ 
+      }else if(fuelType=='98'){
+        var formElement = <HTMLFormElement>document.getElementById('tile98');
+        formElement.style.opacity='1';
+        var formElement = <HTMLFormElement>document.getElementById('bttn98');
+        formElement.disabled = false;
+
+
+
+        var formElement = <HTMLFormElement>document.getElementById('tile95');
+        formElement.style.opacity='0.5';
+        var formElement = <HTMLFormElement>document.getElementById('tileDiesel G');
+        formElement.style.opacity='0.5';
+
+        // disable buttons
+        var formElement = <HTMLFormElement>document.getElementById('bttn95');
+        formElement.disabled = true;
+        var formElement = <HTMLFormElement>document.getElementById('bttnDiesel G');
+        formElement.disabled = true;
+        
+      }else if(fuelType=='Diesel G'){
+        var formElement = <HTMLFormElement>document.getElementById('tileDiesel G');
+        formElement.style.opacity='1';
+        var formElement = <HTMLFormElement>document.getElementById('bttnDiesel G');
+        formElement.disabled = false;
+
+
+
+        var formElement = <HTMLFormElement>document.getElementById('tile95');
+        formElement.style.opacity='0.5';
+        var formElement = <HTMLFormElement>document.getElementById('tile98');
+        formElement.style.opacity='0.5';
+
+        // disable buttons
+        var formElement = <HTMLFormElement>document.getElementById('bttn95');
+        formElement.disabled = true;
+        var formElement = <HTMLFormElement>document.getElementById('bttn98');
+        formElement.disabled = true;
+      }
+    }
+    
   }
 }

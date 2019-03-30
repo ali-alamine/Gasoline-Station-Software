@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   checkLogIn(){
-    // debugger;
+    debugger;
     var isLoggedOut=localStorage.getItem('shiftID');
     // if(isLoggedOut == ''){
       console.log(this.loginForm.value)

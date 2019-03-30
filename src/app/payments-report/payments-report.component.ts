@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 import { PaymentsReportServicesService } from "./payments-report-services.service"
 import { FormControl } from '@angular/forms';
 import { formatDate } from "@angular/common";
+import swal from 'sweetalert2';
 
 
 @Component({
@@ -43,20 +44,25 @@ export class PaymentsReportComponent implements OnInit {
   }
 
   getResult(){
-    this.filterForm.value.fromDateCtrl = formatDate(this.filterForm.get("fromDateCtrl").value,"yyyy-MM-dd","en");
-    this.filterForm.value.toDateCtrl = formatDate(this.filterForm.get("toDateCtrl").value,"yyyy-MM-dd","en");
 
-    if(this.filterForm.value.selectedEmpId === undefined){
-      this.filterForm.get('selectedEmpId').setValue(null)
+    if(this.filterForm.value.fromDateCtrl && this.filterForm.value.toDateCtrl){
+      this.filterForm.value.fromDateCtrl = formatDate(this.filterForm.get("fromDateCtrl").value,"yyyy-MM-dd","en");
+      this.filterForm.value.toDateCtrl = formatDate(this.filterForm.get("toDateCtrl").value,"yyyy-MM-dd","en");
+  
+      if(this.filterForm.value.selectedEmpId === undefined){
+        this.filterForm.get('selectedEmpId').setValue(null)
+      }
+  
+      this.repServ.getPaymentReportResult(this.filterForm.value).subscribe(Response=>{
+        this.reportResult=Response;
+        console.log(this.reportResult)
+      },
+      error=>{
+        swal("please contact your software developer");
+      });
+    }else{
+      swal("التاريخ غير محدد");
     }
-
-    this.repServ.getPaymentReportResult(this.filterForm.value).subscribe(Response=>{
-      this.reportResult=Response;
-      console.log(this.reportResult)
-    },
-    error=>{
-      alert("error")
-    });
 
   }
 
