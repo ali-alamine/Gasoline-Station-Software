@@ -38,27 +38,32 @@
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                           <mat-action-row>
-                              <button mat-button color="primary" >{{typeSubmitLub}} زيت +</button>
+                              <button mat-button color="primary" ><span style="font-size: 20px;color:purple">+ {{typeSubmitLub}} زيت +</span></button>
                           </mat-action-row>
                         </mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-form-field>
-                      <input formControlName="name" matInput placeholder="الإسم" required>
+                      <input formControlName="name" matInput required>
+                      <mat-placeholder class="placeholder">الإسم</mat-placeholder>
                     </mat-form-field>
                     <mat-form-field style="padding-right: 10px">
-                      <input formControlName="quantity" matInput placeholder="الكمية" type="number" required>
+                      <input formControlName="quantity" matInput type="number" required>
+                      <mat-placeholder class="placeholder">الكمية</mat-placeholder>
                     </mat-form-field>
                     <mat-form-field style="padding-right: 10px">
-                      <input formControlName="selling" matInput placeholder="سعر البيع" type="number" step="500" required>
+                      <input formControlName="selling" matInput type="number" step="500" required>
+                      <mat-placeholder class="placeholder">سعر البيع</mat-placeholder>
                       <span matSuffix>ل.ل&nbsp;</span>
                     </mat-form-field>
                     <mat-form-field style="padding-right: 10px">
-                      <input formControlName="cost" matInput placeholder="سعر الشراء" type="number" step="500" required>
+                      <input formControlName="cost" matInput type="number" step="500" required>
+                      <mat-placeholder class="placeholder">سعر الشراء</mat-placeholder>
+                      
                       <span matSuffix>ل.ل&nbsp;</span>
                     </mat-form-field>
                     <mat-action-row>
-                      <button mat-button color="primary" (click)="addLubricant()" [disabled]="!addLubForm.valid">{{typeSubmitLub}}</button>
-                      <button mat-button color="warn" (click)="collapse()">إلغاء</button>
+                      <button mat-button color="primary" (click)="addLubricant()" [disabled]="!addLubForm.valid"><span style="color:purple;font-size:20px">{{typeSubmitLub}}</span></button>
+                      <button mat-button color="warn" (click)="collapse()"><span style="color:red;font-size:20px">إلغاء</span></button>
                     </mat-action-row>
                   </mat-expansion-panel>
                 </form>
@@ -70,7 +75,7 @@
               <tbody #contextScopeLub>
               </tbody>
             </table>
-            <p-contextMenu [target]="contextScopeLub" [model]="itemsLub" appendTo="body" oncontextmenu="return false;"></p-contextMenu>
+            <p-contextMenu [target]="contextScopeLub" [style]="{'color':'purple','text-align':'center','font-size':'20px','font-weight':'bold'}" [model]="itemsLub" appendTo="body"  oncontextmenu="return false;"></p-contextMenu>
             <div hidden>
               <button id="deleteLubBtn" (click)="deleteLub()"></button>
               <button id="editLubBtn" (click)="editLubFlag=true;openLubModal()"></button>
@@ -84,29 +89,33 @@
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                       <mat-action-row>
-                          <button mat-button color="primary" >{{typeSubmitAccess}} إكسسوارات +</button>
+                          <button mat-button color="primary" > <span style="color:purple; font-size: 20px">+ {{typeSubmitAccess}} إكسسوارات +</span></button>
                       </mat-action-row>
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                <form [formGroup]="addAccessForm">  
                   <mat-form-field>
-                    <input matInput formControlName="name"  placeholder="الإسم" type="text" required>
+                    <input matInput formControlName="name" type="text" required>
+                    <mat-placeholder class="placeholder">الإسم</mat-placeholder>
                   </mat-form-field>
                   <mat-form-field style="padding-right: 10px">
-                    <input matInput formControlName="quantity" placeholder="الكمية" type="number" required>
+                    <input matInput formControlName="quantity" type="number" required>
+                    <mat-placeholder class="placeholder">الكمية</mat-placeholder>
                   </mat-form-field>
                   <mat-form-field style="padding-right: 10px">
-                    <input matInput formControlName="selling" placeholder="سعر البيع" type="number" required>
+                    <input matInput formControlName="selling" type="number" required>
+                    <mat-placeholder class="placeholder">سعر البيع</mat-placeholder>
                     <span matSuffix>ل.ل&nbsp;</span>
                   </mat-form-field>
                   <mat-form-field style="padding-right: 10px">
-                    <input matInput formControlName="cost" placeholder="سعر الشراء" type="number" required>
+                    <input matInput formControlName="cost" type="number" required>
+                    <mat-placeholder class="placeholder">سعر الشراء</mat-placeholder>
                     <span matSuffix>ل.ل&nbsp;</span>
                   </mat-form-field>
                </form >
                 <mat-action-row>
-                    <button mat-button color="primary" (click)="addNewAccess()" [disabled]="!addAccessForm.valid" >{{typeSubmitAccess}}</button>
-                    <button mat-button color="warn" (click)="collapseAccess()">إلغاء</button>
+                    <button mat-button color="primary" (click)="addNewAccess()" [disabled]="!addAccessForm.valid"><span style="color:purple; font-size: 20px">{{typeSubmitAccess}}</span> </button>
+                    <button mat-button color="warn" (click)="collapseAccess()"><span style="color:red;font-size: 20px"> إلغاء </span></button>
                   </mat-action-row>
               </mat-expansion-panel>
           </mat-accordion>
@@ -117,7 +126,7 @@
               <tbody #contextScopeAccess>
               </tbody>
             </table>
-            <p-contextMenu [target]="contextScopeAccess" [model]="itemsAccess" appendTo="body" oncontextmenu="return false;"></p-contextMenu>
+            <p-contextMenu [target]="contextScopeAccess" [style]="{'color':'purple','text-align':'center','font-size':'20px','font-weight':'bold'}" [model]="itemsAccess" appendTo="body" oncontextmenu="return false;"></p-contextMenu>
             <div hidden>
               <button id="deleteAccessBtn" (click)="deleteAccess()"></button>
               <button id="editAccessBtn" (click)="editAccessFlag=true;openAccessModal()"></button>

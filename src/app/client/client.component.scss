@@ -1,3 +1,14 @@
 #clientsDT{
     text-align: center;
-  }
+}
+::ng-deep .mat-focused .placeholder {
+  font-size: 20px;
+}
+::ng-deep .placeholder {
+  font-size: 20px;
+  color:purple;
+}
+input {
+  color: blue;
+  font-weight: bold;
+}

@@ -58,6 +58,7 @@ export class StockComponent implements OnInit {
 
   constructor(private stockServ: StockService,public snackBar: MatSnackBar) { }
   ngOnInit(){
+    
     // this.getAllLubricants();
     // this.getAllAccess();
     this.getAllFuelContainers();
@@ -325,7 +326,7 @@ export class StockComponent implements OnInit {
         console.log(this.containers)
     }
   );
-}
+  }
   displayTables(selectedTab){
     if(selectedTab.index==1){
       this.getAllLubricants();
@@ -354,8 +355,8 @@ export class StockComponent implements OnInit {
   }
   deleteLub() {
     Swal({
-      title: "حذف",
-      text: "هل حقا تريد حذفه؟",
+      title: "تأكيد الحذف",
+      text: "",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
@@ -494,6 +495,4 @@ export class StockComponent implements OnInit {
     });
   }
   }
- 
-  
 }

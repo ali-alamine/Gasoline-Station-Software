@@ -19,6 +19,7 @@
 }
 input {
     color: blue;
+    font-weight: bold;
 }
 .tileCol1{
     // background-color:rgb(240,248,255);
@@ -107,4 +108,22 @@ input {
     position: absolute;
     margin-top: -25px;
     color:firebrick; 
+}
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:purple;
+    font-weight: bolder;
+    font-size: 30px;
+    background-color: thistle;
+}
+::ng-deep .mat-tab-label {
+    font-size: 20px;
+    color:black;
+    font-weight: bolder;
+}
+::ng-deep .mat-focused .placeholder {
+    font-size: 20px;
+}
+::ng-deep .placeholder {
+    font-size: 20px;
+    color:purple;
 }
