@@ -48,7 +48,7 @@
           <th>الأسم</th>
         </thead>
         <tbody>
-          <tr *ngFor = "let result of reportResult">
+          <tr *ngFor = "let result of reportResult" (click)="getSelectedRow(result.type)">
             <td style="color:green">{{result.totalProfit | number}}</td>
             <td>{{result.totalSale | number}}</td>
             <td style = "color:black;font-weight: bold">{{result.type == 95 ? "Benzene 95" : result.type == 98 ? "Benzene 98" :result.type== 'access' ? "اكسسوارات" : result.type == 'lub' ? "زيوت" : result.type=='payC' ? "مدفوعات" : result.type=='wash'? "غسيل" : result.type=="Diesel G" ? "Diesel Green" : "" }}</td>

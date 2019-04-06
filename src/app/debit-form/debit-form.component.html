@@ -3,14 +3,32 @@
   <!-- <h6>back icons options</h6> -->
   <form [formGroup]="debitForm">
 
-      <mat-form-field style="width: 50%;margin-right: 5px;">
+      <!-- <mat-form-field style="width: 50%;margin-right: 5px;">
         <mat-select placeholder="إسم {{person}}" formControlName="personName">
           <mat-option *ngFor="let c of clients " 
           (onSelectionChange)="getSelectedClientData($event,c)" 
           [value]="c.full_name" >{{c.full_name}} | <span style="color:red"> مبلغ الدين: {{c.debitAmount | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
           </mat-option>
         </mat-select>
-      </mat-form-field>
+      </mat-form-field> -->
+
+      <!-- <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px"> -->
+        <mat-form-field style="width: 50%;margin-right: 5px;" class="searchClient" fxFlex>
+
+          <input id="searchClientName" matInput placeholder="Client" formControlName="personName" type="text" name="nameInput"
+            [matAutocomplete]="auto" autofocus>
+            <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearClientName()">
+              <mat-icon>close</mat-icon>
+           </button>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let c of clients " 
+            (onSelectionChange)="getSelectedClientData($event,c)" 
+            [value]="c.full_name" >{{c.full_name}} | <span style="color:red"> مبلغ الدين: {{c.debitAmount | currency:'ل.ل ':'symbol':'1.0-0' }}</span>
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error> يرجى اضافة اسم الزبون</mat-error>
+        </mat-form-field>
+      <!-- </div> -->
 
 
       <button mat-raised-button color="primary" (click)="openPersonModal(personModal)">

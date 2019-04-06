@@ -22,4 +22,7 @@ export class DebitFormService {
   addPerson(data){
     return this.http.post(this.url +"person/addPerson",data);
   }
+  searchClient(data){
+    return this.http.get("http://localhost/eSafe-gasoline_station/src/assets/api/person/searchClientName", {params:{keyword:data}});
+  }
 }

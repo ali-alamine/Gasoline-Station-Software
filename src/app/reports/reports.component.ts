@@ -76,4 +76,8 @@ export class ReportsComponent implements OnInit {
   }
 
   }
+
+  getSelectedRow(name){
+    alert(name)
+  }
 }

@@ -90,4 +90,20 @@ class person_model extends CI_Model
         // return $query->result();
     }
 
+    /* search for a specific client - auto complete */
+    public function searchForClient($name){
+        $this->db->select('*');
+        $this->db->from('person');
+        $this->db->like('full_name', $name, 'both');
+        $this->db->where('person_type', 1);
+        // $this->db->where('per_isActivated', 1);
+        $this->db->limit(20);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return 0;
+        }
+    }
+
 }

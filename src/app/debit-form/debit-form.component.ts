@@ -27,6 +27,7 @@ export class DebitFormComponent {
   rest; paid;
   public typePage;
   items:any;
+  options;
   
 
   constructor(
@@ -39,6 +40,7 @@ export class DebitFormComponent {
 
   ngOnInit(){
     this.empID=localStorage.getItem('userID');
+    document.getElementById("searchClientName").focus();
     this.urlData = this.route.queryParams.subscribe(params => {
       this.typePage = params['pageType']|| -1; 
     });
@@ -129,6 +131,24 @@ export class DebitFormComponent {
       this.person="الزبون"
       this.getClients(1);
     }
+
+    this.onClientNameChange();
+  }
+
+  
+  onClientNameChange(): void {
+    this.debitForm.get('personName').valueChanges.subscribe(val => {
+      
+      var data = this.debitForm.get('personName').value;
+      if (data == "") {
+        this.clients = [];
+        // this.debitForm.get('personName').setValue('')
+        return;
+      }
+      this.debitFormServ.searchClient(data).subscribe(Response => {
+        this.clients = Response;
+      })
+    });    
   }
   openPersonModal(personModal) {
     this.modalReference = this.modalService.open(personModal, { centered: true, ariaLabelledBy: 'modal-basic-title' });
@@ -320,6 +340,10 @@ export class DebitFormComponent {
   }
   get itemsForm() {
     return this.debitForm.get('items') as FormArray
+  }
+  clearClientName(){
+    this.debitForm.get('personName').setValue('');
+    this.debitForm.get('personID').setValue('');
   }
 
 }

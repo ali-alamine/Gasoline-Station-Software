@@ -10,11 +10,8 @@ class report_model extends CI_Model{
         $toDateCtrl=$data['toDateCtrl'];
         $selectedEmpId=$data['selectedEmpId'];
        
-
-   
-
          // check dates validation
-         if($fromDateCtrl ==NULL && $toDateCtrl ==NULL){
+        if($fromDateCtrl ==NULL && $toDateCtrl ==NULL){
             /*START - Get Current Date Time */
            $currentFullDate=getdate();
            $d=$currentFullDate['mday'];
@@ -37,17 +34,14 @@ class report_model extends CI_Model{
             $toDateCtrl=$toDate->format('Y-m-d');
         }
 
-        
         $expenses=$data['expenses'];
         $sell=$data['sell'];
         $debits=$data['debits'];
 
-       
 
         if($sell != NULL && $expenses != NULL && $debits != NULL){
             
             // GET ALL SELLING INVOICES
-            
 
             if($selectedEmpId != NULL){
                 $empIDs = "'" .implode("','", $selectedEmpId )."'";

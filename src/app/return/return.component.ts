@@ -42,8 +42,10 @@ export class ReturnComponent implements OnInit {
         comment: [''],
         shiftID:this.shiftID
       });
-      this.getClients(1);
+      // this.getClients(1);
       this.onDebitAmountChange();
+
+      this.onClientNameChange();
     }
 
     getClients(isClient){
@@ -65,6 +67,20 @@ export class ReturnComponent implements OnInit {
         this.debitForm.get('debit').setValue(parseInt(totalDebit) - paidDebit);
         
       })
+    }
+    onClientNameChange(): void {
+      this.debitForm.get('personName').valueChanges.subscribe(val => {
+        
+        var data = this.debitForm.get('personName').value;
+        if (data == "") {
+          this.clients = [];
+          // this.debitForm.get('personName').setValue('')
+          return;
+        }
+        this.returnServ.searchClient(data).subscribe(Response => {
+          this.clients = Response;
+        })
+      });    
     }
     getSelectedClientData(event, client){
       if (event.source.selected) {

@@ -47,8 +47,7 @@ class person extends REST_Controller{
 
     }
     // edits Person
-    public function editPerson_post()
-    {
+    public function editPerson_post(){
         $name = $this->post('name');
         $phone = $this->post('phone');
         $debit_amount = $this->post('initDebitAmount');
@@ -72,6 +71,17 @@ class person extends REST_Controller{
             $this->response($result, 200);
         }
 
+    }
+
+    /* search for client - auto complete */
+    public function searchClientName_get(){
+        $keyword = $this->get('keyword');
+        $result = $this->person_model->searchForClient($keyword);      
+        if ($result) {
+            $this->response($result, 200);
+
+            exit;
+        }
     }
 
 }

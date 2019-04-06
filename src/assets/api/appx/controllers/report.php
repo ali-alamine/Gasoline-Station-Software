@@ -35,7 +35,4 @@ class report extends REST_Controller{
             $this->response($result, 200);
         }
     }
-
-    
-
 }

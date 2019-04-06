@@ -13,4 +13,7 @@ export class ReturnService {
   addReturnInvoice(data){
     return this.http.post(this.url +"operation/addReturnInvoice",data);
   }
+  searchClient(data){
+    return this.http.get("http://localhost/eSafe-gasoline_station/src/assets/api/person/searchClientName", {params:{keyword:data}});
+  }
 }

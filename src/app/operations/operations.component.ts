@@ -84,7 +84,7 @@ export class OperationsComponent implements OnInit {
       console.log("drawers")
     },
     error=>{
-      alert('Error Sum drawer!');
+      swal('Error Sum drawer!');
     }
   );
 
