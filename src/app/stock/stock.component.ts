@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSnackBar} from '@angular/material';
-import { StockService} from './stock.service'
+import { StockService} from './stock.service';
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 declare var $: any;
 import 'datatables.net';
 import 'datatables.net-bs4';
@@ -19,6 +20,7 @@ export class StockComponent implements OnInit {
   itemName = new FormControl('');
   itemPrice = new FormControl('');
   private globalDataTable;
+  modalReference: any;
   private lubricants:any;
   private accessories:any;
   private fuelContainers:any;
@@ -56,7 +58,7 @@ export class StockComponent implements OnInit {
   editAccessFlag = false;
   typeSubmitAccess = 'إضافة';
 
-  constructor(private stockServ: StockService,public snackBar: MatSnackBar) { }
+  constructor(private stockServ: StockService,public snackBar: MatSnackBar,private modalService: NgbModal) { }
   ngOnInit(){
     
     // this.getAllLubricants();
@@ -344,6 +346,9 @@ export class StockComponent implements OnInit {
       this.addLubForm.get('selling').setValue(StockComponent.selectedRowLubData["selling_price"]);
       this.addLubForm.get('cost').setValue(StockComponent.selectedRowLubData["cost"]);
   }
+  openDetail(name){
+    alert(name)
+  }
   openAccessModal() {
     this.isOpenedAccess=1;
     this.typeSubmitAccess = "تعديل";
@@ -494,5 +499,14 @@ export class StockComponent implements OnInit {
       alert("error");
     });
   }
+  }
+
+  openContainerModal(containerModal){
+    alert("here we go")
+    this.modalReference = this.modalService.open(containerModal, {
+      centered: true,
+      ariaLabelledBy: "modal-basic-title"
+    });
+
   }
 }

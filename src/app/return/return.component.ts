@@ -107,6 +107,9 @@ export class ReturnComponent implements OnInit {
       duration: 2000,
     });
   }
+  clearClientName(){
+    
+  }
     get paidDebit() {
       return this.debitForm.get('paidDebit');
     }
