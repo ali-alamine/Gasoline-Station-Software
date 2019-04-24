@@ -109,6 +109,10 @@ input {
     margin-top: -25px;
     color:firebrick; 
 }
+.container:hover{
+    background-color:thistle;
+    // opacity: 0.5;
+}
 ::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
     color:purple;
     font-weight: bolder;

@@ -71,6 +71,15 @@ class stock_model extends CI_Model{
             return false;
         }
     }
+    public function updateContainerQuantity($contID,$newQuan){
+        $this->db->where('contID', $contID);
+        $this->db->set('current_quan_liter', $newQuan);
+        if ($this->db->update('container')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /* delete new item */
     // public function delete($id){
     //     $this->db->where('IID', $id);

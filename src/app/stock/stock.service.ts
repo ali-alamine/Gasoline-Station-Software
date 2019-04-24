@@ -10,6 +10,12 @@ export class StockService {
   addNewLub(lubData){
     return this.http.post(this.url +"stock/addNewLub",lubData);
   }
+  changeContainerQuantity(contID,newQuan){
+    let input = new FormData();
+    input.append('contID',contID);
+    input.append('newQuan',newQuan);
+    return this.http.post(this.url +"stock/updateContainerQuantity",input);
+  }
   addNewAccess(accessData){
     return this.http.post(this.url +"stock/addNewAccess",accessData);
   }

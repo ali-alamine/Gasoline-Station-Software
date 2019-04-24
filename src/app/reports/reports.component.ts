@@ -4,6 +4,7 @@ import { ReportServicesService } from "./report-services.service"
 import { FormControl } from '@angular/forms';
 import { formatDate } from "@angular/common";
 import {BlockUI, NgBlockUI} from "ng-block-ui";
+import swal from 'sweetalert';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -35,10 +36,9 @@ export class ReportsComponent implements OnInit {
   getEmployees(){
     this.repServ.getAllEmployees().subscribe(Response=>{
       this.employees=Response;
-      console.log(this.employees)
     },
     error=>{
-      alert("error")
+      swal("please contact your software developer")
     });
   }
 
@@ -47,7 +47,7 @@ export class ReportsComponent implements OnInit {
     // this.blockUI.start("loading")
     if(this.filterForm.value.fromDateCtrl && this.filterForm.value.toDateCtrl){
       var formElement = <HTMLFormElement>document.getElementById('container');
-      formElement.style.opacity='0.1';
+      formElement.style.opacity='0.01';
 
 
     this.filterForm.value.fromDateCtrl = formatDate(this.filterForm.get("fromDateCtrl").value,"yyyy-MM-dd","en");
@@ -57,12 +57,12 @@ export class ReportsComponent implements OnInit {
       this.filterForm.get('selectedEmpId').setValue(null)
     }
 
-    this.repServ.getReportResult(this.filterForm.value).subscribe(Response=>{
+    this.repServ.getReportResult(this.filterForm.value).subscribe(response=>{
       debugger
       // this.blockUI.stop();
       var formElement = <HTMLFormElement>document.getElementById('container');
       formElement.style.opacity='1';
-      this.reportResult=Response;
+      this.reportResult=response;
       console.log(this.reportResult)
     },
     error=>{

@@ -24,6 +24,17 @@ class stock extends REST_Controller{
             $this->response("success", 200);
         }
     }
+    /* update the quantity of container */
+    public function updateContainerQuantity_post(){
+        $contID=$this->post('contID');
+        $newQuan_liter=$this->post('newQuan');
+        $result = $this->stock_model->updateContainerQuantity($contID,$newQuan_liter);
+       if ($result === 0) {
+           $this->response("person information could not be saved. Try again.", 404);
+       } else {
+           $this->response("success", 200);
+       }
+    }
     /* Add new accessorie with initial quantity */
     public function addNewAccess_post(){
         $name = $this->post('name');

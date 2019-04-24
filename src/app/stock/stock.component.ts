@@ -33,6 +33,9 @@ export class StockComponent implements OnInit {
     selling: new FormControl(''),
     cost: new FormControl('')
   });
+  editContainerLitersForm= new FormGroup({
+    quantity_liter:new FormControl ('')
+  })
   addAccessForm = new FormGroup({
     itemID: new FormControl(''),
     name: new FormControl(''),
@@ -56,6 +59,12 @@ export class StockComponent implements OnInit {
   private globalAccessDT;
   itemsAccess: MenuItem[];
   editAccessFlag = false;
+  container_name:String;
+  container_currentQuantity:any;
+  container_capacity:any;
+  container_price_liter:any;
+  container_totalPrice:any;
+  contID:any;
   typeSubmitAccess = 'إضافة';
 
   constructor(private stockServ: StockService,public snackBar: MatSnackBar,private modalService: NgbModal) { }
@@ -500,9 +509,28 @@ export class StockComponent implements OnInit {
     });
   }
   }
-
-  openContainerModal(containerModal){
-    alert("here we go")
+  changeQuantity(){
+    if(this.contID){
+      this.stockServ.changeContainerQuantity(this.contID,this.editContainerLitersForm.value.quantity_liter).subscribe(
+        response => {
+          this.getAllFuelContainers();
+          this.editContainerLitersForm.get('quantity_liter').setValue(this.editContainerLitersForm.value.quantity_liter);
+          this.container_currentQuantity=this.editContainerLitersForm.value.quantity_liter;
+          this.editContainerLitersForm.reset();
+          Swal("success")
+        },
+        error => {alert("error updating qunatity")}
+      )    
+    }
+ 
+  }
+  openContainerModal(contID,containerModal,container_name,currentQuan,capacity,price_liter){
+    this.contID=contID;
+    this.container_name=container_name;
+    this.container_currentQuantity=currentQuan;
+    this.container_capacity=capacity;
+    this.container_price_liter=price_liter;
+    this.container_totalPrice=price_liter*capacity;
     this.modalReference = this.modalService.open(containerModal, {
       centered: true,
       ariaLabelledBy: "modal-basic-title"

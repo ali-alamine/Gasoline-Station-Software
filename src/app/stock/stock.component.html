@@ -14,47 +14,37 @@
       </mat-tab> -->
       <ng-template #containerModal let-c="close" let-d="dismiss">
         <div class="modal-header noselect">
-          <h4 class="modal-title" id="modal-basic-title" style="color:firebrick;">{{this.counters[this.index].name}}</h4>
+          <h4 class="modal-title" id="modal-basic-title" style="color:firebrick;">{{container_name}}  {{container_capacity}} - <span style="color:green"> {{container_totalPrice |number}}  القيمة: ل.ل </span></h4>
           <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         
         <div class="modal-body noselect">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima vero tempore ut asperiores earum unde sint iusto. Odit dignissimos impedit consequuntur deleniti sapiente expedita, saepe sunt praesentium perspiciatis. Ratione, distinctio.</p>
-            <!-- <form fxLayout="column" autocomplete="off" [formGroup]="counter_1_from">
+
+            <form fxLayout="column" autocomplete="off" [formGroup]="editContainerLitersForm">
               <div class="input-row" fxLayout="row">
                 <mat-form-field class="inputField" appearance="outline" style="width:100%">
-                    <mat-label style="font-size: 40px;font-weight: 200;color:firebrick;opacity: 0.7;"> {{this.counters[this.index].counter_1}} <span style="color:firebrick;font-weight: 100;opacity: 0.5;"> - {{this.counters[this.index-1].type}} </span> </mat-label>
-                  <input style="font-size:50px;color: firebrick" matInput  type="number" formControlName="counter_1" name="nameInput" [(ngModel)]="counterVal_1">
-                  <mat-hint *ngIf="(counterVal_1 - this.counters[this.index].counter_1)>0" style="color:purple;font-weight: bold;font-size: 18px">Sold: {{counterVal_1 - this.counters[this.index].counter_1 }} Liters</mat-hint>
+                    <mat-label style="font-size: 40px;font-weight: 200;color:firebrick;opacity: 0.7;"><span style="color:firebrick;font-weight: 100;opacity: 0.5;">{{container_currentQuantity}} </span> </mat-label>
+                  <input style="font-size:50px;color: firebrick" matInput  type="number" formControlName="quantity_liter">
+                  <!-- <mat-hint *ngIf="(counterVal_1 - this.counters[this.index].counter_1)>0" style="color:purple;font-weight: bold;font-size: 18px">Sold: {{counterVal_1 - this.counters[this.index].counter_1 }} Liters</mat-hint> -->
                 </mat-form-field>
               </div>
-          </form> -->
-            <br>
-          <!-- <form fxLayout="column" autocomplete="off" [formGroup]="counter_2_from">
-              <div class="input-row" fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px" fxLayoutGap.lt-md="0px">
-                <mat-form-field class="inputField" appearance="outline" style="width:100%">
-                  <mat-label style="font-size: 40px;font-weight: 200;color:firebrick;opacity: 0.7;"> {{this.counters[this.index].counter_2}} <span style="color:firebrick;font-weight: 100;opacity: 0.5;"> - {{this.counters[this.index].type}} </span> </mat-label>
-                  <input style="font-size:50px;color: firebrick" matInput type="number" formControlName="counter_2" [(ngModel)]="counterVal_2" >
-                  <mat-hint *ngIf="(counterVal_2 - this.counters[this.index].counter_2)>0" style="color:purple;font-weight: bold;font-size: 18px">Sold: {{counterVal_2 - this.counters[this.index].counter_2 }} Liters</mat-hint>
-                </mat-form-field>
-              </div>
-          </form> -->
+          </form>
         </div>
         <div class="modal-footer noselect">
-          <button mat-raised-button color="primary">Submit</button>
-          <button mat-raised-button color="warn">Reset</button>
+          <button (click)="changeQuantity()" mat-raised-button color="primary">Submit</button>
+          <button mat-raised-button color="warn">cancel</button>
         </div>
     </ng-template>
      <mat-tab label="فيول">
        <div class="container-fluid "dir="ltr" >
         <div id="fuelContView" style="border:1px solid #000000; margin-top: 20px">
-          <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}" (click)="openContainerModal(containerModal,container.name)">
+          <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}" (click)="openContainerModal(container.contID,containerModal,container.name,container.current_quan_liter,container.capacity,container.price_liter)">
               <!-- <span class="contLabel"> </span> -->
               <br>
-              <span class="contLabel" style="color:firebrick; background-color: rgba(176, 91, 212, 0.5);border-radius: 10px;font-weight: bold"> <h5 style="color:black">{{container.name }} {{container.capacity }}</h5> <span style="margin-right:20px">{{container.current_quan_liter }} | Total Price: {{container.price_liter * container.current_quan_liter}}</span></span>
-            <img (click)="openContainerSupplyModal(containerModal,i)" title="{{container.name }} {{container.capacity }}" class="container" src="../assets/icons/containerIcons/0.png">
+              <span class="contLabel" style="color:firebrick; background-color: rgba(176, 91, 212, 0.5);border-radius: 10px;font-weight: bold"> <h5 style="color:black">{{container.name }} {{container.capacity }}</h5> <span style="margin-right:20px">{{container.current_quan_liter}}</span></span>
+            <img title="{{container.name }} {{container.capacity }}" class="container" src="../assets/icons/containerIcons/0.png">
           </div>
         
           <div class="officeDiv">

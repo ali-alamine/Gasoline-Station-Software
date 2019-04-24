@@ -45,7 +45,8 @@ class person_model extends CI_Model
 
     public function delete($id){ // used in I-print
         $this->db->where('PID', $id);
-        if ($this->db->delete('person')) {
+        $this->db->set('PID', 0);
+        if ($this->db->update('person')) {
             return true;
         } else {
             return false;
@@ -96,6 +97,7 @@ class person_model extends CI_Model
         $this->db->from('person');
         $this->db->like('full_name', $name, 'both');
         $this->db->where('person_type', 1);
+        $this->db->where('isActivated', 1);
         // $this->db->where('per_isActivated', 1);
         $this->db->limit(20);
         $query = $this->db->get();
