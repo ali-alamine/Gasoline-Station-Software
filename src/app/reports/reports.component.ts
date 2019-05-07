@@ -15,6 +15,9 @@ export class ReportsComponent implements OnInit {
   employees:any;
   reportResult:any;
   checked;
+  totalSale:number=0;
+  totalProfit:number=0;
+  firstCall:number=0;
   private static fromDate;
   private static toDate;
   // selectedEmpId = new FormControl();
@@ -43,7 +46,9 @@ export class ReportsComponent implements OnInit {
   }
 
   getResult(){
-  
+    this.firstCall++;
+    this.totalProfit=0;
+    this.totalSale=0;
     // this.blockUI.start("loading")
     if(this.filterForm.value.fromDateCtrl && this.filterForm.value.toDateCtrl){
       var formElement = <HTMLFormElement>document.getElementById('container');
@@ -58,12 +63,26 @@ export class ReportsComponent implements OnInit {
     }
 
     this.repServ.getReportResult(this.filterForm.value).subscribe(response=>{
-      debugger
       // this.blockUI.stop();
       var formElement = <HTMLFormElement>document.getElementById('container');
       formElement.style.opacity='1';
       this.reportResult=response;
+      if(this.reportResult.length==0 && this.firstCall <2){
+        this.getResult();
+      }
       console.log(this.reportResult)
+      
+
+      for(var i=0;i<this.reportResult.length;i++){
+        this.totalSale+= parseInt(this.reportResult[i].totalSale);
+        if(this.reportResult[i].totalProfit == null){
+          this.reportResult[i].totalProfit=0;
+        }
+        this.totalProfit+=parseInt(this.reportResult[i].totalProfit);
+      }
+      // for( var key in this.reportResult){
+      //   console.log(key)
+      // }
     },
     error=>{
       var formElement = <HTMLFormElement>document.getElementById('container');

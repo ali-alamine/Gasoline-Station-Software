@@ -50,14 +50,14 @@ class report_model extends CI_Model{
                 $condition="";
             }
 
-            $query=$this->db->query("SELECT type, sum(amount) as totalSale, sum(totalProfit) as totalProfit 
+            $query=$this->db->query("SELECT type, sum(amount) as totalSale, sum(totalProfit) as totalProfit, sum(fuel_liters) as litersSold 
             FROM invoice WHERE " .$condition." (date(dateTime) <= '$toDateCtrl' and date(dateTime) >= '$fromDateCtrl') AND type NOT IN ('95_d','98_d','dieselG_d','return') GROUP BY type order by totalSale DESC");
             $l=$this->db->last_query();
      
         }
         
         if ($query->num_rows() >= 0) {
-            return $query->result();
+            return $query->result_array();
         } else {
             return 0;
         }

@@ -39,18 +39,24 @@
     </mat-expansion-panel>
   </mat-accordion>
 
-  <div class="reportResult" style="margin-top:50px">
+  <div *ngIf="this.reportResult" class="reportResult" style="margin-top:50px">
+    <div *ngIf="this.reportResult" style="text-align:center;margin-bottom:20px; background-color: rgb(203, 172, 231)">
+      <span style="font-weight:bold;font-size:20px; margin-left:90px ">مجموع المبيع: <span style="font-weight:bold;font-size:20px;color:black">{{this.totalSale | number}}</span></span>
+      <span style="font-weight:bold;font-size:20px;">مجموع الارباح: <span style="font-weight:bold;font-size:20px;color:green">{{this.totalProfit | number}}</span></span>
+    </div>
     <div class="table">
       <table class="table table-bordered table-striped  table-hover text-center">
         <thead>
           <th>مجموع الأرباح </th>
           <th>مجموع المبيعات</th>
+          <th>كمية المبيعات</th>
           <th>الأسم</th>
         </thead>
         <tbody>
           <tr *ngFor = "let result of reportResult" (click)="getSelectedRow(result.type)">
             <td style="color:green">{{result.totalProfit | number}}</td>
             <td>{{result.totalSale | number}}</td>
+            <td><span *ngIf="result.litersSold">{{result.litersSold | number}} Liters</span></td>
             <td style = "color:black;font-weight: bold">{{result.type == 95 ? "Benzene 95" : result.type == 98 ? "Benzene 98" :result.type== 'access' ? "اكسسوارات" : result.type == 'lub' ? "زيوت" : result.type=='payC' ? "مدفوعات" : result.type=='wash'? "غسيل" : result.type=="Diesel G" ? "Diesel Green" : "" }}</td>
           </tr>
         </tbody>

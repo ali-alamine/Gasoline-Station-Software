@@ -42,7 +42,7 @@ class person extends REST_Controller{
         if ($result === false) {
             $this->response("you can not", 404);
         } else {
-            $this->response("success", 200);
+            $this->response(true, 200);
         }
 
     }

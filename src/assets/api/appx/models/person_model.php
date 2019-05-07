@@ -21,11 +21,22 @@ class person_model extends CI_Model
         // $query = $this->db->query('SELECT * FROM client WHERE name like "%'.$data.'%" LIMIT 10');
         // return $query->result();
     }
+    // public function deletePerson($PID)
+    // {
+    //     $flag = $this->checkPersonInInvoices($PID);
+    //     if ( $flag == 0) {
+    //         $this->db->delete('person', array('PID' => $PID));
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
     public function deletePerson($PID)
     {
-        $flag = $this->checkPersonInInvoices($PID);
-        if ( $flag == 0) {
-            $this->db->delete('person', array('PID' => $PID));
+        $this->db->where('PID', $PID);
+        $this->db->set('isActivated', 0);
+        if ($this->db->update('person')) {
+            $st=$this->db->last_query();
             return true;
         } else {
             return false;

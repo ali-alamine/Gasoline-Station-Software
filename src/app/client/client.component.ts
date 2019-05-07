@@ -209,7 +209,7 @@ export class ClientComponent implements OnInit {
       this.addClientForm.get('initDebitAmount').setValue(ClientComponent.selectedRowData["debitAmount"]);
   }
   deleteClient() {
-    
+ 
     console.log(ClientComponent.selectedClientID)
     Swal({
       title: "حذف",
@@ -221,11 +221,13 @@ export class ClientComponent implements OnInit {
       confirmButtonText: "نعم!",
       cancelButtonText: "كلا"
     }).then(result => {
+      
       if (result.value) {
         this.clientServ
           .deleteClient(ClientComponent.selectedClientID)
           .subscribe(
-            Response => {
+            response => {
+              debugger;
               this.globalClientDT.ajax.reload(null, false);
               Swal({
                 type: "success",
@@ -235,6 +237,7 @@ export class ClientComponent implements OnInit {
               });
             },
             error => {
+              debugger;
               Swal({
                 type: "error",
                 title: "تحذير",

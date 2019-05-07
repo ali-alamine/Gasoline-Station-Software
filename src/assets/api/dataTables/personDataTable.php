@@ -18,11 +18,11 @@ if (count($_GET['order'])) {
 if (isset($_GET["search"]["value"]) && !empty($_GET["search"]["value"])) {
     $search = $_GET["search"]["value"];
 
-    $getAllFactureQuery = "select * from person  where PID != 1 and person_type ='".$type."' and (full_name like '%" . $search . "%' OR phone_number like '%" . $search . "%' OR debitAmount like '%" . $search . "%' ) " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
+    $getAllFactureQuery = "select * from person  where PID != 1 and isActivated != 0 and person_type ='".$type."' and (full_name like '%" . $search . "%' OR phone_number like '%" . $search . "%' OR debitAmount like '%" . $search . "%' ) " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
 
 } else {
 
-    $getAllFactureQuery = "select * from person  where PID != 1 and person_type = '".$type."' " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
+    $getAllFactureQuery = "select * from person  where PID != 1 and isActivated != 0 and person_type = '".$type."' " . $orderString . " LIMIT " . $rowsReq . " OFFSET " . $start;
 
 }
 

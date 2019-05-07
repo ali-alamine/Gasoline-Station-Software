@@ -43,7 +43,7 @@
           <div *ngFor="let container of containers; let i = index"  class="containerDiv {{container.style}}" (click)="openContainerModal(container.contID,containerModal,container.name,container.current_quan_liter,container.capacity,container.price_liter)">
               <!-- <span class="contLabel"> </span> -->
               <br>
-              <span class="contLabel" style="color:firebrick; background-color: rgba(176, 91, 212, 0.5);border-radius: 10px;font-weight: bold"> <h5 style="color:black">{{container.name }} {{container.capacity }}</h5> <span style="margin-right:20px">{{container.current_quan_liter}}</span></span>
+              <span class="contLabel" style="color:firebrick; background-color: rgba(176, 91, 212, 0.5);border-radius: 10px;font-weight: bold;margin-right: 70px"> <h5 style="color:black">{{container.name=='Benzene 98'? 'B 98':container.name }} {{container.capacity }}</h5> <span style="margin-right:20px">{{container.current_quan_liter}}</span></span>
             <img title="{{container.name }} {{container.capacity }}" class="container" src="../assets/icons/containerIcons/0.png">
           </div>
         
