@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute,Router } from '@angular/router';
 import { LoginService } from './login.service'; 
+import { AuthenticationService } from '../../service/authentication.service';
 import swal from 'sweetalert';
 @Component({
   selector: 'app-login',
@@ -19,10 +20,10 @@ export class LoginComponent implements OnInit {
     password: new FormControl()
   });
 
-  constructor(private loginServ:LoginService,private router: Router) {}
+  constructor(private loginServ:LoginService,private router: Router,public authServ:AuthenticationService) {}
 
   ngOnInit() {
-    // swal("Hello world!");
+    
   }
 
   checkLogIn(){
