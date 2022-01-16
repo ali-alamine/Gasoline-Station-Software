@@ -32,7 +32,7 @@ export class EmployeeComponent implements OnInit {
     this.isOpened=0;
     this.addEmpForm.reset();
     this.editFlag = false;
-    this.typeSubmit = 'إضافة';
+    this.typeSubmit = 'addition';
   }
   addEmpForm = new FormGroup({
     empFullName: new FormControl(''),
@@ -66,7 +66,7 @@ export class EmployeeComponent implements OnInit {
       processing: true,
       ordering: true,
       stateSave: false,
-      fixedHeader: false,
+      fixedHeader: false, 
       select: {
         style: "single"
       },
@@ -81,10 +81,10 @@ export class EmployeeComponent implements OnInit {
       order: [[0, 'asc']],
       columns: [
         { data: "empID", title: "ID" },
-        { data: "name", title: "الإسم الكامل" },
-        { data: "user_name", title: "اسم المستخدم" },
-        { data: "passkey", title: "كلمه السر"},
-        { data: "user_type", title: "النوع"}
+        { data: "name", title: "full name"},
+        { data: "user_name", title: "User Name" },
+        { data: "passkey", title: "Password"},
+        { data: "user_type", title: "User Type"}
 
       ],
       "columnDefs": [
@@ -191,7 +191,7 @@ export class EmployeeComponent implements OnInit {
         this.globalEmployeeDT.ajax.reload(null, false);
       },
       error=>{
-        alert("error");
+        alert("error on employee 1");
       });
     } else{
       this.empServ.editEmployee(this.addEmpForm.value).subscribe(
@@ -207,7 +207,7 @@ export class EmployeeComponent implements OnInit {
               this.globalEmployeeDT.ajax.reload(null, false);
       },
       error=>{
-        alert("error");
+        alert("error on employee 2");
       });
     }
     

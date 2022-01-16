@@ -17,4 +17,4 @@ export class AuthenticationService {
     // input.append('data')
     return this.httpClient.get(GloableService.PUBLIC_URL,{params:{'data':jsonData}});
   }
-}
+}  

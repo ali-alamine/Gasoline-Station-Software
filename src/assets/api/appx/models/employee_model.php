@@ -9,6 +9,7 @@ class employee_model extends CI_Model{
         $this->db->select("*");
         $this->db->from("employee");
         $this->db->where("user_name='".$loginInfo['username']."' AND passkey ='".$loginInfo['password']."' ");
+        print($loginInfo['username']);
         $query = $this->db->get();
         $rowcount = $query->num_rows();
         return $query->result();

@@ -57,6 +57,8 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import { ReportOptionsComponent } from './report-options/report-options.component';
 import { PaymentsReportComponent } from './payments-report/payments-report.component';
 import { BlockUIModule } from 'ng-block-ui';
+import { ComponentNameComponent } from './component-name/component-name.component';
+import { HeznaComponent } from './hezna/hezna.component';
 @NgModule({
     declarations: [
     AppComponent,
@@ -87,7 +89,9 @@ import { BlockUIModule } from 'ng-block-ui';
     SetPricesComponent,
     ReportsComponent,
     ReportOptionsComponent,
-    PaymentsReportComponent
+    PaymentsReportComponent,
+    ComponentNameComponent,
+    HeznaComponent
   ],
   imports: [
     MatCardModule,

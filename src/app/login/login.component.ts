@@ -58,11 +58,11 @@ export class LoginComponent implements OnInit {
                 // alert("same");
                 var loggedUsername = localStorage.getItem('userName');
                 swal({
-                  title: "اخر تسجيل دخول لك لم يغلق يعد",
-                  text: "هذا الدخول سيعتبر استمرارا لدوام عملك السابق, " +loggedUsername +"",
+                  title: "Your last login is not yet closed",
+                  text:"This entry will be considered a continuation of your previous employment." +loggedUsername +"",
                   buttons: {
                     continue: {
-                      text: "متابعة ",
+                      text: "continue",
                       value: "continue",
                     },
                   },
@@ -81,15 +81,15 @@ export class LoginComponent implements OnInit {
                 // alert("diff")
                 var loggedUsername = localStorage.getItem('userName');
               swal({
-                title: "لا يمكن بدء دوام عمل جديد!",
-                text: "لم يغلق دوام عمله بعد , تابع ك زائر؟ " +loggedUsername +"",
+                title: "You can't start a new shift!",
+                text: "It's not closed yet, continue as a visitor?" +loggedUsername +"",
                 buttons: {
                   noAction: {
-                    text:"إلغاء",
+                    text:"Cancel",
                     value: "Cancel",
                   },
                   continue: {
-                    text: "متابعة للقراءة فقط",
+                    text: "Continue reading only",
                     value: "continue",
                   },
                 },
@@ -113,11 +113,11 @@ export class LoginComponent implements OnInit {
                   // alert("same");
                   var loggedUsername = localStorage.getItem('userName');
                   swal({
-                    title: "اخر تسجيل دخول لك لم يغلق يعد",
-                    text: "هذا الدخول سيعتبر استمرارا لدوام عملك السابق, " +loggedUsername +"",
+                    title: "Your last login is not yet closed",
+                    text: "This entry will be considered a continuation of your previous employment," +loggedUsername +"",
                     buttons: {
                       continue: {
-                        text: "متابعة ",
+                        text: "tracking",
                         value: "continue",
                       },
                     },
@@ -135,16 +135,16 @@ export class LoginComponent implements OnInit {
                   });
                 }else{
                   var loggedUsername = localStorage.getItem('userName');
-                   swal("لم يغلق دوام عمله بعد " +loggedUsername +"");
+                   swal("He hasn't closed his business yet" +loggedUsername +"");
                 }
               //  this.router.navigate(['/operations']);
             }
          }else{
-           alert("اسم المستخدم / كلمة المرور غير صحيحة")
+           alert("Username / password incorrect")
          }
       },
        error=>{
-         alert("error")
+         alert("error am confused")
        }
      );
     // }else{
