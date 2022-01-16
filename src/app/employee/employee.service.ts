@@ -5,6 +5,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EmployeeService {
   private url="http://localhost/eSafe-gasoline_station/src/assets/api/employee/";
+
+  //D:\0a\Gasoline-Station-Software\src\app\employee\employee.service.ts
+  //private url="http://localhost/eSafe-gasoline_station/src/app/employee/";
+
   constructor(private http:HttpClient) { }
 
   getAllEmp(){

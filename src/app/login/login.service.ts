@@ -12,7 +12,6 @@ export class LoginService {
   checkAuth(data){
     var jsonData=JSON.stringify(data);
     return this.httpClient.get('http://localhost:4200/eSafe-gasoline_station/src/assets/api/employee/checkLogin/',{params:{'data':jsonData}});
-   // return this.httpClient.get('http://localhost:4200/eSafe-gasoline_station/src/app/employee/checkLogin/',{params:{'data':jsonData}});
-    
-  }s
+     
+  }
 }

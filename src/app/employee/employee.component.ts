@@ -101,26 +101,26 @@ export class EmployeeComponent implements OnInit {
         }
       ],
       language: {
-        sProcessing: " جارٍ التحميل... ",
-        sLengthMenu: " أظهر _MENU_ مدخلات ",
-        sZeroRecords: " لم يعثر على أية سجلات ",
-        sInfo: " إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل ",
-        sInfoEmpty: " يعرض 0 إلى 0 من أصل 0 سجل ",
-        sInfoFiltered: "( منتقاة من مجموع _MAX_ مُدخل )",
+        sProcessing: "Loading...",
+        sLengthMenu: "show _MENU_ input",
+        sZeroRecords: "No records found",
+        sInfo: "Show _START_ to _END_ of the origin of the _TOTAL_ entry",
+        sInfoEmpty: "Displays 0 to 0 out of 0 records",
+        sInfoFiltered: "(selected from sum of _MAX_ entered)",
         sInfoPostFix: "",
-        sSearch: " ابحث: ",
+        sSearch: "Search: ",
         sUrl: "",
         oPaginate: {
-          sFirst: " الأول ",
-          sPrevious: " السابق ",
-          sNext: " التالي ",
-          sLast: " الأخير "
+          sFirst: "first",
+          sPrevious: "prev",
+          sNext: "Next",
+          sLast: "last"
         },
         select: {
           rows: {
-            _: "||  %d أسطر محدد  ",
-            0: "||  انقر فوق صف لتحديده ",
-            1: "||  صف واحد محدد  "
+            _: "||  %d selected lines",
+            0: "||  Click a row to select it",
+            1: "|| single row selected"
           }
         }
       }
@@ -128,7 +128,7 @@ export class EmployeeComponent implements OnInit {
 
     this.items = [
       {
-        label: 'تعديل',
+        label: 'Modification',
         icon: 'pi pi-fw pi-pencil',
         command: (event) => {
           let element: HTMLElement = document.getElementById('editBtn') as HTMLElement;
@@ -136,7 +136,7 @@ export class EmployeeComponent implements OnInit {
         }
 
       },{
-        label: "حذف",
+        label: "Delete",
         icon: "pi pi-fw pi-times",
         command: event => {
           let element: HTMLElement = document.getElementById(
@@ -181,7 +181,7 @@ export class EmployeeComponent implements OnInit {
     if(this.editFlag == false){
       this.empServ.addNewEmployee(this.addEmpForm.value).subscribe(
         Response=>{
-        this.openSnackBar(this.addEmpForm.value['empFullName'], "إضافة ناجحة");
+        this.openSnackBar(this.addEmpForm.value['empFullName'], "Successful addition");
         
         /* START- collapse accordion and rest form values */
         // this.isOpened=0;
@@ -196,7 +196,7 @@ export class EmployeeComponent implements OnInit {
     } else{
       this.empServ.editEmployee(this.addEmpForm.value).subscribe(
         Response=>{
-          this.openSnackBar(this.addEmpForm.value['empFullName'], "تعديلات ناجحة");
+          this.openSnackBar(this.addEmpForm.value['empFullName'], "Successful edits");
           /* START- collapse accordion and rest form values */
           // this.isOpened=0;
           this.addEmpForm.reset();
@@ -214,7 +214,7 @@ export class EmployeeComponent implements OnInit {
   }
   openEmployeeModal() {
       this.isOpened=1;
-      this.typeSubmit = "تعديل";
+      this.typeSubmit = "Modification";
       this.addEmpForm.get('empID').setValue(EmployeeComponent.selectedEmployeeID);
       this.addEmpForm.get('empFullName').setValue(EmployeeComponent.selectedRowData["name"]);
       this.addEmpForm.get('empUserName').setValue(EmployeeComponent.selectedRowData["user_name"]);
@@ -226,14 +226,14 @@ export class EmployeeComponent implements OnInit {
   }
   deleteEmployee() {
     Swal({
-      title: "حذف",
-      text: "هل حقا تريد حذفه؟",
+      title: "Delete",
+      text: "Do you really want to delete it?",
       type: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d33",
       cancelButtonColor: "#3085d6",
-      confirmButtonText: "نعم!",
-      cancelButtonText: "كلا"
+      confirmButtonText: "Yes!",
+      cancelButtonText: "Both"
     }).then(result => {
       if (result.value) {
         this.empServ
@@ -243,7 +243,7 @@ export class EmployeeComponent implements OnInit {
               this.globalEmployeeDT.ajax.reload(null, false);
               Swal({
                 type: "success",
-                title: "نجاح الحذف",
+                title: "delete success",
                 showConfirmButton: false,
                 timer: 1000
               });
@@ -251,9 +251,9 @@ export class EmployeeComponent implements OnInit {
             error => {
               Swal({
                 type: "error",
-                title: "تحذير",
-                text: "هذا الموظف موجود في الفواتير",
-                confirmButtonText: "نعم",
+                title: "warning",
+                text: "This employee is in the invoices",
+                confirmButtonText: "Yes",
     });
             }
           );
