@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Windows Environmennt preparation
 cd into the root folder of the project
-Run `nmp install`
+Run `npm install`
 Run `npm install node-sass@4.14.1`
 This will prepare the environment for you to be able to run the commands below
 
