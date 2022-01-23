@@ -9,9 +9,9 @@ export class LoginService {
   constructor(private httpClient: HttpClient) { }
 
   /* check loggin authentication */
-  checkAuth(data){
-    var jsonData=JSON.stringify(data);
-    return this.httpClient.get('http://localhost:4200/eSafe-gasoline_station/src/assets/api/employee/checkLogin/',{params:{'data':jsonData}});
-     
-  }
+  checkAuth(data) {
+    const jsonData = JSON.stringify(data);
+      // tslint:disable-next-line: max-line-length
+      return this.httpClient.get('http://localhost:4200/gasoline-station-software/src/app/employee/checkLogin/', {params: {'data': jsonData}});
+    }
 }

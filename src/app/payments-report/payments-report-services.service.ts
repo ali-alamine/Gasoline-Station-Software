@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PaymentsReportServicesService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
+  private url="http://localhost/gasoline-station-software/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
 
   getAllEmployees(){

@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class CountersService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
+  private url="http://localhost/gasoline-station-software/src/assets/api/";
   constructor(private httpClient: HttpClient) { }
 
   getAllDispanesersCounters(){

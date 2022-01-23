@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ClientService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/person/";
+  private url="http://localhost/gasoline-station-software/src/assets/api/person/";
   constructor(private http:HttpClient) { }
 
   addNewClient(clientData){

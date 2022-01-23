@@ -5,14 +5,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReportServicesService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
-  constructor(private httpClient:HttpClient) { }
+  private url = 'http://localhost/gasoline-station-software/src/assets/api/';
+  constructor(private httpClient: HttpClient) { }
 
-  getAllEmployees(){
-    return this.httpClient.post(this.url +"employee/getAllEmp",'');
+  getAllEmployees() {
+    return this.httpClient.post(this.url + 'employee/getAllEmp', '');
   }
-  getReportResult(data){
-    console.log(data)
-    return this.httpClient.post(this.url +"report/getReportResult",{"data":data});
+  getReportResult(data) {
+    console.log(data);
+    return this.httpClient.post(this.url + 'report/getReportResult', {'data': data});
   }
 }
