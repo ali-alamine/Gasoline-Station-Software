@@ -9,6 +9,10 @@ import { OperationsComponent } from './operations/operations.component';
 import swal from 'sweetalert2';
 import { debug } from 'util';
 
+// nano assets/api/appx/config/database.php
+// nano assets/api/dataTables/connection.php
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -82,6 +86,7 @@ export class AppComponent implements OnInit {
 
   }
   logoutTemp() {
+    // tslint:disable-next-line: no-debugger
     debugger;
     const username = localStorage.getItem('userName');
     // this.getTotalDarwer();
@@ -151,9 +156,10 @@ export class AppComponent implements OnInit {
       return parts.join('.');
   }
   logout() {
+    // tslint:disable-next-line: no-debugger
     debugger;
       this.mode = localStorage.getItem('mode');
-      if (this.mode != 'configMode') {
+      if (this.mode !== 'configMode') {
         const username = localStorage.getItem('userName');
         this.shiftID = localStorage.getItem('shiftID');
         this.ms.getTotalDarwer(this.shiftID).subscribe(Response => {
@@ -176,6 +182,7 @@ export class AppComponent implements OnInit {
               if (result.value) {
                 const data = {'shiftID' : this.shiftID, 'totalDrawer': this.drawerAmount};
                 console.log(data);
+                  // tslint:disable-next-line: no-shadowed-variable
                   this.ms.logout(data).subscribe(Response => {
                     localStorage.setItem('shiftID', '');
                     localStorage.setItem('shiftIDs', '');
