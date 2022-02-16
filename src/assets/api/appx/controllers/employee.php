@@ -11,7 +11,7 @@ class employee extends REST_Controller{
         $data = $this->get('data');
         $result = $this->employee_model->checkLogInAuth($data);
         if ($result === 0) {
-            $this->response("Error. Try again.", 404);
+            $this->response("checkLogin_get-Error cannot check login Authentication, Please Try again.", 404);
         }else {
             $checkShift = $this->employee_model->isShiftOpen();
             // $this->response($result, 200);
@@ -19,6 +19,7 @@ class employee extends REST_Controller{
                 $this->response("Error. Try again.", 404);
             }else {
                 $checkShift = $this->employee_model->isShiftOpen();
+                // D:\0a\Gasoline-Station-Software\src\assets\api\appx\models\isShiftOpen()
                 $resp=[$result,$checkShift];
                 $this->response($resp, 200);
             }
@@ -35,12 +36,12 @@ class employee extends REST_Controller{
             $this->response($result, 200);
         }
 
-    }
+    } 
      /* check if shifts not closed  */
      public function isShiftOpened_get(){
         $result = $this->employee_model->isShiftOpen();
         if ($result === 0) {
-            $this->response("Error. Try again.", 404);
+            $this->response("isShiftOpened_get-Error cannot get. Try again Francis.", 405);
         } else {
             $this->response($result, 200);
         }
@@ -145,7 +146,7 @@ class employee extends REST_Controller{
             $this->db->trans_commit();
         }
         if ($logout === 0){
-            $this->response("error, Try again.", 404);
+            $this->response("error you were logged out cannot proceed, Try again.", 404);
         } else {
             $this->response('success', 200);
         }

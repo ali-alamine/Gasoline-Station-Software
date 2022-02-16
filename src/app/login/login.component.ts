@@ -29,8 +29,7 @@ export class LoginComponent implements OnInit {
 
   checkLogIn() {
     // tslint:disable-next-line: no-debugger
-    debugger;
-
+    // debugger;
     // tslint:disable-next-line: prefer-const
     let isLoggedOut = localStorage.getItem('shiftID');
     if (isLoggedOut === '') {

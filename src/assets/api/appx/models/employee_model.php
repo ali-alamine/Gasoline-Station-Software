@@ -23,8 +23,6 @@ class employee_model extends CI_Model{
         $this->db->from("shift");
         $this->db->where("isOpen=1");
         $query = $this->db->get(); 
-        // $strQuery=$this->db->last_query();
-        // $rowcount = $query->num_rows();
         return $query->result();
     }
     /* Get All Employee */

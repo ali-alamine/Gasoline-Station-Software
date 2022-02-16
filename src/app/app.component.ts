@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
 
     // (<HTMLElement>document.querySelector('#header')).style.display = 'none';
-    this.checkOpenedSession();
+     this.checkOpenedSession();
      this.userType = localStorage.getItem('activeUser');
 
     if (this.userType === 'admin') {
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
         if (this.currentUrl.includes('startShift')) {
           // tslint:disable-next-line: no-var-keyword
           var hide = 'true';
-        } else { hide = 'false';}
+        } else { hide = 'false'; }
         if (this.currentUrl === '/login' || hide === 'true' || this.currentUrl === '/' ) {
           (<HTMLElement>document.querySelector('#header')).style.display = 'none';
         } else {
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
       }
     },
     error => {
-      alert('error');
+      alert('getActiveSessions-error while loading page rahul.');
     });
   }
 
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
   }
   goHome() {
     const mode = localStorage.getItem('mode');
-    if (mode != 'configMode') {
+    if (mode !== 'configMode') {
       this.router.navigate(['/operations']);
     } else {
       this.router.navigate(['/settings']);
@@ -91,7 +91,7 @@ export class AppComponent implements OnInit {
     const username = localStorage.getItem('userName');
     // this.getTotalDarwer();
     // debugger
-    if (this.drawerAmount != undefined ) {
+    if (this.drawerAmount !== undefined ) {
 
       const msg = username + ' Are you sure you want to end your shift?' + ' ' + this.drawerAmount;
       // msg = msg +'<br/> Vous voulez imprimer?';
@@ -109,44 +109,12 @@ export class AppComponent implements OnInit {
           this.ms.logout(this.shiftID).subscribe(Response => {
           },
           error => {
-            alert('error');
+            alert('error at ending shift');
           });
           this.router.navigate(['/login']);
           localStorage.setItem('userID', '-1');
         }
       });
-      // swal({
-      //   title: "Confirmation",
-      //   text: username + " Are you sure you want to end your shift?" +" " +this.drawerAmount ,
-      //   buttons: [true, true],                              // booleans
-      //   buttons: ['Stay on this page', 'Continue'],         // strings
-      //   buttons: [true, 'Delete'],
-      //   buttons: {
-      //     continue: {
-      //       text: "Logout",
-      //       value: "continue",
-      //     },
-      //     noAction: {
-      //       text:"Cancel",
-      //       value: "Cancel",
-      //     },
-      //   },
-      // })
-      // .then((value) => {
-      //   switch (value) {
-      //     case "cancel":
-      //       break;
-      //     case "continue":
-      //       this.ms.logout(this.shiftID).subscribe(Response=>{
-      //       },
-      //       error=>{
-      //         alert("error")
-      //       });
-      //       this.router.navigate(["/login"]);
-      //       localStorage.setItem('userID','-1');
-      //     break;
-      //   }
-      // });
     }
 
   }
