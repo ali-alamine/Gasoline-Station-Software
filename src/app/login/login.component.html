@@ -1,30 +1,30 @@
-<div class="container" style="float: right; text-align: center;margin-right:160px" dir="rtl" >
+<div class="container" style="float: left; text-align: center;margin-left:160px" dir="ltr" >
   <div class="col-lg-4;margin-left: -250px;position:absolute;text-align:center">
-    <span id="title" style="font-size: 25px;">
-        <b>Powered By</b> <b style="color:#843c9e"><span title="03776132"> E-Safe Solutions</span></b><i class="material-icons">
-            <img style="width:60px;height:60px;" src="../assets/icons/eSafeLogo.png"></i>
+    <span id="title" style="font-size: 25px;">s
+        <b>Powered By</b> <b style="color:#2f39c9"><span title="03776132"> GuchieTech Kowa Systems</span></b><i class="material-icons">
+            <img style="width:60px;height:60px;" src="../assets/icons/guchietechLogo.png"></i>
             <!-- position: absolute;margin-top:-25px -->
     </span>
 </div>
   <div class="loginBox">
-      <mat-toolbar style="background-color:rgb(141, 64, 141);font-size: 50px" justify-content: center >
-        <span style="margin-right:200px">تسجيل الدخول</span> 
+      <mat-toolbar style="background-color:rgb(120, 39, 196);font-size: 50px" justify-content: center >
+        <span style="margin-left:200px">Login</span> 
       </mat-toolbar>
       <mat-card>
         <form [formGroup]="loginForm">
             <mat-form-field class="form-field" appearance="standard">
-              <mat-label style="font-size: 30px">اسم المستخدم</mat-label>
-              <input style="font-size: 30px;color:firebrick" required matInput formControlName="username" placeholder="المستخدم" type="text">
+              <mat-label style="font-size: 30px">User Name</mat-label>
+              <input style="font-size: 30px;color:firebrick" required matInput formControlName="username" placeholder="user name" type="text">
               <!-- <mat-icon matSuffix>input</mat-icon> -->
             </mat-form-field>
             <br>
             <mat-form-field class="form-field" appearance="standard">
-                <mat-label style="font-size: 30px">كلمه السر</mat-label>
+                <mat-label style="font-size: 30px">Password</mat-label>
                 <input style="font-size: 30px;color:firebrick" required matInput formControlName="password" placeholder="*****" type="password">
                 <!-- <mat-icon matSuffix>input</mat-icon> -->
               </mat-form-field>
               <br>
-              <button style="width: 110px;height: 50px;font-size: 20px" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="checkLogIn();">تسجيل دخول</button>
+              <button style="width: 110px;height: 50px;font-size: 20px" mat-raised-button color="primary" [disabled]="!loginForm.valid" (click)="checkLogIn();">Login</button>
             <br >
               <!-- <p *ngIf="u.user_type==0" >{{u.user_name}}</p> -->
         </form>

@@ -125,7 +125,7 @@ export class StockComponent implements OnInit {
         lengthMenu: [[50, 100, 150], [50, 100, 150]],
         ajax: {
           type: "get",
-          url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/stockDataTable.php",
+          url: "http://localhost/gasoline-station-software/src/assets/api/dataTables/stockDataTable.php",
           data : {'type' : 'lub'},
           cache: true,
           async: true
@@ -237,7 +237,7 @@ export class StockComponent implements OnInit {
       lengthMenu: [[50, 100, 150], [50, 100, 150]],
       ajax: {
         type: "get",
-          url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/stockDataTable.php",
+          url: "http://localhost/gasoline-station-software/src/assets/api/dataTables/stockDataTable.php",
           data : {'type' : 'access'},
           cache: true,
           async: true

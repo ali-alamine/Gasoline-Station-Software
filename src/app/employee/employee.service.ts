@@ -4,20 +4,20 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EmployeeService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/employee/";
-  constructor(private http:HttpClient) { }
+  private url = 'http://localhost:4200/gasoline-station-software/src/app/employee/';
+  constructor(private http: HttpClient) { }
 
-  getAllEmp(){
-    return this.http.post(this.url +"getAllEmp",'');
+  getAllEmp() {
+    return this.http.post(this.url + 'getAllEmp', '');
   }
-  addNewEmployee(empData){
-    return this.http.post(this.url +"addNewEmployee",empData);
+  addNewEmployee(empData) {
+    return this.http.post(this.url + 'addNewEmployee', empData);
   }
-  editEmployee(data){
+  editEmployee(data) {
     // console.log(data)
-    return this.http.post(this.url +"editEmployee",data);
+    return this.http.post(this.url + 'editEmployee', data);
   }
-  deleteEmployee(empID){
-    return this.http.get(this.url +"deleteEmployee",{params:{empID:empID}});
+  deleteEmployee(empID) {
+    return this.http.get(this.url + 'deleteEmployee', {params: {empID: empID}});
   }
 }

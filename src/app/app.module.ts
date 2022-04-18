@@ -57,6 +57,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import { ReportOptionsComponent } from './report-options/report-options.component';
 import { PaymentsReportComponent } from './payments-report/payments-report.component';
 import { BlockUIModule } from 'ng-block-ui';
+
 @NgModule({
     declarations: [
     AppComponent,

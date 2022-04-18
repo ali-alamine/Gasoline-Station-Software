@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class WashingCarService {
 
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
+  private url="http://localhost/gasoline-station-software/src/assets/api/";
   constructor(private httpClient:HttpClient) { }
   // sellWashService(data){
   //   console.log(data)

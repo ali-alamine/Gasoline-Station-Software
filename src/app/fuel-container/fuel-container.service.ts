@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class FuelContainerService {
 
   constructor(private http: HttpClient) { }
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
+  private url="http://localhost/gasoline-station-software/src/assets/api/";
   getAllFuelContainers(){
     return this.http.get(this.url +"container/getFuelContainer");
   }

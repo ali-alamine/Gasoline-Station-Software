@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class DebitFormService {
-  private url="http://localhost/eSafe-gasoline_station/src/assets/api/";
+  private url="http://localhost/gasoline-station-software/src/assets/api/";
   constructor(private http:HttpClient) { }
   getAllClients(isClient){
     console.log(isClient)
@@ -23,6 +23,6 @@ export class DebitFormService {
     return this.http.post(this.url +"person/addPerson",data);
   }
   searchClient(data){
-    return this.http.get("http://localhost/eSafe-gasoline_station/src/assets/api/person/searchClientName", {params:{keyword:data}});
+    return this.http.get("http://localhost/gasoline-station-software/src/assets/api/person/searchClientName", {params:{keyword:data}});
   }
 }

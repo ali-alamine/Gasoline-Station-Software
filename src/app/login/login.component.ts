@@ -1,156 +1,165 @@
 
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute,Router } from '@angular/router';
-import { LoginService } from './login.service'; 
+import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from './login.service';
 import { AuthenticationService } from '../../service/authentication.service';
 import swal from 'sweetalert';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 
-export class LoginComponent implements OnInit { 
-  userType:object;
-  shiftStatus:any;
+export class LoginComponent implements OnInit {
+  userType: object;
+  shiftStatus: any;
   empData;
   loginForm = new FormGroup({
     username: new FormControl(),
     password: new FormControl()
   });
 
-  constructor(private loginServ:LoginService,private router: Router,public authServ:AuthenticationService) {}
+  constructor(private loginServ: LoginService, private router: Router, public authServ: AuthenticationService) {}
 
   ngOnInit() {
-    
+
   }
 
-  checkLogIn(){
-    debugger;
-    var isLoggedOut=localStorage.getItem('shiftID');
-    // if(isLoggedOut == ''){
-      console.log(this.loginForm.value)
-      this.loginServ.checkAuth(this.loginForm.value).subscribe(Response=>{
+  checkLogIn() {
+    // tslint:disable-next-line: no-debugger
+    // debugger;
+    // tslint:disable-next-line: prefer-const
+    let isLoggedOut = localStorage.getItem('shiftID');
+    if (isLoggedOut === '') {
+      console.log(this.loginForm.value);
+      this.loginServ.checkAuth(this.loginForm.value).subscribe(Response => {
+         // tslint:disable-next-line: no-unused-expression
          loginServ => this.userType = loginServ;
-         console.log(Response[0][0])
+         console.log(Response[0][0]);
          /* START -  NO OPEN SHIFT */
-         if(Response[0][0] !== undefined){
-            if(Response[1][0] === undefined){
-              if(Response[0][0].user_type==0){
-                localStorage.setItem("userID",Response[0][0].empID);
-                localStorage.setItem("activeUser",'emp');
-                localStorage.setItem("newShift",'true');
-                this.empData={ empName: Response[0][0].name,empID:Response[0][0].empID};
+         if (Response[0][0] !== undefined) {
+            if (Response[1][0] === undefined) {
+              if (Response[0][0].user_type === 0) {
+                localStorage.setItem('userID', Response[0][0].empID);
+                localStorage.setItem('activeUser', 'emp');
+                localStorage.setItem('newShift', 'true');
+                this.empData = { empName: Response[0][0].name, empID: Response[0][0].empID};
                 this.router.navigate(['/startShift'], { queryParams: this.empData});
-              }else if(Response[0][0].user_type==1){
-                localStorage.setItem("userID",Response[0][0].empID);
-                localStorage.setItem("activeUser",'admin');
-                localStorage.setItem("newShift",'true');
-                this.empData={ empName: Response[0][0].name,empID:Response[0][0].empID};
+              } else if (Response[0][0].user_type === 1) {
+                localStorage.setItem('userID', Response[0][0].empID);
+                localStorage.setItem('activeUser', 'admin');
+                localStorage.setItem('newShift', 'true');
+                this.empData = { empName: Response[0][0].name, empID: Response[0][0].empID};
                 this.router.navigate(['/startShift'], { queryParams: this.empData});
               }
-              localStorage.setItem("userName",Response[0][0].name);
+              localStorage.setItem('userName', Response[0][0].name);
               /* END -  NO OPEN SHIFT */
-            }else if(Response[0][0].user_type==1){
-              var currentUserID=localStorage.getItem('userID');
-              if(currentUserID==Response[0][0].empID){
+            } else if (Response[0][0].user_type === 1) {
+              // tslint:disable-next-line: no-var-keyword
+              var currentUserID = localStorage.getItem('userID');
+              if (currentUserID === Response[0][0].empID) {
                 // alert("same");
                 var loggedUsername = localStorage.getItem('userName');
                 swal({
-                  title: "اخر تسجيل دخول لك لم يغلق يعد",
-                  text: "هذا الدخول سيعتبر استمرارا لدوام عملك السابق, " +loggedUsername +"",
+                  title: 'Your last login is not yet closed',
+                  text: 'This entry will be considered a continuation of your previous employment.' + loggedUsername + '',
                   buttons: {
                     continue: {
-                      text: "متابعة ",
-                      value: "continue",
+                      text: 'continue',
+                      value: 'continue',
                     },
                   },
                 })
                 .then((value) => {
                   switch (value) {
-                    case "cancel":
+                    case 'cancel':
                       break;
-                    case "continue":
-                    localStorage.setItem('newShift','true');
+                    case 'continue':
+                    localStorage.setItem('newShift', 'true');
                     this.router.navigate(['/operations']);
                       break;
                   }
                 });
-              }else{
+              } else {
                 // alert("diff")
+                // tslint:disable-next-line: no-var-keyword
                 var loggedUsername = localStorage.getItem('userName');
               swal({
-                title: "لا يمكن بدء دوام عمل جديد!",
-                text: "لم يغلق دوام عمله بعد , تابع ك زائر؟ " +loggedUsername +"",
+                title: 'You can\'t start a new shift!',
+                text: 'It\'s not closed yet, continue as a visitor?' + loggedUsername + '',
                 buttons: {
                   noAction: {
-                    text:"إلغاء",
-                    value: "Cancel",
+                    text: 'Cancel',
+                    value: 'Cancel',
                   },
                   continue: {
-                    text: "متابعة للقراءة فقط",
-                    value: "continue",
+                    text: 'Continue reading only',
+                    value: 'continue',
                   },
                 },
               })
               .then((value) => {
                 switch (value) {
-                  case "cancel":
+                  case 'cancel':
                     break;
-                  case "continue":
+                  case 'continue':
                     // swal("rout here with read only param");
-                    localStorage.setItem("newShift",'false');
-                    localStorage.setItem('mode','configMode');
+                    localStorage.setItem('newShift', 'false');
+                    localStorage.setItem('mode', 'configMode');
                     this.router.navigate(['/settings']);
                     break;
                 }
               });
             }
-            }else{
-                var currentUserID=localStorage.getItem('userID');
-                if(currentUserID==Response[0][0].empID){
+            } else {
+                // tslint:disable-next-line: no-var-keyword
+                // tslint:disable-next-line: prefer-const
+                var currentUserID = localStorage.getItem('userID');
+                if (currentUserID === Response[0][0].empID) {
                   // alert("same");
                   var loggedUsername = localStorage.getItem('userName');
                   swal({
-                    title: "اخر تسجيل دخول لك لم يغلق يعد",
-                    text: "هذا الدخول سيعتبر استمرارا لدوام عملك السابق, " +loggedUsername +"",
+                    title: 'Your last login is not yet closed',
+                    text: 'This entry will be considered a continuation of your previous employment,' + loggedUsername + '',
                     buttons: {
                       continue: {
-                        text: "متابعة ",
-                        value: "continue",
+                        text: 'tracking',
+                        value: 'continue',
                       },
                     },
                   })
                   .then((value) => {
                     switch (value) {
-                      case "cancel":
+                      case 'cancel':
                         break;
-                      case "continue":
-                        
-                      localStorage.setItem('newShift','true');
+                      case 'continue':
+
+                      localStorage.setItem('newShift', 'true');
                       this.router.navigate(['/operations']);
                         break;
                     }
                   });
-                }else{
+                } else {
+                  // tslint:disable-next-line: prefer-const
                   var loggedUsername = localStorage.getItem('userName');
-                   swal("لم يغلق دوام عمله بعد " +loggedUsername +"");
+                   swal('He hasn\'t closed his business yet' + loggedUsername + '');
                 }
               //  this.router.navigate(['/operations']);
             }
-         }else{
-           alert("اسم المستخدم / كلمة المرور غير صحيحة")
+         } else {
+            alert('Username / password incorrect');
          }
       },
-       error=>{
-         alert("error")
+       error => {
+         alert('error am confused Loop 2');
        }
      );
     // }else{
     //   localStorage.setItem('newShift','true');
     //   this.router.navigate(['/operations']);
     // }
-   
+
   }
-}
+}}

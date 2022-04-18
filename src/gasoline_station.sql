@@ -8,7 +8,7 @@
 -- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET time_zone = "+02:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -18,6 +18,11 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `gasoline_station`
+--
+CREATE DATABASE IF NOT EXISTS `gasoline_station` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `gasoline_station`;
+
+-- --------------------------------------------------------
 --
 
 DELIMITER $$

@@ -6,7 +6,7 @@ declare var $: any;
 import 'datatables.net';
 import 'datatables.net-bs4';
 import { MenuItem } from 'primeng/api';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee',
@@ -15,36 +15,38 @@ import Swal from "sweetalert2";
 })
 
 export class EmployeeComponent implements OnInit {
-  checked = false;
-  isOpened = 0;
   private static selectedRowData;
   private static selectedEmployeeID;
+  checked = false;
+  isOpened = 0;
   private globalEmployeeDT;
   items: MenuItem[];
   editFlag = false;
   typeSubmit = 'Add';
 
-  togglePanel(index:number) {
-    this.isOpened = index;
-  }
+  private globalDataTable;
+  private employee: any;
 
-  collapse() {
-    this.isOpened=0;
-    this.addEmpForm.reset();
-    this.editFlag = false;
-    this.typeSubmit = 'إضافة';
-  }
   addEmpForm = new FormGroup({
     empFullName: new FormControl(''),
     empUserName: new FormControl(''),
     empPassword: new FormControl(''),
     empType: new FormControl(''),
     empID: new FormControl(''),
-  })
+  });
 
-  private globalDataTable;
-  private employee:any;
-  constructor(private empServ:EmployeeService,public snackBar: MatSnackBar) { }
+  togglePanel(index: number) {
+    this.isOpened = index;
+  }
+
+  collapse() {
+    this.isOpened = 0;
+    this.addEmpForm.reset();
+    this.editFlag = false;
+    this.typeSubmit = 'addition';
+  }
+
+  constructor(private empServ: EmployeeService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getAllEmp();
@@ -55,72 +57,73 @@ export class EmployeeComponent implements OnInit {
     });
   }
   // displayTable(){
-  //   setTimeout(function () {$(function () {$('#empTable').DataTable();});}, 10);  
+  //   setTimeout(function () {$(function () {$('#empTable').DataTable();});}, 10);
   // }
-  getAllEmp(){
-    var subscriberDataTable = $('#employeeDT').DataTable({
+  getAllEmp() {
+    // tslint:disable-next-line: prefer-const
+    let subscriberDataTable = $('#employeeDT').DataTable({
       responsive: false,
       paging: true,
-      pagingType: "full_numbers",
+      pagingType: 'full_numbers',
       serverSide: true,
       processing: true,
       ordering: true,
       stateSave: false,
       fixedHeader: false,
       select: {
-        style: "single"
+        style: 'single'
       },
       searching: true,
       lengthMenu: [[50, 100, 150], [50, 100, 150]],
       ajax: {
-        type: "get",
-        url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/employeeDT.php",
+        type: 'get',
+        url: 'http://localhost:4200/Gasoline-Station-Software/src/assets/api/dataTables/employeeDT.php',
         cache: true,
         async: true
       },
       order: [[0, 'asc']],
       columns: [
-        { data: "empID", title: "ID" },
-        { data: "name", title: "الإسم الكامل" },
-        { data: "user_name", title: "اسم المستخدم" },
-        { data: "passkey", title: "كلمه السر"},
-        { data: "user_type", title: "النوع"}
+        { data: 'empID', title: 'ID' },
+        { data: 'name', title: 'full name'},
+        { data: 'user_name', title: 'User Name' },
+        { data: 'passkey', title: 'Password'},
+        { data: 'user_type', title: 'User Type'}
 
       ],
-      "columnDefs": [
+      'columnDefs': [
         {
-          "targets": 4,
-          "data": "user_type",
-          "render": function (data, type, rowData, meta) {
-            if (data == 0) {
+          'targets': 4,
+          'data': 'user_type',
+          'render': function (data, type, rowData, meta) {
+            if (data === 0) {
               return 'Employee';
-            } else if (data == 1){
+            } else if (data === 1) {
               return 'Admin';
-            }    
+            }
           }
         }
       ],
       language: {
-        sProcessing: " جارٍ التحميل... ",
-        sLengthMenu: " أظهر _MENU_ مدخلات ",
-        sZeroRecords: " لم يعثر على أية سجلات ",
-        sInfo: " إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل ",
-        sInfoEmpty: " يعرض 0 إلى 0 من أصل 0 سجل ",
-        sInfoFiltered: "( منتقاة من مجموع _MAX_ مُدخل )",
-        sInfoPostFix: "",
-        sSearch: " ابحث: ",
-        sUrl: "",
+        sProcessing: 'Loading...',
+        sLengthMenu: 'show _MENU_ input',
+        sZeroRecords: 'No records found',
+        sInfo: 'Show _START_ to _END_ of the origin of the _TOTAL_ entry',
+        sInfoEmpty: 'Displays 0 to 0 out of 0 records',
+        sInfoFiltered: '(selected from sum of _MAX_ entered)',
+        sInfoPostFix: '',
+        sSearch: 'Search: ',
+        sUrl: '',
         oPaginate: {
-          sFirst: " الأول ",
-          sPrevious: " السابق ",
-          sNext: " التالي ",
-          sLast: " الأخير "
+          sFirst: 'first',
+          sPrevious: 'prev',
+          sNext: 'Next',
+          sLast: 'last'
         },
         select: {
           rows: {
-            _: "||  %d أسطر محدد  ",
-            0: "||  انقر فوق صف لتحديده ",
-            1: "||  صف واحد محدد  "
+            _: '||  %d selected lines',
+            0: '||  Click a row to select it',
+            1: '|| single row selected'
           }
         }
       }
@@ -128,19 +131,21 @@ export class EmployeeComponent implements OnInit {
 
     this.items = [
       {
-        label: 'تعديل',
+        label: 'Modification',
         icon: 'pi pi-fw pi-pencil',
         command: (event) => {
+          // tslint:disable-next-line: prefer-const
           let element: HTMLElement = document.getElementById('editBtn') as HTMLElement;
           element.click();
         }
 
-      },{
-        label: "حذف",
-        icon: "pi pi-fw pi-times",
+      }, {
+        label: 'Delete',
+        icon: 'pi pi-fw pi-times',
         command: event => {
+          // tslint:disable-next-line: prefer-const
           let element: HTMLElement = document.getElementById(
-            "deleteBtn"
+            'deleteBtn'
           ) as HTMLElement;
           element.click();
         }
@@ -152,18 +157,17 @@ export class EmployeeComponent implements OnInit {
 
       if (type === 'row') {
         EmployeeComponent.selectedRowData = subscriberDataTable.row(indexes).data();
-        var ID = subscriberDataTable.row(indexes).data()['empID'];
-        var name = subscriberDataTable.row(indexes).data()['full_name'];
+        const ID = subscriberDataTable.row(indexes).data()['empID'];
+        const name = subscriberDataTable.row(indexes).data()['full_name'];
         EmployeeComponent.selectedEmployeeID = ID;
         // EmployeeComponent.selectedClientName = name;
-      }
-      else if (type === 'column') {
+      } else if (type === 'column') {
         EmployeeComponent.selectedEmployeeID = -1;
       }
     });
 
     $('#employeeDT tbody').on('mousedown', 'tr', function (event) {
-      if (event.which == 3) {
+      if (event.which === 3) {
         subscriberDataTable.row(this).select();
       }
     });
@@ -177,12 +181,12 @@ export class EmployeeComponent implements OnInit {
     });
 
   }
-  addNewEmployee(){
-    if(this.editFlag == false){
+  addNewEmployee() {
+    if (this.editFlag === false) {
       this.empServ.addNewEmployee(this.addEmpForm.value).subscribe(
-        Response=>{
-        this.openSnackBar(this.addEmpForm.value['empFullName'], "إضافة ناجحة");
-        
+        Response => {
+        this.openSnackBar(this.addEmpForm.value['empFullName'], 'Successful addition');
+
         /* START- collapse accordion and rest form values */
         // this.isOpened=0;
         this.addEmpForm.reset();
@@ -190,13 +194,13 @@ export class EmployeeComponent implements OnInit {
           /* END- capsollapse accordion and rest form values */
         this.globalEmployeeDT.ajax.reload(null, false);
       },
-      error=>{
-        alert("error");
+      error => {
+        alert('error on employee 1');
       });
-    } else{
+    } else {
       this.empServ.editEmployee(this.addEmpForm.value).subscribe(
-        Response=>{
-          this.openSnackBar(this.addEmpForm.value['empFullName'], "تعديلات ناجحة");
+        Response => {
+          this.openSnackBar(this.addEmpForm.value['empFullName'], 'Successful edits');
           /* START- collapse accordion and rest form values */
           // this.isOpened=0;
           this.addEmpForm.reset();
@@ -206,34 +210,35 @@ export class EmployeeComponent implements OnInit {
           /* END- collapse accordion and rest form values */
               this.globalEmployeeDT.ajax.reload(null, false);
       },
-      error=>{
-        alert("error");
+      error => {
+        alert('error on employee 2');
       });
     }
-    
+
   }
   openEmployeeModal() {
-      this.isOpened=1;
-      this.typeSubmit = "تعديل";
+      this.isOpened = 1;
+      this.typeSubmit = 'Modification';
       this.addEmpForm.get('empID').setValue(EmployeeComponent.selectedEmployeeID);
-      this.addEmpForm.get('empFullName').setValue(EmployeeComponent.selectedRowData["name"]);
-      this.addEmpForm.get('empUserName').setValue(EmployeeComponent.selectedRowData["user_name"]);
-      this.addEmpForm.get('empPassword').setValue(EmployeeComponent.selectedRowData["passkey"]);
-      if(EmployeeComponent.selectedRowData["user_type"] == 1)
+      this.addEmpForm.get('empFullName').setValue(EmployeeComponent.selectedRowData['name']);
+      this.addEmpForm.get('empUserName').setValue(EmployeeComponent.selectedRowData['user_name']);
+      this.addEmpForm.get('empPassword').setValue(EmployeeComponent.selectedRowData['passkey']);
+      if (EmployeeComponent.selectedRowData['user_type'] === 1) {
         this.checked = true;
-      else
+        } else {
         this.checked = false;
+        }
   }
   deleteEmployee() {
     Swal({
-      title: "حذف",
-      text: "هل حقا تريد حذفه؟",
-      type: "warning",
+      title: 'Delete',
+      text: 'Do you really want to delete it?',
+      type: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "نعم!",
-      cancelButtonText: "كلا"
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes!',
+      cancelButtonText: 'Both'
     }).then(result => {
       if (result.value) {
         this.empServ
@@ -242,23 +247,23 @@ export class EmployeeComponent implements OnInit {
             Response => {
               this.globalEmployeeDT.ajax.reload(null, false);
               Swal({
-                type: "success",
-                title: "نجاح الحذف",
+                type: 'success',
+                title: 'delete success',
                 showConfirmButton: false,
                 timer: 1000
               });
             },
             error => {
               Swal({
-                type: "error",
-                title: "تحذير",
-                text: "هذا الموظف موجود في الفواتير",
-                confirmButtonText: "نعم",
+                type: 'error',
+                title: 'warning',
+                text: 'This employee is in the invoices',
+                confirmButtonText: 'Yes',
     });
             }
           );
       }
     });
   }
-  
+
 }

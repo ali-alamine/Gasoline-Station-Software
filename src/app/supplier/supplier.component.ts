@@ -106,7 +106,7 @@ export class SupplierComponent implements OnInit {
       lengthMenu: [[50, 100, 150], [50, 100, 150]],
       ajax: {
         type: "get",
-        url: "http://localhost/eSafe-gasoline_station/src/assets/api/dataTables/personDataTable.php",
+        url: "http://localhost/gasoline-station-software/src/assets/api/dataTables/personDataTable.php",
         data: {'type': 0},
         cache: true,
         async: true

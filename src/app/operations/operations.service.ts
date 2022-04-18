@@ -9,6 +9,7 @@ export class OperationsService {
 
   constructor(private httpClient: HttpClient) { }
   getDrawerDetails(shiftID): Observable<any>{
-    return this.httpClient.get('http://localhost/eSafe-gasoline_station/src/assets/api/drawer/getDrawerDetails', {params:{shiftID:shiftID}});
+    // tslint:disable-next-line: max-line-length
+    return this.httpClient.get('http://localhost/gasoline-station-software/src/assets/api/apx/controllers/drawer/getDrawerDetails', {params:{shiftID:shiftID}});
   }
 }
